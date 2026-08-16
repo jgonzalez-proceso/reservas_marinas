@@ -143,7 +143,7 @@ Leyenda de severidad: **ALTO** = arreglar pronto (algunos son bloqueantes antes 
 
 ## MEJORAS
 
-- [ ] **G1 · Inicializar git.** El proyecto no es un repositorio pese a que CLAUDE.md habla de versionar los datos «en el repo». Sin git no hay historia, ni diffs de la cartografía regenerada (que es justo el control de calidad que M10 protege), ni marcha atrás. `git init` + primer commit es probablemente la mejora de mayor valor/coste de toda la lista.
+- [x] **G1 · Inicializar git.** ~~El proyecto no es un repositorio pese a que CLAUDE.md habla de versionar los datos «en el repo». Sin git no hay historia, ni diffs de la cartografía regenerada (que es justo el control de calidad que M10 protege), ni marcha atrás.~~ Hecho el 16/08/2026: repo inicializado, primer commit y subido a GitHub (`jgonzalez-proceso/reservas_marinas`, rama `main`), con push automático operativo vía deploy key SSH.
 - [ ] **G2 · `figurasEn` calcula `distanciaAlBorde` para todas las figuras en cada clic** — `locate.js:176-193`. Es el coste dominante del clic con Natura 2000 cargado (171k vértices en una ZEPA); calcularlo perezosamente o solo al expandir la figura en el panel.
 - [ ] **G3 · Añadir una meta CSP a `index.html`** — orígenes externos conocidos y fijos (ideib.caib.es, arcgisonline, openstreetmap, openseamap); fácil de acotar.
 - [ ] **G4 · `permiso()` no normaliza `importe` ausente a `null`** — `schema.js:189-191`. Fijar en origen la semántica `null` = no publicado.
