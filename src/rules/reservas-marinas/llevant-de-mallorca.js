@@ -68,12 +68,15 @@ const AUTORIZACION_ESTATAL = permiso({
   ultimaVerificacion: '2026-08-15',
 });
 
+// La tarifa del Govern cubre esta reserva pero la lista «solo válida en la zona
+// autonómica»: en el ámbito estatal manda la Orden APA/690/2018 y otro permiso,
+// que no publica importe (PERMISO_BUCEO_ESTATAL).
 const PERMISO_BUCEO_AUTONOMICO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo que entrega el órgano competente en la materia.',
-  vigencia: null,
-  url: 'https://www.caib.es/sites/reservesmarines/es/regulacian_de_actividades_0_0/',
-  ultimaVerificacion: '2026-08-15',
+  importe: 52.82,
+  nota: 'Autorización anual individual, válida solo en la zona autonómica de la reserva. Habilita también el resto de reservas marinas de Mallorca, salvo las boyas de las zonas especiales de buceo del Toro y les Malgrats. Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo que entrega el órgano competente en la materia.',
+  vigencia: '1 año (hay también diaria y quincenal)',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const PERMISO_BUCEO_ESTATAL = permiso({
@@ -184,7 +187,7 @@ export default [
           'Prohibido llevar cualquier instrumento utilizable para la pesca o la extracción, salvo el cuchillo de seguridad.',
         ],
         permit: PERMISO_BUCEO_AUTONOMICO,
-        sources: ['caib-regulacion-llevant'],
+        sources: ['caib-regulacion-llevant', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {

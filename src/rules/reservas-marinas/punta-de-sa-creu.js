@@ -53,11 +53,11 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también la otra reserva marina de Formentera (els Freus d’Eivissa i Formentera). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const SIN_INSTRUMENTOS =
@@ -148,7 +148,7 @@ export default [
           SIN_INSTRUMENTOS,
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-sa-creu', 'decret-41-2015'],
+        sources: ['caib-regulacion-sa-creu', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
 
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-38-2018-sa-creu']),

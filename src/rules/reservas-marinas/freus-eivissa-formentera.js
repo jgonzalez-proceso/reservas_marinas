@@ -63,14 +63,15 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 // El buceo con escafandra en las reservas marinas exige autorización del órgano
-// competente (art. 9.1 del Decret 41/2015). El importe no lo publica la página
-// de la reserva: null significa "no publicado", nunca "gratuito".
+// competente (art. 9.1 del Decret 41/2015). La tasa la publica el trámite de la
+// Seu y varía por duración: se declara la anual, la modalidad completa y la más
+// cara, con el resto de la escala en la nota.
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. Las inmersiones deben comunicarse a la Dirección General.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también las demás reservas marinas de la misma isla. Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. Las inmersiones deben comunicarse a la Dirección General.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 // El art. 9.2 del Decret 41/2015 es la razón por la que la pesca submarina no
@@ -163,7 +164,7 @@ export default [
           SIN_INSTRUMENTOS,
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-freus', 'decret-41-2015'],
+        sources: ['caib-regulacion-freus', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
 
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-63-1999-freus']),
@@ -294,7 +295,7 @@ export default [
           SIN_INSTRUMENTOS,
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-freus', 'decret-41-2015', 'boib-resolucion-2023-freus-veda'],
+        sources: ['caib-regulacion-freus', 'decret-41-2015', 'boib-resolucion-2023-freus-veda', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-63-1999-freus']),
       navegacion: {

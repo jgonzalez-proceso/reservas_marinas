@@ -67,13 +67,15 @@ const AUTORIZACION_EMBARCACION = permiso({
   ultimaVerificacion: '2026-08-15',
 });
 
-/** Permiso de buceo: lo entrega el órgano competente, sin tasa publicada aquí. */
+// Única reserva con modalidad semanal (15,71 €) y la única sin quincenal: el
+// resto del archipiélago va al revés. La anual no cubre las boyas de las zonas
+// especiales de buceo del Toro y les Malgrats, que tienen régimen propio.
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo que entrega la Dirección General de Pesca y Medio Marino.',
-  vigencia: null,
-  url: 'https://www.caib.es/sites/reservesmarines/es/regulacian_de_actividades_0/',
-  ultimaVerificacion: '2026-08-15',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también el resto de reservas marinas de Mallorca, salvo las boyas de las zonas especiales de buceo del Toro y les Malgrats. Para estancias cortas esta reserva tiene autorización diaria (5,24 €) y semanal (15,71 €); es la única con semanal y la única sin quincenal. Permiso individual o colectivo que entrega la Dirección General de Pesca y Medio Marino.',
+  vigencia: '1 año (hay también diaria y semanal)',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
+  ultimaVerificacion: '2026-08-16',
 });
 
 // Régimen de fondeo y navegación común a toda la reserva: los 5 puntos
@@ -149,7 +151,7 @@ export default [
           'Las inmersiones colectivas deben comunicarse en un plazo máximo de tres meses (art. 5.1).',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'decret-41-2015'],
+        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
       fondeo: {
         status: 'restricted',
@@ -203,7 +205,7 @@ export default [
           'No está permitido bucear en el interior de las cuevas marinas.',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025'],
+        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'tramite-autorizacion-buceo'],
       },
       // El fondeo se hereda del régimen general. La navegación no: los arts.
       // 7.4 y 7.5 le añaden dos límites propios de esta zona, así que la regla
@@ -272,7 +274,7 @@ export default [
           'No está permitido bucear en el interior de las cuevas marinas.',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025'],
+        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'tramite-autorizacion-buceo'],
       },
       // Mismos dos límites propios que en la zona del Toro, aquí en los arts.
       // 8.4 y 8.5. La zona des Sec (art. 9) no los lleva y por eso allí la
@@ -330,7 +332,7 @@ export default [
           'No está permitido bucear en el interior de las cuevas marinas.',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025'],
+        sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'tramite-autorizacion-buceo'],
       },
       // El art. 9 no lleva los límites de velocidad ni la prohibición de motos
       // de agua que sí tienen el Toro y les Malgrats, así que aquí la
@@ -445,7 +447,7 @@ export default [
           'Las inmersiones colectivas deben comunicarse en un plazo máximo de tres meses (art. 5.1).',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent'],
+        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent', 'tramite-autorizacion-buceo'],
       },
     },
   },
@@ -508,7 +510,7 @@ export default [
           'Las inmersiones colectivas deben comunicarse en un plazo máximo de tres meses (art. 5.1).',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent'],
+        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent', 'tramite-autorizacion-buceo'],
       },
     },
   },

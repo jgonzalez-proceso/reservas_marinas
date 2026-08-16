@@ -50,11 +50,11 @@ const AUTORIZACION_SUBMARINA = permiso({
 // General de Pesca. La ficha lo tenía antes como `allowed` sin autorización,
 // que era un error: el texto íntegro de la orden confirma que sí hace falta.
 const PERMISO_BUCEO_ESCAFANDRA = permiso({
-  importe: null,
-  nota: 'Buceo colectivo (centros de buceo o clubes de inmersión): permiso con validez de un año natural, del 1 de enero al 31 de diciembre. Buceo individual (al margen de centros, sin ánimo de lucro): permiso nominal con la validez que fije la Dirección General de Pesca.',
-  vigencia: 'Colectivo: 1 año natural. Individual: a criterio de la Dirección General de Pesca.',
-  url: 'https://www.caib.es/sites/reservesmarines/ca/d/boib_num_128_de_12_de_septiembre_de_2006-2154/',
-  ultimaVerificacion: '2026-08-15',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también el resto de reservas marinas de Mallorca, salvo las boyas de las zonas especiales de buceo del Toro y les Malgrats. Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Buceo colectivo (centros de buceo o clubes de inmersión): permiso con validez de un año natural, del 1 de enero al 31 de diciembre. Buceo individual (al margen de centros, sin ánimo de lucro): permiso nominal con la validez que fije la Dirección General de Pesca.',
+  vigencia: '1 año (hay también diaria y quincenal). El permiso colectivo va por año natural, del 1 de enero al 31 de diciembre.',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
+  ultimaVerificacion: '2026-08-16',
 });
 
 export default [
@@ -106,7 +106,7 @@ export default [
           'Prohibido en el área de protección especial.',
         ],
         permit: PERMISO_BUCEO_ESCAFANDRA,
-        sources: ['caib-regulacion-palma', 'boib-orden-2006-palma'],
+        sources: ['caib-regulacion-palma', 'boib-orden-2006-palma', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {

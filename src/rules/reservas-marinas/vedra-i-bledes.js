@@ -70,11 +70,11 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. La consejería puede fijar por orden un número máximo de autorizaciones por reserva o por zonas.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también el resto de reservas marinas de Eivissa (Freus i Tagomago). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. La consejería puede fijar por orden un número máximo de autorizaciones por reserva o por zonas.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const SIN_INSTRUMENTOS =
@@ -120,7 +120,7 @@ function regimenGeneral(fuentePagina) {
         'Obligatorio llevar registro de capturas; no presentarlo comporta la pérdida de la licencia.',
       ],
       permit: AUTORIZACION_EMBARCACION,
-      sources: [...fuentes, 'tramite-autorizacion-embarcacion'],
+      sources: [...fuentes, 'tramite-autorizacion-embarcacion', 'tramite-autorizacion-buceo'],
     },
     pescaSubmarina: {
       status: 'prohibited',
@@ -256,7 +256,7 @@ export default [
           SIN_INSTRUMENTOS,
         ],
         permit: PERMISO_BUCEO,
-        sources: ['boib-decreto-25-2023-vedra-bledes', 'caib-regulacion-bledes', 'decret-41-2015'],
+        sources: ['boib-decreto-25-2023-vedra-bledes', 'caib-regulacion-bledes', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-25-2023-vedra-bledes']),
       navegacion: {

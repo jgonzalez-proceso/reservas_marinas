@@ -48,11 +48,11 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. En las zonas incluidas en espacios Natura 2000 hay que cumplir además su plan de gestión.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también el resto de reservas marinas de Eivissa (Freus, ses Bledes i es Vedrà-Vedranell). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. En las zonas incluidas en espacios Natura 2000 hay que cumplir además su plan de gestión.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const SIN_INSTRUMENTOS =
@@ -135,7 +135,7 @@ export default [
           SIN_INSTRUMENTOS,
         ],
         permit: PERMISO_BUCEO,
-        sources: ['boib-decreto-45-2018-tagomago', 'caib-regulacion-tagomago', 'decret-41-2015'],
+        sources: ['boib-decreto-45-2018-tagomago', 'caib-regulacion-tagomago', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
 
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-45-2018-tagomago']),

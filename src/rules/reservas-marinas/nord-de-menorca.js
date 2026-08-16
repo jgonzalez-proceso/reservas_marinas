@@ -81,11 +81,11 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo del órgano competente. En el cabo de Cavalleria las inmersiones están contingentadas por sectores.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también la otra reserva marina de Menorca (l’Illa de l’Aire). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo del órgano competente. En el cabo de Cavalleria las inmersiones están contingentadas por sectores.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const SIN_INSTRUMENTOS =
@@ -195,8 +195,7 @@ export default [
         sources: [
           'caib-regulacion-nord-menorca',
           'boib-orden-11-2026-menorca',
-          'decret-41-2015',
-        ],
+          'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
 
       fondeo: fondeoPorPosidoniaGeneral(['caib-normativa-nord-menorca']),
@@ -318,8 +317,7 @@ export default [
         sources: [
           'caib-regulacion-nord-menorca',
           'boib-resolucion-2024-nord-menorca-veda',
-          'decret-41-2015',
-        ],
+          'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(['caib-normativa-nord-menorca']),
       navegacion: {

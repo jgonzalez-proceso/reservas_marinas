@@ -69,11 +69,11 @@ const AUTORIZACION_EMBARCACION = permiso({
 });
 
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo del órgano competente. El buceo colectivo se concentra en dos puntos balizados y las embarcaciones amarradas no pueden superar 12 m de eslora.',
-  vigencia: 'Anual o por periodos más cortos',
+  importe: 52.82,
+  nota: 'Autorización anual individual, que habilita también la otra reserva marina de Menorca (el Nord de Menorca). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo del órgano competente. El buceo colectivo se concentra en dos puntos balizados y las embarcaciones amarradas no pueden superar 12 m de eslora.',
+  vigencia: '1 año (hay también diaria y quincenal)',
   url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
-  ultimaVerificacion: '2026-08-15',
+  ultimaVerificacion: '2026-08-16',
 });
 
 const SIN_INSTRUMENTOS =
@@ -192,8 +192,7 @@ export default [
           'boib-decreto-26-2019-illa-aire',
           'caib-regulacion-illa-aire',
           'boib-orden-11-2026-menorca',
-          'decret-41-2015',
-        ],
+          'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
 
       fondeo: fondeoPorPosidoniaGeneral(['boib-decreto-26-2019-illa-aire']),
