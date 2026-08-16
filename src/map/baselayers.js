@@ -149,9 +149,18 @@ function filtraBlanco(px, ancho, alto) {
 
 /**
  * TileLayer.WMS que devuelve cada tesela como <canvas> con los píxeles casi
- * blancos vueltos transparentes. Si la lectura de píxeles falla (p. ej. si el
- * IDEIB retirase CORS y el canvas quedara contaminado), la tesela se muestra
- * sin filtrar: el peor caso es el blanco de siempre, nunca un mapa roto.
+ * blancos vueltos transparentes. Si la lectura de píxeles falla por un canvas
+ * contaminado, la tesela se muestra sin filtrar: el peor caso es el blanco de
+ * siempre, nunca un mapa roto. Hay dos formas de contaminación y hace falta
+ * cubrir las dos:
+ *
+ *   - la imagen carga con `crossOrigin` puesto pero el canvas queda
+ *     contaminado igualmente (rara, pero posible): lo cubre el try/catch de
+ *     `createTile` alrededor de `getImageData`;
+ *   - el WMS deja de anunciar CORS abierto: entonces la carga con
+ *     `crossOrigin` ni siquiera llega a completarse (dispara `onerror`, no un
+ *     canvas contaminado) y el try/catch nunca se ejecuta. `onerror` reintenta
+ *     sin `crossOrigin` para poder seguir pintando la tesela sin filtrar.
  */
 const OrtofotoFiltrada = L.TileLayer.WMS.extend({
   // Como L.TileLayer.WMS.getTileUrl, pero pidiendo el margen extra alrededor.
@@ -182,6 +191,14 @@ const OrtofotoFiltrada = L.TileLayer.WMS.extend({
     canvas.width = tam.x;
     canvas.height = tam.y;
 
+    // Recorta el margen y pinta, sin pasar por el filtro de blanco: se usa
+    // tanto para el reintento sin CORS como para un canvas que resultó
+    // contaminado a pesar de tener crossOrigin puesto.
+    const pintaSinFiltrar = (imagen) => {
+      canvas.getContext('2d').drawImage(imagen, MARGEN, MARGEN, tam.x, tam.y, 0, 0, tam.x, tam.y);
+      done(null, canvas);
+    };
+
     const img = new Image(total.x, total.y);
     img.crossOrigin = 'anonymous';
     img.onload = () => {
@@ -199,12 +216,21 @@ const OrtofotoFiltrada = L.TileLayer.WMS.extend({
         corrigeColor(datos.data);
         ctxPrevio.putImageData(datos, 0, 0);
       } catch {
-        // Canvas contaminado: se queda el dibujo sin filtrar.
+        // Canvas contaminado a pesar del crossOrigin: se queda sin filtrar.
       }
-      canvas.getContext('2d').drawImage(previo, MARGEN, MARGEN, tam.x, tam.y, 0, 0, tam.x, tam.y);
-      done(null, canvas);
+      pintaSinFiltrar(previo);
     };
-    img.onerror = (e) => done(e, canvas);
+    img.onerror = () => {
+      // La carga con CORS ha fallado —normalmente porque el WMS ha dejado de
+      // anunciar Access-Control-Allow-Origin—, así que la imagen ni ha
+      // llegado a pintarse: no hay canvas que filtrar. Se reintenta sin
+      // crossOrigin para poder seguir mostrando la tesela, aunque no se
+      // pueda leer sus píxeles para filtrar el blanco.
+      const sinCors = new Image(total.x, total.y);
+      sinCors.onload = () => pintaSinFiltrar(sinCors);
+      sinCors.onerror = (e) => done(e, canvas);
+      sinCors.src = this.getTileUrl(coords);
+    };
     img.src = this.getTileUrl(coords);
 
     return canvas;
