@@ -687,18 +687,66 @@ body.reordenando .panel__cuerpo {
   margin-top: 8px;
   font-size: 0.73rem;
 }
+/* El resumen es el mando del desplegable: se pulsa, así que necesita área
+   suficiente para el dedo y un cursor que lo anuncie. El triángulo por defecto
+   se sustituye por uno propio para poder alinearlo con el texto en ambos
+   navegadores. */
 .normas__titulo,
 .fuentes__titulo {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.63rem;
   color: var(--texto-2);
-  margin-bottom: 2px;
+  cursor: pointer;
+  padding: 5px 0;
+  user-select: none;
+  list-style: none;
+}
+.normas__titulo::-webkit-details-marker,
+.fuentes__titulo::-webkit-details-marker {
+  display: none;
+}
+.normas__titulo::before,
+.fuentes__titulo::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid currentColor;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  transition: transform 0.15s ease;
+}
+.normas[open] > .normas__titulo::before,
+.fuentes[open] > .fuentes__titulo::before {
+  transform: rotate(90deg);
+}
+.normas__titulo:hover,
+.fuentes__titulo:hover {
+  color: var(--texto);
+}
+/* Con el dedo hace falta más blanco que con el ratón: el texto del resumen es
+   de 0,63rem y dejaba un objetivo de 24 px de alto, por debajo de los 44 px
+   recomendados. Se amplía solo donde se toca, para no inflar el panel en
+   escritorio. */
+@media (pointer: coarse) {
+  .normas__titulo,
+  .fuentes__titulo {
+    min-height: 44px;
+    padding: 8px 0;
+  }
+}
+.normas__titulo:focus-visible,
+.fuentes__titulo:focus-visible {
+  outline: 2px solid var(--acento, currentColor);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 .normas ul,
 .fuentes ul {
-  margin: 0;
+  margin: 0 0 4px;
   padding-left: 15px;
 }
 .normas li,

@@ -245,7 +245,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     }
 
     if (a.normas?.length) card.append(listaNormas(a.normas));
-    if (a.sources?.length) card.append(listaFuentes(a.sources));
+    if (a.sources?.length) {
+      const fuentes = listaFuentes(a.sources);
+      if (fuentes) card.append(fuentes);
+    }
 
     return card;
   }
@@ -520,9 +523,21 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     return card;
   }
 
+  // Normas y fuentes van en <details> plegado, con el recuento en el resumen.
+  // Son el respaldo documental de la conclusión, no la conclusión: quien pulsa
+  // un punto quiere saber si puede pescar, y hasta cinco figuras apiladas con
+  // sus normas y sus fuentes enterraban esa respuesta bajo listas de enlaces.
+  // El <details> nativo se abre con teclado y sin JavaScript; el recuento
+  // permite saber cuánto hay dentro sin desplegar. Ni el estado, ni el motivo,
+  // ni las condiciones se pliegan nunca.
+  function bloquePlegable(clase, resumen, ul) {
+    const cont = el('details', clase);
+    const sum = el('summary', `${clase}__titulo`, resumen);
+    cont.append(sum, ul);
+    return cont;
+  }
+
   function listaNormas(normas) {
-    const cont = el('div', 'normas');
-    cont.append(el('span', 'normas__titulo', normas.length > 1 ? 'Normas' : 'Norma'));
     const ul = el('ul');
     for (const n of normas) {
       const li = el('li');
@@ -538,17 +553,17 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       if (n.fecha) li.append(el('span', 'normas__fecha', ` (${n.fecha})`));
       ul.append(li);
     }
-    cont.append(ul);
-    return cont;
+    const titulo = normas.length > 1 ? `Normas (${normas.length})` : 'Norma';
+    return bloquePlegable('normas', titulo, ul);
   }
 
   function listaFuentes(claves) {
-    const cont = el('div', 'fuentes');
-    cont.append(el('span', 'fuentes__titulo', 'Fuente'));
     const ul = el('ul');
+    let n = 0;
     for (const k of claves) {
       const f = FUENTES[k];
       if (!f) continue;
+      n++;
       const li = el('li');
       const a = el('a', null, f.titulo);
       a.href = f.url;
@@ -558,8 +573,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       if (f.referencia) li.append(el('span', 'fuentes__ref', ` — ${f.referencia}`));
       ul.append(li);
     }
-    cont.append(ul);
-    return cont;
+    // Puede quedar vacío si una clave no existe en el registro; sin este corte
+    // el panel pintaría un desplegable «Fuentes (0)» que no abre nada.
+    if (n === 0) return null;
+    return bloquePlegable('fuentes', n > 1 ? `Fuentes (${n})` : 'Fuente', ul);
   }
 
   function bloqueDescargo() {
