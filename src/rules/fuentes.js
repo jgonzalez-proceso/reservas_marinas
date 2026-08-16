@@ -48,15 +48,16 @@ export const FUENTES = {
       'Decret 38/2022, de 5 de setembre, pel qual s’estableix la Reserva Marina de les illes del Toro i de les Malgrats i s’hi regulen les activitats d’extracció de flora i fauna marines i les activitats subaquàtiques',
     url: 'https://www.caib.es/eboibfront/ca/2022/11621/664355/decret-38-2022-de-5-de-setembre-pel-qual-s-estable',
     referencia:
-      'Arts. 4 i 5; art. 7 (zona especial de busseig de l’Illa del Toro) i art. 8 (illes Malgrats); annexos 2 i 3',
-    consultada: '2026-08-15',
+      'DEROGAT en tot el seu articulat: la disposició derogatòria única del Decret 26/2025 deroga els articles 1 a 10 i els annexos. Es manté citat només com a antecedent de les figures que l’IDEIB continua publicant sota aquesta norma; el règim vigent és el del Decret 26/2025',
+    consultada: '2026-08-16',
   },
   'boib-decret-26-2025': {
     titulo:
-      'Decret 26/2025, pel qual s’estableix la Reserva Marina del Ponent de Mallorca i s’hi regulen les activitats',
+      'Decret 26/2025, de 4 de juliol, pel qual s’estableix la Reserva Marina de les illes del Ponent de Mallorca, el Toro, les Malgrats i el Sec, i s’hi regulen les activitats d’extracció de flora i fauna marina i les activitats subaquàtiques',
     url: 'https://www.caib.es/eboibfront/pdf/ca/2025/86/1195240',
-    referencia: 'BOIB núm. 86, de 2025',
-    consultada: '2026-08-15',
+    referencia:
+      'BOIB núm. 86, de 5 de juliol de 2025. Art. 2 (prohibicions generals), art. 4 (pesca recreativa i marisqueig), art. 5 (activitats subaquàtiques), arts. 7, 8 i 9 (zones d’alta protecció del Toro, les Malgrats i el Sec), disposició transitòria única (badia de Santa Ponça), disposició derogatòria única (deroga els arts. 1 a 10 i els annexos del Decret 38/2022) i annexos 3 i 4 (busseig col·lectiu)',
+    consultada: '2026-08-16',
   },
   'caib-regulacion-dragonera': {
     titulo: 'Regulación de actividades — Reserva Marina de sa Dragonera',

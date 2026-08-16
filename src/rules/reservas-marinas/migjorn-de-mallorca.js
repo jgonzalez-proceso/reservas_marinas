@@ -78,6 +78,27 @@ const AUTORIZACION_SUBMARINA = permiso({
   ultimaVerificacion: '2026-08-15',
 });
 
+// El art. 2.1.d) del Decret 41/2015 incluye nominalmente esta reserva en su
+// ámbito, y su art. 9.1 exige autorización específica de la Dirección General
+// para bucear con escafandra autónoma en cualquiera de las reservas de ese
+// ámbito. El importe no lo publica la página de la reserva: null significa
+// «no publicado», nunca «gratuito».
+const PERMISO_BUCEO = permiso({
+  importe: null,
+  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. Las inmersiones deben comunicarse a la Dirección General.',
+  vigencia: 'Anual o por periodos más cortos',
+  url: 'https://www.caib.es/sites/reservesmarines/es/permisos_de_busseig/',
+  ultimaVerificacion: '2026-08-16',
+});
+
+// Art. 9.7 del Decret 41/2015: el buceo a pulmón libre no exige autorización.
+const APNEA_LIBRE =
+  'Las inmersiones en apnea (snorkel) no necesitan autorización previa (art. 9.7 del Decret 41/2015).';
+
+// Art. 9.2 del mismo decreto.
+const SIN_INSTRUMENTOS =
+  'Prohibido llevar, en la inmersión o en la embarcación, cualquier instrumento o aparejo que se pueda emplear para la pesca o la extracción de especies marinas.';
+
 export default [
   {
     zoneId: 'rm-reserva-marina-del-migjorn-de-mallorca--reserva-marina--autonomica',
@@ -123,12 +144,17 @@ export default [
         sources: ['caib-regulacion-migjorn', 'tramite-autorizacion-submarina'],
       },
       buceo: {
-        status: 'allowed',
-        motivo: 'Permitido en el perímetro general, excepto en el área de protección especial.',
+        status: 'allowed_with_authorization',
+        motivo:
+          'El buceo con escafandra autónoma está permitido en el perímetro general, excepto en el área de protección especial, y requiere autorización específica de la Dirección General (art. 9.1 del Decret 41/2015, que incluye esta reserva en su ámbito por el art. 2.1.d). Las inmersiones en apnea son libres.',
         conditions: [
-          'Prohibido llevar cualquier tipo de instrumento que se pueda utilizar para la pesca submarina.',
+          APNEA_LIBRE,
+          'Prohibido el buceo con escafandra en el área de protección especial.',
+          SIN_INSTRUMENTOS,
+          'Las inmersiones deben comunicarse a la Dirección General a efectos de seguimiento (art. 9.3).',
         ],
-        sources: ['caib-regulacion-migjorn'],
+        permit: PERMISO_BUCEO,
+        sources: ['caib-regulacion-migjorn', 'decret-41-2015'],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {
@@ -166,13 +192,16 @@ export default [
         sources: ['caib-regulacion-migjorn'],
       },
       buceo: {
-        status: 'allowed',
+        status: 'allowed_with_authorization',
         motivo:
-          'La veda creada en 2009 regula únicamente la pesca recreativa; no restringe el buceo. Esta zona no es la zona de protección especial, así que sigue aplicando la regla general de la reserva: buceo permitido excepto en el área de protección especial.',
+          'La veda creada en 2009 regula únicamente la pesca recreativa; no restringe el buceo. Esta zona no es la zona de protección especial, así que sigue aplicando el régimen general de la reserva: buceo con escafandra con autorización específica de la Dirección General (art. 9.1 del Decret 41/2015). Las inmersiones en apnea son libres.',
         conditions: [
-          'Prohibido llevar cualquier tipo de instrumento que se pueda utilizar para la pesca submarina.',
+          APNEA_LIBRE,
+          SIN_INSTRUMENTOS,
+          'Las inmersiones deben comunicarse a la Dirección General a efectos de seguimiento (art. 9.3).',
         ],
-        sources: ['caib-regulacion-migjorn', 'boib-resolucion-2009-migjorn-veda'],
+        permit: PERMISO_BUCEO,
+        sources: ['caib-regulacion-migjorn', 'decret-41-2015', 'boib-resolucion-2009-migjorn-veda'],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {

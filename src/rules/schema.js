@@ -39,7 +39,12 @@ export const ACTIVIDADES_VALIDAS = [
   'navegacion',
 ];
 
-export const TIPOS_NORMA = ['creacion', 'modificacion', 'general'];
+// `derogada` no describe un papel distinto de los otros tres, sino una norma
+// que ya no puede sostener ninguna afirmación y que solo se conserva como
+// antecedente: el caso del Decret 38/2022, cuyo articulado deroga entero el
+// Decret 26/2025 pero bajo el que IDEIB sigue publicando dos geometrías. Se
+// declara para que una norma así no pueda pasar por vigente en una ficha.
+export const TIPOS_NORMA = ['creacion', 'modificacion', 'general', 'derogada'];
 
 /**
  * Valida una ficha. Devuelve la lista de problemas encontrados; vacía si es
