@@ -144,8 +144,8 @@ export default [
       buceo: {
         status: 'prohibited',
         motivo:
-          'El buceo con escafandra autónoma está permitido en la reserva excepto en el área de protección especial.',
-        sources: ['caib-regulacion-palma'],
+          'El art. 2 de la Orden de 2006 prohíbe el buceo con escafandra autónoma dentro del área de protección especial. Es la excepción al régimen general de la reserva, donde el buceo sí se puede practicar con permiso.',
+        sources: ['caib-regulacion-palma', 'boib-orden-2006-palma'],
       },
       fondeo: {
         status: 'restricted',

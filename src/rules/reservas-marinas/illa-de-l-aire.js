@@ -72,7 +72,7 @@ const PERMISO_BUCEO = permiso({
   importe: null,
   nota: 'Permiso individual o colectivo del órgano competente. El buceo colectivo se concentra en dos puntos balizados y las embarcaciones amarradas no pueden superar 12 m de eslora.',
   vigencia: 'Anual o por periodos más cortos',
-  url: 'https://www.caib.es/sites/reservesmarines/es/permisos_de_busseig/',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
   ultimaVerificacion: '2026-08-15',
 });
 

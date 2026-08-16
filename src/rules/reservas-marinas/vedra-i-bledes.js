@@ -73,7 +73,7 @@ const PERMISO_BUCEO = permiso({
   importe: null,
   nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. La consejería puede fijar por orden un número máximo de autorizaciones por reserva o por zonas.',
   vigencia: 'Anual o por periodos más cortos',
-  url: 'https://www.caib.es/sites/reservesmarines/es/permisos_de_busseig/',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
   ultimaVerificacion: '2026-08-15',
 });
 

@@ -37,6 +37,13 @@ export const FUENTES = {
     url: 'https://www.caib.es/seucaib/es/tramites/tramite/1683027/',
     consultada: '2026-08-15',
   },
+  'tramite-autorizacion-buceo': {
+    titulo: 'Autorización para el buceo recreativo individual en las reservas marinas',
+    url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
+    referencia:
+      'Tasas por duración y reserva: diaria 5,24 €; quincenal 10,47 €; anual 52,82 €. La semanal (15,71 €) solo existe para la reserva del Ponent de Mallorca. La anual habilita el resto de reservas de la misma isla, salvo las zonas especiales de buceo del Toro y les Malgrats. Exige título oficial de buceo recreativo y seguro de accidentes y responsabilidad civil en vigor; los menores necesitan consentimiento del tutor. Tramitación telemática. Los centros y clubes usan la autorización colectiva (trámite 106992)',
+    consultada: '2026-08-16',
+  },
   'caib-regulacion-ponent': {
     titulo:
       'Regulación de actividades — Reserva Marina del Ponent de Mallorca, el Toro, les Malgrats i el Sec',

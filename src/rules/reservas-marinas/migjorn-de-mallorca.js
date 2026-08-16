@@ -81,13 +81,19 @@ const AUTORIZACION_SUBMARINA = permiso({
 // El art. 2.1.d) del Decret 41/2015 incluye nominalmente esta reserva en su
 // ámbito, y su art. 9.1 exige autorización específica de la Dirección General
 // para bucear con escafandra autónoma en cualquiera de las reservas de ese
-// ámbito. El importe no lo publica la página de la reserva: null significa
-// «no publicado», nunca «gratuito».
+// ámbito.
+//
+// El importe sí está publicado, en el trámite de la Seu, y no es único: varía
+// por duración y por reserva. Para el Migjorn hay diaria (5,24 €), quincenal
+// (10,47 €) y anual (52,82 €) — la semanal de 15,71 € es exclusiva del Ponent
+// y aquí no se puede pedir. Se declara la anual, que es la modalidad completa
+// y la más cara: anunciar la diaria dejaría corto a quien acabe pagando diez
+// veces más, y el resto de la escala va en la nota.
 const PERMISO_BUCEO = permiso({
-  importe: null,
-  nota: 'Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. Las inmersiones deben comunicarse a la Dirección General.',
-  vigencia: 'Anual o por periodos más cortos',
-  url: 'https://www.caib.es/sites/reservesmarines/es/permisos_de_busseig/',
+  importe: 52.82,
+  nota: 'Autorización anual individual. Con ella se puede bucear también en el resto de reservas marinas de Mallorca, salvo en las zonas especiales de buceo del Toro y les Malgrats. Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Exige título oficial de buceo recreativo y seguro de accidentes y responsabilidad civil en vigor. Los centros y clubes de buceo tramitan la modalidad colectiva.',
+  vigencia: '1 año (hay también diaria y quincenal)',
+  url: 'https://www.caib.es/seucaib/es/tramites/tramite/1139905',
   ultimaVerificacion: '2026-08-16',
 });
 
@@ -154,7 +160,7 @@ export default [
           'Las inmersiones deben comunicarse a la Dirección General a efectos de seguimiento (art. 9.3).',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-migjorn', 'decret-41-2015'],
+        sources: ['caib-regulacion-migjorn', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {
@@ -201,7 +207,12 @@ export default [
           'Las inmersiones deben comunicarse a la Dirección General a efectos de seguimiento (art. 9.3).',
         ],
         permit: PERMISO_BUCEO,
-        sources: ['caib-regulacion-migjorn', 'decret-41-2015', 'boib-resolucion-2009-migjorn-veda'],
+        sources: [
+          'caib-regulacion-migjorn',
+          'decret-41-2015',
+          'tramite-autorizacion-buceo',
+          'boib-resolucion-2009-migjorn-veda',
+        ],
       },
       fondeo: fondeoPorPosidoniaGeneral(),
       navegacion: {
@@ -239,8 +250,9 @@ export default [
       },
       buceo: {
         status: 'prohibited',
-        motivo: 'El buceo deportivo está permitido en la reserva excepto en el área de protección especial.',
-        sources: ['caib-regulacion-migjorn'],
+        motivo:
+          'El art. 2 de la Orden de 29 de abril de 2005 prohíbe el buceo con escafandra autónoma dentro del área de protección especial. Es la excepción al régimen general de la reserva, donde el buceo sí se puede practicar con autorización.',
+        sources: ['caib-regulacion-migjorn', 'boib-orden-2005-migjorn-zpe'],
       },
       fondeo: {
         status: 'restricted',
