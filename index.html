@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Restricciones marítimas · Illes Balears</title>
+    <meta
+      name="description"
+      content="Mapa de reservas marinas y restricciones de pesca de las Illes Balears. Consulta qué se puede hacer en cada punto del mar y qué autorizaciones hacen falta."
+    />
+    <meta name="color-scheme" content="dark light" />
+  </head>
+  <body>
+    <a class="salta" href="#mapa">Ir al mapa</a>
+
+    <header class="cabecera">
+      <div class="cabecera__marca">
+        <h1>Restricciones marítimas</h1>
+        <p id="subtitulo">Illes Balears</p>
+      </div>
+      <div class="cabecera__acciones">
+        <label class="selector-isla">
+          <span class="selector-isla__etiqueta">Isla</span>
+          <select id="selector-isla" aria-label="Isla que se muestra en el mapa"></select>
+        </label>
+        <button id="btn-lista" class="boton boton--secundario" type="button">Zonas</button>
+        <button id="btn-ubicacion" class="boton boton--principal" type="button">
+          ¿Estoy dentro?
+        </button>
+      </div>
+    </header>
+
+    <main class="disposicion">
+      <div class="mapa-envoltorio">
+        <div id="mapa" role="application" aria-label="Mapa de zonas de protección"></div>
+        <p id="carga" class="carga">Cargando la cartografía oficial…</p>
+        <div id="leyenda" class="leyenda"></div>
+      </div>
+
+      <aside id="lista" class="lista" aria-label="Listado de zonas">
+        <div id="buscador" class="buscador"></div>
+      </aside>
+
+      <aside id="panel" class="panel" aria-live="polite" aria-label="Restricciones del punto consultado"></aside>
+    </main>
+
+    <footer class="pie">
+      <p id="estado-datos" class="pie__datos"></p>
+      <p class="pie__aviso">
+        Web informativa no oficial. La fuente vinculante es la norma publicada en el
+        <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a>
+        o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> y la
+        cartografía oficial de
+        <a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer"
+          >IDEIB</a
+        >. Comprueba siempre la normativa vigente antes de faenar.
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

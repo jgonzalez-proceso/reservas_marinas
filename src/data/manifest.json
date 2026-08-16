@@ -1,0 +1,272 @@
+{
+  "generado": "2026-08-16T17:05:52.436Z",
+  "aviso": "Fichero generado por scripts/fetch-sources.mjs. No editar a mano.",
+  "fuentes": [
+    {
+      "id": "reservas-marinas",
+      "titulo": "Reservas marinas",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_ReservesMarines/MapServer",
+      "catalogo": "https://intranet.caib.es/opendatacataleg/dataset/limits-reserves-marines-illes-balears",
+      "descargado": "2026-08-16T17:05:55.765Z",
+      "capas": [
+        {
+          "id": 1,
+          "rol": "areas",
+          "nombre": "Límits Reserves Marines Illes Balears",
+          "crudas": 80
+        },
+        {
+          "id": 0,
+          "rol": "hitos",
+          "nombre": "Fites Reserves Marines Illes Balears",
+          "crudas": 108
+        }
+      ],
+      "areas": 42,
+      "hitos": 108
+    },
+    {
+      "id": "natura2000",
+      "titulo": "Red Natura 2000 (ámbito marino)",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_N2000_IB/MapServer",
+      "catalogo": "https://www.caib.es/sites/xarxanatura/ca/inici-46017/",
+      "descargado": "2026-08-16T17:06:02.334Z",
+      "capas": [
+        {
+          "id": 9,
+          "rol": "areas",
+          "nombre": "ZEC gestió autonòmica",
+          "crudas": 17
+        },
+        {
+          "id": 11,
+          "rol": "areas",
+          "nombre": "LIC gestió autonòmica",
+          "crudas": 11
+        },
+        {
+          "id": 12,
+          "rol": "areas",
+          "nombre": "ZEPA gestió autonòmica",
+          "crudas": 6
+        },
+        {
+          "id": 14,
+          "rol": "areas",
+          "nombre": "ZEPA gestió estatal",
+          "crudas": 5
+        },
+        {
+          "id": 15,
+          "rol": "areas",
+          "nombre": "LIC gestió estatal",
+          "crudas": 1
+        },
+        {
+          "id": 16,
+          "rol": "areas",
+          "nombre": "ZEC gestió estatal",
+          "crudas": 0
+        }
+      ],
+      "areas": 35,
+      "hitos": 0
+    },
+    {
+      "id": "espacios-naturales",
+      "titulo": "Espacios naturales protegidos (ámbito marino)",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_IB/MapServer",
+      "catalogo": "https://www.caib.es/sites/espaisnaturalsprotegits/ca/inici-22930/",
+      "descargado": "2026-08-16T17:06:03.290Z",
+      "capas": [
+        {
+          "id": 35,
+          "rol": "areas",
+          "nombre": "Límits ENP Illes Balears",
+          "crudas": 7
+        }
+      ],
+      "areas": 7,
+      "hitos": 0
+    },
+    {
+      "id": "zonificacion-enp",
+      "titulo": "Zonificación marina de los espacios naturales protegidos",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer",
+      "catalogo": "https://www.caib.es/sites/espaisnaturalsprotegits/es/parc_natural_de_salbufera_des_grau/",
+      "descargado": "2026-08-16T17:06:05.623Z",
+      "capas": [
+        {
+          "id": 10,
+          "rol": "areas",
+          "nombre": "Zonificació Parc Natural Albufera Grau",
+          "crudas": 639
+        }
+      ],
+      "areas": 198,
+      "hitos": 0
+    },
+    {
+      "id": "regulacion-pesca-submarina",
+      "titulo": "Regulación específica de pesca submarina",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer",
+      "catalogo": "https://www.caib.es/seucaib/es/tramites/tramite/1831120",
+      "descargado": "2026-08-16T17:06:05.850Z",
+      "capas": [
+        {
+          "id": 12,
+          "rol": "areas",
+          "nombre": "Regulació Pesca Submarina Parc Natural Albufera Grau",
+          "crudas": 2
+        }
+      ],
+      "areas": 2,
+      "hitos": 0
+    }
+  ],
+  "hashes": {
+    "protected-areas.geojson": "ea8020b1e830e99c",
+    "hitos.geojson": "0fcf2971f69f78e4",
+    "capas/reservas-marinas.mallorca.geojson": "e007f3184d6e3a2a",
+    "capas/natura2000.mallorca.geojson": "955ca482c6b7507a",
+    "capas/espacios-naturales.mallorca.geojson": "4b195f6a56345667",
+    "capas/reservas-marinas.menorca.geojson": "6b9a59d56309f6f4",
+    "capas/natura2000.menorca.geojson": "1a919ee5b7cbe2c8",
+    "capas/espacios-naturales.menorca.geojson": "8c743fb7c11d9ae6",
+    "capas/zonificacion-enp.menorca.geojson": "43fd6c76ffa97c1a",
+    "capas/regulacion-pesca-submarina.menorca.geojson": "f1da3a337cf1ccc5",
+    "capas/reservas-marinas.eivissa.geojson": "2ce9336510394701",
+    "capas/espacios-naturales.eivissa.geojson": "45174eca9387c52a",
+    "capas/reservas-marinas.formentera.geojson": "c36be093c5d608fc",
+    "capas/espacios-naturales.formentera.geojson": "45174eca9387c52a",
+    "capas/natura2000.cabrera.geojson": "93114f343762bd51",
+    "capas/espacios-naturales.cabrera.geojson": "f75851e9e90df260",
+    "descartadas.json": "d59d8a0155d38b6e"
+  },
+  "porIsla": {
+    "mallorca": {
+      "features": 50,
+      "ficheros": [
+        {
+          "fuente": "reservas-marinas",
+          "fichero": "reservas-marinas.mallorca.geojson",
+          "features": 26
+        },
+        {
+          "fuente": "natura2000",
+          "fichero": "natura2000.mallorca.geojson",
+          "features": 21
+        },
+        {
+          "fuente": "espacios-naturales",
+          "fichero": "espacios-naturales.mallorca.geojson",
+          "features": 3
+        }
+      ]
+    },
+    "menorca": {
+      "features": 223,
+      "ficheros": [
+        {
+          "fuente": "reservas-marinas",
+          "fichero": "reservas-marinas.menorca.geojson",
+          "features": 6
+        },
+        {
+          "fuente": "natura2000",
+          "fichero": "natura2000.menorca.geojson",
+          "features": 15
+        },
+        {
+          "fuente": "espacios-naturales",
+          "fichero": "espacios-naturales.menorca.geojson",
+          "features": 2
+        },
+        {
+          "fuente": "zonificacion-enp",
+          "fichero": "zonificacion-enp.menorca.geojson",
+          "features": 198
+        },
+        {
+          "fuente": "regulacion-pesca-submarina",
+          "fichero": "regulacion-pesca-submarina.menorca.geojson",
+          "features": 2
+        }
+      ]
+    },
+    "eivissa": {
+      "features": 10,
+      "ficheros": [
+        {
+          "fuente": "reservas-marinas",
+          "fichero": "reservas-marinas.eivissa.geojson",
+          "features": 9
+        },
+        {
+          "fuente": "espacios-naturales",
+          "fichero": "espacios-naturales.eivissa.geojson",
+          "features": 1
+        }
+      ]
+    },
+    "formentera": {
+      "features": 5,
+      "ficheros": [
+        {
+          "fuente": "reservas-marinas",
+          "fichero": "reservas-marinas.formentera.geojson",
+          "features": 4
+        },
+        {
+          "fuente": "espacios-naturales",
+          "fichero": "espacios-naturales.formentera.geojson",
+          "features": 1
+        }
+      ]
+    },
+    "cabrera": {
+      "features": 2,
+      "ficheros": [
+        {
+          "fuente": "natura2000",
+          "fichero": "natura2000.cabrera.geojson",
+          "features": 1
+        },
+        {
+          "fuente": "espacios-naturales",
+          "fichero": "espacios-naturales.cabrera.geojson",
+          "features": 1
+        }
+      ]
+    }
+  },
+  "totales": {
+    "areas": 284,
+    "hitos": 108
+  },
+  "descartadas": {
+    "total": 442,
+    "areaMinimaM2": 100,
+    "detalle": "descartadas.json",
+    "porFigura": [
+      {
+        "nombre": "Reserva Marina Illes Malgrats",
+        "proteccion": "Reserva marina",
+        "n": 1,
+        "areaMaximaM2": 0.005
+      },
+      {
+        "nombre": "Parc Natural de s'Albufera des Grau",
+        "proteccion": "Zona d'ús limitat",
+        "n": 360,
+        "areaMaximaM2": 95.72
+      },
+      {
+        "nombre": "Parc Natural de s'Albufera des Grau",
+        "proteccion": "Zona d'ús compatible",
+        "n": 81,
+        "areaMaximaM2": 99.919
+      }
+    ]
+  }
+}

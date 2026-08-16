@@ -1,0 +1,25 @@
+{
+  "name": "restriccions-marines-ib",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Motor de consulta de restricciones maritimas de las Illes Balears",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run rules:check && vite build",
+    "preview": "vite preview",
+    "data": "node scripts/fetch-sources.mjs",
+    "verify": "node scripts/verify-coords.mjs",
+    "rules:check": "node scripts/check-rules.mjs"
+  },
+  "dependencies": {
+    "@turf/area": "^7.2.0",
+    "@turf/boolean-point-in-polygon": "^7.2.0",
+    "@turf/point-to-line-distance": "^7.4.0",
+    "@turf/point-to-polygon-distance": "^7.4.0",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5"
+  }
+}
