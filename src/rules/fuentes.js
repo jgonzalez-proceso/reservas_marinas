@@ -107,7 +107,7 @@ export const FUENTES = {
   'boib-decret-62-2016-dragonera': {
     titulo:
       'Decreto 62/2016, de 7 de octubre, por el que se establece la Reserva Marina del Freu de sa Dragonera y se regulan las actividades de extracción de flora y fauna marina y las actividades subacuáticas',
-    url: 'http://www.caib.es/eboibfront/pdf/es/2016/128/962190',
+    url: 'https://www.caib.es/eboibfront/pdf/es/2016/128/962190',
     referencia: 'Arts. 1 y 2. Norma de creación del ámbito autonómico de sa Dragonera',
     consultada: '2026-08-15',
   },
@@ -183,7 +183,7 @@ export const FUENTES = {
   'boib-decret-49-2015-tramuntana': {
     titulo:
       'Decret 49/2015, de 22 de maig, pel qual s’aprova el Pla de Gestió Natura 2000 de la Serra de Tramuntana',
-    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2015/05/22/49/dof/spa/pdf',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2015/05/22/49/dof/spa',
     referencia:
       'BOIB núm. 79, de 27 de maig de 2015. Normas de regulación del ámbito marino: 3.9 (buceo), 3.12 (fondeo libre condicionado), 4.1 (Pinna nobilis y Lithophaga lithophaga)',
     consultada: '2026-08-15',
@@ -207,7 +207,7 @@ export const FUENTES = {
   'boib-decret-39-2021-costa-est-menorca': {
     titulo:
       'Decret 39/2021, de 2 d’agost, pel qual s’aprova el Pla de Gestió Natura 2000 de la costa est de Menorca',
-    url: 'https://www.caib.es/eboibfront/pdf/VisPdf?action=VisEdicte&idDocument=1094310&lang=es',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2021/08/02/39/dof/spa',
     referencia:
       'BOIB núm. 104, de 5 d’agost de 2021. Apartado 5.3 del plan: 5.3.1 fondeo y 5.3.2 navegación',
     consultada: '2026-08-15',
@@ -274,7 +274,7 @@ export const FUENTES = {
   'boib-decreto-63-1999-freus': {
     titulo:
       'Decreto 63/1999, de 28 de mayo, por el que se establece la reserva marina de los Freus de Eivissa y Formentera',
-    url: 'http://www.caib.es/eboibfront/pdf/VisPdf?action=VisHistoric&p_any=1999&p_numero=074&p_finpag=8126&p_inipag=8125&idDocument=125247&lang=es',
+    url: 'https://boib.caib.es/pdf/1999074/mp8125.pdf',
     referencia:
       'BOCAIB núm. 74, de 8 de junio de 1999. Art. 2 (zona de protección máxima de s’Espardell) y art. 3 (régimen fuera de ella)',
     consultada: '2026-08-15',
@@ -428,7 +428,7 @@ export const FUENTES = {
   'boib-decret-51-2003': {
     titulo:
       'Decret 51/2003, de 16 de maig, d’ampliació del Parc natural de s’Albufera des Grau i de declaració de les reserves naturals de les illes des Porros, s’Estany, la bassa de Morella, es Prat i l’illa d’en Colom',
-    url: 'https://www.caib.es/sites/espaisnaturalsprotegits/ca/parc_natural_de_salbufera_des_grau-21725/archivopub.do?ctrl=MCRST34ZI79442&id=79442',
+    url: 'https://www.caib.es/sites/espaisnaturalsold/f/79442',
     referencia: 'BOIB núm. 82, de 10 de junio de 2003',
     consultada: '2026-08-15',
   },

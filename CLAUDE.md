@@ -40,8 +40,15 @@ npm run dev          # servidor de desarrollo
 npm run data         # descarga las fuentes activas y regenera src/data/
 npm run verify       # contrasta las 64 coordenadas oficiales con la geometría
 npm run rules:check  # integridad de fichas, islas y fuentes (corre antes del build)
+npm run links:check  # comprueba que los enlaces publicados siguen vivos (usa red)
 npm run build        # rules:check + build de producción
 ```
+
+`links:check` **no se engancha al build**: el build tiene que funcionar sin red y de forma determinista, y esto depende de que el CAIB y el BOE estén en pie. Se ejecuta al tocar fuentes o permisos. Existe porque el panel manda a la gente a tramitar autorizaciones y a leer normas: la URL de permisos de buceo llevaba meses devolviendo **404** en siete fichas y ningún control lo veía.
+
+Dos cosas que costó aprender y que el script ya incorpora. **Un 200 no basta**: el eboibfront contesta a un documento inexistente con un 200 y una redirección a su propia página `pdfError`, así que se compara el destino final, no solo el código. Y **nada se declara roto a la primera**: con seis peticiones en paralelo el BOIB desvía a `pdfError` enlaces que están perfectamente sanos —la misma URL que parecía rota sirve un PDF de 27 MB cuando se le pregunta sola—, así que la concurrencia baja a 4 y todo veredicto malo se reintenta. Un verificador que acusa en falso se acaba ignorando, que es la manera segura de perder un 404 de verdad.
+
+Los 4xx hacen fallar; los 5xx, los 429 y los fallos de red solo avisan, porque son del servidor o del momento. `--estricto` hace fallar también con los avisos.
 
 `abrir_web.ps1` **no comprueba si el puerto está ocupado, sino si responde nuestra web**. Comprobar el puerto es poco fiable en Windows —un proceso puede escuchar solo en `::1` y una prueba por IPv4 lo da por libre— y además no distingue nuestro servidor del de otro proyecto. La URL buena se lee de la salida de Vite, tomando la **última** coincidencia del log: si un arranque anterior dejó contenido, la primera sería la suya. Antes de buscarla hay que **quitar los códigos ANSI**: Vite pinta el puerto en negrita aunque su salida esté redirigida a un fichero, y `http://localhost:<ESC>[1m5173` no casa con ninguna expresión que espere el número pegado a los dos puntos — el script se quedaba los 90 s de espera mirando un servidor que ya estaba listo. Si aun así el log no da URL, se prueba el rango de puertos: la respuesta de la web manda sobre el log. La cartografía se da por descargada si hay ficheros en `src/data/capas/`, no por un nombre concreto; cuando se comprobaba `protected-areas.mallorca.geojson`, que ya no se genera, cada arranque volvía a descargar los 29,6 MB de IDEIB.
 
@@ -60,6 +67,7 @@ scripts/
   fetch-sources.mjs      descarga genérica por fuente registrada
   verify-coords.mjs      control de calidad de la cartografía
   check-rules.mjs        integridad previa al build
+  check-links.mjs        los enlaces publicados siguen vivos (fuera del build)
 src/
   sources/registry.js    fuentes declaradas (activas y registradas)
   sources/normalize.js   identidad, canonicalización geométrica, atributos

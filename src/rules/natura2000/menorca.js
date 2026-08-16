@@ -35,7 +35,7 @@ const NORMA_PLA_COSTA_EST = {
   titulo:
     'Decret 39/2021, de 2 d’agost, pel qual s’aprova el Pla de Gestió Natura 2000 de la costa est de Menorca',
   fecha: '2021-08-02',
-  url: 'https://www.caib.es/eboibfront/pdf/VisPdf?action=VisEdicte&idDocument=1094310&lang=es',
+  url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2021/08/02/39/dof/spa',
   tipo: 'creacion',
 };
 

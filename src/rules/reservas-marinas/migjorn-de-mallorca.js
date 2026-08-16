@@ -57,7 +57,7 @@ const NORMAS_VEDA = [
     titulo:
       'Resolución del director general de Pesca de 15 de mayo de 2024, de prórroga de la zona de veda',
     fecha: '2024-05-15',
-    url: 'https://industriaspesqueras.com/noticia-79110-sec-Legislaci%C3%B3n',
+    url: 'https://www.caib.es/eboibfront/es/2024/68/',
     tipo: 'modificacion',
   },
 ];

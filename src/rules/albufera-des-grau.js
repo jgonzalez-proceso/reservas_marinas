@@ -66,7 +66,7 @@ const NORMA_DECLARACION = {
   titulo:
     'Decret 51/2003, de 16 de maig, d’ampliació del Parc natural de s’Albufera des Grau i de declaració de les reserves naturals de les illes des Porros, s’Estany, la bassa de Morella, es Prat i l’illa d’en Colom',
   fecha: '2003-05-16',
-  url: 'https://www.caib.es/sites/espaisnaturalsprotegits/ca/parc_natural_de_salbufera_des_grau-21725/archivopub.do?ctrl=MCRST34ZI79442&id=79442',
+  url: 'https://www.caib.es/sites/espaisnaturalsold/f/79442',
   tipo: 'creacion',
 };
 

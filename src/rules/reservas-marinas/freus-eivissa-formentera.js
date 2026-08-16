@@ -24,7 +24,7 @@ const NORMA_CREACION = {
   titulo:
     'Decreto 63/1999, de 28 de mayo, por el que se establece la reserva marina de los Freus de Eivissa y Formentera',
   fecha: '1999-05-28',
-  url: 'http://www.caib.es/eboibfront/pdf/VisPdf?action=VisHistoric&p_any=1999&p_numero=074&p_finpag=8126&p_inipag=8125&idDocument=125247&lang=es',
+  url: 'https://boib.caib.es/pdf/1999074/mp8125.pdf',
   tipo: 'creacion',
 };
 

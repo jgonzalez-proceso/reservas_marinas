@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "data": "node scripts/fetch-sources.mjs",
     "verify": "node scripts/verify-coords.mjs",
-    "rules:check": "node scripts/check-rules.mjs"
+    "rules:check": "node scripts/check-rules.mjs",
+    "links:check": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "@turf/area": "^7.2.0",

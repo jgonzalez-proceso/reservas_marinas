@@ -40,7 +40,7 @@ const NORMA_DECRET_62_2016 = {
   titulo:
     'Decreto 62/2016, de 7 de octubre, por el que se establece la Reserva Marina del Freu de sa Dragonera y se regulan las actividades de extracción de flora y fauna marina y las actividades subacuáticas',
   fecha: '2016-10-07',
-  url: 'http://www.caib.es/eboibfront/pdf/es/2016/128/962190',
+  url: 'https://www.caib.es/eboibfront/pdf/es/2016/128/962190',
   tipo: 'creacion',
 };
 

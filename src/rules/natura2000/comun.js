@@ -34,7 +34,7 @@ export const NORMA_DECRET_91_2023 = {
 export const NORMA_PLA_TRAMUNTANA = {
   titulo: 'Decret 49/2015, de 22 de maig, pel qual s’aprova el Pla de Gestió Natura 2000 de la Serra de Tramuntana',
   fecha: '2015-05-22',
-  url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2015/05/22/49/dof/spa/pdf',
+  url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2015/05/22/49/dof/spa',
   tipo: 'creacion',
 };
 
