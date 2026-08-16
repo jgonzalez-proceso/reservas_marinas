@@ -24,7 +24,7 @@ const NORMAS = [
   },
   {
     titulo: 'Decret 41/2015, d’activitats d’extracció de flora o fauna marina i activitats subaquàtiques',
-    fecha: null,
+    fecha: '2015-05-22',
     url: 'https://www.caib.es/sites/reservesmarines/es/normativa_general_en_las_reservas_marinas/',
     tipo: 'general',
   },
@@ -235,18 +235,18 @@ export default [
       pescaDesdeCosta: {
         status: 'prohibited',
         motivo: 'La pesca desde costa no está permitida en la zona de protección especial.',
-        sources: ['caib-regulacion-migjorn'],
+        sources: ['caib-regulacion-migjorn', 'boib-orden-2005-migjorn-zpe'],
       },
       pescaRecreativaEmbarcacion: {
         status: 'prohibited',
         motivo:
           'La pesca recreativa desde embarcación no está permitida en la zona de protección especial.',
-        sources: ['caib-regulacion-migjorn'],
+        sources: ['caib-regulacion-migjorn', 'boib-orden-2005-migjorn-zpe'],
       },
       pescaSubmarina: {
         status: 'prohibited',
         motivo: 'La pesca submarina está prohibida en la zona de protección especial.',
-        sources: ['caib-regulacion-migjorn'],
+        sources: ['caib-regulacion-migjorn', 'boib-orden-2005-migjorn-zpe'],
       },
       buceo: {
         status: 'prohibited',

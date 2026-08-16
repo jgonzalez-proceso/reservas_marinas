@@ -132,12 +132,18 @@ export const FUENTES = {
     referencia: 'Punto quinto, zona de veda para la pesca recreativa desde tierra y embarcación',
     consultada: '2026-08-15',
   },
+  // El enlace apuntaba a industriaspesqueras.com, un medio privado, y era la
+  // única fuente no oficial del registro. Se sustituye por el sumario del BOIB
+  // del día: el eboibfront sirve el índice por JavaScript y no ha sido posible
+  // fijar la URL directa del PDF, así que se deja el sumario —oficial y
+  // estable— con la referencia completa para localizar la resolución.
   'boib-resolucion-2024-migjorn-veda-prorroga': {
     titulo:
       'Resolución del director general de Pesca de 15 de mayo de 2024, por la que se prorroga la zona de veda para la pesca recreativa en la reserva marina del Migjorn de Mallorca',
-    url: 'https://industriaspesqueras.com/noticia-79110-sec-Legislaci%C3%B3n',
-    referencia: 'Prórroga de 5 años desde su publicación en el BOIB núm. 68, de 23 de mayo de 2024',
-    consultada: '2026-08-15',
+    url: 'https://www.caib.es/eboibfront/es/2024/68/',
+    referencia:
+      'BOIB núm. 68, de 23 de mayo de 2024, sección III. Prórroga de 5 años desde su publicación. El enlace lleva al sumario del boletín, no al PDF de la resolución',
+    consultada: '2026-08-16',
   },
   // -- Espacios naturales protegidos -----------------------------------------
   'boib-decreto-19-2007-porn-tramuntana': {

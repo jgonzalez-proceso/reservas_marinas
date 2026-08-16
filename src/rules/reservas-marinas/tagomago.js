@@ -47,6 +47,17 @@ const AUTORIZACION_EMBARCACION = permiso({
   ultimaVerificacion: '2026-08-15',
 });
 
+// Autorización de los aparejos tradicionales de Eivissa (esparavel o rall,
+// morenell y llenceta). El Decreto no fija tasa y la página de la reserva no
+// publica importe: `null` es «no publicado», no «gratuito».
+const PERMISO_APAREJOS_TRADICIONALES = permiso({
+  importe: null,
+  nota: 'Autorización específica para los aparejos tradicionales de Eivissa, única modalidad admitida desde tierra. La entrega la Dirección General de Pesca.',
+  vigencia: null,
+  url: 'https://www.caib.es/sites/reservesmarines/es/autorizaciones_en_las_reservas_marinas/',
+  ultimaVerificacion: '2026-08-16',
+});
+
 const PERMISO_BUCEO = permiso({
   importe: 52.82,
   nota: 'Autorización anual individual, que habilita también el resto de reservas marinas de Eivissa (Freus, ses Bledes i es Vedrà-Vedranell). Para estancias cortas hay autorización diaria (5,24 €) y quincenal (10,47 €). Permiso individual o colectivo; el colectivo solo para centros y clubes de buceo. En las zonas incluidas en espacios Natura 2000 hay que cumplir además su plan de gestión.',
@@ -73,10 +84,16 @@ export default [
     ultimaRevision: '2026-08-15',
     actividades: {
       pescaDesdeCosta: {
-        status: 'restricted',
+        // No es `restricted` sino `allowed_with_authorization`: todo lo que el
+        // art. 5.3 admite desde tierra exige autorización específica, así que
+        // sin ella no se puede pescar en absoluto. Como `restricted` el panel
+        // decía «permitida con restricciones», que aquí invita a bajar con una
+        // caña —aparejo que ni siquiera está entre los admitidos.
+        status: 'allowed_with_authorization',
         motivo:
           'El art. 5.3 del Decreto 45/2018 admite desde tierra únicamente los aparejos tradicionales ' +
-          'de Eivissa, y solo con autorización específica.',
+          'de Eivissa, y solo con autorización específica: sin ella no se puede pescar desde tierra.',
+        permit: PERMISO_APAREJOS_TRADICIONALES,
         conditions: [
           'Desde tierra y con autorización específica se permiten los aparejos tradicionales de ' +
             'Eivissa: el esparavel o rall, el morenell y la lienza o llenceta.',

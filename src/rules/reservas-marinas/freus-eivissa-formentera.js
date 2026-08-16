@@ -41,7 +41,7 @@ const NORMA_VEDA = {
     'Resolución del director general de Pesca de 4 de diciembre de 2023, por la que se establece una zona de veda para la pesca recreativa en la Reserva Marina de los Freus de Ibiza y Formentera',
   fecha: '2023-12-04',
   url: 'https://www.caib.es/eboibfront/pdf/es/2023/166/1150935',
-  tipo: 'modificacion',
+  tipo: 'creacion',
 };
 
 const NORMA_ESTANY = {

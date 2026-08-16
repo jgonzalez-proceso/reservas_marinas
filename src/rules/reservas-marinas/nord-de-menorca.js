@@ -67,7 +67,7 @@ const NORMA_VEDA = {
     'Resolución del director general de Pesca de 16 de febrero de 2024, por la que se establece una zona de veda para la pesca recreativa en la Reserva Marina del Norte de Menorca',
   fecha: '2024-02-16',
   url: 'https://www.caib.es/eboibfront/pdf/es/2024/25/1155873',
-  tipo: 'modificacion',
+  tipo: 'creacion',
 };
 
 const NORMAS = [NORMA_CREACION, NORMA_26_2019, NORMA_ORDEN_11_2026, NORMA_41_2015];

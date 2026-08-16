@@ -22,7 +22,7 @@ const NORMAS = [
   },
   {
     titulo: 'Decret 41/2015, d’activitats d’extracció de flora o fauna marina i activitats subaquàtiques',
-    fecha: null,
+    fecha: '2015-05-22',
     url: 'https://www.caib.es/sites/reservesmarines/es/normativa_general_en_las_reservas_marinas/',
     tipo: 'general',
   },

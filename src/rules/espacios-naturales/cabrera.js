@@ -91,10 +91,10 @@ export default [
           'incluye la submarina. El apartado mm) prohíbe además llevar durante la inmersión cualquier ' +
           'instrumento utilizable para pescar o extraer especies marinas, salvo el cuchillo ' +
           'reglamentario.',
-        conditions: [
-          'Prohibido bucear en apnea durante los meses de mayo y junio en las zonas de costa donde ' +
-            'desova la cigarra de mar (Scyllarides latus).',
-        ],
+        // La veda de apnea de mayo y junio no se repite aquí: es una
+        // restricción de inmersión, no de pesca, y vive en `buceo`. Colgarla de
+        // una actividad ya prohibida sugería que la prohibición dependiera de
+        // la época, cuando rige todo el año.
         sources: ['prug-cabrera'],
       },
       buceo: {
@@ -116,7 +116,7 @@ export default [
           'Autorización de buceo del parque nacional. Exige acreditar el nivel de formación mínimo requerido.',
           'Según autorización',
         ),
-        sources: ['prug-cabrera', 'rescab-autorizaciones'],
+        sources: ['prug-cabrera', 'rescab-autorizaciones', 'boe-ampliacion-cabrera-2019'],
       },
       fondeo: {
         status: 'allowed_with_authorization',
@@ -140,7 +140,7 @@ export default [
           'Autorización de fondeo o pernocta del parque nacional. Se solicita con un máximo de veinte días de antelación y un mínimo de dos, y hay que confirmarla el día de llegada antes de las 17.00 h.',
           'De 1 a 7 días',
         ),
-        sources: ['prug-cabrera', 'rescab-autorizaciones'],
+        sources: ['prug-cabrera', 'rescab-autorizaciones', 'boe-ampliacion-cabrera-2019'],
       },
       navegacion: {
         status: 'allowed_with_authorization',
@@ -161,7 +161,7 @@ export default [
           'Autorización de navegación del parque nacional. En la solicitud constan los datos del patrón, del armador y de la embarcación.',
           'Anual',
         ),
-        sources: ['prug-cabrera', 'rescab-autorizaciones'],
+        sources: ['prug-cabrera', 'rescab-autorizaciones', 'boe-ampliacion-cabrera-2019'],
       },
     },
   },

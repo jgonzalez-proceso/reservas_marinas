@@ -81,7 +81,14 @@ function regimenSinDesarrollo({ motivo, sources }) {
 }
 
 const ZEPA = { motivo: MOTIVO_ZEPA, sources: ['boe-orden-aaa-1260-2014'] };
-const LIC_CANAL = { motivo: MOTIVO_LIC_CANAL, sources: ['boe-orden-aaa-1299-2014'] };
+// Cita también la Orden AAA/1479/2016: concluir que esta figura no restringe la
+// pesca recreativa exige haber leído las dos, porque la de 2016 sí regula pesca
+// dentro del canal —arrastre, dragas y jábegas, sobre dos polígonos— y es la que
+// podría desmentir la conclusión si alcanzara a la recreativa. No lo hace.
+const LIC_CANAL = {
+  motivo: MOTIVO_LIC_CANAL,
+  sources: ['boe-orden-aaa-1299-2014', 'boe-orden-aaa-1479-2016-canal-menorca'],
+};
 
 const ESPACIOS = [
   {
