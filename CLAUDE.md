@@ -45,6 +45,14 @@ npm run build        # rules:check + build de producción
 
 `abrir_web.ps1` **no comprueba si el puerto está ocupado, sino si responde nuestra web**. Comprobar el puerto es poco fiable en Windows —un proceso puede escuchar solo en `::1` y una prueba por IPv4 lo da por libre— y además no distingue nuestro servidor del de otro proyecto. La URL buena se lee de la salida de Vite, tomando la **última** coincidencia del log: si un arranque anterior dejó contenido, la primera sería la suya. Antes de buscarla hay que **quitar los códigos ANSI**: Vite pinta el puerto en negrita aunque su salida esté redirigida a un fichero, y `http://localhost:<ESC>[1m5173` no casa con ninguna expresión que espere el número pegado a los dos puntos — el script se quedaba los 90 s de espera mirando un servidor que ya estaba listo. Si aun así el log no da URL, se prueba el rango de puertos: la respuesta de la web manda sobre el log. La cartografía se da por descargada si hay ficheros en `src/data/capas/`, no por un nombre concreto; cuando se comprobaba `protected-areas.mallorca.geojson`, que ya no se genera, cada arranque volvía a descargar los 29,6 MB de IDEIB.
 
+## Control de versiones
+
+Este repositorio está en GitHub (`jgonzalez-proceso/reservas_marinas`, rama `main`) y **cada cambio se comitea y se pushea sin pedir confirmación previa**: es una autorización permanente, no algo que haya que volver a preguntar en cada sesión. Tras cualquier edición de código, datos o documentación —incluida esta— el asistente debe dejar el árbol de trabajo limpio con un commit descriptivo y empujarlo a `origin/main` antes de dar la tarea por terminada.
+
+Excepción: operaciones destructivas o que reescriben historia (`push --force`, `reset --hard`, `rebase`, borrar ramas) siguen requiriendo confirmación explícita del usuario, igual que en cualquier otro repositorio.
+
+Nota de entorno: el git de este equipo necesita `http.sslBackend=schannel` (almacén de certificados de Windows) para hablar con GitHub; con el backend `openssl` por defecto la verificación TLS falla por la inspección TLS de la red corporativa. Ya está configurado a nivel de repositorio (`git config http.sslBackend schannel`), no hace falta repetirlo.
+
 ## Estructura
 
 ```
