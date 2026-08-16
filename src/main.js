@@ -53,6 +53,13 @@ function islaDelHash() {
 const ISLA = islaDelHash();
 const TODAS = ISLA === TODAS_LAS_ISLAS;
 
+// El hash cambia solo (navegación dentro del mismo documento) cuando el
+// usuario usa atrás/adelante del navegador, y eso no recarga la página por sí
+// solo: sin este listener el mapa se quedaba mostrando la isla anterior con la
+// URL ya apuntando a otra. `ISLA` se lee una sola vez al arrancar, así que la
+// única forma de que el hash y el mapa vuelvan a estar de acuerdo es recargar.
+window.addEventListener('hashchange', () => window.location.reload());
+
 /** Nombre legible de la vista actual. */
 const NOMBRE_VISTA = TODAS ? ETIQUETA_TODAS : ISLAS[ISLA];
 
