@@ -30,7 +30,7 @@ Leyenda de severidad: **ALTO** = arreglar pronto (algunos son bloqueantes antes 
 
 ### Motor
 
-- [ ] **M1 · La constante de poda no es cota inferior al norte de ~40,22° N** — `src/engine/locate.js:48`. `METROS_POR_GRADO_MINIMO = 85000` aplicado a longitud: a 40,3° N, 1° de longitud son ~84.900 m < 85.000 → la cota sobrestima y puede podar de más (error ≤0,13 %, marginal pero viola el invariante central). Fix trivial: bajar a 84.000.
+- [x] **M1 · La constante de poda no es cota inferior al norte de ~40,22° N** — `src/engine/locate.js:48`. Hecho el 17/08/2026: `METROS_POR_GRADO_MINIMO` baja de 85.000 a 84.000, que conserva la cota hasta pasado 41° N (a 40,30° N, el borde norte del ámbito, 1° de longitud son 84.896 m). Verificado contra `@turf/point-to-polygon-distance` sobre 1.029 puntos de las 21 figuras de Menorca —la isla con vértices por encima de 40,2 N—: diferencia máxima 0,0000 m.
 
 - [ ] **M2 · Precisión GPS desconocida se trata como precisión perfecta** — `src/engine/locate.js:203-208`. Si `accuracy` llega `undefined`/`NaN`/`Infinity`, `r = 0` y el veredicto es un «dentro»/«fuera» rotundo a 2 m del límite — lo contrario de la filosofía del proyecto. Fix: con precisión desconocida asumir un radio conservador o resolver `dudosa`.
 

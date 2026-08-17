@@ -41,11 +41,16 @@ export function filtraPorIsla(features, isla) {
 const VERTICES_POR_BLOQUE = 128;
 
 /**
- * Metros por grado por debajo del valor real en Baleares (1° de latitud son
- * ~111.132 m y 1° de longitud ~86.500 m a 39° N). Quedarse corto mantiene la
- * cota como cota inferior: podría podar de menos, nunca de más.
+ * Metros por grado por debajo del valor real en TODO el ámbito, no solo en su
+ * centro. El caso que manda es la longitud en el extremo norte: 1° de latitud
+ * son siempre ~111.132 m, pero 1° de longitud encoge con el coseno de la
+ * latitud, y a 40,30° N —el borde norte del ámbito, las ZEPA de Menorca— son
+ * ~84.900 m. El valor anterior, 85.000, dejaba de ser cota inferior justo ahí
+ * y podía podar de más (un 0,13 % como mucho, pero el invariante es absoluto,
+ * no estadístico). 84.000 conserva la cota hasta pasado 41° N. Quedarse corto
+ * poda de menos, nunca de más; no subirlo para ganar velocidad.
  */
-const METROS_POR_GRADO_MINIMO = 85000;
+const METROS_POR_GRADO_MINIMO = 84000;
 
 const indices = new WeakMap();
 
