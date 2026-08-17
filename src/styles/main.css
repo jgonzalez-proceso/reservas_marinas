@@ -910,6 +910,12 @@ body.reordenando .panel__cuerpo {
   position: absolute;
   bottom: calc(100% + 1px);
   right: 12px;
+  /* Por encima de todo lo que dibuja el mapa. Sin z-index el panel se pintaba
+     DEBAJO de los planos de Leaflet -401 a 406- y de sus controles -1000-, y
+     como los planos no reciben puntero, el trozo que caía sobre el mapa
+     quedaba tapado mientras el resto se veía: el texto salía cortado por la
+     mitad, con la línea de corte justo donde empieza la ficha. */
+  z-index: 1100;
   width: min(460px, calc(100vw - 24px));
   /* dvh y no vh: en móvil la barra del navegador entra y sale, y vh se queda
      con la altura grande. Lo que no quepa se recorre con scroll. */
