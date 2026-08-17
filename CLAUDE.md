@@ -66,7 +66,7 @@ Nota de entorno: el git de este equipo necesita `http.sslBackend=schannel` (alma
 
 ## Publicación
 
-Se publica en un **subdominio** de `pecesmediterraneo.com`, alojado aparte del WordPress del dominio y sin tocarlo. El procedimiento completo —hosting, DNS y qué verificar después— está en [docs/publicacion.md](docs/publicacion.md). Lo que conviene tener presente aquí:
+Publicada en **https://reservas.pecesmediterraneo.com/** (proyecto Cloudflare Pages `reservas-marinas`), aparte del WordPress del dominio y sin tocarlo. El DNS lo gestiona Hostinger; solo hay un registro CNAME nuevo, ningún otro se tocó. El procedimiento completo —hosting, DNS y qué se verificó— está en [docs/publicacion.md](docs/publicacion.md). Lo que conviene tener presente aquí:
 
 **El ancho de banda es la restricción que manda, no la CPU ni el almacenamiento.** Una visita a la vista de todas las islas descarga 6,6 MB comprimidos, unas treinta veces lo de un sitio normal. Por eso el hosting es Cloudflare Pages —el único plan gratuito de los tres candidatos sin techo de tráfico— y no Vercel, que además prohíbe el uso comercial en su plan Hobby.
 

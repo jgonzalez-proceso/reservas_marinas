@@ -1,5 +1,11 @@
 # Publicación
 
+**Estado: publicado y verificado.** `https://reservas.pecesmediterraneo.com/`
+sirve la web desde Cloudflare Pages (proyecto `reservas-marinas`), con TLS
+válido, los GeoJSON comprimidos en Brotli y cacheados para siempre. El DNS del
+dominio lo gestiona Hostinger; solo se añadió el registro CNAME de más abajo,
+sin tocar los nameservers ni ningún otro registro.
+
 ## Dónde vive: subdominio, no ruta de WordPress
 
 La web se publica en un **subdominio** de `pecesmediterraneo.com` —`reservas.pecesmediterraneo.com`
@@ -67,6 +73,19 @@ Si el asistente que aparece es el segundo (se distingue por el campo "Deploy
 command"), hay que salir y buscar explícitamente *Pages* en el menú de
 creación, no *Workers* ni "Import a repository".
 
+**Dónde estaba escondido en la práctica (agosto de 2026):** el botón grande de
+*Workers & Pages → Create application* lleva directo a la pantalla de Workers
+("Ship something new", con "Continue with GitHub" / "Start with Hello
+World!" / etc.). Pages no aparece ahí como opción visible — hay que fijarse
+en un enlace pequeño **debajo** de esas tarjetas: *"Looking to deploy Pages?
+Get started"*. Ese es el que lleva al asistente correcto.
+
+Dentro ya del proyecto Pages, al añadir el dominio propio (*Custom domains →
+Set up a custom domain*) Cloudflare vuelve a ofrecer la misma bifurcación con
+otro nombre: **"Cloudflare DNS"** (mueve los nameservers, el camino de
+Workers) frente a **"My DNS provider"** (CNAME suelto, el correcto). Hay que
+elegir *"My DNS provider" → "Begin CNAME setup"*.
+
 Por si en el futuro interesa el camino de Workers —o para desplegar a mano
 sin pasar por el panel—, el repositorio ya trae [wrangler.jsonc](../wrangler.jsonc)
 con `dist/` declarado como directorio de assets. **No lo usa el flujo de
@@ -100,15 +119,16 @@ tocar fuentes o permisos.
 ## El dominio propio y el DNS
 
 Primero, dentro del proyecto Pages ya creado: *Custom domains → Set up a
-custom domain* y se escribe `reservas.pecesmediterraneo.com`. Cloudflare
-muestra el destino exacto al que apuntar (normalmente `<proyecto>.pages.dev`).
+custom domain* y se escribe `reservas.pecesmediterraneo.com`. En el paso
+"Setup Method" hay que elegir **"My DNS provider" → "Begin CNAME setup"**
+(no "Cloudflare DNS"). Cloudflare muestra entonces el destino exacto al que
+apuntar.
 
-Después, en el panel donde esté el dominio (el registrador, o el hosting de
-WordPress si gestiona ahí el DNS — **no** hace falta que sea Cloudflare), se
-añade **un registro CNAME**:
+Después, en el panel donde esté el dominio —en este caso **Hostinger**
+(*Dominios → DNS/Nameservers*)—, se añade **un registro CNAME**:
 
 ```
-reservas    CNAME    <proyecto>.pages.dev
+reservas    CNAME    reservas-marinas.pages.dev
 ```
 
 Esto es lo que distingue a Pages clásico del flujo de Workers descrito arriba:
@@ -123,30 +143,37 @@ El CNAME funciona porque es un subdominio. En el dominio raíz no valdría —lo
 apex no admiten CNAME, y ahí Pages sí pediría los nameservers— pero ese caso
 no se da aquí.
 
-## Qué comprobar después del primer despliegue
+En Hostinger el registro no reemplazó nada: ya existían un `CNAME www →
+pecesmediterraneo.com` y varios registros de correo (`hostingermail-*`,
+`autodiscover`, `autoconfig`, `_dmarc`) que siguen intactos. `reservas` es una
+fila nueva y nada más.
 
-**La compresión de los GeoJSON.** Es la comprobación que de verdad importa y la
-única que no se puede dar por hecha desde aquí. Las CDN deciden qué comprimen
-por una lista de tipos MIME, y `application/geo+json` —el tipo que le
-corresponde a un `.geojson`— no está en ninguna. Sin comprimir, la cartografía
-son 31 MB en vez de 6,6.
+## Qué se comprobó tras el despliegue
+
+**La compresión de los GeoJSON.** Es la comprobación que de verdad importa. Las
+CDN deciden qué comprimen por una lista de tipos MIME, y
+`application/geo+json` —el tipo que le corresponde a un `.geojson`— no está en
+ninguna. Sin comprimir, la cartografía son 31 MB en vez de 6,6.
 
 `public/_headers` lo fuerza a `application/json`, que sí está en todas las
-listas. Verificar que ha surtido efecto:
+listas. Comprobado sobre el fichero más grande, el de 11 MB:
 
 ```bash
-curl -sI -H 'Accept-Encoding: gzip' https://reservas.pecesmediterraneo.com/assets/capas/ | head
+curl -sI -H 'Accept-Encoding: gzip, br' \
+  https://reservas.pecesmediterraneo.com/assets/capas/natura2000.mallorca-<hash>.geojson
 ```
 
-Sobre la URL real de un `.geojson` (sale del código fuente de la página), la
-respuesta tiene que traer `content-encoding: gzip` o `br`. Si no lo trae, la web
-funciona igual pero descarga cinco veces más, que en una barca con cobertura de
-móvil es la diferencia entre usarla y cerrarla.
+Responde `content-type: application/json; charset=utf-8` y
+`content-encoding: br` (Cloudflare prefiere Brotli sobre gzip cuando el
+cliente lo admite, y comprime mejor). Si algún día no lo trajera, la web
+funcionaría igual pero descargando varias veces más, que en una barca con
+cobertura de móvil es la diferencia entre usarla y cerrarla.
 
 Lo segundo, `cache-control: public, max-age=31536000, immutable` en
-`/assets/*`. Es lo que convierte los 6,6 MB en una descarga única en vez del
-peaje de cada consulta. Los nombres llevan hash de contenido, así que cachear
-para siempre es seguro: si los datos cambian, cambia el nombre del fichero.
+`/assets/*` — confirmado también. Es lo que convierte los 6,6 MB en una
+descarga única en vez del peaje de cada consulta. Los nombres llevan hash de
+contenido, así que cachear para siempre es seguro: si los datos cambian,
+cambia el nombre del fichero.
 
 ## Un aviso sobre el aviso legal
 
