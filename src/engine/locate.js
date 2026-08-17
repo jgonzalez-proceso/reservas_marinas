@@ -199,14 +199,31 @@ export function figurasEn(punto, features) {
 }
 
 /**
+ * Radio que se asume cuando el GPS no informa de su precisión.
+ *
+ * Un receptor de móvil ronda los 5-20 m a cielo abierto y empeora hasta varias
+ * decenas con mala geometría de satélites o rebotes; 50 m cubre el peor caso
+ * razonable. Se elige por exceso a propósito: no saber la precisión es MENOS
+ * información que tener una mala, y el veredicto debe empeorar, no mejorar.
+ */
+export const PRECISION_DESCONOCIDA_M = 50;
+
+/**
  * Certeza de la posición frente a un límite, dada la precisión del GPS.
  *
  * En el mar un sí/no es engañoso: a 8 m del límite con precisión de ±15 m no se
  * puede afirmar de qué lado se está. Devolver 'dudosa' es la respuesta honesta,
  * y para quien navega vale más que una certeza inventada.
+ *
+ * Si la precisión llega ausente o no finita (accuracy puede venir undefined,
+ * NaN o Infinity según receptor y navegador) NO se trata como precisión
+ * perfecta: r = 0 convertía la incertidumbre máxima en certeza máxima, un
+ * «estás fuera» rotundo a 2 m del límite. Se asume el radio conservador.
  */
 export function certezaFrenteALimite(distanciaFirmada, precisionMetros) {
-  const r = Number.isFinite(precisionMetros) ? Math.max(precisionMetros, 0) : 0;
+  const r = Number.isFinite(precisionMetros)
+    ? Math.max(precisionMetros, 0)
+    : PRECISION_DESCONOCIDA_M;
   if (distanciaFirmada < -r) return 'dentro';
   if (distanciaFirmada > r) return 'fuera';
   return 'dudosa';

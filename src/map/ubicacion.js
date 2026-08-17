@@ -8,7 +8,7 @@
  * dentro de la otra se dice claramente que no es determinable.
  */
 
-import { evaluaPosicion } from '../engine/locate.js';
+import { evaluaPosicion, PRECISION_DESCONOCIDA_M } from '../engine/locate.js';
 
 export function pideUbicacion() {
   return new Promise((resolve, reject) => {
@@ -45,7 +45,12 @@ const metros = (m) =>
  */
 export function veredictoUbicacion(punto, features, precisionMetros) {
   const ev = evaluaPosicion(punto, features, precisionMetros);
-  const precision = Number.isFinite(precisionMetros) ? `±${Math.round(precisionMetros)} m` : null;
+  // Cuando el receptor no declara su precisión, el motor asume un radio
+  // conservador; el texto lo dice tal cual, en vez de callarse el margen con
+  // el que se ha decidido el veredicto.
+  const precision = Number.isFinite(precisionMetros)
+    ? `±${Math.round(precisionMetros)} m`
+    : `desconocida (se asume ±${PRECISION_DESCONOCIDA_M} m)`;
 
   if (ev.certeza === 'dudosa' && ev.masCercana) {
     return {
@@ -53,7 +58,7 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
       titulo: 'Posición dudosa',
       detalle:
         `Estás aproximadamente a ${metros(Math.abs(ev.masCercana.distancia))} del límite de ` +
-        `${ev.masCercana.nombre}. Precisión GPS actual: ${precision ?? 'desconocida'}. ` +
+        `${ev.masCercana.nombre}. Precisión GPS actual: ${precision}. ` +
         'No es posible determinar con seguridad si estás dentro o fuera.',
       evaluacion: ev,
     };
@@ -68,8 +73,7 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
         `Estás aproximadamente ${metros(principal.metrosAlBorde)} dentro del límite.` +
         (ev.dentroDe.length > 1
           ? ` Este punto está afectado por ${ev.dentroDe.length} figuras de protección.`
-          : '') +
-        (precision ? ` Precisión GPS: ${precision}.` : ''),
+          : '') + ` Precisión GPS: ${precision}.`,
       evaluacion: ev,
     };
   }
@@ -80,8 +84,7 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
     detalle:
       (ev.masCercana
         ? `El límite más cercano, ${ev.masCercana.nombre}, está a ${metros(Math.abs(ev.masCercana.distancia))}. `
-        : '') +
-      (precision ? `Precisión GPS: ${precision}. ` : ''),
+        : '') + `Precisión GPS: ${precision}. `,
     evaluacion: ev,
   };
 }
