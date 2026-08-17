@@ -146,11 +146,24 @@ async function cargaAreas() {
 function pintaEstadoDatos(features) {
   const fecha = manifest.generado?.slice(0, 10) ?? 'desconocida';
   const fuentes = manifest.fuentes?.map((f) => f.titulo).join(', ') ?? '';
+  // Se parte en trozos para poder recortarlo en móvil sin perder lo que
+  // importa. La enumeración de fuentes ocupaba seis renglones en una pantalla
+  // estrecha, tapando mapa a cambio de una lista que ya está en la leyenda.
+  // La fecha de descarga no se recorta nunca: es la regla del proyecto, y es
+  // lo que permite saber si lo que se está leyendo está al día.
+  const detalle = (texto) => {
+    const s = document.createElement('span');
+    s.className = 'pie__detalle';
+    s.textContent = texto;
+    return s;
+  };
   $('#estado-datos').innerHTML = '';
   $('#estado-datos').append(
-    document.createTextNode(
-      `${features.length} geometrías de ${NOMBRE_VISTA} · datos de ${fuentes} descargados el ${fecha}`,
-    ),
+    document.createTextNode(`${features.length} geometrías`),
+    detalle(` de ${NOMBRE_VISTA}`),
+    document.createTextNode(' · datos'),
+    detalle(` de ${fuentes}`),
+    document.createTextNode(` del ${fecha}`),
   );
 }
 

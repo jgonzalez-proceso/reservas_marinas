@@ -33,6 +33,8 @@ El coste es real y conviene tenerlo presente: **30,2 MB de cartografía, unos 6,
 
 **El encuadre inicial se aplaza un fotograma y fuerza `invalidateSize`.** Leaflet calcula el zoom con el tamaño del contenedor, y en el primer ciclo la disposición flexible todavía no ha asentado el ancho: daba zoom 9 en vez de 8 y dejaba Eivissa y Formentera fuera de pantalla.
 
+**La página es una columna flexible, no un juego de alturas calculadas.** `.disposicion` restaba `--cabecera-alto` y `--pie-alto` del 100 %, y eso solo funciona si esas dos variables aciertan. No acertaban: en un móvil el pie mide 94 px y no 56 —el aviso legal envuelve—, así que la página desbordaba por abajo y se podía hacer scroll en lo que debería ser una aplicación a pantalla completa; al desplazarla, el panel «Qué es este mapa» aparecía empezado por la mitad. Ahora `body` es `flex column`, cada franja mide lo que ocupa y el mapa se queda con el resto. Comprobado que el encuadre no cambia: el contenedor pasa de 784 a 783 px de alto a 1440×900 y el zoom inicial es el mismo.
+
 La lista de trabajo reserva por reserva, con la URL oficial de cada una, está en [docs/regulacion-por-reserva.md](docs/regulacion-por-reserva.md).
 
 ## Comandos
@@ -341,7 +343,7 @@ Va **en `.zona-pie`, hermano de `<footer>` y no hijo suyo**. Hermano porque el f
 
 Antes estuvo **arriba a la derecha sobre el mapa y era el sitio equivocado**: chocaba con el control de capas de Leaflet. Y colocarlo calculando una posición desde `--pie-alto` tampoco vale, porque **`--pie-alto` miente**: `.pie` declara 56 px pero en pantallas estrechas el aviso legal envuelve y mide 116. Medido, no supuesto. Al ir en flujo normal dentro del envoltorio no hay nada que calcular y no puede solaparse con nada; el panel se abre hacia arriba contra el borde del pie, que es lo único que queda por encima.
 
-**En móvil el envoltorio se apila en columna.** En fila la pestaña le roba ancho al pie, el texto envuelve más y la franja pasa de 116 a 159 px. Apilada son 137 y el texto legal conserva el ancho completo. Cada píxel del pie es un píxel que se le quita al mapa, que es lo que la gente viene a ver.
+**En móvil el envoltorio se apila en columna.** En fila la pestaña le roba ancho al pie, el texto envuelve más y la franja crece. Apilada, el texto legal conserva el ancho completo y la franja entera queda en 94 px. Cada píxel del pie es un píxel que se le quita al mapa, que es lo que la gente viene a ver.
 
 **La leyenda arranca plegada en cualquier tamaño de pantalla.** Explica los colores, que es información de apoyo: quien abre la web quiere ver el mar y pulsar un punto, no leer una lista de figuras que además tapa parte del mapa desde el primer segundo.
 
@@ -405,3 +407,5 @@ Las discrepancias >50 m solo dejan de fallar si están en `DISCREPANCIAS_CONOCID
 ## Aviso legal
 
 Web informativa **no oficial**. La fuente vinculante es la norma publicada en el BOIB o el BOE y la cartografía oficial de IDEIB. El pie muestra siempre la fecha de descarga de los datos, tomada de `manifest.json`.
+
+**En móvil el pie se recorta, pero la fecha no.** La enumeración de fuentes ocupaba seis renglones en una pantalla estrecha —tapando mapa a cambio de una lista que ya está en la leyenda—, así que el nombre de la vista y las fuentes van en `span.pie__detalle` y se ocultan por debajo de 900 px. Queda «306 geometrías · datos del 2026-08-17». Lo que no se recorta nunca es la fecha: es lo que permite saber si lo que se está leyendo está al día, y en esta web eso no es un adorno.

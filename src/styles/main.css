@@ -40,6 +40,20 @@ body {
   overscroll-behavior: none;
 }
 
+/* Columna flexible en vez de alturas calculadas. Antes .disposicion restaba
+   --cabecera-alto y --pie-alto del 100%, y eso solo funciona si esas dos
+   variables aciertan. No acertaban: en un móvil el pie mide el doble de los
+   56px que declara -el aviso legal y la línea de datos envuelven a varias
+   líneas-, así que la página desbordaba por abajo y se podía hacer scroll en
+   lo que debería ser una aplicación a pantalla completa. Con flex, cada
+   franja mide lo que ocupa y el mapa se queda con el resto, sin que nadie
+   tenga que adivinar nada. */
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 a {
   color: var(--acento);
 }
@@ -60,7 +74,8 @@ a {
 /* -- Cabecera --------------------------------------------------------------- */
 
 .cabecera {
-  height: var(--cabecera-alto);
+  flex: none;
+  min-height: var(--cabecera-alto);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,7 +138,7 @@ a {
 
 .disposicion {
   position: relative;
-  height: calc(100% - var(--cabecera-alto) - var(--pie-alto));
+  flex: 1;
   display: flex;
   min-height: 0;
 }
@@ -283,6 +298,46 @@ a {
 @media (max-width: 560px) {
   .selector-isla__etiqueta {
     display: none;
+  }
+
+  /* Y aun cayendo la etiqueta no cabe: el título, el desplegable y los dos
+     botones suman más que el ancho de un móvil, y «¿Estoy dentro?» -que es el
+     botón que se usa en el agua- quedaba cortado contra el borde derecho.
+     Pasa a dos filas: marca arriba, controles abajo ocupando el ancho. Cuesta
+     unos 40px de mapa y es lo que hace que el botón exista. */
+  .cabecera {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .cabecera__marca {
+    flex: 1 1 100%;
+  }
+  .cabecera__marca h1 {
+    font-size: 0.95rem;
+  }
+  /* «Illes Balears» se cae: el desplegable de al lado ya dice qué isla se está
+     mirando, y en dos filas cada renglón de cabecera es un renglón menos de
+     mapa. */
+  #subtitulo {
+    display: none;
+  }
+  .cabecera__acciones {
+    flex: 1 1 100%;
+    gap: 6px;
+  }
+  .cabecera__acciones .boton {
+    flex: 1 1 auto;
+    padding: 9px 8px;
+    text-align: center;
+  }
+  .selector-isla {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #selector-isla {
+    width: 100%;
   }
 }
 
@@ -832,7 +887,7 @@ body.reordenando .panel__cuerpo {
 /* -- Pie -------------------------------------------------------------------- */
 
 .pie {
-  height: var(--pie-alto);
+  min-height: var(--pie-alto);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -861,6 +916,7 @@ body.reordenando .panel__cuerpo {
    normal dentro del envoltorio no hay nada que calcular: no puede solaparse
    con nada. */
 .zona-pie {
+  flex: none;
   display: flex;
   align-items: stretch;
   background: var(--fondo-2);
@@ -953,6 +1009,12 @@ body.reordenando .panel__cuerpo {
      pie es un píxel que se le quita al mapa. */
   .zona-pie {
     flex-direction: column;
+  }
+  /* La enumeración de fuentes y el nombre de la vista se caen: seis renglones
+     de pie a cambio de una lista que ya está en la leyenda. Queda «306
+     geometrías · datos del 2026-08-17», que es lo accionable. */
+  .pie__detalle {
+    display: none;
   }
   .acerca {
     align-self: flex-end;
