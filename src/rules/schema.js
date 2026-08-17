@@ -114,6 +114,30 @@ export function validaFicha(ficha, { zoneIdsConocidos } = {}) {
 }
 
 /**
+ * Las obligaciones generales que sobreviven a la sustitución de una regla
+ * —autorización previa, registro de capturas, prohibición de competiciones—
+ * viajan en el `permit`. Cuando la hija declara su propia regla sin permiso y
+ * el régimen general de la madre sí lo exige para esa actividad, el permiso se
+ * conserva: la zona interior endurece el CÓMO (aparejos, ventanas, días), no
+ * deroga la autorización que la reserva impone en todo su ámbito. Sin esto, el
+ * panel mostraba la restricción de la hija sin rastro del permiso que sigue
+ * siendo exigible.
+ *
+ * Solo aplica a estados que admiten permiso. Bajo `prohibited` no hay permiso
+ * que valga, y una hija que declara `allowed` a secas está afirmando que no
+ * hace falta autorización — atribuirle el permiso de la madre la contradiría.
+ * `permitHeredado` marca la procedencia, igual que hace `heredadaDe` con las
+ * reglas completas.
+ */
+function conPermisoHeredado(propia, heredada) {
+  if (!propia || propia.permit || !heredada?.permit) return propia;
+  if (propia.status !== 'allowed_with_authorization' && propia.status !== 'restricted') {
+    return propia;
+  }
+  return { ...propia, permit: heredada.permit, permitHeredado: true };
+}
+
+/**
  * Resuelve la herencia de reglas entre una zona y la reserva que la contiene.
  *
  * Una zona interior se rige por el régimen general de su reserva salvo en lo
@@ -178,7 +202,7 @@ export function resuelveHerencia(fichas) {
     for (const [clave, regla] of Object.entries(ficha.actividades ?? {})) {
       const propiaVacia = !regla || regla.status === 'unknown';
       if (propiaVacia && base[clave]) continue;
-      actividades[clave] = regla;
+      actividades[clave] = conPermisoHeredado(regla, base[clave]);
     }
 
     const resuelta = { ...ficha, actividades, normas };
