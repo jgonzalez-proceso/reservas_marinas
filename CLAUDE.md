@@ -1,5 +1,7 @@
 # Restricciones marítimas — Illes Balears
 
+**Publicada en https://reservas.pecesmediterraneo.com/** — ver [Publicación](#publicación) más abajo para el procedimiento de despliegue.
+
 ## Qué es esto
 
 **No es un mapa de reservas marinas. Es un motor de consulta de restricciones marítimas**, donde la reserva marina es *una* de las capas regulatorias.
