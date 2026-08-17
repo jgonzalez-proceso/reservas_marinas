@@ -850,6 +850,74 @@ body.reordenando .panel__cuerpo {
   font-variant-numeric: tabular-nums;
 }
 
+/* -- Acerca de --------------------------------------------------------------
+   <details> nativo: no hace falta JavaScript para abrirlo ni para que un
+   lector sin JS vea su contenido en el HTML. Vive fuera del flujo del layout
+   -position: fixed en el propio <details>, no solo en el panel- para que
+   añadirlo no toque el cálculo de .disposicion, que resta --pie-alto del
+   100% de altura y no tiene margen para crecer sin recortar el mapa. */
+.acerca {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 700;
+}
+.acerca__resumen {
+  cursor: pointer;
+  list-style: none;
+  background: rgba(19, 31, 43, 0.94);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  backdrop-filter: blur(6px);
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--texto);
+  white-space: nowrap;
+}
+.acerca__resumen::-webkit-details-marker {
+  display: none;
+}
+.acerca__resumen:hover {
+  color: var(--acento);
+}
+.acerca__contenido {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: min(460px, calc(100vw - 24px));
+  /* Se descuenta más de lo que ocuparía el pie porque --pie-alto miente: .pie
+     declara 56px pero en pantallas estrechas el aviso legal envuelve a tres
+     líneas y mide el doble, y .mapa-envoltorio -que hereda ese cálculo-
+     termina por debajo del pie real. Hasta que eso se arregle en el layout,
+     el margen conservador es lo que garantiza que el panel no acabe tapado;
+     lo que no quepa se recorre con scroll. dvh y no vh porque en móvil la
+     barra del navegador entra y sale, y vh se queda con la altura grande. */
+  max-height: calc(100dvh - var(--cabecera-alto) - 190px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--fondo-2);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 18px 22px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--texto);
+}
+.acerca__contenido h2 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  color: var(--texto);
+}
+.acerca__contenido p {
+  margin: 0 0 12px;
+}
+.acerca__contenido p:last-child {
+  margin-bottom: 0;
+}
+
 /* -- Móvil: el panel pasa a hoja inferior ----------------------------------- */
 
 @media (max-width: 899px) {
