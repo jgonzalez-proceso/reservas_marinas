@@ -158,7 +158,25 @@ function conPermisoHeredado(propia, heredada) {
  * general, no interiores, y heredar allí sería jurídicamente falso.
  */
 export function resuelveHerencia(fichas) {
-  const porId = new Map(fichas.map((f) => [f.zoneId, f]));
+  // Dos fichas con el mismo zoneId son el mismo caso fatal que dos normas
+  // sobre la misma figura en la deduplicación de geometrías: no hay criterio
+  // jurídico para elegir una. Un Map construido del tirón se quedaría con la
+  // última y la otra desaparecería en silencio —una ficha entera redactada y
+  // citada, esfumada sin aviso—, y lo mismo haría el Object.fromEntries que
+  // indexa las fichas resueltas. `rules:check` también lo detecta en el build,
+  // pero el servidor de desarrollo no pasa por el build, así que el guard vive
+  // donde ninguna ruta puede esquivarlo.
+  const porId = new Map();
+  for (const f of fichas) {
+    if (porId.has(f.zoneId)) {
+      throw new Error(
+        `Ficha duplicada para "${f.zoneId}" (${f.nombreCorto ?? 'sin nombre'}): ` +
+          'dos ficheros declaran el mismo zoneId y una ficha pisaría a la otra en silencio. ' +
+          'Requiere revisión humana: decide cuál es la vigente o fusiónalas.',
+      );
+    }
+    porId.set(f.zoneId, f);
+  }
   const resueltas = new Map();
   const enCurso = new Set();
 
