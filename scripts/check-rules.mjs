@@ -73,25 +73,42 @@ for (const f of areas.features) {
   porZona.set(f.properties.zoneId, lista);
 }
 
-function puntoInterior(feature) {
-  const coords = [];
-  const recorre = (x) => (typeof x[0] === 'number' ? coords.push(x) : x.forEach(recorre));
+/**
+ * TODOS los puntos de una malla 23x23 que caen dentro de la figura.
+ *
+ * Todos, no el primero: comprobar un único punto dejaba pasar una hija que
+ * solapara un 5 % con la madre si ese punto caía justo en el solape. La malla
+ * evita ademas el spread sobre las coordenadas (Math.min(...lons) revienta la
+ * pila con poligonos grandes; hay contornos de 171.000 vertices).
+ */
+function puntosInteriores(feature) {
+  let w = Infinity;
+  let e = -Infinity;
+  let s = Infinity;
+  let n = -Infinity;
+  const recorre = (x) => {
+    if (typeof x[0] === 'number') {
+      if (x[0] < w) w = x[0];
+      if (x[0] > e) e = x[0];
+      if (x[1] < s) s = x[1];
+      if (x[1] > n) n = x[1];
+    } else {
+      x.forEach(recorre);
+    }
+  };
   recorre(feature.geometry.coordinates);
-  const lons = coords.map((c) => c[0]);
-  const lats = coords.map((c) => c[1]);
-  const [w, e] = [Math.min(...lons), Math.max(...lons)];
-  const [s, n] = [Math.min(...lats), Math.max(...lats)];
 
+  const puntos = [];
   for (let i = 1; i < 24; i++) {
     for (let j = 1; j < 24; j++) {
       const punto = {
         type: 'Point',
         coordinates: [w + ((e - w) * j) / 24, s + ((n - s) * i) / 24],
       };
-      if (booleanPointInPolygon(punto, feature)) return punto;
+      if (booleanPointInPolygon(punto, feature)) puntos.push(punto);
     }
   }
-  return null;
+  return puntos;
 }
 
 for (const ficha of FICHAS_DECLARADAS) {
@@ -102,13 +119,28 @@ for (const ficha of FICHAS_DECLARADAS) {
   if (hijas.length === 0 || madres.length === 0) continue; // ya lo señala validaFicha
 
   for (const hija of hijas) {
-    const punto = puntoInterior(hija);
-    if (!punto) continue;
-    const dentro = madres.some((m) => booleanPointInPolygon(punto, m));
-    if (!dentro) {
+    const puntos = puntosInteriores(hija);
+
+    // Sin puntos interiores la contención queda SIN COMPROBAR, y eso no puede
+    // pasar en silencio: una franja estrecha y diagonal puede colarse entre
+    // los nudos de la malla. Es un fallo del muestreo, no de la ficha, pero
+    // exige agrandar la malla o revisar la geometría, no mirar a otro lado.
+    if (puntos.length === 0) {
       problemas.push(
-        `${ficha.zoneId}: declara heredaDe "${ficha.heredaDe}" pero su geometría ` +
-          `(${hija.properties.featureId}) no está contenida en ella. ` +
+        `${ficha.zoneId}: no se pudo muestrear ningún punto interior de ` +
+          `${hija.properties.featureId} y la contención en "${ficha.heredaDe}" queda sin ` +
+          `comprobar. Revisa la geometría o afina la malla de muestreo.`,
+      );
+      continue;
+    }
+
+    const fuera = puntos.filter((p) => !madres.some((m) => booleanPointInPolygon(p, m)));
+    if (fuera.length > 0) {
+      const [lon, lat] = fuera[0].coordinates;
+      problemas.push(
+        `${ficha.zoneId}: declara heredaDe "${ficha.heredaDe}" pero ${fuera.length} de los ` +
+          `${puntos.length} puntos interiores muestreados de ${hija.properties.featureId} caen ` +
+          `fuera de ella (p. ej. ${lat.toFixed(5)}, ${lon.toFixed(5)}). ` +
           `La herencia se declara, pero debe corresponderse con zonas realmente anidadas.`,
       );
     }
