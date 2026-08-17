@@ -64,6 +64,20 @@ Excepción: operaciones destructivas o que reescriben historia (`push --force`, 
 
 Nota de entorno: el git de este equipo necesita `http.sslBackend=schannel` (almacén de certificados de Windows) para hablar con GitHub; con el backend `openssl` por defecto la verificación TLS falla por la inspección TLS de la red corporativa. Ya está configurado a nivel de repositorio (`git config http.sslBackend schannel`), no hace falta repetirlo.
 
+## Publicación
+
+Se publica en un **subdominio** de `pecesmediterraneo.com`, alojado aparte del WordPress del dominio y sin tocarlo. El procedimiento completo —hosting, DNS y qué verificar después— está en [docs/publicacion.md](docs/publicacion.md). Lo que conviene tener presente aquí:
+
+**El ancho de banda es la restricción que manda, no la CPU ni el almacenamiento.** Una visita a la vista de todas las islas descarga 6,6 MB comprimidos, unas treinta veces lo de un sitio normal. Por eso el hosting es Cloudflare Pages —el único plan gratuito de los tres candidatos sin techo de tráfico— y no Vercel, que además prohíbe el uso comercial en su plan Hobby.
+
+**`npm run build` corre `rules:check` y `npm test` antes de compilar, y eso es la red de seguridad del despliegue**: una ficha rota o una regla atada al polígono equivocado hacen fallar la compilación en el hosting y no llegan a publicarse. En esta web una respuesta equivocada es peor que una web caída.
+
+**La cartografía sale a `assets/capas/` y no a `assets/` a secas.** No es orden: es lo que permite escribir en `public/_headers` una regla que solo alcance a los GeoJSON. Un patrón como `/assets/*.geojson` depende de que el splat de la CDN admita sufijo, y si no lo admite casa también con el JS y el CSS y los sirve como JSON, que rompe la web entera. Un directorio propio cierra la duda.
+
+**Un `.geojson` no se comprime solo.** Las CDN deciden qué comprimen por una lista de tipos MIME y `application/geo+json` no está en ninguna: sin forzarlo, la cartografía viaja sin comprimir, que son 31 MB en vez de 6,6. `public/_headers` lo fuerza a `application/json`. Es lo primero que hay que comprobar con `curl` tras el primer despliegue, porque falla en silencio: la web funciona igual, solo que cinco veces más lenta, que en una barca con cobertura de móvil es la diferencia entre usarla y cerrarla.
+
+`public/_headers` lo leen Cloudflare Pages y Netlify. **Vercel no lo lee**: allí las mismas reglas irían en `vercel.json`.
+
 ## Estructura
 
 ```
@@ -90,7 +104,10 @@ src/
   ui/                    panel, leyenda, buscador
   data/                  GENERADO + tablas declarativas
   data/capas/            GENERADO: lo que descarga el navegador
+public/_headers          caché y tipo MIME del sitio publicado; Vite lo copia
+                         tal cual a la raíz de dist/
 docs/fuentes.md          GENERADO por npm run verify
+docs/publicacion.md      hosting, DNS y qué verificar tras desplegar
 ```
 
 ## Reglas del proyecto
