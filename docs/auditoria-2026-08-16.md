@@ -58,15 +58,15 @@ Leyenda de severidad: **ALTO** = arreglar pronto (algunos son bloqueantes antes 
 
 ### Mapa / UI
 
-- [ ] **M13 · El marcador de consulta se dibuja DEBAJO de las áreas** — `src/main.js:174-175` + `areas-layer.js:74`. El `circleMarker` y el círculo de precisión van al overlayPane (z 400) y los planos de áreas a 401-405: el punto consultado queda tapado justo al resaltar la zona. Fix: pane propio con z 406.
+- [x] **M13 · El marcador de consulta se dibuja DEBAJO de las áreas** — `src/main.js:174-175` + `areas-layer.js:74`. Hecho el 17/08/2026: el marcador y el círculo de precisión van en un plano propio (`consulta`) con z por encima de todos los de las fuentes (calculado como `401 + ORDEN_FUENTES.length`, así sube solo si entran fuentes nuevas) y `pointerEvents: none`. Verificado en navegador: el marcador dibuja en su plano y el overlayPane (z 400) queda vacío.
 
-- [ ] **M14 · Sin `watchPosition`: el veredicto GPS caduca al derivar la embarcación** — `src/map/ubicacion.js:19-35`. Una sola lectura con `maximumAge: 5000`; el «estás 40 m dentro» queda obsoleto sin aviso. Fix: seguimiento continuo opcional o al menos timestamp de la lectura en el veredicto.
+- [x] **M14 · Sin `watchPosition`: el veredicto GPS caduca al derivar la embarcación** — `src/map/ubicacion.js:19-35`. Hecho el 17/08/2026 por la vía mínima que el hallazgo admitía: el veredicto fecha la lectura («Posición leída a las 19:47:48») en sus tres ramas, usando `pos.timestamp` —el momento de la lectura, no de la respuesta, que con `maximumAge` puede venir de caché—. Así queda claro que es una foto y de cuándo, y que para saber dónde se está AHORA hay que volver a pulsar. El seguimiento continuo con `watchPosition` (marcador móvil, re-veredictos, batería) queda como mejora de producto aparte. Verificado en navegador con GPS simulado.
 
-- [ ] **M15 · Durante la descarga la UI responde en silencio; si falla, queda medio muerta** — `src/main.js:162-171, 196, 251-271`. No hay carrera (verificado), pero: (a) durante los 6,5 MB de la vista «todas» el mapa y «¿Estoy dentro?» están activos sin reacción ni aviso; (b) si `cargaAreas` lanza, el return temprano deja botones vivos sin listeners. Fix: `disabled` + indicador de carga; en error, deshabilitar con mensaje.
+- [x] **M15 · Durante la descarga la UI responde en silencio; si falla, queda medio muerta** — `src/main.js:162-171, 196, 251-271`. Hecho el 17/08/2026: «Zonas» y «¿Estoy dentro?» arrancan `disabled` en el HTML y solo se habilitan con todas las capas cargadas; si la carga falla se quedan deshabilitados —cuentan la verdad en los dos casos— y el mensaje de error añade «Recarga la página para reintentarlo». Verificado en navegador: tras la carga ambos quedan habilitados.
 
-- [ ] **M16 · Cookie corrupta rompe el arranque de la app** — `src/ui/cookies.js:8` + `orden-actividades.js:24`. `decodeURIComponent` puede lanzar `URIError` con `%` malformado y el try/catch solo envuelve `JSON.parse`: la excepción sube hasta `main()` y nada monta. Fix: try/catch dentro de `leeCookie`.
+- [x] **M16 · Cookie corrupta rompe el arranque de la app** — `src/ui/cookies.js:8` + `orden-actividades.js:24`. Hecho el 17/08/2026: el `decodeURIComponent` va dentro de try/catch en `leeCookie` — una preferencia ilegible es una preferencia ausente, no un motivo para que `main()` no monte. Verificado en navegador plantando `orden-actividades=%E0%A4%A` y recargando: la app monta con el orden por defecto.
 
-- [ ] **M17 · Hash con isla válida pero sin cartografía → error crudo** — `src/main.js:47-53, 72, 112`. `islaDelHash` valida contra `ISLAS` pero no contra el manifest: una URL compartida hacia una isla sin ficheros acaba en «El manifiesto no declara cartografía». Fix: caer a `ISLA_ACTIVA` si la isla no está en el manifest.
+- [x] **M17 · Hash con isla válida pero sin cartografía → error crudo** — `src/main.js:47-53, 72, 112`. Hecho el 17/08/2026: `islaDelHash` exige ahora, además de que la isla exista en `ISLAS`, que el manifiesto le declare ficheros — el mismo filtro que ya aplicaba el selector. Ante un hash inservible se cae a la vista por defecto, igual que ante un hash desconocido. De paso el ternario frágil de B14 desaparece reescrito. Verificado en navegador: `#isla=atlantida` monta la vista de todas las islas sin pantalla de error.
 
 - [ ] **M18 · Sin alternativa de teclado para la función principal** — `index.html:35` + `main.js`. La consulta de un punto solo existe vía clic; `role="application"` sin interacción accesible dentro. WCAG 2.1.1. (El buscador mitiga pero no resuelve un punto.)
 
@@ -109,7 +109,7 @@ Leyenda de severidad: **ALTO** = arreglar pronto (algunos son bloqueantes antes 
 
 ### UI
 
-- [ ] **B14 · Precedencia frágil en `islaDelHash`** — `main.js:50`. El ternario funciona por casualidad (valores truthy); paréntesis explícitos.
+- [x] **B14 · Precedencia frágil en `islaDelHash`** — `main.js:50`. Cerrado el 17/08/2026 junto con M17: la expresión `ISLAS[m[1]] || m[1] === TODAS_LAS_ISLAS ? … : …` que funcionaba por casualidad ya no existe — la función se reescribió con condiciones explícitas por rama.
 - [ ] **B15 · Fuente desconocida → pane z 400, debajo de todo** — `areas-layer.js:49-52, 74`. `pesoFuente` devuelve −1 para fuentes no listadas (p. ej. posidonia sin tocar `ORDEN_FUENTES`). Fallar en dev o ponerlas encima.
 - [ ] **B16 · Atribuciones sin `rel="noopener"`** — `baselayers.js:44-45, 221, 257, 264`.
 - [ ] **B17 · Cookie sin `Secure`** — `cookies.js:17`.

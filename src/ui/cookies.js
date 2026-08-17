@@ -5,7 +5,18 @@
 export function leeCookie(nombre) {
   const clave = `${nombre}=`;
   for (const parte of document.cookie.split('; ')) {
-    if (parte.startsWith(clave)) return decodeURIComponent(parte.slice(clave.length));
+    if (parte.startsWith(clave)) {
+      // decodeURIComponent lanza URIError ante un % malformado, y una cookie
+      // puede venir escrita por otra vía (extensión, versión antigua). Una
+      // preferencia ilegible es una preferencia ausente; sin este catch, la
+      // excepción subía por leeOrdenActividades hasta main() y la aplicación
+      // entera dejaba de montar por un dato de comodidad.
+      try {
+        return decodeURIComponent(parte.slice(clave.length));
+      } catch {
+        return null;
+      }
+    }
   }
   return null;
 }

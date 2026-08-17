@@ -47,7 +47,15 @@ const $ = (sel) => document.querySelector(sel);
 function islaDelHash() {
   const m = /(?:^|[#&])isla=([a-z]+)/.exec(window.location.hash);
   if (!m) return ISLA_ACTIVA;
-  return ISLAS[m[1]] || m[1] === TODAS_LAS_ISLAS ? m[1] : ISLA_ACTIVA;
+  const isla = m[1];
+  if (isla === TODAS_LAS_ISLAS) return isla;
+  // No basta con que la isla exista: tiene que tener cartografía en el
+  // manifiesto. El selector ya filtraba por esto, pero una URL compartida con
+  // una isla declarada y sin ficheros acababa en «El manifiesto no declara
+  // cartografía para esta vista» como pantalla final. Ante un hash inservible
+  // se cae a la vista por defecto, igual que ante un hash desconocido.
+  if (ISLAS[isla] && manifest.porIsla?.[isla]?.ficheros?.length) return isla;
+  return ISLA_ACTIVA;
 }
 
 const ISLA = islaDelHash();
@@ -166,19 +174,26 @@ async function main() {
     .layers(bases, overlays, { position: 'topright', collapsed: true, autoZIndex: false })
     .addTo(mapa);
 
+  // «Zonas» y «¿Estoy dentro?» arrancan deshabilitados en el HTML y solo se
+  // habilitan con todas las capas cargadas: durante la descarga (6,5 MB gzip
+  // en la vista de todas las islas) no pueden responder, y si la carga falla
+  // el retorno temprano los dejaba con aspecto de vivos y ningún listener
+  // detrás. Deshabilitados cuentan la verdad en los dos casos.
   let features = [];
   try {
     features = await cargaAreas();
   } catch (e) {
-    $('#carga').textContent = e.message;
+    $('#carga').textContent = `${e.message} Recarga la página para reintentarlo.`;
     $('#carga').classList.add('carga--error');
     return;
   }
 
   $('#carga').remove();
+  $('#btn-ubicacion').disabled = false;
+  $('#btn-lista').disabled = false;
   pintaEstadoDatos(features);
 
-  const marcador = creaMarcadorConsulta();
+  const marcador = creaMarcadorConsulta(mapa);
   marcador.grupo.addTo(mapa);
 
   const panelEl = $('#panel');
@@ -260,9 +275,9 @@ async function main() {
     btnUbicacion.disabled = true;
     btnUbicacion.classList.add('cargando');
     try {
-      const { lat, lon, precisionMetros } = await pideUbicacion();
+      const { lat, lon, precisionMetros, obtenidaEn } = await pideUbicacion();
       const punto = { lat, lon };
-      const veredicto = veredictoUbicacion(punto, features, precisionMetros);
+      const veredicto = veredictoUbicacion(punto, features, precisionMetros, { obtenidaEn });
       consulta(punto, { precisionMetros, veredicto });
       mapa.setView([lat, lon], Math.max(mapa.getZoom(), 13));
     } catch (e) {

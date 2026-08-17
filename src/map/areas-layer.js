@@ -168,7 +168,19 @@ export function creaCapaAreas(features, { mapa, onSeleccion }) {
 }
 
 /** Marcador del punto consultado. */
-export function creaMarcadorConsulta() {
+export function creaMarcadorConsulta(mapa) {
+  // El marcador y el círculo de precisión van en un plano propio por ENCIMA de
+  // los de las fuentes, que ocupan de 401 en adelante — una por cada entrada de
+  // ORDEN_FUENTES, así que este z sube con ellas. En el overlayPane por defecto (z 400)
+  // quedaban debajo de todos los rellenos, y el resaltado —que sube la
+  // opacidad de la figura pulsada— terminaba de tapar el punto que se acababa
+  // de consultar: en s'Albufera des Grau, con tres capas apiladas, el marcador
+  // casi desaparecía.
+  const PLANO_CONSULTA = 'consulta';
+  const plano = mapa.createPane(PLANO_CONSULTA);
+  plano.style.zIndex = String(401 + ORDEN_FUENTES.length);
+  plano.style.pointerEvents = 'none';
+
   const grupo = L.layerGroup();
 
   function situa(punto, { precisionMetros = null } = {}) {
@@ -177,6 +189,7 @@ export function creaMarcadorConsulta() {
 
     if (precisionMetros) {
       L.circle(latlng, {
+        pane: PLANO_CONSULTA,
         radius: precisionMetros,
         color: '#ffffff',
         weight: 1,
@@ -187,6 +200,7 @@ export function creaMarcadorConsulta() {
     }
 
     L.circleMarker(latlng, {
+      pane: PLANO_CONSULTA,
       radius: 6,
       color: '#ffffff',
       weight: 2.5,

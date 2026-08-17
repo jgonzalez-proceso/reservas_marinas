@@ -22,6 +22,9 @@ export function pideUbicacion() {
           lat: pos.coords.latitude,
           lon: pos.coords.longitude,
           precisionMetros: pos.coords.accuracy,
+          // Momento de la lectura, no de la respuesta: con maximumAge la
+          // posición puede venir de caché y ser anterior a la pulsación.
+          obtenidaEn: pos.timestamp,
         }),
       (err) => {
         const mensajes = {
@@ -43,8 +46,17 @@ const metros = (m) =>
  * Traduce la evaluación geométrica a un veredicto legible.
  * Devuelve { nivel, titulo, detalle } donde nivel ∈ dentro | fuera | dudosa.
  */
-export function veredictoUbicacion(punto, features, precisionMetros) {
+/** Hora local corta de un timestamp, para fechar la lectura del GPS. */
+const hora = (ts) =>
+  new Date(ts).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+export function veredictoUbicacion(punto, features, precisionMetros, { obtenidaEn = null } = {}) {
   const ev = evaluaPosicion(punto, features, precisionMetros);
+  // El veredicto es una foto, no un seguimiento: una embarcación deriva, y
+  // «estás 40 m dentro» envejece sin avisar. Fechar la lectura deja claro de
+  // cuándo es la respuesta y que para saber dónde se está AHORA hay que volver
+  // a pulsar.
+  const sello = Number.isFinite(obtenidaEn) ? ` Posición leída a las ${hora(obtenidaEn)}.` : '';
   // Cuando el receptor no declara su precisión, el motor asume un radio
   // conservador; el texto lo dice tal cual, en vez de callarse el margen con
   // el que se ha decidido el veredicto.
@@ -59,7 +71,8 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
       detalle:
         `Estás aproximadamente a ${metros(Math.abs(ev.masCercana.distancia))} del límite de ` +
         `${ev.masCercana.nombre}. Precisión GPS actual: ${precision}. ` +
-        'No es posible determinar con seguridad si estás dentro o fuera.',
+        'No es posible determinar con seguridad si estás dentro o fuera.' +
+        sello,
       evaluacion: ev,
     };
   }
@@ -73,7 +86,7 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
         `Estás aproximadamente ${metros(principal.metrosAlBorde)} dentro del límite.` +
         (ev.dentroDe.length > 1
           ? ` Este punto está afectado por ${ev.dentroDe.length} figuras de protección.`
-          : '') + ` Precisión GPS: ${precision}.`,
+          : '') + ` Precisión GPS: ${precision}.` + sello,
       evaluacion: ev,
     };
   }
@@ -84,7 +97,7 @@ export function veredictoUbicacion(punto, features, precisionMetros) {
     detalle:
       (ev.masCercana
         ? `El límite más cercano, ${ev.masCercana.nombre}, está a ${metros(Math.abs(ev.masCercana.distancia))}. `
-        : '') + `Precisión GPS: ${precision}. `,
+        : '') + `Precisión GPS: ${precision}.` + sello,
     evaluacion: ev,
   };
 }
