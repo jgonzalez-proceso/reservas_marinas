@@ -31,6 +31,11 @@ export const NORMA_RD_191_2026 = {
 export function fondeoPorPosidoniaGeneral(sourcesExtra = []) {
   return {
     status: 'restricted',
+    // Esta regla no es de ninguna figura: es la norma estatal, que rige en todo
+    // el Mediterráneo español. `generica` se lo dice al motor para que no
+    // desplace a la regla de una figura que sí ha escrito algo sobre el fondeo
+    // de ese trozo de mar concreto.
+    generica: true,
     motivo:
       'El Real Decreto 191/2026 prohíbe con carácter general fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa en todo el Mediterráneo español, incluido el fondeo en arena si la cadena, el ancla u otro elemento del fondeo afecta a la pradera.',
     conditions: [

@@ -485,6 +485,48 @@ export const FUENTES = {
     consultada: '2026-08-17',
   },
 
+  // -- Parc Natural de ses Salines d'Eivissa i Formentera ---------------------
+  'boib-decreto-132-2005-prug-salines': {
+    titulo:
+      'Decreto 132/2005, de 23 de diciembre, por el que se aprueba el Plan Rector de Uso y Gestión del Parc Natural de ses Salines d’Eivissa i Formentera',
+    url: 'https://www.caib.es/sites/puntdinformacioambiental/f/138364',
+    referencia:
+      'BOIB núm. 196, de 31 de diciembre de 2005. Art. 7 (zonificación), art. 11.4 (regulaciones generales: prohibida la pesca submarina y la extracción de flora y fauna marina), art. 12 (áreas de protección estricta), art. 93 (plan sectorial de aprovechamientos pesqueros), art. 94 (régimen transitorio de pesca: 94.a áreas de protección estricta y Estany Pudent, 94.b resto del ámbito marino, 94.c prohibiciones en todo el parque), art. 95 (supletoriedad del Decreto 63/1999), art. 102 (actividades incompatibles: 102.e motos acuáticas, 102.f servicios lucrativos, 102.h competiciones), art. 110 (inmersiones: autorización, incompatibilidad con las áreas de protección estricta, feeding e instrumentos de extracción), art. 117 (ordenación del fondeo: prohibido, regulado y libre condicionado; s’Estany des Peix) y art. 118 (zonas de baño: franja de 200 m)',
+    consultada: '2026-08-17',
+  },
+  'caib-espacio-ses-salines': {
+    titulo:
+      'Parque Natural de ses Salines de Ibiza y Formentera — información oficial del espacio',
+    url: 'https://www.caib.es/sites/espaisnaturalsprotegits/es/parque_natural_de_ses_salines_de_ibiza_y_formentera/',
+    referencia:
+      'Actividades que se tienen que autorizar previamente (proyectos de investigación, buceo deportivo, filmaciones) y actividades incompatibles (motos acuáticas, pesca submarina, baño en la laguna de s’Espalmador, desembarco en los islotes). Permiso diario o anual para el buceo con botella y para pernoctar fondeado',
+    consultada: '2026-08-17',
+  },
+  'ideib-zonificacion-ses-salines': {
+    titulo:
+      'Zonificació PRUG Parc Natural Salines Eivissa i Formentera — cartografía oficial (IDEIB, capa 1 del servicio GOIB_NATURA_ENP_08_SS)',
+    url: 'https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_08_SS/MapServer/1',
+    referencia:
+      'Campo ZONIFICACI sobre el ámbito marino (AMBIT=«Marí»): àrea de protecció estricta 427,4 ha, àrea de conservació predominant 154,1 ha, àrea de conservació 13.164,9 ha, àrea d’aprofitament condicionat 344,6 ha y ús portuari 39,3 ha',
+    consultada: '2026-08-17',
+  },
+  'ideib-fondeo-ses-salines': {
+    titulo:
+      'Regulació fondeig — cartografía oficial del art. 117 del PRUG (IDEIB, capa 5 del servicio GOIB_NATURA_ENP_08_SS)',
+    url: 'https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_08_SS/MapServer/5',
+    referencia:
+      'Campo Layer: «Fondeig prohibit» 451,2 ha en 6 polígonos, «Fondeig regulat» 69,3 ha en 3 y «Fondeig lliure condicionat» 13.531 ha en 2',
+    consultada: '2026-08-17',
+  },
+  'consell-formentera-estany-des-peix': {
+    titulo:
+      'Reglament regulador del fondeig i del règim jurídic de les instal·lacions d’amarratge de s’Estany des Peix — Consell Insular de Formentera',
+    url: 'https://www.consellinsulardeformentera.cat/index.php?option=com_content&view=article&id=8579&catid=350&Itemid=336&lang=es',
+    referencia:
+      'Aprobado por el pleno del Consell el 24 de febrero de 2022. Reserva los amarres a embarcaciones que acrediten fondear en el enclave antes del 5 de julio de 2002, con eslora máxima de 10 m. Regula la asignación de amarres, no la geometría del fondeo',
+    consultada: '2026-08-17',
+  },
+
   'rescab-autorizaciones': {
     titulo: 'Portal de autorizaciones del Parque Nacional de Cabrera (navegación, fondeo y buceo)',
     url: 'https://www.caib.es/rescabfront/?lang=es',

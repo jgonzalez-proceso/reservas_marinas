@@ -186,6 +186,182 @@ for (const caso of ALBUFERA) {
 }
 
 // ---------------------------------------------------------------------------
+// Parc Natural de ses Salines d'Eivissa i Formentera
+//
+// Aquí conviven el parque, su zonificación del PRUG, la capa oficial de
+// regulación del fondeo, la Reserva Marina dels Freus con sus subzonas y varios
+// espacios Natura 2000. Estas pruebas comprueban que ninguna figura tapa a otra
+// y que cada actividad la decide la norma que de verdad la regula.
+// ---------------------------------------------------------------------------
+
+const PARQUE_SALINES =
+  'enp-es530010-parc-natural-de-ses-salines-d-eivissa-i-formentera--parc-natural--mari';
+const APE_SALINES =
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--area-de-proteccio-estricta--mari';
+
+const esReservaDelsFreus = (pr) => pr.fuente === 'reservas-marinas' && pr.zoneId.includes('freus');
+
+test('ses Salines: prohibida dentro del parque aunque el punto quede fuera de la reserva marina', () => {
+  const p = punto(1.36474, 38.856824);
+  assert.ok(dentroDe(p, PARQUE_SALINES), 'el punto debe caer dentro del ámbito marino del parque');
+  assert.ok(
+    !dentroDeAlguna(p, esReservaDelsFreus),
+    'y fuera de la Reserva Marina dels Freus: es lo que hace útil esta prueba',
+  );
+
+  const r = resolver(p, FEATURES, FICHAS);
+  const a = r.actividades.pescaSubmarina;
+  assert.equal(a.status, 'prohibited');
+  assert.equal(a.determinadaPor.zoneId, PARQUE_SALINES);
+  assert.ok(a.sources.includes('boib-decreto-132-2005-prug-salines'));
+  assert.equal(r.incompleto, false, 'ninguna actividad puede quedar sin resolver aquí');
+});
+
+test('ses Salines: en un área marina de protección estricta no se pesca, no se bucea y no se fondea', () => {
+  const p = punto(1.487453, 38.798229);
+  assert.ok(dentroDe(p, APE_SALINES), 'el punto debe caer en un área marina de protección estricta');
+
+  const r = resolver(p, FEATURES, FICHAS);
+  const prohibidas = [
+    'pescaDesdeCosta',
+    'pescaRecreativaEmbarcacion',
+    'pescaSubmarina',
+    'buceo',
+    'fondeo',
+  ];
+  for (const clave of prohibidas) {
+    assert.equal(r.actividades[clave].status, 'prohibited', clave + ' debería estar prohibida');
+  }
+  assert.equal(r.actividades.pescaDesdeCosta.determinadaPor.zoneId, APE_SALINES);
+  assert.equal(r.actividades.buceo.determinadaPor.zoneId, APE_SALINES);
+});
+
+test('ses Salines: en el resto del ámbito marino la pesca de superficie es restringida y el buceo autorizable', () => {
+  const p = punto(1.38626, 38.805875);
+  assert.ok(dentroDe(p, PARQUE_SALINES));
+  assert.ok(!dentroDe(p, APE_SALINES), 'el punto NO debe estar en un área de protección estricta');
+
+  const r = resolver(p, FEATURES, FICHAS);
+  assert.equal(r.actividades.pescaSubmarina.status, 'prohibited');
+  assert.equal(r.actividades.pescaDesdeCosta.status, 'restricted');
+  assert.equal(r.actividades.pescaRecreativaEmbarcacion.status, 'restricted');
+  assert.equal(r.actividades.buceo.status, 'allowed_with_authorization');
+  assert.ok(r.actividades.buceo.permit, 'el buceo autorizable debe describir su permiso');
+});
+
+const FONDEO_SALINES = [
+  {
+    nombre: 'prohibido',
+    p: punto(1.406093, 38.730845),
+    zoneId: 'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-prohibit--mari',
+    status: 'prohibited',
+    dice: 'fuerza mayor',
+  },
+  {
+    nombre: 'regulado',
+    p: punto(1.423229, 38.78064),
+    zoneId: 'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-regulat--mari',
+    status: 'restricted',
+    dice: 'boyas habilitadas',
+  },
+  {
+    nombre: 'libre condicionado',
+    p: punto(1.419291, 38.801329),
+    zoneId:
+      'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-lliure-condicionat--mari',
+    status: 'restricted',
+    dice: 'fondo arenoso',
+  },
+];
+
+for (const caso of FONDEO_SALINES) {
+  test('ses Salines — fondeo ' + caso.nombre + ': lo decide el art. 117, no el Real Decreto', () => {
+    assert.ok(dentroDe(caso.p, caso.zoneId), 'el punto debe caer dentro de su polígono de fondeo');
+
+    const a = resolver(caso.p, FEATURES, FICHAS).actividades.fondeo;
+    assert.equal(a.status, caso.status);
+    assert.equal(
+      a.determinadaPor.zoneId,
+      caso.zoneId,
+      'debe determinarlo la capa oficial de regulación del fondeo',
+    );
+    assert.ok(
+      a.conditions.some((c) => c.includes(caso.dice)),
+      'las condiciones deben decir «' + caso.dice + '»; son: ' + JSON.stringify(a.conditions),
+    );
+    assert.ok(a.sources.includes('ideib-fondeo-ses-salines'));
+  });
+}
+
+test('ses Salines: parque, reserva marina y zona de veda se apilan y manda la más restrictiva', () => {
+  const p = punto(1.447654, 38.787072);
+  assert.ok(dentroDe(p, PARQUE_SALINES), 'dentro del parque');
+  assert.ok(dentroDeAlguna(p, esReservaDelsFreus), 'y dentro de una figura de la reserva marina');
+
+  const r = resolver(p, FEATURES, FICHAS);
+  assert.ok(
+    r.figuras.some((f) => f.proteccion === 'Zona de veda de pesca recreativa'),
+    'la zona de veda de pesca recreativa debe estar entre las figuras',
+  );
+  assert.ok(
+    r.figuras.some((f) => f.zoneId === PARQUE_SALINES),
+    'y el parque natural no puede desaparecer en favor de la reserva',
+  );
+
+  for (const clave of ['pescaDesdeCosta', 'pescaRecreativaEmbarcacion', 'pescaSubmarina']) {
+    assert.equal(r.actividades[clave].status, 'prohibited', clave + ' debería estar prohibida');
+  }
+  const fuentes = r.actividades.pescaDesdeCosta.sources;
+  assert.ok(
+    fuentes.includes('boib-decreto-132-2005-prug-salines'),
+    'la fuente del PRUG del parque debe seguir citada; hay: ' + fuentes.join(', '),
+  );
+});
+
+test('ses Salines: ningún punto de sus figuras contesta otra cosa que «prohibida» a la pesca submarina', () => {
+  // La prohibición es de todo el parque, pero sus tres capas oficiales no
+  // cubren exactamente lo mismo: el área marina de protección estricta cae
+  // entera fuera del polígono de límites. Se muestrea el interior de cada una.
+  const zonas = [
+    ...new Set(
+      FEATURES.map((f) => f.properties.zoneId).filter(
+        (z) => z === PARQUE_SALINES || /^(zon|fon)-08-ss/.test(z),
+      ),
+    ),
+  ];
+  assert.equal(zonas.length, 9, 'deberían ser las 9 zonas de ses Salines');
+
+  let comprobados = 0;
+  for (const zoneId of zonas) {
+    const polis = FEATURES.filter((f) => f.properties.zoneId === zoneId);
+    let w = 180;
+    let e = -180;
+    let s = 90;
+    let n = -90;
+    const rec = (x) => {
+      if (typeof x[0] === 'number') {
+        w = Math.min(w, x[0]);
+        e = Math.max(e, x[0]);
+        s = Math.min(s, x[1]);
+        n = Math.max(n, x[1]);
+      } else x.forEach(rec);
+    };
+    polis.forEach((f) => rec(f.geometry.coordinates));
+
+    for (let i = 1; i < 12; i++) {
+      for (let j = 1; j < 12; j++) {
+        const p = { lat: s + ((n - s) * i) / 12, lon: w + ((e - w) * j) / 12 };
+        if (!polis.some((f) => booleanPointInPolygon(geoJsonPunto(p), f))) continue;
+        comprobados += 1;
+        const a = resolver(p, FEATURES, FICHAS).actividades.pescaSubmarina;
+        assert.equal(a.status, 'prohibited', 'en ' + zoneId + ' salió "' + a.status + '"');
+      }
+    }
+  }
+  assert.ok(comprobados > 100, 'se esperaban muchos puntos, solo se comprobaron ' + comprobados);
+});
+
+// ---------------------------------------------------------------------------
 // Invariantes generales
 // ---------------------------------------------------------------------------
 

@@ -39,6 +39,10 @@ import enpPeninsulaDeLlevant from './espacios-naturales/peninsula-de-llevant.js'
 // submarina) y salen todas de las mismas dos normas.
 import albuferaDesGrau from './albufera-des-grau.js';
 
+// Mismo caso: nueve fichas repartidas entre el límite del parque, su
+// zonificación y la capa de regulación del fondeo, todas del Decreto 132/2005.
+import sesSalines from './ses-salines.js';
+
 /** Fichas tal y como se redactan, sin herencia aplicada. */
 export const FICHAS_DECLARADAS = [
   ...badiaDePalma,
@@ -60,6 +64,7 @@ export const FICHAS_DECLARADAS = [
   ...enpEsTrenc,
   ...enpPeninsulaDeLlevant,
   ...albuferaDesGrau,
+  ...sesSalines,
 ];
 
 export const FICHAS_LISTA = resuelveHerencia(FICHAS_DECLARADAS);

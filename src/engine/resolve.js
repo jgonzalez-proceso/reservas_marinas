@@ -111,9 +111,21 @@ function resuelveActividad(clave, figuras, fichas) {
   // presentarían como aplicables el curricán y el spinning, que allí no lo son.
   // El zoneId cierra el desempate cuando dos figuras comparten perímetro, para
   // que el resultado sea estable entre ejecuciones.
+  //
+  // Antes del área se mira si la regla es propia de la figura o solo la norma
+  // general que rige en cualquier parte. Una regla marcada `generica` —hoy, la
+  // prohibición estatal de fondear sobre fanerógamas— no puede desplazar a la
+  // que una figura ha escrito para ese trozo de mar concreto, aunque su
+  // polígono sea más pequeño. En ses Salines pasaba: la Reserva Marina dels
+  // Freus (120,4 km²) le ganaba por tamaño a la zona de fondeo libre
+  // condicionado del PRUG (134,3 km²), y el panel contestaba con el Real
+  // Decreto en vez de con el art. 117, que es el que dice que aquí solo se
+  // puede fondear sobre arena. El estado no cambia: las dos dicen «restringida».
+  const esGenerica = (a) => (a.regla.generica ? 1 : 0);
   aportaciones.sort(
     (a, b) =>
       rango(b.regla.status) - rango(a.regla.status) ||
+      esGenerica(a) - esGenerica(b) ||
       a.figura.areaKm2 - b.figura.areaKm2 ||
       a.figura.zoneId.localeCompare(b.figura.zoneId),
   );

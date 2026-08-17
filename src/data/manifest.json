@@ -1,5 +1,5 @@
 {
-  "generado": "2026-08-17T15:29:41.921Z",
+  "generado": "2026-08-17T17:43:32.027Z",
   "aviso": "Fichero generado por scripts/fetch-sources.mjs. No editar a mano.",
   "fuentes": [
     {
@@ -7,7 +7,7 @@
       "titulo": "Reservas marinas",
       "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_ReservesMarines/MapServer",
       "catalogo": "https://intranet.caib.es/opendatacataleg/dataset/limits-reserves-marines-illes-balears",
-      "descargado": "2026-08-17T15:29:57.938Z",
+      "descargado": "2026-08-17T17:43:41.755Z",
       "capas": [
         {
           "id": 1,
@@ -30,7 +30,7 @@
       "titulo": "Red Natura 2000 (ámbito marino)",
       "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_N2000_IB/MapServer",
       "catalogo": "https://www.caib.es/sites/xarxanatura/ca/inici-46017/",
-      "descargado": "2026-08-17T15:30:28.478Z",
+      "descargado": "2026-08-17T17:44:03.133Z",
       "capas": [
         {
           "id": 9,
@@ -77,7 +77,7 @@
       "titulo": "Espacios naturales protegidos (ámbito marino)",
       "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_IB/MapServer",
       "catalogo": "https://www.caib.es/sites/espaisnaturalsprotegits/ca/inici-22930/",
-      "descargado": "2026-08-17T15:30:34.468Z",
+      "descargado": "2026-08-17T17:44:07.076Z",
       "capas": [
         {
           "id": 35,
@@ -94,16 +94,40 @@
       "titulo": "Zonificación marina de los espacios naturales protegidos",
       "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer",
       "catalogo": "https://www.caib.es/sites/espaisnaturalsprotegits/es/parc_natural_de_salbufera_des_grau/",
-      "descargado": "2026-08-17T15:30:41.173Z",
+      "descargado": "2026-08-17T17:44:13.334Z",
       "capas": [
         {
           "id": 10,
           "rol": "areas",
           "nombre": "Zonificació Parc Natural Albufera Grau",
           "crudas": 639
+        },
+        {
+          "id": 1,
+          "rol": "areas",
+          "nombre": "Zonificació PRUG Parc Natural Salines Eivissa i Formentera",
+          "crudas": 11,
+          "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_08_SS/MapServer"
         }
       ],
-      "areas": 198,
+      "areas": 209,
+      "hitos": 0
+    },
+    {
+      "id": "regulacion-fondeo",
+      "titulo": "Regulación del fondeo",
+      "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_08_SS/MapServer",
+      "catalogo": "https://www.caib.es/sites/espaisnaturalsprotegits/es/parque_natural_de_ses_salines_de_ibiza_y_formentera/",
+      "descargado": "2026-08-17T17:44:13.560Z",
+      "capas": [
+        {
+          "id": 5,
+          "rol": "areas",
+          "nombre": "Regulació fondeig",
+          "crudas": 12
+        }
+      ],
+      "areas": 11,
       "hitos": 0
     },
     {
@@ -111,7 +135,7 @@
       "titulo": "Regulación específica de pesca submarina",
       "servicio": "https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer",
       "catalogo": "https://www.caib.es/seucaib/es/tramites/tramite/1831120",
-      "descargado": "2026-08-17T15:30:41.525Z",
+      "descargado": "2026-08-17T17:44:13.908Z",
       "capas": [
         {
           "id": 12,
@@ -125,7 +149,7 @@
     }
   ],
   "hashes": {
-    "protected-areas.geojson": "ea8020b1e830e99c",
+    "protected-areas.geojson": "ab1878a0681f1acb",
     "hitos.geojson": "0fcf2971f69f78e4",
     "capas/reservas-marinas.mallorca.geojson": "e007f3184d6e3a2a",
     "capas/natura2000.mallorca.geojson": "955ca482c6b7507a",
@@ -137,11 +161,15 @@
     "capas/regulacion-pesca-submarina.menorca.geojson": "f1da3a337cf1ccc5",
     "capas/reservas-marinas.eivissa.geojson": "2ce9336510394701",
     "capas/espacios-naturales.eivissa.geojson": "45174eca9387c52a",
+    "capas/zonificacion-enp.eivissa.geojson": "e8f718a1bba271be",
+    "capas/regulacion-fondeo.eivissa.geojson": "5c9c46af14bfe525",
     "capas/reservas-marinas.formentera.geojson": "c36be093c5d608fc",
     "capas/espacios-naturales.formentera.geojson": "45174eca9387c52a",
+    "capas/zonificacion-enp.formentera.geojson": "e8f718a1bba271be",
+    "capas/regulacion-fondeo.formentera.geojson": "5c9c46af14bfe525",
     "capas/natura2000.cabrera.geojson": "93114f343762bd51",
     "capas/espacios-naturales.cabrera.geojson": "f75851e9e90df260",
-    "descartadas.json": "9083b23fc315c074"
+    "descartadas.json": "576cef06db71b21a"
   },
   "porIsla": {
     "mallorca": {
@@ -195,7 +223,7 @@
       ]
     },
     "eivissa": {
-      "features": 10,
+      "features": 32,
       "ficheros": [
         {
           "fuente": "reservas-marinas",
@@ -206,11 +234,21 @@
           "fuente": "espacios-naturales",
           "fichero": "espacios-naturales.eivissa.geojson",
           "features": 1
+        },
+        {
+          "fuente": "zonificacion-enp",
+          "fichero": "zonificacion-enp.eivissa.geojson",
+          "features": 11
+        },
+        {
+          "fuente": "regulacion-fondeo",
+          "fichero": "regulacion-fondeo.eivissa.geojson",
+          "features": 11
         }
       ]
     },
     "formentera": {
-      "features": 5,
+      "features": 27,
       "ficheros": [
         {
           "fuente": "reservas-marinas",
@@ -221,6 +259,16 @@
           "fuente": "espacios-naturales",
           "fichero": "espacios-naturales.formentera.geojson",
           "features": 1
+        },
+        {
+          "fuente": "zonificacion-enp",
+          "fichero": "zonificacion-enp.formentera.geojson",
+          "features": 11
+        },
+        {
+          "fuente": "regulacion-fondeo",
+          "fichero": "regulacion-fondeo.formentera.geojson",
+          "features": 11
         }
       ]
     },
@@ -241,11 +289,11 @@
     }
   },
   "totales": {
-    "areas": 284,
+    "areas": 306,
     "hitos": 108
   },
   "descartadas": {
-    "total": 442,
+    "total": 443,
     "areaMinimaM2": 100,
     "detalle": "descartadas.json",
     "porFigura": [
@@ -266,6 +314,12 @@
         "proteccion": "Zona d'ús compatible",
         "n": 81,
         "areaMaximaM2": 99.919
+      },
+      {
+        "nombre": "Parc Natural de ses Salines d’Eivissa i Formentera",
+        "proteccion": "Fondeig lliure condicionat",
+        "n": 1,
+        "areaMaximaM2": 32.206
       }
     ]
   }

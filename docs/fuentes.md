@@ -2,34 +2,39 @@
 
 > Documento generado por `npm run verify`. No editar a mano.
 
-Generado: 2026-08-17T17:32:34.768Z
+Generado: 2026-08-17T17:53:47.465Z
 
 ## Procedencia de los datos
 
 ### Reservas marinas
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_ReservesMarines/MapServer
 - Catálogo de datos abiertos: https://intranet.caib.es/opendatacataleg/dataset/limits-reserves-marines-illes-balears
-- Descargado: 2026-08-17T15:29:57.938Z
+- Descargado: 2026-08-17T17:43:41.755Z
 - Geometrías: 42 · Hitos: 108
 ### Red Natura 2000 (ámbito marino)
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_N2000_IB/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/xarxanatura/ca/inici-46017/
-- Descargado: 2026-08-17T15:30:28.478Z
+- Descargado: 2026-08-17T17:44:03.133Z
 - Geometrías: 35 · Hitos: 0
 ### Espacios naturales protegidos (ámbito marino)
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_IB/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/espaisnaturalsprotegits/ca/inici-22930/
-- Descargado: 2026-08-17T15:30:34.468Z
+- Descargado: 2026-08-17T17:44:07.076Z
 - Geometrías: 7 · Hitos: 0
 ### Zonificación marina de los espacios naturales protegidos
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/espaisnaturalsprotegits/es/parc_natural_de_salbufera_des_grau/
-- Descargado: 2026-08-17T15:30:41.173Z
-- Geometrías: 198 · Hitos: 0
+- Descargado: 2026-08-17T17:44:13.334Z
+- Geometrías: 209 · Hitos: 0
+### Regulación del fondeo
+- Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_08_SS/MapServer
+- Catálogo de datos abiertos: https://www.caib.es/sites/espaisnaturalsprotegits/es/parque_natural_de_ses_salines_de_ibiza_y_formentera/
+- Descargado: 2026-08-17T17:44:13.560Z
+- Geometrías: 11 · Hitos: 0
 ### Regulación específica de pesca submarina
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/seucaib/es/tramites/tramite/1831120
-- Descargado: 2026-08-17T15:30:41.525Z
+- Descargado: 2026-08-17T17:44:13.908Z
 - Geometrías: 2 · Hitos: 0
 ## Verificación contra las coordenadas oficiales publicadas
 

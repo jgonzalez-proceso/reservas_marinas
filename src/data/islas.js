@@ -97,6 +97,37 @@ export const ISLAS_POR_ZONA = {
   'zon-04-ag-parc-natural-de-s-albufera-des-grau--zona-d-us-limitat--mari': 'menorca',
   'zon-04-ag-parc-natural-de-s-albufera-des-grau--zona-d-us-compatible--mari': 'menorca',
 
+  // Zonificación marina del PRUG del Parc Natural de ses Salines. Las cinco
+  // categorías recaen sobre aguas de las dos islas, igual que el propio parque.
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--area-de-proteccio-estricta--mari': [
+    'eivissa',
+    'formentera',
+  ],
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--area-de-conservacio-predominant--mari':
+    ['eivissa', 'formentera'],
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--area-de-conservacio--mari': [
+    'eivissa',
+    'formentera',
+  ],
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--area-d-aprofitament-condicionat-a-la-conservacio--mari':
+    ['eivissa', 'formentera'],
+  'zon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--us-portuari--mari': [
+    'eivissa',
+    'formentera',
+  ],
+
+  // -- Regulación del fondeo --------------------------------------------------
+  'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-prohibit--mari': [
+    'eivissa',
+    'formentera',
+  ],
+  'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-regulat--mari': [
+    'eivissa',
+    'formentera',
+  ],
+  'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-lliure-condicionat--mari':
+    ['eivissa', 'formentera'],
+
   // -- Regulación específica de pesca submarina -------------------------------
   'psub-04-ag-parc-natural-de-s-albufera-des-grau--zona-pesca-submarina-condicionada--mari':
     'menorca',

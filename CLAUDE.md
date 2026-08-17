@@ -8,17 +8,18 @@ El usuario pulsa un punto del mar. El motor reúne **todas** las figuras de prot
 
 Este encuadre es deliberado. Diseñar alrededor de `ReservesMarines` obligaría a refactorizar media aplicación al incorporar Natura 2000, los espacios naturales protegidos o la protección de la posidonia — todas ellas se solapan sobre el mismo trozo de mar y todas aplican a la vez.
 
-Estado: **cinco capas regulatorias activas**, 88 zonas, 87 con ficha redactada y citada.
+Estado: **seis capas regulatorias activas**, 96 zonas, **todas con ficha redactada y citada**.
 
 - **Reservas marinas** (41 zonas, todas con ficha): las doce reservas de Baleares y sus zonas interiores, en sus ámbitos autonómico y estatal.
 - **Red Natura 2000, ámbito marino** (35 zonas, todas con ficha): los espacios autonómicos del art. 2 del Decret 91/2023, los del ámbito marino de un plan de gestión aprobado que no están en esa lista, y 6 espacios marinos de gestión estatal.
-- **Espacios naturales protegidos, ámbito marino** (7 zonas, 6 con ficha): Serra de Tramuntana, Cabrera, s'Albufera des Grau y sus reservas naturales, es Trenc-Salobrar y la Península de Llevant. Falta ses Salines d'Eivissa i Formentera, que se resuelve como `unknown` y marca el resultado como incompleto.
-- **Zonificación marina de los ENP** (3 zonas, todas con ficha): el interior del ámbito marino de s'Albufera des Grau, repartido en zona de exclusión, de uso limitado y de uso compatible.
-- **Regulación específica de pesca submarina** (2 zonas, ambas con ficha): los polígonos oficiales de pesca submarina prohibida y condicionada del mismo parque.
+- **Espacios naturales protegidos, ámbito marino** (7 zonas): Serra de Tramuntana, Cabrera, s'Albufera des Grau y sus reservas naturales, es Trenc-Salobrar, la Península de Llevant y ses Salines d'Eivissa i Formentera.
+- **Zonificación marina de los ENP** (8 zonas): el interior del ámbito marino de s'Albufera des Grau —exclusión, uso limitado y uso compatible— y el de ses Salines, con las cinco categorías del PORN de 2002.
+- **Regulación específica de pesca submarina** (2 zonas): los polígonos oficiales de pesca submarina prohibida y condicionada de s'Albufera des Grau.
+- **Regulación del fondeo** (3 zonas): fondeo prohibido, regulado con campo de boyas y libre condicionado en ses Salines, según el art. 117 de su PRUG.
 
-Cobertura por isla: **Mallorca 50/50**, **Menorca 27/27**, Eivissa 9/10, Formentera 4/5 y Cabrera 2/2. **Las doce reservas marinas de Baleares tienen ficha.** Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
+Cobertura por isla: Mallorca 50/50, Menorca 27/27, Eivissa 18/18, Formentera 13/13 y Cabrera 2/2. **Ninguna zona cargada se resuelve ya como no determinable.** Las doce reservas marinas de Baleares tienen ficha, y Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
 
-Lo único que falta es el ámbito marino del Parc Natural de ses Salines d'Eivissa i Formentera, que el mapa muestra y resuelve como no determinable.
+Que no quede ningún `unknown` no significa que no falte trabajo: faltan capas enteras —la posidonia, la zonificación PRUG de Cabrera y sa Dragonera— y dentro de las fichas hay condiciones que remiten a normas que este mapa no dibuja. El mensaje de `SIN_FIGURAS` sigue siendo tan necesario como el primer día.
 
 La web lleva **selector de isla** y abre por defecto en **todas las islas a la vez**. La vista real se lee del hash de la URL (`#isla=eivissa`), para que se pueda compartir. `npm run rules:check` informa de la cobertura isla por isla.
 
@@ -26,7 +27,7 @@ La web lleva **selector de isla** y abre por defecto en **todas las islas a la v
 
 En esa vista hay que **deduplicar por `featureId`**: una figura que recae sobre dos islas está a propósito en los dos ficheros —el canal de Menorca en Mallorca y en Menorca, els Freus en Eivissa y en Formentera—, y sin deduplicar el panel enseñaría la misma reserva dos veces y el motor la contaría dos veces entre las figuras del punto.
 
-El coste es real y conviene tenerlo presente: **29,6 MB de cartografía, unos 6,5 MB con gzip**, frente a 3,1 MB gzip de Mallorca sola o 2,9 de Menorca. Se descarga una vez y queda en caché, pero para una consulta puntual en el agua la vista de una isla es mucho más ligera.
+El coste es real y conviene tenerlo presente: **30,2 MB de cartografía, unos 6,7 MB con gzip**, frente a 3,1 MB gzip de Mallorca sola o 2,9 de Menorca. Se descarga una vez y queda en caché, pero para una consulta puntual en el agua la vista de una isla es mucho más ligera.
 
 **El encuadre inicial se aplaza un fotograma y fuerza `invalidateSize`.** Leaflet calcula el zoom con el tamaño del contenedor, y en el primer ciclo la disposición flexible todavía no ha asentado el ancho: daba zoom 9 en vez de 8 y dejaba Eivissa y Formentera fuera de pantalla.
 
@@ -82,6 +83,8 @@ src/
   rules/espacios-naturales/  fichas de los ENP con ámbito marino
   rules/albufera-des-grau.js las 7 fichas del parque: reparte tres fuentes
                              pero sale de dos normas, así que va entero
+  rules/ses-salines.js       las 9 fichas del parque de ses Salines, por el
+                             mismo motivo: tres fuentes, una sola norma
   rules/normas-generales.js  normas que no son de ninguna figura (RD 191/2026)
   map/                   capas base, capa de áreas, geolocalización
   ui/                    panel, leyenda, buscador
@@ -160,6 +163,35 @@ El mismo art. 39.1 lo escribe como una jerarquía y no como una alternativa: en 
 **Es Trenc es el caso gemelo, y todavía más directo.** Allí la prohibición no está en un plan sino en la ley de declaración: el art. 4.1.c de la **Ley 2/2017** enumera la pesca submarina entre los usos prohibidos del ámbito marino del parque. No depende de que se apruebe el PRUG ni de la zonificación interior.
 
 **En los dos casos la regla se ata al polígono de límites (`AMBIT='Marí'`, capa 35), no a la zonificación del PORN** (capas 27 y 28). Comprobado: la zonificación marina suma 2.325,6 ha en es Trenc y 6.194,2 en Llevant, frente a 2.326,0 y 6.192,0 del límite, y los 4.351 puntos muestreados dentro de la zonificación caen todos dentro del límite. El límite es un perímetro continuo; la zonificación son piezas que podrían dejar huecos. Cargar las capas 27 y 28 añadiría 1,2 MB de geometría sin cambiar ninguna respuesta.
+
+### Una regla genérica no puede desplazar a una regla del sitio
+
+A igual grado de restricción manda la figura más específica, y el desempate es por área ascendente. Ese proxy se rompe cuando las dos figuras vienen de fuentes con granularidad distinta y ninguna contiene a la otra. Pasó en ses Salines: la Reserva Marina dels Freus (120,4 km²) le ganaba por tamaño a la zona de fondeo libre condicionado del PRUG (134,3 km²), y el panel contestaba al fondeo con el Real Decreto 191/2026 en lugar de con el art. 117, que es el que dice que allí solo se puede fondear sobre arena.
+
+La solución no es tocar el desempate por área, sino distinguir de dónde sale la regla. Una regla marcada **`generica: true`** —hoy solo `fondeoPorPosidoniaGeneral()`, que es la norma estatal aplicable en todo el Mediterráneo— **cede ante cualquier regla que una figura haya escrito para ese trozo de mar**, aunque su polígono sea mayor. El estado no cambia: las dos decían «restringida». Lo que cambia es quién figura como determinante y, sobre todo, qué condiciones se muestran.
+
+### El parque de ses Salines: tres capas y una contradicción del propio PRUG
+
+15.390 ha de mar entre Eivissa y Formentera, el 85 % del parque. Encima se apilan la Reserva Marina dels Freus con sus subzonas y varios espacios Natura 2000, y el **art. 95 del PRUG** las relaciona expresamente: en lo que el PRUG no prevé, dice, se aplica en todo el ámbito marino el Decreto 63/1999 de la reserva. Es una regla de supletoriedad entre normas, **no una fusión de figuras**, y el motor la reproduce apilando ambas fichas.
+
+Lo que el parque añade y no se puede leer en la ficha de la reserva:
+
+| | |
+|---|---|
+| Pesca submarina | prohibida en **todo** el parque (arts. 11.4.c y 94.c), dentro o fuera de la reserva |
+| Áreas de protección estricta | ni pesca (94.a), ni fondeo (117.a), ni inmersión recreativa (110) |
+| Fondeo | tres regímenes cartografiados (117), no solo la prohibición general sobre fanerógamas |
+| Buceo | autorización del órgano gestor (110) |
+| Motos acuáticas | prohibidas (102.e) |
+| Zonas de baño | ni navegación ni fondeo en la franja de 200 m paralela a la costa (118) |
+
+Tres cosas que conviene no volver a descubrir:
+
+- **La prohibición de pesca submarina va también en cada categoría de la zonificación, no solo en la ficha del parque.** Las dos capas oficiales no cubren lo mismo: medido sobre las geometrías, las **427,4 ha del área marina de protección estricta caen enteras fuera** del polígono de límites de la capa 35, y orlas del 0,1–0,4 % del resto de categorías también. Con la regla solo en el parque, un punto de esas orlas contestaba «sin restricción específica» a la pesca submarina. La zonificación de la capa 1 es la delimitación que el propio PRUG hace de su ámbito marino: es tan «el parque» como el polígono de límites.
+- **El PRUG se contradice consigo mismo.** El art. 11.4.d prohíbe «en todo el ámbito marino la extracción de flora y fauna marina», lo que al pie de la letra prohibiría toda la pesca; el art. 94.b permite expresamente la pesca recreativa fuera de las áreas de protección estricta y el art. 94.c solo mantiene la prohibición para la flora. Se resuelve por especialidad —manda el capítulo de pesca— y así lo aplica la información oficial del parque, que contesta «sí» a si se puede pescar. La discrepancia se escribe en las condiciones en vez de resolverse en silencio.
+- **Estany Pudent no está en este mapa.** El art. 94.a prohíbe cualquier pesca «en las áreas de protección estricta y en el Estany Pudent», pero la cartografía oficial clasifica el Estany Pudent (APE-04, 395,3 ha) como ámbito **terrestre**, y aquí solo se carga el marino.
+
+**La capa de regulación del fondeo arranca apagada**, y es correcto: `afectaALaPesca` mira si una fuente impone algo a la pesca recreativa, y esta no lo hace. Además su polígono de fondeo libre condicionado cubre 13.531 ha, así que encendida teñiría el parque entero. Apagar no desactiva: el motor la resuelve igual y sus figuras siguen apareciendo en el panel.
 
 ### El límite de un espacio protegido no basta: s'Albufera des Grau
 
@@ -269,7 +301,7 @@ Las capas se pueden ocultar desde el control del mapa, pero **ocultar no desacti
 
 **Ante la duda, se dibuja.** Una zona sin ficha, o con la actividad en `unknown`, cuenta como que afecta: no hemos leído su norma, así que no podemos afirmar que no imponga nada, y esconderla sería dar por bueno un silencio que solo es nuestro. Por eso los dos ENP sin ficha siguen visibles.
 
-Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo arriba: `natura2000` 401, `zonificacion-enp` 402, `espacios-naturales` 403, `reservas-marinas` 404 y `regulacion-pesca-submarina` 405. Sin planos, apagar y volver a encender una capa desde el control la recolocaría encima de todo, que es justo lo que se quería evitar. La de pesca submarina va arriba del todo porque es la que contesta directamente a la pregunta de esta web, y quedar debajo del parque la haría invisible justo donde importa.
+Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo arriba: `natura2000` 401, `zonificacion-enp` 402, `espacios-naturales` 403, `reservas-marinas` 404, `regulacion-fondeo` 405 y `regulacion-pesca-submarina` 406; el marcador de la consulta va por encima de todos. Sin planos, apagar y volver a encender una capa desde el control la recolocaría encima de todo, que es justo lo que se quería evitar. La de pesca submarina va arriba del todo porque es la que contesta directamente a la pregunta de esta web, y quedar debajo del parque la haría invisible justo donde importa.
 
 **La leyenda arranca plegada en cualquier tamaño de pantalla.** Explica los colores, que es información de apoyo: quien abre la web quiere ver el mar y pulsar un punto, no leer una lista de figuras que además tapa parte del mapa desde el primer segundo.
 
@@ -302,8 +334,9 @@ Servidor ArcGIS REST público del Govern, `https://ideib.caib.es/geoserveis/rest
 | `reservas-marinas` | `GOIB_ReservesMarines` (capa 1 polígonos, capa 0 hitos) | **activa** |
 | `natura2000` | `GOIB_NATURA_N2000_IB` (ZEC/LIC/ZEPA, autonómica y estatal) | **activa**, filtrada a la lista blanca marina |
 | `espacios-naturales` | `GOIB_NATURA_ENP_IB` (capa 35, límites ENP) | **activa**, filtrada a `AMBIT='Marí'` |
-| `zonificacion-enp` | `GOIB_NATURA_ENP_04_AG` (capa 10, zonificación PRUG) | **activa**, filtrada a `AMBIT='Marí'` |
+| `zonificacion-enp` | `GOIB_NATURA_ENP_04_AG` (capa 10) y `GOIB_NATURA_ENP_08_SS` (capa 1) | **activa**, filtrada a `AMBIT='Marí'` |
 | `regulacion-pesca-submarina` | `GOIB_NATURA_ENP_04_AG` (capa 12) | **activa** |
+| `regulacion-fondeo` | `GOIB_NATURA_ENP_08_SS` (capa 5) | **activa** |
 | `posidonia` | `GOIB_Posidonia_IB` (Decret 25/2018) | registrada |
 
 Activar una fuente es cambiar `activa: true` en `src/sources/registry.js`, ejecutar `npm run data`, asignar islas y redactar fichas.

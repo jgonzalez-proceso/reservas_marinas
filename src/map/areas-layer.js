@@ -40,6 +40,7 @@ const ORDEN_FUENTES = [
   'zonificacion-enp',
   'espacios-naturales',
   'reservas-marinas',
+  'regulacion-fondeo',
   // Arriba del todo la capa que contesta directamente a la pregunta de esta
   // web: son dos polígonos pequeños dentro del parque y quedar debajo de él los
   // haría invisibles justo donde importan.

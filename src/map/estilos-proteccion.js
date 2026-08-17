@@ -157,6 +157,61 @@ export const NIVELES = [
     descripcion: 'Uso compatible con cierto grado de aprovechamiento.',
   },
 
+  // Zonificación del PRUG de ses Salines (art. 22 de la Ley 5/2005 con los
+  // nombres del PORN de 2002). El área de protección estricta es lo mismo que
+  // una zona de exclusión —ni pesca, ni fondeo, ni buceo recreativo— y por eso
+  // comparte su rojo; las otras tres son categorías de planificación.
+  {
+    proteccion: 'Àrea de protecció estricta',
+    color: '#b4232a',
+    orden: 13,
+    descripcion: 'Protección estricta: ni pesca, ni fondeo, ni buceo recreativo.',
+  },
+  {
+    proteccion: 'Àrea de conservació predominant',
+    color: '#9a78c2',
+    orden: 36,
+    descripcion: 'Conservación predominante; el régimen lo fija el parque.',
+  },
+  {
+    proteccion: 'Àrea de conservació',
+    color: '#b49ad2',
+    orden: 37,
+    descripcion: 'Conservación; la mayor parte del ámbito marino del parque.',
+  },
+  {
+    proteccion: "Àrea d'aprofitament condicionat a la conservació",
+    color: '#c4aede',
+    orden: 38,
+    descripcion: 'Aprovechamiento condicionado a la conservación.',
+  },
+  {
+    proteccion: 'Ús portuari',
+    color: '#8c9aa6',
+    orden: 39,
+    descripcion: 'Zona de uso portuario dentro del parque.',
+  },
+
+  // Regulación del fondeo. Aquí el color habla de fondear, no de pescar.
+  {
+    proteccion: 'Fondeig prohibit',
+    color: '#c9453c',
+    orden: 14,
+    descripcion: 'Fondeo prohibido salvo fuerza mayor.',
+  },
+  {
+    proteccion: 'Fondeig regulat',
+    color: '#e0a02e',
+    orden: 15,
+    descripcion: 'Campo de boyas: hay que amarrar, no echar el ancla.',
+  },
+  {
+    proteccion: 'Fondeig lliure condicionat',
+    color: '#2a9bb0',
+    orden: 16,
+    descripcion: 'Fondeo libre solo sobre arena, nunca sobre fanerógamas.',
+  },
+
   // Regulación específica de pesca submarina. Es la única capa del mapa cuyo
   // nombre ya contiene la respuesta, así que el color va por lo que dice.
   {
@@ -198,6 +253,7 @@ const TRAMA_POR_FUENTE = {
   'reservas-marinas': null,
   natura2000: '6 4',
   'zonificacion-enp': '2 4',
+  'regulacion-fondeo': '5 3',
   'regulacion-pesca-submarina': '9 3 2 3',
 };
 
@@ -220,6 +276,10 @@ const RELLENO_POR_FUENTE = {
   // dibujara con el relleno de una reserva, taparía la capa de pesca submarina
   // que va justo encima y que es la que contesta.
   'zonificacion-enp': 0.06,
+  // El polígono de fondeo libre condicionado cubre casi todo el parque de ses
+  // Salines: con relleno normal taparía la zonificación y las dos capas de
+  // reserva marina que hay debajo.
+  'regulacion-fondeo': 0.08,
   'regulacion-pesca-submarina': 0.16,
 };
 

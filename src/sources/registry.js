@@ -68,6 +68,15 @@ const NORMA_PRUG_ALBUFERA = {
   normaUrl: 'https://www.caib.es/eboibfront/eli/es-ib/d/2021/08/02/39/dof/spa',
 };
 
+// El PRUG de ses Salines. Mismo motivo que el anterior: el campo NORMATIVA de
+// la capa vale «PRUG» y su URL_BOIB apunta a intranet.caib.es.
+const NORMA_PRUG_SALINES = {
+  normaTitulo:
+    'Decreto 132/2005, de 23 de diciembre, por el que se aprueba el Plan Rector de Uso y Gestión del Parc Natural de ses Salines d’Eivissa i Formentera',
+  normaFecha: '2005-12-23',
+  normaUrl: 'https://www.caib.es/sites/puntdinformacioambiental/f/138364',
+};
+
 // Zonificación de un espacio natural protegido. `ZONIFICACI` es la categoría
 // del art. 22 de la Ley 5/2005 (exclusión, uso limitado, uso compatible, uso
 // general) y `AMBIT` separa la parte marina de la terrestre, igual que en la
@@ -258,6 +267,46 @@ export const SOURCES = [
       // sustituyó con una tabla de equivalencias (área marina de protección
       // estricta -> zona de exclusión marina, etc.). Cargar las dos pondría
       // sobre cada punto dos nombres para la misma cosa, uno de ellos derogado.
+
+      {
+        id: 1,
+        rol: 'areas',
+        servicio: `${IDEIB}/GOIB_NATURA_ENP_08_SS/MapServer`,
+        nombre: 'Zonificació PRUG Parc Natural Salines Eivissa i Formentera',
+        mapea: ZONIFICACION_ENP,
+        fijos: NORMA_PRUG_SALINES,
+      },
+      // Y aquí la capa 2 es la zonificación del PORN de 2002, sustituida por
+      // esta. Mismo criterio que en s'Albufera des Grau: solo la vigente.
+    ],
+  },
+
+  {
+    id: 'regulacion-fondeo',
+    titulo: 'Regulación del fondeo',
+    activa: true,
+    prefijo: 'fon',
+    servicio: `${IDEIB}/GOIB_NATURA_ENP_08_SS/MapServer`,
+    catalogo:
+      'https://www.caib.es/sites/espaisnaturalsprotegits/es/parque_natural_de_ses_salines_de_ibiza_y_formentera/',
+    nota:
+      'El art. 117 del PRUG de ses Salines reparte el ámbito marino del parque en fondeo prohibido, regulado con campo de boyas y libre condicionado, y el IDEIB publica los polígonos. Sin esta capa el fondeo solo se podría contestar con la prohibición general de fondear sobre fanerógamas, que es cierta pero no dice dónde está prohibido del todo ni dónde hay que amarrarse a una boya.',
+
+    capas: [
+      {
+        id: 5,
+        rol: 'areas',
+        nombre: 'Regulació fondeig',
+        // Capa de origen CAD: no trae NOM_ENP ni AMBIT, y la categoría viaja en
+        // el campo `Layer`, que es el nombre de la capa del dibujo original.
+        mapea: { proteccion: 'Layer' },
+        fijos: {
+          nombre: 'Parc Natural de ses Salines d’Eivissa i Formentera',
+          codigo: '08_SS',
+          ambito: 'Marí',
+          ...NORMA_PRUG_SALINES,
+        },
+      },
     ],
   },
 

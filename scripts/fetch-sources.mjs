@@ -238,10 +238,23 @@ async function procesaFuente(source) {
   const crudas = [];
 
   for (const capa of source.capas) {
+    // Una fuente puede repartirse entre varios servicios. La zonificación de
+    // cada espacio natural protegido vive en el servicio de ese espacio
+    // —GOIB_NATURA_ENP_04_AG para s'Albufera des Grau, GOIB_NATURA_ENP_08_SS
+    // para ses Salines—, y sin embargo son la misma capa regulatoria y se
+    // resuelven con las mismas reglas. `capa.servicio` deja declararlo sin
+    // partir la fuente en una por espacio.
+    const servicio = capa.servicio ?? source.servicio;
     log(`  · capa ${capa.id} (${capa.rol}) — ${capa.nombre}`);
-    const features = await consultaCapa(source.servicio, capa.id, source.filtroWhere);
+    const features = await consultaCapa(servicio, capa.id, source.filtroWhere);
     log(`    ${features.length} features crudas`);
-    capasInfo.push({ id: capa.id, rol: capa.rol, nombre: capa.nombre, crudas: features.length });
+    capasInfo.push({
+      id: capa.id,
+      rol: capa.rol,
+      nombre: capa.nombre,
+      crudas: features.length,
+      ...(capa.servicio ? { servicio: capa.servicio } : {}),
+    });
 
     const entradas = features.map((f) => {
       const attrs = normalizeAttrs(capa, f.properties);
