@@ -128,15 +128,29 @@ function resuelveActividad(clave, figuras, fichas) {
   const propias = new Set(conditions);
 
   // Solo se añaden las condiciones de figuras igual de específicas o más que la
-  // ganadora. Las de una figura más general se omiten a propósito: *lex
-  // specialis*, el régimen de la zona interior sustituye al del perímetro que
-  // la contiene, no se suma a él. Enseñar los aparejos del régimen general
-  // dentro de una zona que los restringe haría creer que están permitidos.
+  // ganadora Y con su mismo estado. Las de una figura más general se omiten a
+  // propósito: *lex specialis*, el régimen de la zona interior sustituye al del
+  // perímetro que la contiene, no se suma a él. Enseñar los aparejos del
+  // régimen general dentro de una zona que los restringe haría creer que están
+  // permitidos.
+  //
+  // La igualdad de estado es la otra mitad de la misma regla. Una figura menos
+  // restrictiva ha sido desplazada entera, y sus condiciones describen cómo
+  // practicar la actividad bajo un régimen que aquí ya no manda: listar «con
+  // caña y potera, de octubre a abril» debajo de una PROHIBICIÓN ofrece una
+  // vía para pescar donde está vedado — el error opuesto al que existe esta
+  // web. El caso es real: el Toro y les Malgrats llevan dos figuras con
+  // geometría idéntica, y el filtro por área solo no las distingue. Como la
+  // ganadora es la de mayor rango, igual rango equivale a igual estado.
   // Las obligaciones generales que sí sobreviven —autorización, registro de
   // capturas— viajan en el `permit`, que se hereda.
   const condicionesDeOtrasFiguras = aportaciones
     .slice(1)
-    .filter((a) => a.figura.areaKm2 <= ganadora.figura.areaKm2)
+    .filter(
+      (a) =>
+        a.regla.status === ganadora.regla.status &&
+        a.figura.areaKm2 <= ganadora.figura.areaKm2,
+    )
     .map((a) => ({
       nombre: a.figura.nombre,
       zoneId: a.figura.zoneId,
