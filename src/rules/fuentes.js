@@ -457,6 +457,34 @@ export const FUENTES = {
     consultada: '2026-08-15',
   },
 
+  // -- Parc Natural Maritimoterrestre Es Trenc-Salobrar de Campos -------------
+  'boib-ley-2-2017-es-trenc': {
+    titulo:
+      'Ley 2/2017, de 27 de junio, de declaración del Parc Natural Maritimoterrestre Es Trenc-Salobrar de Campos',
+    url: 'https://www.caib.es/sites/institutestudisautonomics/f/232570',
+    referencia:
+      'BOIB núm. 81, de 4 de julio de 2017 (corrección de errores en BOIB núm. 92, de 29 de julio de 2017). Versión consolidada del Institut d’Estudis Autonòmics actualizada a 13/06/2026. Art. 4 (normas de protección del ámbito marino): 4.1.a usos admitidos, 4.1.b usos autorizables, 4.1.c usos prohibidos — acuicultura intensiva y pesca submarina —, 4.2 remisión al PORN para el anclaje, el fondeo, el amarre y la circulación de embarcaciones',
+    consultada: '2026-08-17',
+  },
+  'caib-espacio-es-trenc': {
+    titulo:
+      'Parque Natural Maritimoterrestre Es Trenc-Salobrar de Campos — página oficial del espacio y PORN aprobado por el Decreto 27/2023, de 8 de mayo',
+    url: 'https://www.caib.es/sites/espaisnaturalsprotegits/es/n_parque_natural_maritimoterrestre_es_trenc-salobrar_de_campos',
+    referencia:
+      'El PORN desarrolla el art. 4 de la Ley 2/2017. Su articulado no está cargado en este mapa: en la fecha de esta revisión el eboibfront devolvía 503 por mantenimiento',
+    consultada: '2026-08-17',
+  },
+
+  // -- Parc Natural de la Península de Llevant --------------------------------
+  'boib-decreto-8-2023-porn-llevant': {
+    titulo:
+      'Decreto 8/2023, de 20 de febrero, por el que se aprueba el Plan de Ordenación de los Recursos Naturales de Llevant y se amplían los límites del Parc Natural de la Península de Llevant',
+    url: 'https://www.caib.es/sites/institutestudisautonomics/f/465088',
+    referencia:
+      'BOIB núm. 23, de 21 de febrero de 2023. Versión consolidada del Institut d’Estudis Autonòmics actualizada a 04/04/2024. Capítulo V, actividades en el ámbito marino: art. 39 (marco general y remisión subsidiaria al Decret 71/2016 y al Decret 41/2015) y art. 40 (usos prohibidos; 40.1.d fondeo estacional, 40.1.f arrastre y cerco, 40.1.g competiciones de pesca deportiva, 40.1.h pesca recreativa submarina, 40.1.j reserva integral, 40.1.i motonáutica, 40.1.k party boats, 40.2 fondeo sobre posidonia)',
+    consultada: '2026-08-17',
+  },
+
   'rescab-autorizaciones': {
     titulo: 'Portal de autorizaciones del Parque Nacional de Cabrera (navegación, fondeo y buceo)',
     url: 'https://www.caib.es/rescabfront/?lang=es',

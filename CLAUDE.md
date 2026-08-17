@@ -8,17 +8,17 @@ El usuario pulsa un punto del mar. El motor reúne **todas** las figuras de prot
 
 Este encuadre es deliberado. Diseñar alrededor de `ReservesMarines` obligaría a refactorizar media aplicación al incorporar Natura 2000, los espacios naturales protegidos o la protección de la posidonia — todas ellas se solapan sobre el mismo trozo de mar y todas aplican a la vez.
 
-Estado: **cinco capas regulatorias activas**, 88 zonas, 85 con ficha redactada y citada.
+Estado: **cinco capas regulatorias activas**, 88 zonas, 87 con ficha redactada y citada.
 
 - **Reservas marinas** (41 zonas, todas con ficha): las doce reservas de Baleares y sus zonas interiores, en sus ámbitos autonómico y estatal.
 - **Red Natura 2000, ámbito marino** (35 zonas, todas con ficha): los espacios autonómicos del art. 2 del Decret 91/2023, los del ámbito marino de un plan de gestión aprobado que no están en esa lista, y 6 espacios marinos de gestión estatal.
-- **Espacios naturales protegidos, ámbito marino** (7 zonas, 4 con ficha): Serra de Tramuntana, Cabrera, s'Albufera des Grau y sus reservas naturales. Faltan la Península de Llevant, es Trenc-Salobrar y ses Salines d'Eivissa i Formentera, que se resuelven como `unknown` y marcan el resultado como incompleto.
+- **Espacios naturales protegidos, ámbito marino** (7 zonas, 6 con ficha): Serra de Tramuntana, Cabrera, s'Albufera des Grau y sus reservas naturales, es Trenc-Salobrar y la Península de Llevant. Falta ses Salines d'Eivissa i Formentera, que se resuelve como `unknown` y marca el resultado como incompleto.
 - **Zonificación marina de los ENP** (3 zonas, todas con ficha): el interior del ámbito marino de s'Albufera des Grau, repartido en zona de exclusión, de uso limitado y de uso compatible.
 - **Regulación específica de pesca submarina** (2 zonas, ambas con ficha): los polígonos oficiales de pesca submarina prohibida y condicionada del mismo parque.
 
-Cobertura por isla: Mallorca 48/50, **Menorca 27/27**, Eivissa 9/10, Formentera 4/5 y Cabrera 2/2. **Las doce reservas marinas de Baleares tienen ficha.** Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
+Cobertura por isla: **Mallorca 50/50**, **Menorca 27/27**, Eivissa 9/10, Formentera 4/5 y Cabrera 2/2. **Las doce reservas marinas de Baleares tienen ficha.** Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
 
-Lo que falta son tres espacios naturales protegidos sin ficha, que el mapa muestra y resuelve como no determinables: es Trenc-Salobrar, la Península de Llevant y ses Salines d'Eivissa i Formentera.
+Lo único que falta es el ámbito marino del Parc Natural de ses Salines d'Eivissa i Formentera, que el mapa muestra y resuelve como no determinable.
 
 La web lleva **selector de isla** y abre por defecto en **todas las islas a la vez**. La vista real se lee del hash de la URL (`#isla=eivissa`), para que se pueda compartir. `npm run rules:check` informa de la cobertura isla por isla.
 
@@ -40,9 +40,12 @@ npm run dev          # servidor de desarrollo
 npm run data         # descarga las fuentes activas y regenera src/data/
 npm run verify       # contrasta las 64 coordenadas oficiales con la geometría
 npm run rules:check  # integridad de fichas, islas y fuentes (corre antes del build)
+npm test             # resuelve puntos reales y comprueba la conclusión
 npm run links:check  # comprueba que los enlaces publicados siguen vivos (usa red)
-npm run build        # rules:check + build de producción
+npm run build        # rules:check + test + build de producción
 ```
+
+`rules:check` valida la **forma** de las fichas: que citen fuente, que no haya ciclos de herencia, que ningún zoneId quede huérfano. Lo que no puede ver es si la conclusión que sale por el otro lado es la correcta, ni —sobre todo— **si una regla se ha atado al polígono equivocado**. Eso lo prueba `npm test`, que toma una coordenada concreta, la resuelve contra la cartografía real y comprueba el estado y de qué figura sale. Cada prueba afirma primero las propiedades geométricas del punto que usa, para que un cambio en una geometría oficial falle diciendo eso y no mande a buscar el error al sitio equivocado.
 
 `links:check` **no se engancha al build**: el build tiene que funcionar sin red y de forma determinista, y esto depende de que el CAIB y el BOE estén en pie. Se ejecuta al tocar fuentes o permisos. Existe porque el panel manda a la gente a tramitar autorizaciones y a leer normas: la URL de permisos de buceo llevaba meses devolviendo **404** en siete fichas y ningún control lo veía.
 
@@ -68,6 +71,7 @@ scripts/
   verify-coords.mjs      control de calidad de la cartografía
   check-rules.mjs        integridad previa al build
   check-links.mjs        los enlaces publicados siguen vivos (fuera del build)
+  test-reglas.mjs        resuelve puntos reales y comprueba la conclusión
 src/
   sources/registry.js    fuentes declaradas (activas y registradas)
   sources/normalize.js   identidad, canonicalización geométrica, atributos
@@ -144,6 +148,18 @@ Medido sobre las geometrías oficiales, en la ZEC de Port des Canonge (ES5310081
 Los espacios naturales protegidos se publican partidos en dos registros por el campo `AMBIT`: el Paratge Natural de la Serra de Tramuntana son 61.846 ha terrestres y 1.127 marinas. No son la misma zona ni tienen el mismo régimen —el PORN regula la pesca y el fondeo «en el ámbito marino que delimita este Plan»—, así que el ámbito entra en el `zoneId` igual que la competencia (`…--paratge-natural--mari`).
 
 `AMBIT` **no es la competencia**, aunque el registro lo mapeara así en su primera versión. Solo se carga el ámbito marino: la parte terrestre es mucho mayor y no dice nada sobre lo que se puede hacer en el agua.
+
+### La prohibición es de la figura que la escribe, no de la más famosa
+
+En el levante de Mallorca conviven cuatro capas sobre el mismo mar: el Parc Natural de la Península de Llevant (61,9 km² marinos), la Reserva Marina del Llevant en sus ámbitos autonómico (40,4 km²) y estatal (46,4 km²), la reserva integral y las ZEC/ZEPA. **No cubren lo mismo.** Medido sobre las geometrías oficiales, el **16 %** de los puntos del ámbito marino del parque cae fuera de la reserva marina autonómica.
+
+La pesca recreativa submarina está prohibida allí por el **art. 40.1.h del PORN de Llevant** (Decreto 8/2023), que es norma del *parque*. Atarla al polígono de la reserva marina —el reflejo obvio, porque es la figura que suena— habría dejado sin respuesta justo esa franja. Por eso la regla vive en la ficha del `enp-…--parc-natural--mari` y hay una prueba que pulsa un punto **dentro del parque y fuera de la reserva** y exige `prohibited`.
+
+El mismo art. 39.1 lo escribe como una jerarquía y no como una alternativa: en el ámbito marino del parque rige su capítulo V y, «en defecte de previsió», el Decret 71/2016 de la reserva marina y el Decret 41/2015. Las capas se apilan; ninguna sustituye a otra.
+
+**Es Trenc es el caso gemelo, y todavía más directo.** Allí la prohibición no está en un plan sino en la ley de declaración: el art. 4.1.c de la **Ley 2/2017** enumera la pesca submarina entre los usos prohibidos del ámbito marino del parque. No depende de que se apruebe el PRUG ni de la zonificación interior.
+
+**En los dos casos la regla se ata al polígono de límites (`AMBIT='Marí'`, capa 35), no a la zonificación del PORN** (capas 27 y 28). Comprobado: la zonificación marina suma 2.325,6 ha en es Trenc y 6.194,2 en Llevant, frente a 2.326,0 y 6.192,0 del límite, y los 4.351 puntos muestreados dentro de la zonificación caen todos dentro del límite. El límite es un perímetro continuo; la zonificación son piezas que podrían dejar huecos. Cargar las capas 27 y 28 añadiría 1,2 MB de geometría sin cambiar ninguna respuesta.
 
 ### El límite de un espacio protegido no basta: s'Albufera des Grau
 

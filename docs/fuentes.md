@@ -2,7 +2,7 @@
 
 > Documento generado por `npm run verify`. No editar a mano.
 
-Generado: 2026-08-17T15:32:58.523Z
+Generado: 2026-08-17T17:32:34.768Z
 
 ## Procedencia de los datos
 

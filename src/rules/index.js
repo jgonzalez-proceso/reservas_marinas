@@ -31,6 +31,8 @@ import natura2000Menorca from './natura2000/menorca.js';
 
 import enpSerraDeTramuntana from './espacios-naturales/serra-de-tramuntana.js';
 import enpCabrera from './espacios-naturales/cabrera.js';
+import enpEsTrenc from './espacios-naturales/es-trenc-salobrar.js';
+import enpPeninsulaDeLlevant from './espacios-naturales/peninsula-de-llevant.js';
 
 // Fuera de `espacios-naturales/` a propósito: sus siete fichas se reparten entre
 // tres fuentes (el límite del parque, su zonificación y la capa de pesca
@@ -55,6 +57,8 @@ export const FICHAS_DECLARADAS = [
   ...natura2000Menorca,
   ...enpSerraDeTramuntana,
   ...enpCabrera,
+  ...enpEsTrenc,
+  ...enpPeninsulaDeLlevant,
   ...albuferaDesGrau,
 ];
 
