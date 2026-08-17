@@ -9,6 +9,13 @@
       content="Mapa de reservas marinas y restricciones de pesca de las Illes Balears. Consulta qué se puede hacer en cada punto del mar y qué autorizaciones hacen falta."
     />
     <meta name="color-scheme" content="dark light" />
+    <!--
+      Absoluta y sin barra final variable: la vista de cada isla vive en el
+      hash (#isla=eivissa) y el hash no crea una URL distinta para un buscador,
+      asi que todas las vistas son esta misma pagina. Junto con el 404.html
+      cierra la puerta a que una ruta inventada se indexe como copia.
+    -->
+    <link rel="canonical" href="https://reservas.pecesmediterraneo.com/" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />

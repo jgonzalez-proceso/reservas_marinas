@@ -175,6 +175,36 @@ descarga única en vez del peaje de cada consulta. Los nombres llevan hash de
 contenido, así que cachear para siempre es seguro: si los datos cambian,
 cambia el nombre del fichero.
 
+## Indexación en buscadores
+
+La web se publicó sin `robots.txt`, sin `sitemap.xml` y sin `404.html`, y con
+esa combinación Cloudflare Pages devolvía **200 con el index.html a cualquier
+ruta**: `/robots.txt` y `/sitemap.xml` contestaban HTML, y cada URL inventada
+era una copia indexable de la portada. Los tres ficheros existen ya. Tras cada
+despliegue conviene confirmar que siguen en su sitio:
+
+```bash
+curl -sI https://reservas.pecesmediterraneo.com/pagina-que-no-existe   # 404
+curl -s  https://reservas.pecesmediterraneo.com/robots.txt             # texto
+curl -s  https://reservas.pecesmediterraneo.com/sitemap.xml            # XML
+```
+
+El `sitemap.xml` **no está en `public/`**: lo emite un plugin de
+`vite.config.js` durante el build, tomando el `lastmod` de `manifest.json`. Un
+sitemap escrito a mano congela esa fecha en el día que alguien se acordó de
+tocarlo, y entonces afirma que la página no cambia justo cuando lo que cambia
+es lo único que importa, la cartografía.
+
+Lleva **una sola URL porque hay una sola URL**. Las vistas por isla viven en el
+hash (`#isla=eivissa`) y un buscador no distingue fragmentos: para Google todas
+son la misma página, y por eso el `canonical` de `index.html` apunta a la raíz.
+El día que existan rutas propias por isla, el plugin del sitemap es donde se
+añaden.
+
+Falta el alta en Google Search Console, que es lo que de verdad dispara la
+indexación: sin verificar la propiedad no se puede enviar el sitemap ni pedir
+el rastreo de una URL.
+
 ## Un aviso sobre el aviso legal
 
 Publicar esto bajo un dominio comercial no cambia lo que la web es, pero sí sube

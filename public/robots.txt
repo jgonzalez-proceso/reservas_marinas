@@ -1,0 +1,15 @@
+# Esta web es un motor de consulta de restricciones maritimas. Todo lo que hay
+# que rastrear esta en la portada: no hay area privada ni URLs de sesion, asi
+# que no hay nada que excluir.
+#
+# En concreto NO se bloquea /assets/capas/, aunque sean 30 MB de GeoJSON que
+# ningun buscador va a indexar como contenido. Bloquearlos ahorraria rastreo,
+# pero el mapa no se dibuja sin ellos: el rastreador veria la pantalla de
+# «Cargando la cartografia oficial...» congelada y juzgaria la pagina por esa
+# imagen. Google avisa de esto mismo, no bloquear recursos que hagan falta
+# para pintar la pagina. Un sitio de una sola URL no tiene un problema de
+# presupuesto de rastreo que compense ese riesgo.
+User-agent: *
+Allow: /
+
+Sitemap: https://reservas.pecesmediterraneo.com/sitemap.xml

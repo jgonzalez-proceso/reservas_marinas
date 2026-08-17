@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  Cloudflare Pages sirve este fichero con estado 404 real ante cualquier ruta
+  que no exista. Sin el, Pages devolvia el index.html con 200: cualquier URL
+  inventada era una copia indexable de la portada, y /robots.txt y
+  /sitemap.xml contestaban HTML en vez de lo suyo.
+
+  No enlaza al bundle a proposito. Los nombres de assets/ llevan hash y cambian
+  en cada despliegue; una pagina de error que dependa de ellos se rompe justo
+  cuando hace falta. Los estilos van dentro y son los tokens de main.css.
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Página no encontrada · Restricciones marítimas</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <style>
+      :root {
+        --fondo: #0d1620;
+        --fondo-2: #131f2b;
+        --borde: #26374a;
+        --texto: #e8eef4;
+        --texto-2: #9fb2c4;
+        --acento: #2f8fd0;
+        --radio: 10px;
+        --fuente: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--fondo);
+        color: var(--texto);
+        font-family: var(--fuente);
+      }
+      body {
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      main {
+        max-width: 46ch;
+        background: var(--fondo-2);
+        border: 1px solid var(--borde);
+        border-radius: var(--radio);
+        padding: 28px 26px;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 1.35rem;
+      }
+      p {
+        margin: 0 0 14px;
+        color: var(--texto-2);
+        line-height: 1.55;
+      }
+      a.boton {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 10px 16px;
+        border-radius: var(--radio);
+        background: var(--acento);
+        color: #08131c;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      a.boton:focus-visible {
+        outline: 2px solid var(--texto);
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Esta página no existe</h1>
+      <p>
+        La dirección que has abierto no corresponde a ninguna página de esta web. Toda la consulta
+        se hace desde el mapa: se pulsa un punto del mar y se obtienen las figuras de protección que
+        lo afectan.
+      </p>
+      <p>
+        Si has llegado desde un enlace guardado con una isla concreta —del tipo
+        <code>/#isla=eivissa</code>— vuelve al mapa y elígela en el selector.
+      </p>
+      <a class="boton" href="/">Ir al mapa</a>
+    </main>
+  </body>
+</html>

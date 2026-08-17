@@ -80,6 +80,10 @@ Publicada en **https://reservas.pecesmediterraneo.com/** (proyecto Cloudflare Pa
 
 `public/_headers` lo leen Cloudflare Pages y Netlify. **Vercel no lo lee**: allí las mismas reglas irían en `vercel.json`.
 
+**Sin `404.html`, Cloudflare Pages contesta 200 con el index.html a cualquier ruta.** Comprobado en producción antes de arreglarlo: `/pagina-que-no-existe`, `/robots.txt` y `/sitemap.xml` devolvían los tres la portada con estado 200. Eso no rompe la web —nadie teclea esas rutas— pero convierte cada URL inventada en una copia indexable de la portada, y hace que un `sitemap.xml` enviado a Google falle al parsear porque le llega HTML. `public/404.html` existe para eso y va **suelto, sin enlazar al bundle**: los nombres de `assets/` llevan hash y cambian en cada despliegue, así que una página de error que dependa de ellos se rompe justo el día que hace falta.
+
+**`robots.txt` no bloquea `/assets/capas/`, y es deliberado.** Ahorraría rastreo —son 30 MB que ningún buscador va a indexar— pero el mapa no se dibuja sin ellos: el rastreador se quedaría mirando el «Cargando la cartografía oficial…» y juzgaría la página por esa pantalla. Un sitio de una sola URL no tiene un problema de presupuesto de rastreo que compense ese riesgo.
+
 **En el panel de Cloudflare hay dos asistentes que parecen el mismo y no lo son.** *Create application → Pages → Connect to Git* resuelve el dominio propio con un CNAME suelto, sin tocar nada más del dominio. *Compute (Workers) → Import a repository* —la pantalla con los campos "Build command" y "Deploy command" por separado— crea un Worker, y ponerle un dominio propio exige mover los nameservers de **todo** el dominio a Cloudflare, lo que también afecta al correo (MX, SPF, DKIM). Para esta web, que solo necesita un subdominio sin tocar el resto del dominio, el asistente correcto es el de Pages.
 
 ## Estructura
@@ -110,9 +114,16 @@ src/
   data/capas/            GENERADO: lo que descarga el navegador
 public/_headers          caché y tipo MIME del sitio publicado; Vite lo copia
                          tal cual a la raíz de dist/
+public/robots.txt        rastreo permitido, y dónde está el sitemap
+public/404.html          Cloudflare Pages lo sirve con 404 real; autónomo, sin
+                         depender de los assets con hash
 docs/fuentes.md          GENERADO por npm run verify
 docs/publicacion.md      hosting, DNS y qué verificar tras desplegar
 ```
+
+El `sitemap.xml` no está en `public/`: lo emite un plugin de `vite.config.js` en
+el build, para que su `lastmod` salga de `manifest.json` y no de la última vez
+que alguien se acordó de editarlo a mano.
 
 ## Reglas del proyecto
 
