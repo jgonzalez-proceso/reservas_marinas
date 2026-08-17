@@ -1,0 +1,22 @@
+{
+  // Cloudflare ha unificado Pages y Workers bajo el mismo flujo de "Workers
+  // static assets": el asistente de "Connect to Git" que ves hoy crea un
+  // Worker, no un proyecto Pages clásico, aunque el sitio sea puramente
+  // estático y no haya ningún script. Sin este fichero ese asistente no
+  // tiene qué desplegar.
+  //
+  // https://developers.cloudflare.com/workers/static-assets/
+  "name": "reservas-marinas",
+  "compatibility_date": "2026-08-17",
+  "assets": {
+    // dist/ es la salida de `npm run build`. No hay Worker script: todo lo
+    // que sirve esta web son ficheros estáticos, así que el binding y el
+    // entry point (`main`) se omiten a propósito.
+    "directory": "./dist",
+    // Sin esto, una ruta que no exista (o el hash-router de la SPA en un
+    // futuro) devolvería el 404 por defecto de Cloudflare en vez de
+    // index.html. Hoy la web no tiene rutas propias, pero cuesta cero y
+    // evita el problema si algún día las tiene.
+    "not_found_handling": "single-page-application"
+  }
+}

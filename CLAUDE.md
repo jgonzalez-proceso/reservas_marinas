@@ -78,6 +78,8 @@ Se publica en un **subdominio** de `pecesmediterraneo.com`, alojado aparte del W
 
 `public/_headers` lo leen Cloudflare Pages y Netlify. **Vercel no lo lee**: allí las mismas reglas irían en `vercel.json`.
 
+**En el panel de Cloudflare hay dos asistentes que parecen el mismo y no lo son.** *Create application → Pages → Connect to Git* resuelve el dominio propio con un CNAME suelto, sin tocar nada más del dominio. *Compute (Workers) → Import a repository* —la pantalla con los campos "Build command" y "Deploy command" por separado— crea un Worker, y ponerle un dominio propio exige mover los nameservers de **todo** el dominio a Cloudflare, lo que también afecta al correo (MX, SPF, DKIM). Para esta web, que solo necesita un subdominio sin tocar el resto del dominio, el asistente correcto es el de Pages.
+
 ## Estructura
 
 ```
