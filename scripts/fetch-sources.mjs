@@ -13,7 +13,7 @@
  */
 
 import { createHash } from 'node:crypto';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,7 +31,21 @@ import { N2000_MARINO } from '../src/data/natura2000-marino.js';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGINA = 1000;
-const ATRIBUTOS_JURIDICOS = ['proteccion', 'competencia', 'ambito', 'normaTitulo', 'normaUrl'];
+// TODOS los campos jurídicos normalizados, sin excepción. La promesa de la
+// deduplicación es «misma geometría, mismo zoneId, atributos distintos -> el
+// script falla», y una lista incompleta la rompe en silencio: una modificación
+// publicada con el mismo título pero otra fecha, o un plan que pasa de «En
+// tramitació» a «Aprovat», colapsaban quedándose el primero sin ningún aviso.
+const ATRIBUTOS_JURIDICOS = [
+  'proteccion',
+  'competencia',
+  'ambito',
+  'normaTitulo',
+  'normaUrl',
+  'normaFecha',
+  'fichaUrl',
+  'planEstado',
+];
 
 /**
  * Área mínima, en m², para considerar una geometría utilizable.
@@ -59,6 +73,22 @@ const descartadas = [];
 
 const log = (...a) => console.log(...a);
 
+/**
+ * Descarga una capa completa, paginando.
+ *
+ * La parada NO puede ser «el lote llegó incompleto». El tamaño real de página
+ * lo decide el maxRecordCount del servidor, no este script: si el servicio
+ * sirviera páginas de 500, cada lote llegaría "incompleto" a ojos de quien
+ * espera 1000 y la descarga cortaría en la primera página perdiendo el resto
+ * en silencio. Se pagina hasta recibir una página vacía; si el servicio
+ * declara exceededTransferLimit=false, esa página es la última y se ahorra la
+ * petición extra. El flag no siempre viaja con f=geojson, así que su ausencia
+ * no significa nada.
+ *
+ * `orderByFields` fija el orden entre páginas: sin él, ArcGIS no garantiza un
+ * orden estable y una descarga de varias páginas puede duplicar o saltarse
+ * registros entre una y otra.
+ */
 async function consultaCapa(servicio, capaId, where = '1=1') {
   const acumulado = [];
   let offset = 0;
@@ -72,6 +102,7 @@ async function consultaCapa(servicio, capaId, where = '1=1') {
         outSR: '4326',
         returnGeometry: 'true',
         geometryPrecision: '6',
+        orderByFields: 'OBJECTID',
         resultOffset: String(offset),
         resultRecordCount: String(PAGINA),
         f: 'geojson',
@@ -83,10 +114,13 @@ async function consultaCapa(servicio, capaId, where = '1=1') {
     if (json.error) throw new Error(`Servicio devolvió error: ${JSON.stringify(json.error)}`);
 
     const lote = json.features ?? [];
+    if (lote.length === 0) return acumulado;
     acumulado.push(...lote);
-    if (lote.length < PAGINA) return acumulado;
     offset += lote.length;
     if (offset > 100000) throw new Error('Paginación desbocada; abortando.');
+
+    const excedido = json.exceededTransferLimit ?? json.properties?.exceededTransferLimit ?? null;
+    if (excedido === false) return acumulado;
   }
 }
 
@@ -454,6 +488,24 @@ async function main() {
     manifiesto.porIsla[isla] = { features: deIsla.length, ficheros };
   }
   manifiesto.totales = { areas: featuresArea.length, hitos: featuresHito.length };
+
+  // Los ficheros de capas que esta ejecución ya no genera se retiran. Sin esta
+  // limpieza, desactivar una fuente o mover una zona de isla dejaba el .geojson
+  // viejo en capas/, y el import.meta.glob de main.js lo seguía empaquetando:
+  // el navegador podía servir cartografía derogada. Pasó de verdad con
+  // protected-areas.mallorca.geojson, que ya no se genera y provocaba
+  // re-descargas en abrir_web.ps1. Solo se tocan los .geojson: cualquier otro
+  // fichero que alguien deje ahí no es asunto de este script.
+  const vigentes = new Set(
+    Object.keys(manifiesto.hashes)
+      .filter((k) => k.startsWith(`${CAPAS_WEB}/`))
+      .map((k) => k.slice(CAPAS_WEB.length + 1)),
+  );
+  for (const nombre of readdirSync(dirCapas)) {
+    if (!nombre.endsWith('.geojson') || vigentes.has(nombre)) continue;
+    unlinkSync(resolve(dirCapas, nombre));
+    log(`Retirado ${CAPAS_WEB}/${nombre}: ya no lo genera ninguna fuente activa.`);
+  }
 
   // El detalle de lo descartado va en su propio fichero y no en el manifiesto.
   // `main.js` importa manifest.json, así que todo lo que se meta ahí viaja al

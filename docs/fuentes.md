@@ -2,34 +2,34 @@
 
 > Documento generado por `npm run verify`. No editar a mano.
 
-Generado: 2026-08-16T17:58:28.556Z
+Generado: 2026-08-17T15:32:58.523Z
 
 ## Procedencia de los datos
 
 ### Reservas marinas
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_ReservesMarines/MapServer
 - Catálogo de datos abiertos: https://intranet.caib.es/opendatacataleg/dataset/limits-reserves-marines-illes-balears
-- Descargado: 2026-08-16T17:05:55.765Z
+- Descargado: 2026-08-17T15:29:57.938Z
 - Geometrías: 42 · Hitos: 108
 ### Red Natura 2000 (ámbito marino)
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_N2000_IB/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/xarxanatura/ca/inici-46017/
-- Descargado: 2026-08-16T17:06:02.334Z
+- Descargado: 2026-08-17T15:30:28.478Z
 - Geometrías: 35 · Hitos: 0
 ### Espacios naturales protegidos (ámbito marino)
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_IB/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/espaisnaturalsprotegits/ca/inici-22930/
-- Descargado: 2026-08-16T17:06:03.290Z
+- Descargado: 2026-08-17T15:30:34.468Z
 - Geometrías: 7 · Hitos: 0
 ### Zonificación marina de los espacios naturales protegidos
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/sites/espaisnaturalsprotegits/es/parc_natural_de_salbufera_des_grau/
-- Descargado: 2026-08-16T17:06:05.623Z
+- Descargado: 2026-08-17T15:30:41.173Z
 - Geometrías: 198 · Hitos: 0
 ### Regulación específica de pesca submarina
 - Servicio: https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_04_AG/MapServer
 - Catálogo de datos abiertos: https://www.caib.es/seucaib/es/tramites/tramite/1831120
-- Descargado: 2026-08-16T17:06:05.850Z
+- Descargado: 2026-08-17T15:30:41.525Z
 - Geometrías: 2 · Hitos: 0
 ## Verificación contra las coordenadas oficiales publicadas
 

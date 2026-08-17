@@ -97,6 +97,17 @@ export function normalizeAttrs(capa, props) {
   }
   if (out.fichaUrl) out.fichaUrl = limpiaUrl(out.fichaUrl);
   if (out.normaUrl) out.normaUrl = limpiaUrl(out.normaUrl);
+  // La fecha de la norma se normaliza a día en origen. El servicio la sirve en
+  // milisegundos de epoch y arrastra ruido por debajo del día: la capa de
+  // reservas publica el Decret 26/2025 con 00:00:00 en unos registros y
+  // 00:00:01 en otros. El atributo jurídico es la FECHA de la disposición;
+  // comparar milisegundos convertía ese ruido en una contradicción falsa en la
+  // deduplicación, y una fecha realmente distinta (otro día) debe seguir
+  // siendo contradicción.
+  if (out.normaFecha != null) {
+    const d = new Date(out.normaFecha);
+    out.normaFecha = Number.isNaN(d.getTime()) ? null : d.toISOString().slice(0, 10);
+  }
   return out;
 }
 
