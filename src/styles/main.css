@@ -852,49 +852,68 @@ body.reordenando .panel__cuerpo {
 
 /* -- Acerca de --------------------------------------------------------------
    <details> nativo: no hace falta JavaScript para abrirlo ni para que un
-   lector sin JS vea su contenido en el HTML. Vive fuera del flujo del layout
-   -position: fixed en el propio <details>, no solo en el panel- para que
-   añadirlo no toque el cálculo de .disposicion, que resta --pie-alto del
-   100% de altura y no tiene margen para crecer sin recortar el mapa. */
-.acerca {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 700;
+   lector sin JS vea su contenido en el HTML.
+
+   Vive en .zona-pie, junto al pie y no dentro de él, alineado a la derecha.
+   Estuvo sobre el mapa arriba a la derecha y chocaba con el control de capas
+   de Leaflet; y calcularle una posición desde --pie-alto tampoco vale, porque
+   .pie declara 56px y en pantallas estrechas mide el doble. Al ir en flujo
+   normal dentro del envoltorio no hay nada que calcular: no puede solaparse
+   con nada. */
+.zona-pie {
+  display: flex;
+  align-items: stretch;
+  background: var(--fondo-2);
+  border-top: 1px solid var(--borde);
 }
+.zona-pie .pie {
+  flex: 1;
+  min-width: 0;
+  border-top: 0;
+}
+
+.acerca {
+  position: relative;
+  order: 1;
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+/* Discreto por defecto: el peso visual es del mapa y de las fichas, no de
+   esto. Se distingue al pasar por encima y al tener el foco. */
 .acerca__resumen {
   cursor: pointer;
   list-style: none;
-  background: rgba(19, 31, 43, 0.94);
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  box-shadow: var(--sombra);
-  backdrop-filter: blur(6px);
-  padding: 7px 12px;
-  font-size: 0.78rem;
-  font-weight: 650;
-  color: var(--texto);
+  font-size: 0.68rem;
+  color: var(--texto-2);
   white-space: nowrap;
 }
 .acerca__resumen::-webkit-details-marker {
   display: none;
 }
-.acerca__resumen:hover {
+.acerca__resumen::after {
+  content: ' ▴';
+  color: var(--borde);
+}
+.acerca[open] .acerca__resumen::after {
+  content: ' ▾';
+}
+.acerca__resumen:hover,
+.acerca__resumen:focus-visible {
   color: var(--acento);
 }
+
+/* Se abre hacia arriba, contra el borde superior del pie: es lo único que
+   queda por encima, y así no depende de cuánto mida el pie. */
 .acerca__contenido {
   position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
+  bottom: calc(100% + 1px);
+  right: 12px;
   width: min(460px, calc(100vw - 24px));
-  /* Se descuenta más de lo que ocuparía el pie porque --pie-alto miente: .pie
-     declara 56px pero en pantallas estrechas el aviso legal envuelve a tres
-     líneas y mide el doble, y .mapa-envoltorio -que hereda ese cálculo-
-     termina por debajo del pie real. Hasta que eso se arregle en el layout,
-     el margen conservador es lo que garantiza que el panel no acabe tapado;
-     lo que no quepa se recorre con scroll. dvh y no vh porque en móvil la
-     barra del navegador entra y sale, y vh se queda con la altura grande. */
-  max-height: calc(100dvh - var(--cabecera-alto) - 190px);
+  /* dvh y no vh: en móvil la barra del navegador entra y sale, y vh se queda
+     con la altura grande. Lo que no quepa se recorre con scroll. */
+  max-height: calc(100dvh - var(--cabecera-alto) - 120px);
   overflow-y: auto;
   overscroll-behavior: contain;
   background: var(--fondo-2);
@@ -921,6 +940,19 @@ body.reordenando .panel__cuerpo {
 /* -- Móvil: el panel pasa a hoja inferior ----------------------------------- */
 
 @media (max-width: 899px) {
+  /* En columna, no en fila: el pie ya es alto aquí -la línea de datos ocupa
+     seis renglones a 375px- y ponerle la pestaña al lado le roba ancho, lo
+     hace envolver más y crece de 116 a 159px. Apilada, el texto conserva el
+     ancho completo y solo se añaden los ~20px de la pestaña. Cada píxel del
+     pie es un píxel que se le quita al mapa. */
+  .zona-pie {
+    flex-direction: column;
+  }
+  .acerca {
+    align-self: flex-end;
+    padding: 0 14px 6px;
+  }
+
   .panel {
     position: fixed;
     left: 0;

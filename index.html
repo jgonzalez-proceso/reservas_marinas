@@ -83,51 +83,6 @@
         <div id="mapa" role="application" aria-label="Mapa de zonas de protección"></div>
         <p id="carga" class="carga">Cargando la cartografía oficial…</p>
         <div id="leyenda" class="leyenda"></div>
-
-        <!--
-          Contenido estático real, no generado por JavaScript: sin él, un
-          rastreador que no ejecute el bundle ve 11 palabras y nada del trabajo
-          real del proyecto -las seis capas, las 96 zonas, la cita normativa
-          por ficha-. Va plegado por defecto, igual que la leyenda, para no
-          competir con el mapa; el contenido es el mismo lo vea quien lo vea,
-          con JavaScript o sin él.
-
-          Se ancla aquí dentro y no sobre el pie porque .pie declara
-          --pie-alto: 56px pero en móvil mide el doble -el aviso legal envuelve
-          a más líneas-, así que cualquier posición calculada desde esa
-          variable acaba pisando el pie. Dentro de .mapa-envoltorio se
-          posiciona igual que .leyenda, contra una caja cuyo tamaño es real.
-        -->
-        <details class="acerca">
-          <summary class="acerca__resumen">Qué es este mapa</summary>
-          <div class="acerca__contenido">
-            <h2>Qué es este mapa</h2>
-            <p>
-              Esto no es un mapa de reservas marinas: es un motor de consulta de restricciones
-              marítimas, donde la reserva marina es una de <strong>seis capas regulatorias</strong>
-              que se cruzan sobre cada punto del mar. Pulsa cualquier punto y el motor reúne todas
-              las figuras de protección que lo contienen —reservas marinas, Red Natura 2000,
-              espacios naturales protegidos, su zonificación interna, la regulación específica de
-              pesca submarina y la del fondeo— y devuelve una conclusión por actividad: pesca desde
-              embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el
-              motivo y la norma que la justifica.
-            </p>
-            <p>
-              Cubre las <strong>96 zonas</strong> cargadas hasta ahora en las cuatro islas y
-              Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas
-              marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios
-              naturales protegidos con ámbito marino y la zonificación interna de s'Albufera des
-              Grau y ses Salines.
-            </p>
-            <p>
-              Sigue faltando trabajo: capas enteras como la posidonia o la zonificación de Cabrera y
-              sa Dragonera todavía no están cargadas, y dentro de las fichas hay condiciones que
-              remiten a normas que este mapa aún no dibuja. Es una web informativa no oficial —la
-              fuente vinculante es siempre la norma publicada y la cartografía de IDEIB—, no un
-              sustituto de consultarla antes de faenar.
-            </p>
-          </div>
-        </details>
       </div>
 
       <aside id="lista" class="lista" aria-label="Listado de zonas">
@@ -137,18 +92,66 @@
       <aside id="panel" class="panel" aria-live="polite" aria-label="Restricciones del punto consultado"></aside>
     </main>
 
-    <footer class="pie">
-      <p id="estado-datos" class="pie__datos"></p>
-      <p class="pie__aviso">
-        Web informativa no oficial. La fuente vinculante es la norma publicada en el
-        <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a>
-        o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> y la
-        cartografía oficial de
-        <a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer"
-          >IDEIB</a
-        >. Comprueba siempre la normativa vigente antes de faenar.
-      </p>
-    </footer>
+    <div class="zona-pie">
+      <!--
+        Contenido estático real, no generado por JavaScript: sin él, un
+        rastreador que no ejecute el bundle ve 11 palabras y nada del trabajo
+        real del proyecto -las seis capas, las 96 zonas, la cita normativa
+        por ficha-. Va plegado por defecto, igual que la leyenda: lo primero
+        tiene que ser el mapa. El contenido es el mismo lo vea quien lo vea,
+        con JavaScript o sin él.
+
+        Hermano de <footer> y no hijo suyo: el footer es informacion de
+        cierre y esto es contenido principal -y los extractores de contenido
+        descartan <footer> entero por heuristica-. Comparten envoltorio para
+        quedar en la misma franja de abajo, cada uno en su sitio, sin que la
+        posicion dependa de --pie-alto, que en pantallas estrechas se queda
+        corto porque el aviso legal envuelve a mas lineas.
+      -->
+      <details class="acerca">
+        <summary class="acerca__resumen">Qué es este mapa</summary>
+        <div class="acerca__contenido">
+          <h2>Qué es este mapa</h2>
+          <p>
+            Esto no es un mapa de reservas marinas: es un motor de consulta de restricciones
+            marítimas, donde la reserva marina es una de <strong>seis capas regulatorias</strong>
+            que se cruzan sobre cada punto del mar. Pulsa cualquier punto y el motor reúne todas
+            las figuras de protección que lo contienen —reservas marinas, Red Natura 2000,
+            espacios naturales protegidos, su zonificación interna, la regulación específica de
+            pesca submarina y la del fondeo— y devuelve una conclusión por actividad: pesca desde
+            embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el
+            motivo y la norma que la justifica.
+          </p>
+          <p>
+            Cubre las <strong>96 zonas</strong> cargadas hasta ahora en las cuatro islas y
+            Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas
+            marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios
+            naturales protegidos con ámbito marino y la zonificación interna de s'Albufera des
+            Grau y ses Salines.
+          </p>
+          <p>
+            Sigue faltando trabajo: capas enteras como la posidonia o la zonificación de Cabrera y
+            sa Dragonera todavía no están cargadas, y dentro de las fichas hay condiciones que
+            remiten a normas que este mapa aún no dibuja. Es una web informativa no oficial —la
+            fuente vinculante es siempre la norma publicada y la cartografía de IDEIB—, no un
+            sustituto de consultarla antes de faenar.
+          </p>
+        </div>
+      </details>
+
+      <footer class="pie">
+        <p id="estado-datos" class="pie__datos"></p>
+        <p class="pie__aviso">
+          Web informativa no oficial. La fuente vinculante es la norma publicada en el
+          <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a>
+          o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> y la
+          cartografía oficial de
+          <a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer"
+            >IDEIB</a
+          >. Comprueba siempre la normativa vigente antes de faenar.
+        </p>
+      </footer>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>
