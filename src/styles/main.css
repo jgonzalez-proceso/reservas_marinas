@@ -468,10 +468,15 @@ body.con-menu .menu {
   list-style: none;
 }
 /* El primer nivel se queda con el alto restante y se desplaza si algún día
-   crece; los submenús ocupan el cajón entero y se desplazan solos. */
+   crece; los submenús ocupan el cajón entero y se desplazan solos.
+
+   En horizontal no se desplaza nunca: los submenús cerrados están a un ancho
+   a la derecha, y con el eje x desplazable un arrastre lateral los sacaría a
+   la vista a medio camino. El fallo de verdad estaba en el `focus()`, que
+   desplazaba esta lista él solo; está explicado en `ui/menu.js`. */
 .menu > .menu__items {
   flex: 1 1 auto;
-  overflow-y: auto;
+  overflow: hidden auto;
   padding-bottom: env(safe-area-inset-bottom);
 }
 .menu__item + .menu__item {
@@ -566,7 +571,7 @@ body.con-menu .menu {
   inset: 0;
   z-index: 1;
   background: var(--fondo-2);
-  overflow-y: auto;
+  overflow: hidden auto;
   padding-bottom: env(safe-area-inset-bottom);
   transform: translateX(100%);
   visibility: hidden;

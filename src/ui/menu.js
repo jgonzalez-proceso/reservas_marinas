@@ -37,6 +37,23 @@ function creaBoton(clase, texto) {
 }
 
 /**
+ * Enfocar sin desplazar nada. El `preventScroll` no es una precaución: sin él
+ * el menú se rompía entero.
+ *
+ * La lista del primer nivel puede desplazarse (`overflow-y: auto`), así que es
+ * un contenedor desplazable, y al abrir un submenú se enfoca su primera opción
+ * cuando el submenú todavía está en `translateX(100%)` —la transición acaba de
+ * empezar—. El navegador hacía lo que se le pide en esos casos: desplazar el
+ * contenedor para traer a la vista lo que se acaba de enfocar. Movía la lista
+ * 298 px a la izquierda, el cajón la recortaba con su `overflow: hidden` y el
+ * submenú salía en blanco. Y el desplazamiento no se deshacía solo, así que a
+ * partir de ahí el menú ya no volvía a verse bien.
+ */
+function enfoca(elemento) {
+  elemento?.focus({ preventScroll: true });
+}
+
+/**
  * @param {HTMLElement} boton  el de la hamburguesa, ya en la cabecera
  * @param {Array<Object>} entradas
  *   `{ etiqueta, valor, opciones: [{ valor, etiqueta, activa }], onElegir }`
@@ -112,7 +129,7 @@ export function creaMenu(boton, entradas) {
     abridor.addEventListener('click', () => abreGrupo(grupo));
     volver.addEventListener('click', () => {
       cierraGrupos();
-      abridor.focus();
+      enfoca(abridor);
     });
 
     grupos.push(grupo);
@@ -127,7 +144,7 @@ export function creaMenu(boton, entradas) {
     grupo.li.classList.add('abierto');
     grupo.abridor.setAttribute('aria-expanded', 'true');
     grupoAbierto = grupo;
-    grupo.submenu.querySelector('.menu__enlace--opcion')?.focus();
+    enfoca(grupo.submenu.querySelector('.menu__enlace--opcion'));
   }
 
   function cierraGrupos() {
@@ -162,14 +179,14 @@ export function creaMenu(boton, entradas) {
     }
     document.body.classList.add('con-menu');
     boton.setAttribute('aria-expanded', 'true');
-    focosActivos()[0]?.focus();
+    enfoca(focosActivos()[0]);
   }
 
   function cierra({ devuelveFoco = true } = {}) {
     abierto = false;
     document.body.classList.remove('con-menu');
     boton.setAttribute('aria-expanded', 'false');
-    if (devuelveFoco) boton.focus();
+    if (devuelveFoco) enfoca(boton);
     // El submenú se recoge cuando el cajón ya ha salido de pantalla. Hacerlo a
     // la vez enseña el primer nivel deslizándose mientras el cajón se va, que
     // parece un fallo de dibujo.
@@ -190,7 +207,7 @@ export function creaMenu(boton, entradas) {
       if (grupoAbierto) {
         const { abridor } = grupoAbierto;
         cierraGrupos();
-        abridor.focus();
+        enfoca(abridor);
       } else {
         cierra();
       }
@@ -206,10 +223,10 @@ export function creaMenu(boton, entradas) {
     const ultimo = focos[focos.length - 1];
     if (evento.shiftKey && document.activeElement === primero) {
       evento.preventDefault();
-      ultimo.focus();
+      enfoca(ultimo);
     } else if (!evento.shiftKey && document.activeElement === ultimo) {
       evento.preventDefault();
-      primero.focus();
+      enfoca(primero);
     }
   });
 
