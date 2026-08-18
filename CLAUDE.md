@@ -45,9 +45,10 @@ npm run dev          # servidor de desarrollo
 npm run data         # descarga las fuentes activas y regenera src/data/
 npm run verify       # contrasta las 64 coordenadas oficiales con la geometría
 npm run rules:check  # integridad de fichas, islas y fuentes (corre antes del build)
+npm run i18n:check   # claves de idioma y cobertura del texto normativo
 npm test             # resuelve puntos reales y comprueba la conclusión
 npm run links:check  # comprueba que los enlaces publicados siguen vivos (usa red)
-npm run build        # rules:check + test + build de producción
+npm run build        # rules:check + i18n:check + test + build de producción
 ```
 
 `rules:check` valida la **forma** de las fichas: que citen fuente, que no haya ciclos de herencia, que ningún zoneId quede huérfano. Lo que no puede ver es si la conclusión que sale por el otro lado es la correcta, ni —sobre todo— **si una regla se ha atado al polígono equivocado**. Eso lo prueba `npm test`, que toma una coordenada concreta, la resuelve contra la cartografía real y comprueba el estado y de qué figura sale. Cada prueba afirma primero las propiedades geométricas del punto que usa, para que un cambio en una geometría oficial falle diciendo eso y no mande a buscar el error al sitio equivocado.
@@ -59,6 +60,56 @@ Dos cosas que costó aprender y que el script ya incorpora. **Un 200 no basta**:
 Los 4xx hacen fallar; los 5xx, los 429 y los fallos de red solo avisan, porque son del servidor o del momento. `--estricto` hace fallar también con los avisos.
 
 `abrir_web.ps1` **no comprueba si el puerto está ocupado, sino si responde nuestra web**. Comprobar el puerto es poco fiable en Windows —un proceso puede escuchar solo en `::1` y una prueba por IPv4 lo da por libre— y además no distingue nuestro servidor del de otro proyecto. La URL buena se lee de la salida de Vite, tomando la **última** coincidencia del log: si un arranque anterior dejó contenido, la primera sería la suya. Antes de buscarla hay que **quitar los códigos ANSI**: Vite pinta el puerto en negrita aunque su salida esté redirigida a un fichero, y `http://localhost:<ESC>[1m5173` no casa con ninguna expresión que espere el número pegado a los dos puntos — el script se quedaba los 90 s de espera mirando un servidor que ya estaba listo. Si aun así el log no da URL, se prueba el rango de puertos: la respuesta de la web manda sobre el log. La cartografía se da por descargada si hay ficheros en `src/data/capas/`, no por un nombre concreto; cuando se comprobaba `protected-areas.mallorca.geojson`, que ya no se genera, cada arranque volvía a descargar los 29,6 MB de IDEIB.
+
+## Idiomas
+
+La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una cookie, como el orden de las tarjetas de actividad, y se elige desde un selector en la cabecera junto al de isla.
+
+**No va en la URL, y eso tiene un precio que conviene tener presente**: para un buscador esta web sigue siendo una sola página en castellano, y un enlace compartido no lleva el idioma. El día que se quieran rutas propias —`/en/`, `/de/`, `/ca/`— con su `hreflang` y sus entradas en el sitemap, lo único que hay que cambiar es de dónde sale el idioma activo en `src/i18n/index.js`; los catálogos y las llamadas a `t()` valen igual.
+
+**Cambiar de idioma recarga la página**, igual que cambiar de isla y por el mismo motivo: el control de capas de Leaflet, la leyenda y el panel llevan texto ya pintado, y volverlos a montar en caliente sin dejar restos es mucho más frágil que empezar de cero. La cartografía ya está en la caché del navegador.
+
+El texto son dos cuerpos que no se tratan igual:
+
+- **La interfaz** (150 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
+- **El texto normativo de las fichas** solo está en catalán, que es la lengua en que el BOIB publica la mayoría de estas normas: traducir es a menudo volver al original. Va aparte del bundle y solo se descarga en catalán. En inglés y alemán se muestra en castellano y **el panel lo dice una vez, arriba**, en vez de marcar cada frase con un asterisco.
+
+### Cita y prosa no son lo mismo
+
+Dentro del texto normativo hay dos clases y solo una se traduce:
+
+- **Cita**: el título de una norma, el nombre de una figura, el título del documento al que apunta una fuente. Son identificadores. «Decret 91/2023, de 15 de desembre, pel qual es regula la pesca marítima…» es como se llama esa norma y como hay que buscarla en el butlletí; traducirla sería inventarse un título oficial que nadie ha publicado, y además dejaría al usuario ante un enlace cuyo destino no se parece a lo que el enlace prometía. **No se traducen en ningún idioma.** Buena parte ya están en catalán.
+- **Prosa**: el motivo en lenguaje llano, las condiciones, la nota de un permiso, el resumen de la zona, la referencia que dice en qué artículo está escrito cada cosa. Esto lo ha redactado el proyecto para que se entienda. Esto es lo que se traduce.
+
+### El catálogo normativo se indexa por la cadena en castellano
+
+Es la decisión que más importa de todo el sistema, y no es por comodidad.
+
+La alternativa evidente era meter las traducciones dentro de cada ficha (`motivo: { es, ca }`) o en un catálogo indexado por `zoneId` + actividad + campo. Las dos se descartaron por el riesgo central de traducir texto jurídico: **la traducción caducada**. Si alguien corrige un motivo porque ha releído la norma —y eso pasa: la ficha de la Badia de Palma ya cambió una vez de `allowed` a `allowed_with_authorization` al leer el articulado íntegro—, con un catálogo por `zoneId` la versión catalana se quedaría diciendo lo anterior y nadie se enteraría. El usuario en catalán leería una afirmación que este proyecto ya sabe que es falsa, con la misma cita normativa debajo.
+
+Indexando por la cadena origen eso **no puede ocurrir**. Al cambiar el castellano cambia la clave, la entrada catalana deja de casar y el panel cae al castellano corregido. Se pierde la traducción —hay que rehacerla, y `i18n:check` la enumera como huérfana— pero nunca se muestra la versión antigua. El fallo es visible y del lado seguro.
+
+De regalo deduplica: 2.034 apariciones de texto normativo son 787 cadenas distintas, porque las 78 fichas de la Red Natura 2000 comparten literalmente sus motivos.
+
+### Qué hace fallar el build y qué solo avisa
+
+`npm run i18n:check` **falla** si los cuatro catálogos de interfaz no tienen exactamente las mismas claves, si los marcadores `{...}` no coinciden entre idiomas —un `{distancia }` con un espacio de más se pinta con llaves en medio de la frase y no da error en ninguna parte— o si una figura de la cartografía se queda sin descripción.
+
+La **cobertura del texto normativo solo avisa**, y es deliberado: que una ficha nueva llegue redactada en castellano y todavía sin traducir es el estado normal de un catálogo vivo, el usuario ve el castellano —que es una respuesta correcta— y romper el build por eso desanimaría de añadir fichas, que es el trabajo que de verdad importa aquí. `--estricto` hace fallar también con los avisos, igual que en `links:check`.
+
+### Lo que no se traduce nunca
+
+- **El nombre oficial de una figura de protección.** «Zona d'alta protecció» es el identificador jurídico con el que aparece en el BOIB. Lo que se traduce es su descripción, que va en los catálogos indexada por ese nombre. Ojo: los valores reales de IDEIB llevan **apóstrofo recto** (`'`), no tipográfico, así que esas claves van entre comillas dobles en los catálogos.
+- **Los nombres de las islas.** Mallorca es Mallorca en los cuatro idiomas, y las formas castellanizadas no son las de la cartografía oficial. «Todas las islas» sí se traduce, porque no es un topónimo.
+- **Las unidades.** Metros y kilómetros en los cuatro idiomas. A bordo la carta náutica, la norma y el GPS hablan en metros; dar millas a quien lee en inglés sería traducir también la realidad. Lo que sí cambia por idioma es el **separador decimal**, que va por `Intl`: antes había dos formateadores de distancia con `.toFixed(1).replace('.', ',')` escrito a mano, que en inglés daba «1,4 km» donde toca «1.4 km».
+
+### El motor no sabe de idiomas
+
+`engine/resolve.js` no importa el módulo de idiomas. Lo ejecutan también los scripts de Node, que no tienen `document` ni `navigator`, y meterle interfaz a un motor de reglas es la manera de que deje de poder probarse a solas. Las dos únicas frases suyas que ve el usuario viajan como **clave** (`motivoClave`) junto al texto en castellano, y las traduce quien pinta.
+
+### El castellano sigue escrito en index.html
+
+El HTML estático se escribe en castellano y lleva las claves marcadas con atributos `data-i18n`. No es indirección por gusto: el castellano tiene que seguir **en el fichero**, porque es lo único que ve un rastreador que no ejecute el bundle. El bloque «Qué es este mapa» existe precisamente para eso —sin él eran once palabras— y vaciarlo para rellenarlo desde JavaScript lo devolvería a cero.
 
 ## Control de versiones
 
@@ -74,7 +125,7 @@ Publicada en **https://reservas.pecesmediterraneo.com/** (proyecto Cloudflare Pa
 
 **El ancho de banda es la restricción que manda, no la CPU ni el almacenamiento.** Una visita a la vista de todas las islas descarga 6,6 MB comprimidos, unas treinta veces lo de un sitio normal. Por eso el hosting es Cloudflare Pages —el único plan gratuito de los tres candidatos sin techo de tráfico— y no Vercel, que además prohíbe el uso comercial en su plan Hobby.
 
-**`npm run build` corre `rules:check` y `npm test` antes de compilar, y eso es la red de seguridad del despliegue**: una ficha rota o una regla atada al polígono equivocado hacen fallar la compilación en el hosting y no llegan a publicarse. En esta web una respuesta equivocada es peor que una web caída.
+**`npm run build` corre `rules:check`, `i18n:check` y `npm test` antes de compilar, y eso es la red de seguridad del despliegue**: una ficha rota o una regla atada al polígono equivocado hacen fallar la compilación en el hosting y no llegan a publicarse. En esta web una respuesta equivocada es peor que una web caída.
 
 **La cartografía sale a `assets/capas/` y no a `assets/` a secas.** No es orden: es lo que permite escribir en `public/_headers` una regla que solo alcance a los GeoJSON. Un patrón como `/assets/*.geojson` depende de que el splat de la CDN admita sufijo, y si no lo admite casa también con el JS y el CSS y los sirve como JSON, que rompe la web entera. Un directorio propio cierra la duda.
 
@@ -112,6 +163,9 @@ src/
   rules/normas-generales.js  normas que no son de ninguna figura (RD 191/2026)
   map/                   capas base, capa de áreas, geolocalización
   ui/                    panel, leyenda, buscador
+  i18n/                  idioma activo, t(), formato con Intl
+  i18n/catalogos/        interfaz en es, ca, en y de: mismas claves
+  i18n/normativa/        texto de las fichas, indexado por la cadena origen
   data/                  GENERADO + tablas declarativas
   data/capas/            GENERADO: lo que descarga el navegador
 public/_headers          caché y tipo MIME del sitio publicado; Vite lo copia

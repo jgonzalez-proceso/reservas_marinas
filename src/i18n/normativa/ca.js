@@ -1056,4 +1056,700 @@ export default {
     'El major espai Natura 2000 marí autonòmic de Mallorca: 30.961 ha sobre les dues badies del nord. El seu pla de gestió és en tramitació, així que només li aplica el Decret 91/2023, que remet la pesca recreativa a la normativa general.',
   'El mayor espacio Natura 2000 marino autonómico de Menorca, 5.091 ha frente a la costa norte. Se solapa con la Reserva Marina del Nord de Menorca, y es el régimen de la reserva el que restringe allí la pesca. Plan de gestión en tramitación.':
     'El major espai Natura 2000 marí autonòmic de Menorca, 5.091 ha davant la costa nord. Se superposa amb la Reserva Marina del Nord de Menorca, i és el règim de la reserva el que hi restringeix la pesca. Pla de gestió en tramitació.',
+
+  // -- Resums d’espais Natura 2000 -------------------------------------------
+  'Espacio con doble designación en la costa nordeste. Su plan de gestión regula el fondeo y la navegación; la pesca se rige por la normativa general.':
+    'Espai amb doble designació a la costa nord-est. El seu pla de gestió regula el fondeig i la navegació; la pesca es regeix per la normativa general.',
+  'Espacio con doble designación que se solapa con el ámbito marino del Parc Natural de s’Albufera des Grau. Aviso: dentro del parque natural la pesca submarina está prohibida en unas zonas concretas y es autorizable en otras, con una zonificación que este mapa todavía no tiene cargada.':
+    'Espai amb doble designació que se superposa amb l’àmbit marí del Parc Natural de s’Albufera des Grau. Avís: dins el parc natural la pesca submarina és prohibida en unes zones concretes i autoritzable en unes altres, amb una zonificació que aquest mapa encara no té carregada.',
+  'Espacio costero del noroeste de Menorca. Plan de gestión en tramitación.':
+    'Espai costaner del nord-oest de Menorca. Pla de gestió en tramitació.',
+  'Espacio costero del sur de Menorca. Plan de gestión en tramitación.':
+    'Espai costaner del sud de Menorca. Pla de gestió en tramitació.',
+  'Espacio costero junto a Cala Rajada, con doble designación. No figura en el art. 2 del Decret 91/2023, pero sí en el ámbito del Pla de Gestió Costa de Llevant.':
+    'Espai costaner vora Cala Rajada, amb doble designació. No figura a l’art. 2 del Decret 91/2023, però sí a l’àmbit del Pla de Gestió Costa de Llevant.',
+  'Espacio de 14.813 ha en el nordeste de Mallorca, con doble designación y una franja marina. Se solapa con figuras del llevant, donde manda el régimen de esas figuras. Plan de gestión en tramitación.':
+    'Espai de 14.813 ha al nord-est de Mallorca, amb doble designació i una franja marina. Se superposa amb figures del llevant, on mana el règim d’aquelles figures. Pla de gestió en tramitació.',
+  'Espacio marino del suroeste de Menorca. Plan de gestión en tramitación.':
+    'Espai marí del sud-oest de Menorca. Pla de gestió en tramitació.',
+  'Espacio marítimo-terrestre de la costa de llevant. La pesca se rige por la normativa general; el fondeo y la navegación, por el plan de gestión.':
+    'Espai maritimoterrestre de la costa de llevant. La pesca es regeix per la normativa general; el fondeig i la navegació, pel pla de gestió.',
+  'Espacio marítimo-terrestre de la Serra de Tramuntana. Pesca recreativa según la normativa general; buceo permitido y fondeo condicionado por el Pla de Gestió.':
+    'Espai maritimoterrestre de la Serra de Tramuntana. Pesca recreativa segons la normativa general; busseig permès i fondeig condicionat pel Pla de Gestió.',
+  'Espacio marítimo-terrestre del norte de Menorca. Plan de gestión en tramitación.':
+    'Espai maritimoterrestre del nord de Menorca. Pla de gestió en tramitació.',
+  'Espacio marítimo-terrestre entre Valldemossa y Deià, con extensas praderas de Posidonia oceanica bien conservadas. Pesca recreativa según la normativa general; fondeo condicionado.':
+    'Espai maritimoterrestre entre Valldemossa i Deià, amb extenses prades de Posidonia oceanica ben conservades. Pesca recreativa segons la normativa general; fondeig condicionat.',
+  'Espacio Natura 2000 con ámbito marino en la Serra de Tramuntana. La pesca recreativa, incluida la submarina, se rige por la normativa general: la figura no la prohíbe. El fondeo sí está condicionado por el plan de gestión.':
+    'Espai Natura 2000 amb àmbit marí a la Serra de Tramuntana. La pesca recreativa, inclosa la submarina, es regeix per la normativa general: la figura no la prohibeix. El fondeig sí que està condicionat pel pla de gestió.',
+  'Espacio Natura 2000 de sa Dragonera, con doble designación. Se solapa con la reserva marina del Freu de sa Dragonera y con el parque natural: allí manda el régimen de esas figuras, no la remisión a la normativa general de los arts. 4 y 5 del Decret 91/2023.':
+    'Espai Natura 2000 de sa Dragonera, amb doble designació. Se superposa amb la reserva marina del Freu de sa Dragonera i amb el parc natural: allà mana el règim d’aquelles figures, no la remissió a la normativa general dels arts. 4 i 5 del Decret 91/2023.',
+  'Franja litoral de la costa de llevant de Mallorca. La pesca se rige por la normativa general; el fondeo y la navegación tienen normas propias en el plan de gestión.':
+    'Franja litoral de la costa de llevant de Mallorca. La pesca es regeix per la normativa general; el fondeig i la navegació tenen normes pròpies al pla de gestió.',
+  'Franja litoral de la costa sur de Menorca. Plan de gestión en tramitación.':
+    'Franja litoral de la costa sud de Menorca. Pla de gestió en tramitació.',
+  'Franja marina de 1.127 ha del Paratge Natural, regulada por el PORN de 2007. Aquí la pesca submarina no está prohibida, pero sí es una actividad autorizable: hace falta autorización del espacio protegido, además de la licencia. Se solapa parcialmente con las ZEC marinas de la Serra de Tramuntana, que por sí solas no exigen esa autorización.':
+    'Franja marina de 1.127 ha del Paratge Natural, regulada pel PORN de 2007. Aquí la pesca submarina no és prohibida, però sí que és una activitat autoritzable: cal autorització de l’espai protegit, a més de la llicència. Se superposa parcialment amb les ZEC marines de la Serra de Tramuntana, que per si soles no exigeixen aquesta autorització.',
+  'La Orden AAA/1299/2014 se limita a aprobar la propuesta de inclusión de este espacio en la lista de lugares de importancia comunitaria: no regula la pesca recreativa ni las actividades subacuáticas, y el espacio no tiene todavía plan de gestión aprobado. En particular, no existe ninguna prohibición de pesca submarina derivada de esta figura.':
+    'L’Ordre AAA/1299/2014 es limita a aprovar la proposta d’inclusió d’aquest espai a la llista de llocs d’importància comunitària: no regula la pesca recreativa ni les activitats subaquàtiques, i l’espai encara no té pla de gestió aprovat. En particular, no hi ha cap prohibició de pesca submarina derivada d’aquesta figura.',
+
+  // -- sa Dragonera: zones d’usos restringits --------------------------------
+  'Franja de 0,1 millas frente al litoral oeste de la isla, entre cabo de Tramuntana y cabo de Llebeig. Es el núcleo de la reserva: únicamente se permiten actividades científicas expresamente autorizadas por la Secretaría General de Pesca.':
+    'Franja de 0,1 milles davant el litoral oest de l’illa, entre cap de Tramuntana i cap de Llebeig. És el nucli de la reserva: únicament s’hi permeten activitats científiques expressament autoritzades per la Secretaria General de Pesca.',
+  'Franja de 50 metros de ancho frente al litoral oeste de sa Dragonera, en el cabo de Llebeig. Se puede bucear con autorización y hacer snorkel desde embarcación, pero no pescar en ninguna modalidad.':
+    'Franja de 50 metres d’amplada davant el litoral oest de sa Dragonera, al cap de Llebeig. S’hi pot bussejar amb autorització i fer snorkel des d’embarcació, però no pescar en cap modalitat.',
+  'Franja de 50 metros de ancho frente al litoral oeste de sa Dragonera, en el cabo de Tramuntana. Se puede bucear con autorización y hacer snorkel desde embarcación, pero no pescar en ninguna modalidad.':
+    'Franja de 50 metres d’amplada davant el litoral oest de sa Dragonera, al cap de Tramuntana. S’hi pot bussejar amb autorització i fer snorkel des d’embarcació, però no pescar en cap modalitat.',
+  'Franja de 50 metros de ancho frente al litoral oeste de sa Dragonera, en el Far Vell. Se puede bucear con autorización y hacer snorkel desde embarcación, pero no pescar en ninguna modalidad.':
+    'Franja de 50 metres d’amplada davant el litoral oest de sa Dragonera, al Far Vell. S’hi pot bussejar amb autorització i fer snorkel des d’embarcació, però no pescar en cap modalitat.',
+  'Franja de 50 metros de ancho frente al litoral oeste de sa Dragonera, en la cova de sa Finestra. Se puede bucear con autorización y hacer snorkel desde embarcación, pero no pescar en ninguna modalidad.':
+    'Franja de 50 metres d’amplada davant el litoral oest de sa Dragonera, a la cova de sa Finestra. S’hi pot bussejar amb autorització i fer snorkel des d’embarcació, però no pescar en cap modalitat.',
+  'Franja de 50 metros de ancho frente al litoral oeste de sa Dragonera, en la punta de s’Alga. Se puede bucear con autorización y hacer snorkel desde embarcación, pero no pescar en ninguna modalidad.':
+    'Franja de 50 metres d’amplada davant el litoral oest de sa Dragonera, a la punta de s’Alga. S’hi pot bussejar amb autorització i fer snorkel des d’embarcació, però no pescar en cap modalitat.',
+  'La apnea sí se permite en las zonas de usos restringidos del ámbito estatal.':
+    'L’apnea sí que és permesa a les zones d’usos restringits de l’àmbit estatal.',
+  'La navegación dentro de la Reserva Marina del Freu de sa Dragonera está limitada a menos de 10 nudos.':
+    'La navegació dins la Reserva Marina del Freu de sa Dragonera és limitada a menys de 10 nusos.',
+  'Está prohibido llevar, tanto en la inmersión como en la embarcación, cualquier instrumento que pueda usarse para pescar o extraer especies marinas, salvo el cuchillo de seguridad. Eso excluye la pesca submarina.':
+    'És prohibit dur, tant a la immersió com a l’embarcació, qualsevol instrument que es pugui fer servir per pescar o extreure espècies marines, llevat del ganivet de seguretat. Això exclou la pesca submarina.',
+  'Ese tránsito debe hacerse siempre con el arma descargada y colgada de la boya de señalización.':
+    'Aquest trànsit s’ha de fer sempre amb l’arma descarregada i penjada de la boia de senyalització.',
+
+  // -- Llevant estatal: fondeig i excepcions ---------------------------------
+  'En el resto de la reserva, solo por emergencia relacionada con la seguridad de la vida humana en el mar, la seguridad nacional o el orden público.':
+    'A la resta de la reserva, només per emergència relacionada amb la seguretat de la vida humana a la mar, la seguretat nacional o l’ordre públic.',
+  'Fondeo libre en Cala Agulla, por fuera de la zona de baño y de los canales de acceso.':
+    'Fondeig lliure a Cala Agulla, per fora de la zona de bany i dels canals d’accés.',
+  'Fondeo libre únicamente en Cala Moltó o Es Gulló, Cala Agulla y Son Moll, por fuera de las zonas de baño y de los canales de acceso.':
+    'Fondeig lliure únicament a Cala Moltó o Es Gulló, Cala Agulla i Son Moll, per fora de les zones de bany i dels canals d’accés.',
+  'Fuera de esos lugares el fondeo está prohibido salvo emergencia.':
+    'Fora d’aquests llocs el fondeig és prohibit llevat d’emergència.',
+  'En la zona de reserva integral se prohíben tanto la pesca marítima como las actividades subacuáticas.':
+    'A la zona de reserva integral es prohibeixen tant la pesca marítima com les activitats subaquàtiques.',
+
+  // -- Cabrera: fondeig i amarratges -----------------------------------------
+  'Fondeo diurno solo en las zonas habilitadas, entre una hora después del amanecer y una hora antes del ocaso: 30 fondeos en es Burri, 12 en la zona del muelle y 8 en la Coveta Roja.':
+    'Fondeig diürn només a les zones habilitades, entre una hora després de l’alba i una hora abans de l’ocàs: 30 fondeigs a es Burri, 12 a la zona del moll i 8 a la Coveta Roja.',
+  'La autorización permite amarrar a las boyas del puerto o fondear en las zonas de uso restringido de fondeo diurno.':
+    'L’autorització permet amarrar a les boies del port o fondejar a les zones d’ús restringit de fondeig diürn.',
+  'La delimitación de las áreas de fondeo está en el plano 8 del anexo IV del PRUG y no se publica como capa cartográfica: este mapa no la tiene.':
+    'La delimitació de les àrees de fondeig és al plànol 8 de l’annex IV del PRUG i no es publica com a capa cartogràfica: aquest mapa no la té.',
+  'Hay que respetar en todo momento los fondos cubiertos por praderas de posidonia.':
+    'Cal respectar en tot moment els fons coberts per prades de posidònia.',
+  'Hay que evitar ruidos excesivos —motores, bocinas, música— para no alterar las colonias de aves que anidan en estas costas.':
+    'Cal evitar renous excessius —motors, botzines, música— per no alterar les colònies d’aus que nien en aquestes costes.',
+
+  // -- ses Salines i s’Estany des Peix ---------------------------------------
+  'En el Estany des Peix de Formentera están vedados la fluixa y el curricán, tanto de fondo como de superficie: es zona de alevinaje y zona de baño.':
+    'A l’Estany des Peix de Formentera hi són vedats la fluixa i el curricà, tant de fons com de superfície: és zona d’alevinatge i zona de bany.',
+  'En s’Estany des Peix las anclas y ferretones no se pueden fijar en ningún caso sobre comunidades de Caulerpa prolifera, Cymodocea nodosa ni Zostera noltii.':
+    'A s’Estany des Peix les àncores i ferrets no es poden fixar en cap cas sobre comunitats de Caulerpa prolifera, Cymodocea nodosa ni Zostera noltii.',
+  'La navegación no está prohibida con carácter general en el ámbito marino del parque, pero el art. 102 declara incompatibles las motos acuáticas y los aparatos náuticos recreativos análogos, y el art. 118 prohíbe navegar dentro de las zonas de baño.':
+    'La navegació no és prohibida amb caràcter general a l’àmbit marí del parc, però l’art. 102 declara incompatibles les motos aquàtiques i els aparells nàutics recreatius anàlegs, i l’art. 118 prohibeix navegar dins les zones de bany.',
+  'La navegación no está prohibida con carácter general en el ámbito marino del parque, pero sí lo está en la zona de exclusión y en las zonas húmedas, y el PRUG prohíbe los circuitos de motos náuticas y de otros vehículos a motor en todo el parque.':
+    'La navegació no és prohibida amb caràcter general a l’àmbit marí del parc, però sí que ho és a la zona d’exclusió i a les zones humides, i el PRUG prohibeix els circuits de motos nàutiques i d’altres vehicles a motor a tot el parc.',
+
+  // -- s’Albufera des Grau: busseig per mida de grup -------------------------
+  'Grupos de 8 o más: autorización previa del órgano gestor del parque.':
+    'Grups de 8 o més: autorització prèvia de l’òrgan gestor del parc.',
+  'Grupos de menos de 8 personas: permitido sin autorización.':
+    'Grups de menys de 8 persones: permès sense autorització.',
+  'En la bahía d’Addaia el anexo II del PRUG añade una zona sin ningún tipo de pesca ni marisqueo, ni profesional ni recreativo.':
+    'A la badia d’Addaia l’annex II del PRUG hi afegeix una zona sense cap tipus de pesca ni marisqueig, ni professional ni recreatiu.',
+  'Excepciones únicas: gestión del parque y actividades científicas o de estudio debidamente autorizadas.':
+    'Excepcions úniques: gestió del parc i activitats científiques o d’estudi degudament autoritzades.',
+  'La información oficial del parque lo confirma sin matices: «queda totalmente prohibida por normativa la pesca recreativa con la modalidad de pesca submarina o de fusil».':
+    'La informació oficial del parc ho confirma sense matisos: «queda totalment prohibida per normativa la pesca recreativa amb la modalitat de pesca submarina o de fusell».',
+
+  // -- Remissions a plans de gestió superposats ------------------------------
+  'En la parte de la reserva incluida en el LIC Punta Prima - Illa de l’Aire (ES5310073) hay que cumplir además el marco normativo de su plan de gestión.':
+    'A la part de la reserva inclosa al LIC Punta Prima - Illa de l’Aire (ES5310073) cal complir a més el marc normatiu del seu pla de gestió.',
+  'En las zonas de la reserva incluidas en el LIC nord de Sant Joan (ES5310112), el LIC y ZEPA de Tagomago (ES0000082), el LIC àrea marina de Tagomago (ES5310107), el LIC y ZEPA dels illots de Santa Eulària, Redona i es Canar (ES0000242) y la ZEPA del espacio marino del levante de Eivissa (ES0000517) hay que cumplir además su plan de gestión.':
+    'A les zones de la reserva incloses al LIC nord de Sant Joan (ES5310112), el LIC i ZEPA de Tagomago (ES0000082), el LIC àrea marina de Tagomago (ES5310107), el LIC i ZEPA dels illots de Santa Eulària, Redona i es Canar (ES0000242) i la ZEPA de l’espai marí del llevant d’Eivissa (ES0000517) cal complir a més el seu pla de gestió.',
+  'En lo no previsto rige el Decret 25/2018 sobre la conservación de la Posidonia oceanica, y el RD 191/2026 en todo el Mediterráneo español.':
+    'En allò no previst regeix el Decret 25/2018 sobre la conservació de la Posidonia oceanica, i el RD 191/2026 a tot el Mediterrani espanyol.',
+  'Es Trenc es uno de los sistemas litorales con más superficie de fanerógamas marinas de Mallorca: aquí esa prohibición general afecta a buena parte del fondo.':
+    'Es Trenc és un dels sistemes litorals amb més superfície de fanerògames marines de Mallorca: aquí aquesta prohibició general afecta bona part del fons.',
+  'La ley de declaración no enumera el buceo ni entre los usos admitidos ni entre los prohibidos, y el art. 4.1.b hace autorizables precisamente los usos no definidos como una cosa ni la otra. Corresponde al PORN concretar en qué condiciones.':
+    'La llei de declaració no enumera el busseig ni entre els usos admesos ni entre els prohibits, i l’art. 4.1.b fa autoritzables precisament els usos no definits com una cosa ni l’altra. Correspon al PORN concretar en quines condicions.',
+
+  // -- Illa de l’Aire i Nord de Menorca: navegació i fondeig -----------------
+  'En las zonas de fondeo libre que rodean la isla se pueden instalar hasta tres puntos de fondeo ecológico, a los que las embarcaciones deben amarrarse preferentemente.':
+    'A les zones de fondeig lliure que envolten l’illa s’hi poden instal·lar fins a tres punts de fondeig ecològic, als quals les embarcacions s’han d’amarrar preferentment.',
+  'En toda la bahía hay que navegar a 3 nudos o menos, o a la mínima velocidad de gobierno, con el motor a ralentí, para no remover el sedimento.':
+    'A tota la badia cal navegar a 3 nusos o menys, o a la mínima velocitat de govern, amb el motor al ralentí, per no remoure el sediment.',
+  'La Orden 11/2026 limita la velocidad y prohíbe las motos de agua, pero su art. 2 lo hace solo dentro de la Reserva Marina de la Isla del Aire. Para el Nord de Menorca esa orden únicamente regula el buceo colectivo, y la regulación de actividades de la reserva no establece límites de navegación.':
+    'L’Ordre 11/2026 limita la velocitat i prohibeix les motos aquàtiques, però el seu art. 2 ho fa només dins la Reserva Marina de la Illa de l’Aire. Per al Nord de Menorca aquesta ordre únicament regula el busseig col·lectiu, i la regulació d’activitats de la reserva no estableix límits de navegació.',
+  'La Orden de 2006 regula pesca, extracción y buceo, pero no establece ninguna limitación específica de navegación para esta reserva. Se aplica la normativa general de navegación.':
+    'L’Ordre de 2006 regula pesca, extracció i busseig, però no estableix cap limitació específica de navegació per a aquesta reserva. S’hi aplica la normativa general de navegació.',
+
+  // -- Excepcions científiques i potestats de la Direcció General ------------
+  'La dirección general competente puede establecer limitaciones adicionales, temporales o permanentes, publicándolas en boletín oficial y balizando la zona.':
+    'La direcció general competent pot establir limitacions addicionals, temporals o permanents, publicant-les al butlletí oficial i abalisant la zona.',
+  'La dirección general competente puede restringir la actividad por zonas y periodos, y controlar las inmersiones en cuevas submarinas, mediante resolución publicada.':
+    'La direcció general competent pot restringir l’activitat per zones i períodes, i controlar les immersions en coves submarines, mitjançant resolució publicada.',
+  'La Dirección General de Pesca puede autorizar el fondeo por motivos de índole científica, de seguridad o de salvamento.':
+    'La Direcció General de Pesca pot autoritzar el fondeig per motius d’índole científica, de seguretat o de salvament.',
+  'La Dirección General de Pesca puede autorizar la inmersión y la toma de muestras de flora y fauna con finalidades científicas.':
+    'La Direcció General de Pesca pot autoritzar la immersió i la presa de mostres de flora i fauna amb finalitats científiques.',
+  'La Dirección General de Pesca puede autorizar la inmersión, el fondeo y la toma de muestras por motivos de índole científica, de seguridad o de salvamento (art. 3.3).':
+    'La Direcció General de Pesca pot autoritzar la immersió, el fondeig i la presa de mostres per motius d’índole científica, de seguretat o de salvament (art. 3.3).',
+
+  // -- Vedes generals i permisos ---------------------------------------------
+  'Está prohibida cualquier modalidad de pesca hasta que se establezca un plan de pesca, y la pesca submarina no figura entre las excepciones.':
+    'És prohibida qualsevol modalitat de pesca fins que s’estableixi un pla de pesca, i la pesca submarina no figura entre les excepcions.',
+  'Está prohibida cualquier modalidad de pesca hasta que se establezca un plan de pesca. La excepción alcanza al marisqueo recreativo desde embarcación, que sí está permitido, pero no a la pesca.':
+    'És prohibida qualsevol modalitat de pesca fins que s’estableixi un pla de pesca. L’excepció abasta el marisqueig recreatiu des d’embarcació, que sí que és permès, però no la pesca.',
+  'Es una de las excepciones tasadas del art. 3.2 del Decreto 26/2019, con licencia específica trienal, tres aparejos y días hábiles limitados. No se puede practicar en la zona especial de buceo.':
+    'És una de les excepcions taxades de l’art. 3.2 del Decret 26/2019, amb llicència específica triennal, tres ormeigs i dies hàbils limitats. No es pot practicar a la zona especial de busseig.',
+  'Esparavel: requiere autorización específica y solo se permite en el ámbito autonómico.':
+    'Esparver: requereix autorització específica i només és permès a l’àmbit autonòmic.',
+  'Fisga: solo de día.': 'Fitó: només de dia.',
+  'La pesca con potera y la fluixa se puede practicar cada día.':
+    'La pesca amb poteres i la fluixa es pot practicar cada dia.',
+  'Gratuita. El art. 4.2 del Decreto 38/2018 la fija como bianual; el trámite y la página de la reserva la publican hoy como trienal, igual que en el resto de reservas.':
+    'Gratuïta. L’art. 4.2 del Decret 38/2018 la fixa com a biennal; el tràmit i la pàgina de la reserva la publiquen avui com a triennal, igual que a la resta de reserves.',
+  'Gratuita. Exige disponer de licencia de pesca recreativa de embarcación en vigor.':
+    'Gratuïta. Exigeix disposar de llicència de pesca recreativa d’embarcació en vigor.',
+  'Gratuita. Exige licencia de pesca recreativa de embarcación en vigor y llevar registro de capturas.':
+    'Gratuïta. Exigeix llicència de pesca recreativa d’embarcació en vigor i dur registre de captures.',
+  'Gratuita. Licencia específica que la Dirección General de Pesca entrega o renueva cada tres años (art. 5.2). Obliga a llevar registro de capturas.':
+    'Gratuïta. Llicència específica que la Direcció General de Pesca lliura o renova cada tres anys (art. 5.2). Obliga a dur registre de captures.',
+  'Exige licencia de pesca submarina en vigor y tarjeta federativa de actividades subacuáticas. Tasa de 53,90 € por autorización y por espacio natural protegido':
+    'Exigeix llicència de pesca submarina en vigor i targeta federativa d’activitats subaquàtiques. Taxa de 53,90 € per autorització i per espai natural protegit',
+  'Índice oficial de la evolución normativa desde la Orden de 15 de junio de 1999 (BOCAIB núm. 81) hasta la Orden 11/2026. El enlace que el propio Govern publica para la Orden de 1999 sirve un extracto parcial del BOCAIB que no contiene su articulado':
+    'Índex oficial de l’evolució normativa des de l’Ordre de 15 de juny de 1999 (BOCAIB núm. 81) fins a l’Ordre 11/2026. L’enllaç que el mateix Govern publica per a l’Ordre de 1999 serveix un extracte parcial del BOCAIB que no en conté l’articulat',
+
+  // -- Pesca submarina: on està prohibida ------------------------------------
+  'La pesca submarina está expresamente prohibida en el ámbito estatal de la reserva, junto con el jigging, el spinning y los concursos de pesca de recreo.':
+    'La pesca submarina està expressament prohibida a l’àmbit estatal de la reserva, juntament amb el jigging, l’spinning i els concursos de pesca d’esbarjo.',
+  'La pesca submarina está expresamente prohibida en el ámbito estatal de la reserva.':
+    'La pesca submarina està expressament prohibida a l’àmbit estatal de la reserva.',
+  'La pesca submarina está expresamente prohibida en todo el ámbito del Parc Natural de ses Salines. El art. 11.4.c la enumera entre los usos prohibidos de las regulaciones generales y el art. 94.c la repite en el régimen pesquero, junto al arrastre, el cerco, el palangre de superficie y los concursos de pesca.':
+    'La pesca submarina està expressament prohibida a tot l’àmbit del Parc Natural de ses Salines. L’art. 11.4.c l’enumera entre els usos prohibits de les regulacions generals i l’art. 94.c la repeteix al règim pesquer, juntament amb l’arrossegament, el cèrcol, el palangre de superfície i els concursos de pesca.',
+  'La pesca submarina está expresamente prohibida en todo el ámbito marino del Parc Natural Maritimoterrestre Es Trenc-Salobrar de Campos. El art. 4.1.c de la Ley 2/2017 la enumera entre los usos prohibidos, junto a la acuicultura intensiva y a cualquier actividad que suponga una alteración significativa de los hábitats y las especies del parque.':
+    'La pesca submarina està expressament prohibida a tot l’àmbit marí del Parc Natural Maritimoterrestre Es Trenc-Salobrar de Campos. L’art. 4.1.c de la Llei 2/2017 l’enumera entre els usos prohibits, juntament amb l’aqüicultura intensiva i qualsevol activitat que suposi una alteració significativa dels hàbitats i les espècies del parc.',
+  'La pesca submarina está prohibida en la zona de protección especial.':
+    'La pesca submarina és prohibida a la zona de protecció especial.',
+  'La pesca submarina está prohibida en la zona de veda.':
+    'La pesca submarina és prohibida a la zona de veda.',
+  'La pesca submarina está prohibida en todo el parque: bucear con fusil no es una opción aquí en ninguna modalidad.':
+    'La pesca submarina és prohibida a tot el parc: bussejar amb fusell no hi és una opció en cap modalitat.',
+  'La pesca submarina no está permitida en el área de protección especial.':
+    'La pesca submarina no és permesa a l’àrea de protecció especial.',
+  'La pesca submarina no está permitida en ningún punto de la reserva.':
+    'La pesca submarina no és permesa a cap punt de la reserva.',
+  'La pesca deportiva está prohibida «en cualquiera de sus modalidades» (apartado jj), lo que incluye la submarina. El apartado mm) prohíbe además llevar durante la inmersión cualquier instrumento utilizable para pescar o extraer especies marinas, salvo el cuchillo reglamentario.':
+    'La pesca esportiva és prohibida «en qualsevol de les seves modalitats» (apartat jj), la qual cosa inclou la submarina. L’apartat mm) prohibeix a més dur durant la immersió qualsevol instrument utilitzable per pescar o extreure espècies marines, llevat del ganivet reglamentari.',
+  'La prohibición alcanza el ámbito marino completo del parque, sin distinguir zonas de la zonificación del PORN.':
+    'La prohibició abasta l’àmbit marí complet del parc, sense distingir zones de la zonificació del PORN.',
+  'La prohibición se aplica al ámbito marino completo del parque, que es más extenso que el de la Reserva Marina del Llevant.':
+    'La prohibició s’aplica a l’àmbit marí complet del parc, que és més extens que el de la Reserva Marina del Llevant.',
+  'La prohibición incluye las áreas marinas de protección estricta, por remisión al art. 30.3 del PORN.':
+    'La prohibició inclou les àrees marines de protecció estricta, per remissió a l’art. 30.3 del PORN.',
+  'La prohibición alcanza el buceo recreativo en cualquier modalidad.':
+    'La prohibició abasta el busseig recreatiu en qualsevol modalitat.',
+  'No depende de la aprobación de ningún PRUG: deriva directamente de la ley de declaración, en vigor desde 2017.':
+    'No depèn de l’aprovació de cap PRUG: deriva directament de la llei de declaració, en vigor des del 2017.',
+  'Los buceadores no pueden llevar instrumentos de pesca submarina: la actividad está prohibida en todo el ámbito marino (art. 4.1.c).':
+    'Els bussejadors no poden dur instruments de pesca submarina: l’activitat és prohibida a tot l’àmbit marí (art. 4.1.c).',
+  'Los buceadores no pueden llevar instrumentos de pesca submarina: la pesca recreativa submarina está prohibida en todo el ámbito marino del parque (art. 40.1.h).':
+    'Els bussejadors no poden dur instruments de pesca submarina: la pesca recreativa submarina és prohibida a tot l’àmbit marí del parc (art. 40.1.h).',
+  'Los buceadores no pueden llevar, en la mano ni en la embarcación, instrumentos utilizables para pescar o extraer especies marinas (art. 83.2).':
+    'Els bussejadors no poden dur, ni a la mà ni a l’embarcació, instruments utilitzables per pescar o extreure espècies marines (art. 83.2).',
+  'Licencia de pesca submarina en vigor.': 'Llicència de pesca submarina en vigor.',
+
+  // -- Pesca de superfície: on no és permesa ---------------------------------
+  'La pesca desde artefactos flotantes solo está permitida en el ámbito autonómico.':
+    'La pesca des d’artefactes flotants només és permesa a l’àmbit autonòmic.',
+  'La pesca desde costa no está permitida en la zona de protección especial.':
+    'La pesca des de costa no és permesa a la zona de protecció especial.',
+  'La pesca desde tierra está expresamente prohibida en el ámbito estatal de la reserva.':
+    'La pesca des de terra està expressament prohibida a l’àmbit estatal de la reserva.',
+  'La pesca recreativa desde costa no está permitida en esta zona de alta protección.':
+    'La pesca recreativa des de costa no és permesa en aquesta zona d’alta protecció.',
+  'La pesca recreativa desde embarcación no está permitida en esta zona de alta protección.':
+    'La pesca recreativa des d’embarcació no és permesa en aquesta zona d’alta protecció.',
+  'La pesca recreativa desde embarcación no está permitida en la zona de protección especial.':
+    'La pesca recreativa des d’embarcació no és permesa a la zona de protecció especial.',
+  'No permitida en la zona de protección especial ni en la zona de veda.':
+    'No permesa a la zona de protecció especial ni a la zona de veda.',
+  'No permitida en la zona de protección especial.': 'No permesa a la zona de protecció especial.',
+  'La pesca y el marisqueo recreativos desde tierra están expresamente exceptuados de la prohibición general que rige mientras no haya plan de pesca.':
+    'La pesca i el marisqueig recreatius des de terra estan expressament exceptuats de la prohibició general que regeix mentre no hi hagi pla de pesca.',
+  'La pesca y el marisqueo recreativos están permitidos en la reserva excepto en la zona de reserva integral situada entre el cap Ferrutx y la Penya des Llamp.':
+    'La pesca i el marisqueig recreatius són permesos a la reserva excepte a la zona de reserva integral situada entre el cap Ferrutx i la Penya des Llamp.',
+  'La pesca y el marisqueo recreativos están permitidos en la reserva excepto en la zona de reserva integral.':
+    'La pesca i el marisqueig recreatius són permesos a la reserva excepte a la zona de reserva integral.',
+  'La pesca con volantín o curricán de superficie solo se puede practicar los martes, jueves, sábados, domingos y festivos nacionales, autonómicos e insulares. Con potera se puede pescar cada día.':
+    'La pesca amb volantí o curricà de superfície només es pot practicar els dimarts, dijous, dissabtes, diumenges i festius nacionals, autonòmics i insulars. Amb poteres es pot pescar cada dia.',
+  'La única actividad pesquera extractiva admitida es la profesional artesanal, tradicional y selectiva de las embarcaciones incluidas en el censo del parque, y solo en las modalidades y épocas expresamente autorizadas.':
+    'L’única activitat pesquera extractiva admesa és la professional artesanal, tradicional i selectiva de les embarcacions incloses al cens del parc, i només en les modalitats i èpoques expressament autoritzades.',
+  'Mismo régimen que desde costa: el PORN prohíbe las competiciones de pesca deportiva y toda pesca en el área de reserva integral, y prohíbe además a la flota profesional el arrastre y el cerco en todo el ámbito marino del parque.':
+    'Mateix règim que des de costa: el PORN prohibeix les competicions de pesca esportiva i tota pesca a l’àrea de reserva integral, i prohibeix a més a la flota professional l’arrossegament i el cèrcol a tot l’àmbit marí del parc.',
+  'Mismo régimen que la pesca desde costa: el art. 4.1.a la admite como uso pesquero y como uso común del art. 31 de la Ley de Costas, condicionada a la compatibilidad con los objetivos de protección y a lo que disponga el instrumento de planificación.':
+    'Mateix règim que la pesca des de costa: l’art. 4.1.a l’admet com a ús pesquer i com a ús comú de l’art. 31 de la Llei de Costes, condicionada a la compatibilitat amb els objectius de protecció i al que disposi l’instrument de planificació.',
+  'La zonificación terrestre del PORN no está cargada en este mapa: antes de pescar desde tierra hay que comprobar en la cartografía oficial si el punto es zona de exclusión.':
+    'La zonificació terrestre del PORN no està carregada en aquest mapa: abans de pescar des de terra cal comprovar a la cartografia oficial si el punt és zona d’exclusió.',
+
+  // -- Busseig: apnea, nocturnes i escoles -----------------------------------
+  'Las inmersiones en apnea son libres en toda la reserva marina y no necesitan permiso.':
+    'Les immersions en apnea són lliures a tota la reserva marina i no necessiten permís.',
+  'Las inmersiones en apnea son libres en toda la zona autonómica.':
+    'Les immersions en apnea són lliures a tota la zona autonòmica.',
+  'Las inmersiones en apnea son libres.': 'Les immersions en apnea són lliures.',
+  'Las inmersiones nocturnas requieren una autorización especial adicional de la Dirección General de Pesca.':
+    'Les immersions nocturnes requereixen una autorització especial addicional de la Direcció General de Pesca.',
+  'Las inmersiones recreativas son incompatibles con las áreas de protección estricta, donde solo se admiten las de gestión del parque o las científicas debidamente autorizadas.':
+    'Les immersions recreatives són incompatibles amb les àrees de protecció estricta, on només s’admeten les de gestió del parc o les científiques degudament autoritzades.',
+  'Las inmersiones son libres en el resto de la reserva «excepto en las zonas de protección especial»: el buceo con escafandra no está admitido aquí.':
+    'Les immersions són lliures a la resta de la reserva «excepte a les zones de protecció especial»: el busseig amb escafandre no hi és admès.',
+  'Las tareas formativas de escuela de buceo solo pueden hacerse en la cala de Ses Pedretes, con notificación previa a la Dirección General de Pesca.':
+    'Les tasques formatives d’escola de busseig només es poden fer a la cala de Ses Pedretes, amb notificació prèvia a la Direcció General de Pesca.',
+  'Las actividades subacuáticas de recreo solo figuran entre los usos permitidos de las zonas de usos restringidos. En el resto de la reserva estatal no están recogidas, y lo no recogido queda prohibido.':
+    'Les activitats subaquàtiques d’esbarjo només figuren entre els usos permesos de les zones d’usos restringits. A la resta de la reserva estatal no hi són recollides, i allò no recollit queda prohibit.',
+  'Las actividades subacuáticas de recreo solo se permiten fuera de la reserva integral.':
+    'Les activitats subaquàtiques d’esbarjo només es permeten fora de la reserva integral.',
+  'Las actividades subacuáticas están prohibidas en la reserva integral. La Dirección General puede autorizarlas por motivos científicos, de seguridad o de salvamento.':
+    'Les activitats subaquàtiques són prohibides a la reserva integral. La Direcció General les pot autoritzar per motius científics, de seguretat o de salvament.',
+  'Los clubes o centros que ofrezcan la actividad deben acreditarse ante el organismo gestor de los espacios naturales protegidos.':
+    'Els clubs o centres que ofereixin l’activitat s’han d’acreditar davant l’organisme gestor dels espais naturals protegits.',
+  'Máximo 12 submarinistas por punto y visita, y nunca más de 48 personas buceando a la vez en el entorno inmediato del islote (boyas 3, 4, 5 y 6).':
+    'Màxim 12 submarinistes per punt i visita, i mai més de 48 persones bussejant alhora a l’entorn immediat de l’illot (boies 3, 4, 5 i 6).',
+  'Máximo 12 submarinistas por punto y visita, y nunca más de 48 personas buceando a la vez en la zona.':
+    'Màxim 12 submarinistes per punt i visita, i mai més de 48 persones bussejant alhora a la zona.',
+  'Máximo 15 buceadores por grupo, salvo que el órgano gestor lo eleve por motivos de conservación.':
+    'Màxim 15 bussejadors per grup, llevat que l’òrgan gestor ho elevi per motius de conservació.',
+
+  // -- Vedes: què regulen i què no -------------------------------------------
+  'La veda creada en 2009 regula únicamente la pesca recreativa; no restringe el buceo. Esta zona no es la zona de protección especial, así que sigue aplicando el régimen general de la reserva: buceo con escafandra con autorización específica de la Dirección General (art. 9.1 del Decret 41/2015). Las inmersiones en apnea son libres.':
+    'La veda creada el 2009 regula únicament la pesca recreativa; no restringeix el busseig. Aquesta zona no és la zona de protecció especial, així que continua aplicant-se el règim general de la reserva: busseig amb escafandre amb autorització específica de la Direcció General (art. 9.1 del Decret 41/2015). Les immersions en apnea són lliures.',
+  'La veda regula únicamente la pesca recreativa; no restringe el buceo. Esta zona no es la de protección máxima, así que sigue aplicando el régimen general de la reserva: buceo con escafandra con permiso individual o colectivo.':
+    'La veda regula únicament la pesca recreativa; no restringeix el busseig. Aquesta zona no és la de protecció màxima, així que continua aplicant-se el règim general de la reserva: busseig amb escafandre amb permís individual o col·lectiu.',
+  'La veda regula únicamente la pesca recreativa; no restringe el buceo. Esta zona no es una zona de protección especial, así que rige el régimen general de la reserva: permiso individual o colectivo e inmersiones libres.':
+    'La veda regula únicament la pesca recreativa; no restringeix el busseig. Aquesta zona no és una zona de protecció especial, així que regeix el règim general de la reserva: permís individual o col·lectiu i immersions lliures.',
+  'Las resoluciones que crean y prorrogan esta zona de veda regulan únicamente la pesca recreativa; no mencionan la navegación.':
+    'Les resolucions que creen i prorroguen aquesta zona de veda regulen únicament la pesca recreativa; no esmenten la navegació.',
+  'La zona está fuera de la reserva marina y su régimen transitorio solo regula la actividad pesquera. Ninguna norma propia de esta zona toca el buceo.':
+    'La zona és fora de la reserva marina i el seu règim transitori només regula l’activitat pesquera. Cap norma pròpia d’aquesta zona no toca el busseig.',
+  'La zona está fuera de la reserva marina y su régimen transitorio solo regula la actividad pesquera. Ninguna norma propia de esta zona toca la navegación.':
+    'La zona és fora de la reserva marina i el seu règim transitori només regula l’activitat pesquera. Cap norma pròpia d’aquesta zona no toca la navegació.',
+  'La regulación de actividades de esta reserva no organiza sus disposiciones por zonas de navegación ni menciona límites de navegación en el perímetro general.':
+    'La regulació d’activitats d’aquesta reserva no organitza les seves disposicions per zones de navegació ni esmenta límits de navegació al perímetre general.',
+  'La regulación de la reserva restringe en estas zonas la pesca, la extracción y el buceo, pero no la navegación de paso.':
+    'La regulació de la reserva restringeix en aquestes zones la pesca, l’extracció i el busseig, però no la navegació de pas.',
+
+  // -- Navegació: velocitats i motos ------------------------------------------
+  'Las embarcaciones de pesca de arrastre en tránsito pueden navegar hasta 12 nudos cuando crucen la reserva hacia sus caladeros tradicionales.':
+    'Les embarcacions de pesca d’arrossegament en trànsit poden navegar fins a 12 nusos quan travessin la reserva cap als seus calladors tradicionals.',
+  'Los buques en tránsito deben navegar a más de 3 y menos de 6 nudos, y está prohibido el uso de motos de agua (arts. 7.4 y 7.5 del Decret 26/2025).':
+    'Els vaixells en trànsit han de navegar a més de 3 i menys de 6 nusos, i és prohibit l’ús de motos aquàtiques (arts. 7.4 i 7.5 del Decret 26/2025).',
+  'Los buques en tránsito deben navegar a más de 3 y menos de 6 nudos, y está prohibido el uso de motos de agua (arts. 8.4 y 8.5 del Decret 26/2025).':
+    'Els vaixells en trànsit han de navegar a més de 3 i menys de 6 nusos, i és prohibit l’ús de motos aquàtiques (arts. 8.4 i 8.5 del Decret 26/2025).',
+
+  // -- Fondeig: zones i excepcions -------------------------------------------
+  'Las zonas de fondeo prohibido y de fondeo regulado están dibujadas en este mapa como figura aparte: conviene comprobar en cuál cae el punto.':
+    'Les zones de fondeig prohibit i de fondeig regulat estan dibuixades en aquest mapa com a figura a part: convé comprovar en quina cau el punt.',
+  'La zonificación de fondeo del PRUG es anterior a la ampliación de 2019 y no cubre las aguas incorporadas entonces.':
+    'La zonificació de fondeig del PRUG és anterior a l’ampliació del 2019 i no cobreix les aigües incorporades aleshores.',
+  'Máximo de cincuenta permisos por día para fondear en el puerto de Cabrera; la autorización va, como norma general, de uno a siete días.':
+    'Màxim de cinquanta permisos per dia per fondejar al port de Cabrera; l’autorització va, com a norma general, d’un a set dies.',
+
+  // -- Límits d’ormeig i de captura -------------------------------------------
+  'Las excepciones alcanzan a la pesca profesional de artes menores (artes de parada en el Racó de s’Almadrava y jonquillera) y al muestreo científico (art. 8.2 del Decret 26/2025).':
+    'Les excepcions abasten la pesca professional d’arts menors (arts de parada al Racó de s’Almadrava i jonquillera) i el mostreig científic (art. 8.2 del Decret 26/2025).',
+  'Límite de captura de un ejemplar por día y pescador para las especies sujetas a él.':
+    'Límit de captura d’un exemplar per dia i pescador per a les espècies que hi estan subjectes.',
+  'Los anzuelos del volantín deben superar los 7 mm de anchura, salvo para el raor, que deben superar los 5,7 mm.':
+    'Els hams del volantí han de superar els 7 mm d’amplada, llevat del raor, que han de superar els 5,7 mm.',
+  'Los anzuelos del volantín deben superar los 7 mm de seno, salvo para el raor, que deben superar los 5,7 mm.':
+    'Els hams del volantí han de superar els 7 mm de si, llevat del raor, que han de superar els 5,7 mm.',
+  'Los armadores de las embarcaciones autorizadas deben llevar registro de las capturas obtenidas; no hacerlo implica la pérdida de la licencia.':
+    'Els armadors de les embarcacions autoritzades han de dur registre de les captures obtingudes; no fer-ho implica la pèrdua de la llicència.',
+  'Máximo 1 caña por pescador.': 'Màxim 1 canya per pescador.',
+  'Máximo de 4 anzuelos desde embarcación, con un solo aparejo por pescador.':
+    'Màxim de 4 hams des d’embarcació, amb un sol ormeig per pescador.',
+  'Máximo de dos líneas por embarcación para el curricán de superficie.':
+    'Màxim de dues línies per embarcació per al curricà de superfície.',
+  'Máximo de una línea por persona y cuatro anzuelos.':
+    'Màxim d’una línia per persona i quatre hams.',
+  'No se puede pescar desde artefactos flotantes.':
+    'No es pot pescar des d’artefactes flotants.',
+  'No se puede pescar fondeado.': 'No es pot pescar fondejat.',
+  'No se pueden llevar a bordo aparejos no permitidos.':
+    'No es poden dur a bord ormeigs no permesos.',
+  'No se pueden utilizar peces ni cefalópodos vivos como cebo.':
+    'No es poden utilitzar peixos ni cefalòpodes vius com a esquer.',
+
+  // -- Resums de zona restants ------------------------------------------------
+  'LIC de 7.123 ha entre cap Enderrocat y cap Blanc. Comparte nombre con la ZEPA ES0000081 pero es otro espacio, con otro perímetro. Plan de gestión en tramitación.':
+    'LIC de 7.123 ha entre cap Enderrocat i cap Blanc. Comparteix nom amb la ZEPA ES0000081 però és un altre espai, amb un altre perímetre. Pla de gestió en tramitació.',
+  'LIC marino estatal entre Mallorca y Menorca, con fondos de maërl, coralígeno y praderas de posidonia. Aviso aparte: la Orden AAA/1479/2016 estableció dentro del canal una zona protegida de pesca que afecta al arrastre, dragas, jábegas y redes similares —pesca profesional— sobre dos polígonos concretos que este mapa no tiene cargados.':
+    'LIC marí estatal entre Mallorca i Menorca, amb fons de maërl, coral·ligen i prades de posidònia. Avís a part: l’Ordre AAA/1479/2016 va establir dins el canal una zona protegida de pesca que afecta l’arrossegament, les dragues, les xàvegues i xarxes similars —pesca professional— sobre dos polígons concrets que aquest mapa no té carregats.',
+  'Litoral de cales entre Manacor y Felanitx. No figura en el art. 2 del Decret 91/2023, pero sí en el ámbito del Pla de Gestió Costa de Llevant, cuyas normas de fondeo y navegación se le aplican.':
+    'Litoral de cales entre Manacor i Felanitx. No figura a l’art. 2 del Decret 91/2023, però sí a l’àmbit del Pla de Gestió Costa de Llevant, les normes de fondeig i navegació del qual se li apliquen.',
+  'Los 9,8 ha del ámbito marino del parque clasificados como zona de exclusión, en el interior del port d’Addaia. Corresponden al área marina de protección estricta del PORN y coinciden con el ámbito marino de las reservas naturales. Aquí no se puede pescar, fondear, navegar ni bucear.':
+    'Les 9,8 ha de l’àmbit marí del parc classificades com a zona d’exclusió, a l’interior del port d’Addaia. Corresponen a l’àrea marina de protecció estricta del PORN i coincideixen amb l’àmbit marí de les reserves naturals. Aquí no s’hi pot pescar, fondejar, navegar ni bussejar.',
+  'No se pueden utilizar peces vivos como cebo.':
+    'No es poden utilitzar peixos vius com a esquer.',
+
+  // -- Nuclis de màxima protecció ---------------------------------------------
+  'Núcleo de la reserva del Migjorn, entre Cala Figuereta y la Punta des Baus. Ni pesca recreativa en ninguna modalidad, ni buceo con escafandra.':
+    'Nucli de la reserva del Migjorn, entre Cala Figuereta i la Punta des Baus. Ni pesca recreativa en cap modalitat, ni busseig amb escafandre.',
+  'Núcleo de la reserva, al sur de Cap Enderrocat. Es la zona de mayor restricción: ni pesca ni buceo con escafandra.':
+    'Nucli de la reserva, al sud de Cap Enderrocat. És la zona de més restricció: ni pesca ni busseig amb escafandre.',
+  'Núcleo de la reserva, en el perímetro marino de la isla de s’Espardell. El art. 2 del Decreto 63/1999 prohíbe aquí cuatro cosas a la vez: toda pesca marítima, la extracción de flora y fauna, el fondeo de embarcaciones y el buceo con escafandra autónoma.':
+    'Nucli de la reserva, al perímetre marí de l’illa de s’Espardell. L’art. 2 del Decret 63/1999 hi prohibeix quatre coses alhora: tota pesca marítima, l’extracció de flora i fauna, el fondeig d’embarcacions i el busseig amb escafandre autònom.',
+  'Núcleo de la reserva, entre el cap Ferrutx y la Penya des Llamp. Ni pesca ni marisqueo recreativos, y tampoco buceo.':
+    'Nucli de la reserva, entre el cap Ferrutx i la Penya des Llamp. Ni pesca ni marisqueig recreatius, i tampoc busseig.',
+  'Núcleo de máxima protección en el perímetro marino de la Llosa des Figueral. Aquí se prohíben a la vez las actividades subacuáticas, la pesca marítima, la extracción de flora y fauna y el fondeo de embarcaciones.':
+    'Nucli de màxima protecció al perímetre marí de la Llosa des Figueral. Aquí es prohibeixen alhora les activitats subaquàtiques, la pesca marítima, l’extracció de flora i fauna i el fondeig d’embarcacions.',
+  'Núcleo protegido alrededor de l’Illa del Toro. No se permite ninguna modalidad de pesca recreativa. El buceo sí, con permiso y sin inmersiones nocturnas individuales.':
+    'Nucli protegit al voltant de l’Illa del Toro. No s’hi permet cap modalitat de pesca recreativa. El busseig sí, amb permís i sense immersions nocturnes individuals.',
+  'Núcleo protegido alrededor de l’illa des Sec, en la bahía de Palma. No se permite ninguna modalidad de pesca recreativa.':
+    'Nucli protegit al voltant de l’illa des Sec, a la badia de Palma. No s’hi permet cap modalitat de pesca recreativa.',
+
+  // -- Perímetres generals de reserva ----------------------------------------
+  'Perímetro general de la reserva, 719 ha frente al sudeste de Menorca. Pesca submarina prohibida y toda pesca prohibida desde la propia isla. Desde embarcación, volantín y curricán solo cinco días a la semana. Navegación limitada a 10 nudos y motos de agua prohibidas.':
+    'Perímetre general de la reserva, 719 ha davant el sud-est de Menorca. Pesca submarina prohibida i tota pesca prohibida des de la mateixa illa. Des d’embarcació, volantí i curricà només cinc dies a la setmana. Navegació limitada a 10 nusos i motos aquàtiques prohibides.',
+  'Perímetro general de la reserva, entre Andratx y Palma. La pesca recreativa está permitida con aparejos limitados; desde embarcación exige autorización trienal y registro de capturas. La pesca profesional de artes menores requiere figurar en un censo de embarcaciones autorizadas.':
+    'Perímetre general de la reserva, entre Andratx i Palma. La pesca recreativa hi és permesa amb ormeigs limitats; des d’embarcació exigeix autorització triennal i registre de captures. La pesca professional d’arts menors requereix figurar en un cens d’embarcacions autoritzades.',
+  'Perímetro general de la reserva, entre Eivissa y Formentera. La pesca recreativa está permitida salvo en la zona de protección máxima de s’Espardell y en la zona de veda; la submarina, prohibida en toda la reserva. Desde embarcación exige autorización trienal y registro de capturas.':
+    'Perímetre general de la reserva, entre Eivissa i Formentera. La pesca recreativa hi és permesa llevat de la zona de protecció màxima de s’Espardell i de la zona de veda; la submarina, prohibida a tota la reserva. Des d’embarcació exigeix autorització triennal i registre de captures.',
+  'Perímetro general de la reserva, entre la Punta des Morter, la Illa des Porros y el Cap Gros. Pesca submarina prohibida —y prohibido incluso llevar el fusil a bordo—. La pesca recreativa solo se puede practicar martes, jueves, sábados, domingos y festivos.':
+    'Perímetre general de la reserva, entre la Punta des Morter, la Illa des Porros i el Cap Gros. Pesca submarina prohibida —i prohibit fins i tot dur el fusell a bord—. La pesca recreativa només es pot practicar dimarts, dijous, dissabtes, diumenges i festius.',
+  'Perímetro general de la reserva. La pesca desde costa está permitida a diario con aparejos limitados; desde embarcación exige autorización trienal y registro de capturas.':
+    'Perímetre general de la reserva. La pesca des de costa hi és permesa a diari amb ormeigs limitats; des d’embarcació exigeix autorització triennal i registre de captures.',
+  'Perímetro general de la reserva. La pesca recreativa está permitida solo determinados días de la semana y requiere autorización cuando se practica desde embarcación.':
+    'Perímetre general de la reserva. La pesca recreativa hi és permesa només determinats dies de la setmana i requereix autorització quan es practica des d’embarcació.',
+  'Perímetro general de la reserva. Pesca submarina prohibida; desde embarcación, solo volantín, potera y curricán de superficie con autorización trienal; desde tierra, aparejos tradicionales con autorización específica. El buceo debe cumplir además los planes de gestión de los espacios Natura 2000 que se solapan con la reserva.':
+    'Perímetre general de la reserva. Pesca submarina prohibida; des d’embarcació, només volantí, poteres i curricà de superfície amb autorització triennal; des de terra, ormeigs tradicionals amb autorització específica. El busseig ha de complir a més els plans de gestió dels espais Natura 2000 que se superposen amb la reserva.',
+  'Perímetro marino de l’Illa del Toro, entre el Clot des Moro y la cala de s’Art. Prohibida toda clase de pesca marítima y de extracción, con la excepción del muestreo científico y de artes menores profesionales concretas. El buceo colectivo está limitado a puntos, visitas y número de submarinistas.':
+    'Perímetre marí de l’Illa del Toro, entre el Clot des Moro i la cala de s’Art. Prohibida tota classe de pesca marítima i d’extracció, amb l’excepció del mostreig científic i d’arts menors professionals concretes. El busseig col·lectiu és limitat a punts, visites i nombre de submarinistes.',
+  'Perímetro marino de les Illes Malgrats y dels Conills, entre la Punta de na Foradada y el cap Negret. Prohibida toda clase de pesca y extracción salvo excepciones tasadas, con ventanas estacionales para la pesca recreativa.':
+    'Perímetre marí de les Illes Malgrats i dels Conills, entre la Punta de na Foradada i el cap Negret. Prohibida tota classe de pesca i extracció llevat d’excepcions taxades, amb finestres estacionals per a la pesca recreativa.',
+
+  // -- Resums d’espais Natura 2000 petits ------------------------------------
+  'Pequeña ZEC costera de 13 ha en la costa de llevant. No figura en el art. 2 del Decret 91/2023, pero sí en el ámbito del Pla de Gestió Costa de Llevant.':
+    'Petita ZEC costanera de 13 ha a la costa de llevant. No figura a l’art. 2 del Decret 91/2023, però sí a l’àmbit del Pla de Gestió Costa de Llevant.',
+  'Pequeña ZEC costera de 39 ha, dentro del Pla de Gestió de la costa est de Menorca.':
+    'Petita ZEC costanera de 39 ha, dins el Pla de Gestió de la costa est de Menorca.',
+  'Pequeño espacio marino junto al cabo de Cala Figuera, en la parte exterior de la bahía de Palma. Plan de gestión en tramitación.':
+    'Petit espai marí vora el cap de Cala Figuera, a la part exterior de la badia de Palma. Pla de gestió en tramitació.',
+
+  // -- Pesca permesa: finestres, dies i condicions ---------------------------
+  'Permitida como excepción a la prohibición general, solo con caña, del 1 de enero al 30 de abril y nunca desde los islotes.':
+    'Permesa com a excepció a la prohibició general, només amb canya, de l’1 de gener al 30 d’abril i mai des dels illots.',
+  'Permitida como excepción a la prohibición general, solo con potera y volantín en sus ventanas estacionales y con la autorización trienal de la reserva.':
+    'Permesa com a excepció a la prohibició general, només amb poteres i volantí en les seves finestres estacionals i amb l’autorització triennal de la reserva.',
+  'Permitida con aparejos limitados, excepto desde la costa de sa Dragonera y sus islotes, donde no se puede pescar.':
+    'Permesa amb ormeigs limitats, excepte des de la costa de sa Dragonera i els seus illots, on no s’hi pot pescar.',
+  'Permitida con aparejos limitados, salvo entre la cala de s’Art y el Morro d’en Feliu, donde la pesca y el marisqueo están prohibidos.':
+    'Permesa amb ormeigs limitats, llevat d’entre la cala de s’Art i el Morro d’en Feliu, on la pesca i el marisqueig hi són prohibits.',
+  'Permitida con autorización trienal específica y registro obligatorio de las capturas.':
+    'Permesa amb autorització triennal específica i registre obligatori de les captures.',
+  'Permitida con los aparejos del art. 5 del Decret 41/2015, salvo desde la propia Illa de l’Aire, donde el art. 3.1.c del Decreto 26/2019 prohíbe toda pesca y marisqueo.':
+    'Permesa amb els ormeigs de l’art. 5 del Decret 41/2015, llevat des de la mateixa Illa de l’Aire, on l’art. 3.1.c del Decret 26/2019 prohibeix tota pesca i marisqueig.',
+  'Permitida en aguas interiores con autorización trienal y aparejos limitados. Es el único ámbito de la reserva donde también se puede pescar desde artefactos flotantes.':
+    'Permesa a aigües interiors amb autorització triennal i ormeigs limitats. És l’únic àmbit de la reserva on també es pot pescar des d’artefactes flotants.',
+  'Permitida en el perímetro general con autorización trienal específica y obligación de registrar las capturas. No se puede practicar en la zona de protección máxima ni en la zona de veda.':
+    'Permesa al perímetre general amb autorització triennal específica i obligació de registrar les captures. No es pot practicar a la zona de protecció màxima ni a la zona de veda.',
+  'Permitida en el perímetro general con los aparejos tasados, pero no en la zona de protección máxima de s’Espardell ni en la zona de veda de pesca recreativa.':
+    'Permesa al perímetre general amb els ormeigs taxats, però no a la zona de protecció màxima de s’Espardell ni a la zona de veda de pesca recreativa.',
+  'Permitida los mismos cinco días que desde tierra, con autorización trienal específica y obligación de registrar las capturas.':
+    'Permesa els mateixos cinc dies que des de terra, amb autorització triennal específica i obligació de registrar les captures.',
+  'Permitida lunes, martes, sábados, domingos y festivos, con autorización específica sujeta a tasa.':
+    'Permesa dilluns, dimarts, dissabtes, diumenges i festius, amb autorització específica subjecta a taxa.',
+  'Permitida lunes, martes, sábados, domingos y festivos, con autorización individual anual sujeta a tasa.':
+    'Permesa dilluns, dimarts, dissabtes, diumenges i festius, amb autorització individual anual subjecta a taxa.',
+  'Permitida martes, jueves, sábados, domingos y festivos, con aparejos limitados, salvo en la reserva integral.':
+    'Permesa dimarts, dijous, dissabtes, diumenges i festius, amb ormeigs limitats, llevat de la reserva integral.',
+  'Permitida martes, jueves, sábados, domingos y festivos, con autorización trienal y registro obligatorio de capturas.':
+    'Permesa dimarts, dijous, dissabtes, diumenges i festius, amb autorització triennal i registre obligatori de captures.',
+  'Permitida martes, viernes, sábados, domingos y festivos, con autorización trienal. La pesca con potera y la fluixa se puede practicar cada día.':
+    'Permesa dimarts, divendres, dissabtes, diumenges i festius, amb autorització triennal. La pesca amb poteres i la fluixa es pot practicar cada dia.',
+  'Permitida previa autorización de la Secretaría General de Pesca, en las modalidades y condiciones del anexo 3 de la Orden APA/690/2018.':
+    'Permesa amb autorització prèvia de la Secretaria General de Pesca, en les modalitats i condicions de l’annex 3 de l’Ordre APA/690/2018.',
+  'Permitida previa autorización de la Secretaría General de Pesca, en las modalidades y condiciones del anexo 3.':
+    'Permesa amb autorització prèvia de la Secretaria General de Pesca, en les modalitats i condicions de l’annex 3.',
+  'Permitida sin autorización en las modalidades de caña al volantín y recolecta de puu, como en el resto de la reserva estatal fuera de la integral.':
+    'Permesa sense autorització en les modalitats de canya al volantí i recol·lecció de puu, com a la resta de la reserva estatal fora de la integral.',
+  'Permitida sin autorización en las modalidades de caña al volantín y recolecta de puu, con los aparejos que permite la Comunidad Autónoma.':
+    'Permesa sense autorització en les modalitats de canya al volantí i recol·lecció de puu, amb els ormeigs que permet la Comunitat Autònoma.',
+  'Permitida solo cinco días a la semana y con aparejos tasados, y en ningún caso dentro de las zonas de protección especial ni de la zona de veda.':
+    'Permesa només cinc dies a la setmana i amb ormeigs taxats, i en cap cas dins les zones de protecció especial ni de la zona de veda.',
+  'Permitida solo desde embarcación, en días concretos y con dos aparejos, previa autorización específica anual de la Secretaría General de Pesca.':
+    'Permesa només des d’embarcació, en dies concrets i amb dos ormeigs, amb autorització específica anual prèvia de la Secretaria General de Pesca.',
+  'Permitida solo en ventanas estacionales y con la autorización trienal de la reserva.':
+    'Permesa només en finestres estacionals i amb l’autorització triennal de la reserva.',
+  'Permitida solo martes, viernes, sábados, domingos y festivos.':
+    'Permesa només dimarts, divendres, dissabtes, diumenges i festius.',
+  'Permitida también la recolección de puu.': 'Permesa també la recol·lecció de puu.',
+  'Permitida todos los días en el perímetro general, con aparejos limitados y un máximo de 6 anzuelos.':
+    'Permesa tots els dies al perímetre general, amb ormeigs limitats i un màxim de 6 hams.',
+  'Permitida todos los días en el perímetro general, con autorización trienal específica y obligación de registrar las capturas.':
+    'Permesa tots els dies al perímetre general, amb autorització triennal específica i obligació de registrar les captures.',
+  'Permitida únicamente entre el 1 de enero y el 30 de abril, y nunca desde los islotes.':
+    'Permesa únicament entre l’1 de gener i el 30 d’abril, i mai des dels illots.',
+  'Permitidos también el spinning y la recolección de puu.':
+    'Permesos també l’spinning i la recol·lecció de puu.',
+  'Permitidos también el spinning, la fisga, el salabre y la recolección de puu.':
+    'Permesos també l’spinning, el fitó, el salabre i la recol·lecció de puu.',
+  'Prohibida desde la costa de sa Dragonera y desde los islotes.':
+    'Prohibida des de la costa de sa Dragonera i des dels illots.',
+  'Prohibida en la zona de protección especial, en la zona de veda y en el Parc Natural d’Es Trenc-Salobrar.':
+    'Prohibida a la zona de protecció especial, a la zona de veda i al Parc Natural d’Es Trenc-Salobrar.',
+  'Prohibida en la zona especial de buceo.': 'Prohibida a la zona especial de busseig.',
+  'Prohibida la pesca y el marisqueo entre la cala de s’Art y el Morro d’en Feliu.':
+    'Prohibida la pesca i el marisqueig entre la cala de s’Art i el Morro d’en Feliu.',
+  'Prohibida la pesca recreativa desde las zonas terrestres de exclusión que delimita el PORN.':
+    'Prohibida la pesca recreativa des de les zones terrestres d’exclusió que delimita el PORN.',
+  'Prohibido acercarse a menos de 150 m de los puntos de artes de parada cuando estén calados.':
+    'Prohibit acostar-se a menys de 150 m dels punts d’arts de parada quan són calats.',
+
+  // -- Poteres i finestres estacionals ---------------------------------------
+  'Potera para cefalópodos: del 1 de octubre al 31 de diciembre.':
+    'Poteres per a cefalòpodes: de l’1 d’octubre al 31 de desembre.',
+  'Potera, del 1 de octubre al 31 de diciembre: máximo 1 línea por pescador con 2 poteras.':
+    'Poteres, de l’1 d’octubre al 31 de desembre: màxim 1 línia per pescador amb 2 poteres.',
+  'Potera: 1 por pescador.': 'Poteres: 1 per pescador.',
+  'Potera: máximo 1 línea con 2 poteras por pescador.':
+    'Poteres: màxim 1 línia amb 2 poteres per pescador.',
+  'Potera: máximo 1 por pescador.': 'Poteres: màxim 1 per pescador.',
+
+  // -- Busseig: permisos i límits per punt -----------------------------------
+  'Permitido con permiso individual o colectivo, sin inmersiones nocturnas individuales (art. 5.2 del Decret 26/2025).':
+    'Permès amb permís individual o col·lectiu, sense immersions nocturnes individuals (art. 5.2 del Decret 26/2025).',
+  'Permitido con permiso, salvo en el sector noroeste, entre el Clot des Moro y els Pans, donde el buceo recreativo está absolutamente prohibido. El buceo colectivo solo puede practicarse en 6 puntos balizados, con un máximo de 12 submarinistas por punto y visita.':
+    'Permès amb permís, llevat del sector nord-oest, entre el Clot des Moro i els Pans, on el busseig recreatiu és absolutament prohibit. El busseig col·lectiu només es pot practicar en 6 punts abalisats, amb un màxim de 12 submarinistes per punt i visita.',
+  'Permitido con permiso. El buceo colectivo solo puede practicarse en 4 puntos balizados, con un máximo de 12 submarinistas por punto y visita.':
+    'Permès amb permís. El busseig col·lectiu només es pot practicar en 4 punts abalisats, amb un màxim de 12 submarinistes per punt i visita.',
+  'Prohibidas las inmersiones desde tierra.': 'Prohibides les immersions des de terra.',
+  'Prohibido alimentar a la fauna durante las inmersiones (feeding).':
+    'Prohibit alimentar la fauna durant les immersions (feeding).',
+  'Prohibida la alimentación o «feeding» de la fauna (apartado 5.3.4.2).':
+    'Prohibida l’alimentació o «feeding» de la fauna (apartat 5.3.4.2).',
+  'Prohibida la alimentación o «feeding» de las especies marinas (art. 83.3).':
+    'Prohibida l’alimentació o «feeding» de les espècies marines (art. 83.3).',
+  'Prohibida la manipulación o alimentación de las especies.':
+    'Prohibida la manipulació o alimentació de les espècies.',
+  'Prohibida la recolección o extracción de organismos, vivos o muertos, salvo por motivos científicos previamente justificados y autorizados.':
+    'Prohibida la recol·lecció o extracció d’organismes, vius o morts, llevat de motius científics prèviament justificats i autoritzats.',
+
+  // -- Fondeig, navegació i activitats incompatibles -------------------------
+  'Obligatorio amarrar a las boyas habilitadas: no se puede echar el ancla sobre el fondo.':
+    'Obligatori amarrar a les boies habilitades: no s’hi pot llançar l’àncora sobre el fons.',
+  'Prohibido cualquier tipo de fondeo, salvo fuerza mayor.':
+    'Prohibit qualsevol tipus de fondeig, llevat de força major.',
+  'Prohibido anclar sobre posidonia en toda la reserva integral (Decret 71/2016, art. 2.2).':
+    'Prohibit ancorar sobre posidònia a tota la reserva integral (Decret 71/2016, art. 2.2).',
+  'Prohibido con carácter general fondear sobre Posidonia oceanica; si hay praderas próximas, tampoco la cadena ni los demás elementos del fondeo pueden afectarlas (ap. 5.6.1).':
+    'Prohibit amb caràcter general fondejar sobre Posidonia oceanica; si hi ha prades properes, tampoc la cadena ni els altres elements del fondeig no les poden afectar (ap. 5.6.1).',
+  'Prohibida la instalación de nuevos campos de fondeo y de otros elementos náuticos que supongan un aumento de embarcaciones motorizadas, hasta que se disponga del estudio de capacidad de carga previsto en el plan.':
+    'Prohibida la instal·lació de nous camps de fondeig i d’altres elements nàutics que suposin un augment d’embarcacions motoritzades, fins que es disposi de l’estudi de capacitat de càrrega previst al pla.',
+  'Prohibida la navegación deportiva y de recreo en las zonas de baño debidamente indicadas.':
+    'Prohibida la navegació esportiva i d’esbarjo a les zones de bany degudament indicades.',
+  'Prohibida la navegación en la zona de exclusión marina, que este mapa dibuja como figura aparte.':
+    'Prohibida la navegació a la zona d’exclusió marina, que aquest mapa dibuixa com a figura a part.',
+  'Prohibida cualquier actividad recreativa de navegación y el baño dentro de s’Albufera des Grau y las demás zonas húmedas (art. 50.6 del PORN).':
+    'Prohibida qualsevol activitat recreativa de navegació i el bany dins s’Albufera des Grau i les altres zones humides (art. 50.6 del PORN).',
+  'Prohibido cualquier tipo de vertido desde las embarcaciones (art. 40.1.a).':
+    'Prohibit qualsevol tipus d’abocament des de les embarcacions (art. 40.1.a).',
+  'Prohibidas las competiciones y las excursiones o rutas organizadas de motonáutica (art. 40.1.i).':
+    'Prohibides les competicions i les excursions o rutes organitzades de motonàutica (art. 40.1.i).',
+  'Prohibidas las competiciones y los entrenamientos deportivos con emisión de ruidos o gases, incluidas las carreras de vehículos a motor acuáticos (art. 102.h).':
+    'Prohibides les competicions i els entrenaments esportius amb emissió de renous o gasos, incloses les curses de vehicles a motor aquàtics (art. 102.h).',
+  'Prohibidas las embarcaciones que presten servicios particulares lucrativos, salvo las actividades debidamente autorizadas como las de buceo (art. 102.f).':
+    'Prohibides les embarcacions que prestin serveis particulars lucratius, llevat de les activitats degudament autoritzades com les de busseig (art. 102.f).',
+  'Prohibidas las fiestas en embarcaciones (party boats o asimilables) y la emisión de ruido mediante dispositivos de música o similares (art. 40.1.k).':
+    'Prohibides les festes en embarcacions (party boats o assimilables) i l’emissió de renou mitjançant dispositius de música o similars (art. 40.1.k).',
+  'Prohibidas las motos acuáticas y otros aparatos náuticos recreativos análogos —esquí, paracaidismo, flotadores y demás aparatos remolcados— salvo los de los servicios públicos de rescate (art. 102.e).':
+    'Prohibides les motos aquàtiques i altres aparells nàutics recreatius anàlegs —esquí, paracaigudisme, flotadors i altres aparells remolcats— llevat dels dels serveis públics de rescat (art. 102.e).',
+  'Prohibidas en todo el ámbito marino la pesca de arrastre y la de cerco (art. 40.1.f), y la acuicultura (art. 40.1.e).':
+    'Prohibides a tot l’àmbit marí la pesca d’arrossegament i la de cèrcol (art. 40.1.f), i l’aqüicultura (art. 40.1.e).',
+  'Prohibida cualquier actividad de acuicultura, sea cual sea su tipología (art. 94.c).':
+    'Prohibida qualsevol activitat d’aqüicultura, sigui quina sigui la seva tipologia (art. 94.c).',
+  'Prohibida la celebración de competiciones.': 'Prohibida la celebració de competicions.',
+
+  // -- Busseig: on està prohibit ---------------------------------------------
+  'Prohibido el buceo con escafandra autónoma en el área de reserva integral (art. 40.1.j).':
+    'Prohibit el busseig amb escafandre autònom a l’àrea de reserva integral (art. 40.1.j).',
+  'Prohibido el buceo con escafandra en el área de protección especial.':
+    'Prohibit el busseig amb escafandre a l’àrea de protecció especial.',
+  'Prohibido el buceo con escafandra en la zona de protección máxima de s’Espardell.':
+    'Prohibit el busseig amb escafandre a la zona de protecció màxima de s’Espardell.',
+  'Prohibido el buceo en apnea en mayo y junio en las zonas de desove de la cigarra de mar.':
+    'Prohibit el busseig en apnea al maig i al juny a les zones de fresa de l’esclata-sang de mar.',
+  'Prohibido el buceo en la zona de exclusión marina, que este mapa dibuja como figura aparte.':
+    'Prohibit el busseig a la zona d’exclusió marina, que aquest mapa dibuixa com a figura a part.',
+  'Prohibido el buceo recreativo en el interior de las cuevas submarinas de la Illa de l’Aire.':
+    'Prohibit el busseig recreatiu a l’interior de les coves submarines de la Illa de l’Aire.',
+  'Prohibido el buceo recreativo en el sector noroeste de la zona, entre el Clot des Moro y els Pans (anexo 3.3 del Decret 26/2025).':
+    'Prohibit el busseig recreatiu al sector nord-oest de la zona, entre el Clot des Moro i els Pans (annex 3.3 del Decret 26/2025).',
+  'Prohibido en el área de protección especial.': 'Prohibit a l’àrea de protecció especial.',
+  'Prohibido el uso de torpedos o scooters subacuáticos.':
+    'Prohibit l’ús de torpedes o scooters subaquàtics.',
+  'Resto de la reserva, excepto las zonas de protección especial: inmersiones libres y sin límite diario.':
+    'Resta de la reserva, excepte les zones de protecció especial: immersions lliures i sense límit diari.',
+  'Solo dentro de las zonas de buceo señaladas: las inmersiones fuera de ellas están prohibidas.':
+    'Només dins les zones de busseig assenyalades: les immersions fora d’elles hi són prohibides.',
+  'Requiere permiso individual o colectivo. Las inmersiones en apnea son libres en toda la reserva, pero no se puede bucear en la reserva integral.':
+    'Requereix permís individual o col·lectiu. Les immersions en apnea són lliures a tota la reserva, però no s’hi pot bussejar, a la reserva integral.',
+  'Zona del cabo de Cavalleria: dividida en cinco sectores con un máximo de 50 inmersiones diarias en cada uno, salvo el sector 4b de sa Nitja, donde el máximo es de 2 inmersiones diarias y hace falta autorización previa del órgano gestor.':
+    'Zona del cap de Cavalleria: dividida en cinc sectors amb un màxim de 50 immersions diàries a cadascun, llevat del sector 4b de sa Nitja, on el màxim és de 2 immersions diàries i cal autorització prèvia de l’òrgan gestor.',
+  'Tarjeta federativa de actividades subacuáticas.':
+    'Targeta federativa d’activitats subaquàtiques.',
+
+  // -- Instruments a bord i modalitats prohibides ----------------------------
+  'Prohibido llevar cualquier instrumento utilizable para pescar o extraer especies marinas, salvo el cuchillo reglamentario.':
+    'Prohibit dur qualsevol instrument utilitzable per pescar o extreure espècies marines, llevat del ganivet reglamentari.',
+  'Prohibido llevar, en la inmersión o en la embarcación, cualquier instrumento utilizable para la pesca o la extracción de especies marinas, salvo el cuchillo de seguridad.':
+    'Prohibit dur, a la immersió o a l’embarcació, qualsevol instrument utilitzable per a la pesca o l’extracció d’espècies marines, llevat del ganivet de seguretat.',
+  'Prohibido utilizar, tener o transportar a bordo cualquier instrumento que pueda emplearse para la extracción de especies marinas.':
+    'Prohibit utilitzar, tenir o transportar a bord qualsevol instrument que es pugui emprar per a l’extracció d’espècies marines.',
+  'Prohibidos el jigging y el spinning.': 'Prohibits el jigging i l’spinning.',
+  'Prohibidos los concursos de pesca de recreo.': 'Prohibits els concursos de pesca d’esbarjo.',
+  'Prohibidos los dragados submarinos y la extracción de arena de los fondos marinos (art. 40.1.b y 40.1.c).':
+    'Prohibits els dragatges submarins i l’extracció d’arena dels fons marins (art. 40.1.b i 40.1.c).',
+
+  // -- Fondeig: prohibicions per figura --------------------------------------
+  'Prohibido el fondeo en la zona de exclusión marina, que este mapa dibuja como figura aparte.':
+    'Prohibit el fondeig a la zona d’exclusió marina, que aquest mapa dibuixa com a figura a part.',
+  'Prohibido fondear en las áreas marinas de protección estricta (art. 117.a y art. 30.3 del PORN).':
+    'Prohibit fondejar a les àrees marines de protecció estricta (art. 117.a i art. 30.3 del PORN).',
+  'Prohibido fondear sobre las fanerógamas marinas del área de protección especial.':
+    'Prohibit fondejar sobre les fanerògames marines de l’àrea de protecció especial.',
+  'Prohibido fondear sobre las praderas de fanerógamas del área de protección especial.':
+    'Prohibit fondejar sobre les prades de fanerògames de l’àrea de protecció especial.',
+  'Prohibido fondear sobre praderas de Posidonia oceanica en todo el ámbito marino del parque (art. 40.2).':
+    'Prohibit fondejar sobre prades de Posidonia oceanica a tot l’àmbit marí del parc (art. 40.2).',
+  'Prohibido fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa, y en arena próxima si la cadena o el ancla acaban afectando a la pradera (RD 191/2026).':
+    'Prohibit fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa, i en arena propera si la cadena o l’àncora acaben afectant la prada (RD 191/2026).',
+  'Prohibido fondear sobre praderas de Posidonia oceanica y sobre fondos de maërl (art. 82).':
+    'Prohibit fondejar sobre prades de Posidonia oceanica i sobre fons de maërl (art. 82).',
+  'Prohibido también sobre Cymodocea nodosa y en arena próxima si la cadena, el ancla u otros elementos del fondeo afectan a la pradera (RD 191/2026).':
+    'Prohibit també sobre Cymodocea nodosa i en arena propera si la cadena, l’àncora o altres elements del fondeig afecten la prada (RD 191/2026).',
+  'Prohibido también sobre praderas de Cymodocea nodosa, y en arena próxima si la cadena o el ancla acaban afectando a la pradera (RD 191/2026).':
+    'Prohibit també sobre prades de Cymodocea nodosa, i en arena propera si la cadena o l’àncora acaben afectant la prada (RD 191/2026).',
+  'Prohibido también sobre las matas aisladas de Posidonia oceanica, incluidas las que no tienen hojas vivas pero forman bioestructuras estables; no entran en la prohibición los depósitos de hojarasca sobre arena.':
+    'Prohibit també sobre les mates aïllades de Posidonia oceanica, incloses les que no tenen fulles vives però formen bioestructures estables; no entren en la prohibició els dipòsits de fullaraca sobre arena.',
+  'Queda totalmente prohibido cualquier tipo de fondeo, salvo por causa de fuerza mayor.':
+    'Queda totalment prohibit qualsevol tipus de fondeig, llevat de causa de força major.',
+  'Solo se puede fondear sin autorización en tres lugares concretos: Cala Moltó o Es Gulló, Cala Agulla y Son Moll. En el resto de la reserva estatal el fondeo está prohibido.':
+    'Només es pot fondejar sense autorització a tres llocs concrets: Cala Moltó o Es Gulló, Cala Agulla i Son Moll. A la resta de la reserva estatal el fondeig hi és prohibit.',
+  'Solo se puede pernoctar en la zona de uso especial del puerto de Cabrera, en las cincuenta boyas de amarre habilitadas.':
+    'Només es pot pernoctar a la zona d’ús especial del port de Cabrera, a les cinquanta boies d’amarratge habilitades.',
+  'También pueden fondear sin autorización las embarcaciones profesionales que estén pescando con potera en fondos detríticos.':
+    'També poden fondejar sense autorització les embarcacions professionals que estiguin pescant amb poteres en fons detrítics.',
+  'Tres zonas de fondeo regulado con campo de boyas: hay que amarrar a la boya y no se puede echar el ancla. En la bahía d’Es Grau el fondeo fuera de las boyas está prohibido, con un máximo de 260 anclajes fijos incluidos los amarres al muelle.':
+    'Tres zones de fondeig regulat amb camp de boies: cal amarrar a la boia i no s’hi pot llançar l’àncora. A la badia d’Es Grau el fondeig fora de les boies hi és prohibit, amb un màxim de 260 ancoratges fixos inclosos els amarratges al moll.',
+  'S’Estany des Peix tiene además su propio reglamento de fondeo y amarres, aprobado por el Consell Insular de Formentera, que reserva los amarres a embarcaciones acreditadas y con eslora limitada. Este mapa no dibuja esos amarres.':
+    'S’Estany des Peix té a més el seu propi reglament de fondeig i amarratges, aprovat pel Consell Insular de Formentera, que reserva els amarratges a embarcacions acreditades i amb eslora limitada. Aquest mapa no dibuixa aquests amarratges.',
+
+  // -- Navegació: velocitats, motos i excepcions -----------------------------
+  'Prohibido el uso de motos acuáticas, salvo las de los organismos de vigilancia y control.':
+    'Prohibit l’ús de motos aquàtiques, llevat de les dels organismes de vigilància i control.',
+  'Prohibido el uso de motos de agua dentro de la reserva.':
+    'Prohibit l’ús de motos aquàtiques dins la reserva.',
+  'Prohibidos los circuitos de motos náuticas u otras embarcaciones a motor; se exceptúan las excursiones de contenido naturalístico, que deben pasar una evaluación de repercusiones ambientales.':
+    'Prohibits els circuits de motos nàutiques o altres embarcacions a motor; se n’exceptuen les excursions de contingut naturalístic, que han de passar una avaluació de repercussions ambientals.',
+  'Prohibidos los circuitos de motos náuticas y de otros vehículos de motor (apartado 5.3.3).':
+    'Prohibits els circuits de motos nàutiques i d’altres vehicles de motor (apartat 5.3.3).',
+  'Quedan fuera de esa prohibición las embarcaciones cuya única finalidad sea el transporte marítimo, público o privado, y cualquier embarcación o aparato náutico a vela.':
+    'Queden fora d’aquesta prohibició les embarcacions la finalitat única de les quals sigui el transport marítim, públic o privat, i qualsevol embarcació o aparell nàutic a vela.',
+  'Se admite únicamente el tránsito a nado desde la playa de s’Escala, en línea recta y dirección noroeste, para acceder por el camino más corto a la zona donde sí se puede pescar.':
+    'S’admet únicament el trànsit a nedar des de la platja de s’Escala, en línia recta i direcció nord-oest, per accedir pel camí més curt a la zona on sí que es pot pescar.',
+  'Se exceptúan las emergencias relacionadas con la seguridad de la vida humana en la mar y las actuaciones de vigilancia, seguimiento, control, defensa nacional y orden público.':
+    'Se n’exceptuen les emergències relacionades amb la seguretat de la vida humana a la mar i les actuacions de vigilància, seguiment, control, defensa nacional i ordre públic.',
+  'Se permiten los circuitos y actividades de navegación sin motor.':
+    'Es permeten els circuits i activitats de navegació sense motor.',
+  'Velocidad inferior a 10 nudos para buques y embarcaciones, para evitar ruidos y perturbaciones.':
+    'Velocitat inferior a 10 nusos per a vaixells i embarcacions, per evitar renous i pertorbacions.',
+  'Velocidad inferior a 10 nudos, salvo emergencia relacionada con la seguridad de la vida humana en el mar o actuaciones de vigilancia, control, defensa nacional u orden público.':
+    'Velocitat inferior a 10 nusos, llevat d’emergència relacionada amb la seguretat de la vida humana a la mar o actuacions de vigilància, control, defensa nacional o ordre públic.',
+  'Velocidad máxima de diez nudos en el parque y de dos nudos dentro del puerto.':
+    'Velocitat màxima de deu nusos al parc i de dos nusos dins el port.',
+
+  // -- Ormeigs i finestres restants ------------------------------------------
+  'Requiere licencia de pesca recreativa de embarcación en vigor.':
+    'Requereix llicència de pesca recreativa d’embarcació en vigor.',
+  'Salabre: solo permitido en el ámbito autonómico.':
+    'Salabre: només permès a l’àmbit autonòmic.',
+  'Se puede mariscar puu con una cuerda y dos bous por recolector.':
+    'Es pot mariscar puu amb una corda i dos bous per recol·lector.',
+  'Se pueden autorizar como aparejos tradicionales el esparavel, la lienza, el morenell y la moixonera.':
+    'Es poden autoritzar com a ormeigs tradicionals l’esparver, la llenceta, el morenell i la moixonera.',
+  'Solo a más de 10 m de profundidad: entre la línea de costa y esa cota está prohibida toda pesca marítima y marisqueo, salvo el esparavel.':
+    'Només a més de 10 m de fondària: entre la línia de costa i aquesta cota hi és prohibida tota pesca marítima i marisqueig, llevat de l’esparver.',
+  'Solo entre el 1 de julio y el 31 de marzo.': 'Només entre l’1 de juliol i el 31 de març.',
+  'Único aparejo admitido desde tierra: el esparavel.':
+    'Únic ormeig admès des de terra: l’esparver.',
+  'Único aparejo admitido: la caña, con o sin carrete.':
+    'Únic ormeig admès: la canya, amb rodet o sense.',
+  'Volantín desde embarcación: del 1 de octubre al 30 de abril.':
+    'Volantí des d’embarcació: de l’1 d’octubre al 30 d’abril.',
+  'Se exceptúan la toma de muestras con fines científicos y la pesca profesional de artes menores: artes de parada (moruna o solta) en cala en Regau, y junquillera en su temporada.':
+    'Se n’exceptuen la presa de mostres amb finalitats científiques i la pesca professional d’arts menors: arts de parada (moruna o solta) a cala en Regau, i jonquillera en la seva temporada.',
+  'Se exceptúan la toma de muestras con fines científicos y la pesca profesional de artes menores: artes de parada (moruna o solta) en el Clot des Moro, y jonquillera (art. 7.2 del Decret 26/2025).':
+    'Se n’exceptuen la presa de mostres amb finalitats científiques i la pesca professional d’arts menors: arts de parada (moruna o solta) al Clot des Moro, i jonquillera (art. 7.2 del Decret 26/2025).',
+
+  // -- Permisos: vigència, taxes i notes restants ----------------------------
+  'Según autorización': 'Segons autorització',
+  'Tasa por cada reserva marina.': 'Taxa per cada reserva marina.',
+  'Tasa por cada reserva marina. Autorización individual específica.':
+    'Taxa per cada reserva marina. Autorització individual específica.',
+  'Tasa de 53,90 €; validez hasta el 31 de diciembre del año de emisión; exige licencia de pesca recreativa submarina en vigor e informe preceptivo de la Dirección General de Espacios Naturales y Biodiversidad; plazo de resolución de 6 meses; la no presentación del registro de capturas comporta la pérdida de la autorización':
+    'Taxa de 53,90 €; validesa fins al 31 de desembre de l’any d’emissió; exigeix llicència de pesca recreativa submarina en vigor i informe preceptiu de la Direcció General d’Espais Naturals i Biodiversitat; termini de resolució de 6 mesos; la no presentació del registre de captures comporta la pèrdua de l’autorització',
+  'Tasas por duración y reserva: diaria 5,24 €; quincenal 10,47 €; anual 52,82 €. La semanal (15,71 €) solo existe para la reserva del Ponent de Mallorca. La anual habilita el resto de reservas de la misma isla, salvo las zonas especiales de buceo del Toro y les Malgrats. Exige título oficial de buceo recreativo y seguro de accidentes y responsabilidad civil en vigor; los menores necesitan consentimiento del tutor. Tramitación telemática. Los centros y clubes usan la autorización colectiva (trámite 106992)':
+    'Taxes per durada i reserva: diària 5,24 €; quinzenal 10,47 €; anual 52,82 €. La setmanal (15,71 €) només existeix per a la reserva del Ponent de Mallorca. L’anual habilita la resta de reserves de la mateixa illa, llevat de les zones especials de busseig del Toro i les Malgrats. Exigeix títol oficial de busseig recreatiu i assegurança d’accidents i responsabilitat civil en vigor; els menors necessiten consentiment del tutor. Tramitació telemàtica. Els centres i clubs fan servir l’autorització col·lectiva (tràmit 106992)',
+  'Punto quinto, zona de veda para la pesca recreativa desde tierra y embarcación':
+    'Punt cinquè, zona de veda per a la pesca recreativa des de terra i embarcació',
+
+  // -- Resums de zona restants ------------------------------------------------
+  'RÉGIMEN TRANSITORIO. Esta zona ha quedado fuera del área de la reserva marina. Hasta que la Consejería regule la actividad pesquera por orden, está prohibida cualquier actividad pesquera salvo tres excepciones tasadas: la pesca y el marisqueo recreativos desde tierra, el marisqueo recreativo desde embarcación y la pesca profesional con artes de tiro.':
+    'RÈGIM TRANSITORI. Aquesta zona ha quedat fora de l’àrea de la reserva marina. Fins que la Conselleria reguli l’activitat pesquera per ordre, hi és prohibida qualsevol activitat pesquera llevat de tres excepcions taxades: la pesca i el marisqueig recreatius des de terra, el marisqueig recreatiu des d’embarcació i la pesca professional amb arts de tir.',
+  'Reserva del nordeste de Formentera. Pesca submarina prohibida. Desde embarcación solo entre el 1 de julio y el 31 de marzo, a más de 10 m de profundidad y con tres aparejos; desde tierra, solo el esparavel. Spinning, jigging y competiciones, prohibidos.':
+    'Reserva del nord-est de Formentera. Pesca submarina prohibida. Des d’embarcació només entre l’1 de juliol i el 31 de març, a més de 10 m de fondària i amb tres ormeigs; des de terra, només l’esparver. Spinning, jigging i competicions, prohibits.',
+  'Reserva del oeste de Eivissa. Mismo régimen que es Vedrà: pesca recreativa solo desde embarcación con autorización trienal, prohibida desde los islotes y en modalidad submarina. Contiene además una zona de especial protección donde no se permite ninguna pesca recreativa.':
+    'Reserva de l’oest d’Eivissa. Mateix règim que es Vedrà: pesca recreativa només des d’embarcació amb autorització triennal, prohibida des dels illots i en modalitat submarina. Conté a més una zona d’especial protecció on no s’hi permet cap pesca recreativa.',
+  'Reserva del suroeste de Eivissa, alrededor de es Vedrà y es Vedranell. La pesca recreativa solo se permite desde embarcación o artefactos flotantes, con autorización trienal; desde los islotes y en modalidad submarina, prohibida.':
+    'Reserva del sud-oest d’Eivissa, al voltant d’es Vedrà i es Vedranell. La pesca recreativa només es permet des d’embarcació o artefactes flotants, amb autorització triennal; des dels illots i en modalitat submarina, prohibida.',
+  'Una sola figura jurídica con dos áreas separadas —Cala Barril-Pla de Mar y la bahía de Fornells—, unas 1.015 ha en total. Ni pesca recreativa en ninguna modalidad, ni buceo con escafandra.':
+    'Una sola figura jurídica amb dues àrees separades —Cala Barril-Pla de Mar i la badia de Fornells—, unes 1.015 ha en total. Ni pesca recreativa en cap modalitat, ni busseig amb escafandre.',
+  'Zona de 2 ha declarada para proteger las colonias de gorgonias de la punta de na Bruta. Su única regla propia es profesional —el art. 3.2 prohíbe calar trasmallos—, así que para el pescador recreativo y el buceador rige el mismo régimen que en el resto de la reserva.':
+    'Zona de 2 ha declarada per protegir les colònies de gorgònies de la punta de na Bruta. La seva única regla pròpia és professional —l’art. 3.2 prohibeix calar tremalls—, així que per al pescador recreatiu i el bussejador regeix el mateix règim que a la resta de la reserva.',
+  'Zona declarada para proteger las colonias de gorgonias. El art. 2.2 prohíbe aquí toda clase de pesca marítima y de extracción, con la única excepción de la pesca profesional con volantín, potera y curricán: la pesca recreativa no está permitida en ninguna modalidad.':
+    'Zona declarada per protegir les colònies de gorgònies. L’art. 2.2 hi prohibeix tota classe de pesca marítima i d’extracció, amb l’única excepció de la pesca professional amb volantí, poteres i curricà: la pesca recreativa no hi és permesa en cap modalitat.',
+  'Zona especial entre la línea de costa y el límite exterior de la reserva estatal, frente a Cala Agulla. La Orden APA/690/2018 la declara zona especial pero no le fija un régimen de usos distinto del resto de la reserva fuera de la integral. Cala Agulla es, además, uno de los tres lugares donde sí se puede fondear.':
+    'Zona especial entre la línia de costa i el límit exterior de la reserva estatal, davant Cala Agulla. L’Ordre APA/690/2018 la declara zona especial però no li fixa un règim d’usos diferent del de la resta de la reserva fora de la integral. Cala Agulla és, a més, un dels tres llocs on sí que es pot fondejar.',
+  'Zona vedada a la pesca recreativa dentro de la reserva del Migjorn, creada por Resolución de 19/02/2009 y prorrogada por 5 años en 2024. La veda alcanza tanto la pesca desde tierra como desde embarcación; no afecta al buceo.':
+    'Zona vedada a la pesca recreativa dins la reserva del Migjorn, creada per Resolució de 19/02/2009 i prorrogada per 5 anys el 2024. La veda abasta tant la pesca des de terra com des d’embarcació; no afecta el busseig.',
+  'Zona vedada a la pesca recreativa desde tierra y desde embarcación, unas 1.249 ha. Se estableció por primera vez en 2009 y se prorroga cada tres años; la resolución vigente es de 16 de febrero de 2024. No afecta al buceo.':
+    'Zona vedada a la pesca recreativa des de terra i des d’embarcació, unes 1.249 ha. Es va establir per primera vegada el 2009 i es prorroga cada tres anys; la resolució vigent és de 16 de febrer de 2024. No afecta el busseig.',
+  'Zona vedada a la pesca recreativa, tanto desde tierra como desde embarcación. La crea una resolución trienal renovada desde el año 2000; la vigente es de 4 de diciembre de 2023. No afecta al buceo.':
+    'Zona vedada a la pesca recreativa, tant des de terra com des d’embarcació. La crea una resolució triennal renovada des de l’any 2000; la vigent és de 4 de desembre de 2023. No afecta el busseig.',
+
+  // -- Espais Natura 2000 restants -------------------------------------------
+  'ZEC costera de la costa este, dentro del Pla de Gestió de la costa est de Menorca.':
+    'ZEC costanera de la costa est, dins el Pla de Gestió de la costa est de Menorca.',
+  'ZEC de la costa nordeste, dentro del Pla de Gestió de la costa est de Menorca.':
+    'ZEC de la costa nord-est, dins el Pla de Gestió de la costa est de Menorca.',
+  'ZEC estrictamente marina de la costa de llevant. La pesca se rige por la normativa general; el fondeo y la navegación tienen normas propias en el plan de gestión.':
+    'ZEC estrictament marina de la costa de llevant. La pesca es regeix per la normativa general; el fondeig i la navegació tenen normes pròpies al pla de gestió.',
+  'ZEC estrictamente marina frente a la costa de Tramuntana. Pesca recreativa según la normativa general; buceo permitido y fondeo condicionado por el Pla de Gestió.':
+    'ZEC estrictament marina davant la costa de Tramuntana. Pesca recreativa segons la normativa general; busseig permès i fondeig condicionat pel Pla de Gestió.',
+  'ZEC marina que se solapa con la Reserva Marina de la Illa de l’Aire. El art. 6 del Decreto 26/2019 obliga a cumplir este plan de gestión en la parte coincidente: las dos figuras se acumulan por mandato de la propia norma de la reserva.':
+    'ZEC marina que se superposa amb la Reserva Marina de la Illa de l’Aire. L’art. 6 del Decret 26/2019 obliga a complir aquest pla de gestió a la part coincident: les dues figures s’acumulen per mandat de la mateixa norma de la reserva.',
+  'ZEPA de 11.645 ha entre cap Enderrocat y cap Blanc. Comparte nombre con el LIC ES5310128 pero es otro espacio, con otro perímetro. Plan de gestión en tramitación.':
+    'ZEPA d’11.645 ha entre cap Enderrocat i cap Blanc. Comparteix nom amb el LIC ES5310128 però és un altre espai, amb un altre perímetre. Pla de gestió en tramitació.',
+  'ZEPA marina estatal de 162.710 ha, la mayor de Baleares. Se solapa con la Reserva Marina del Nord de Menorca, y es el régimen de la reserva —no esta ZEPA— el que restringe allí la pesca.':
+    'ZEPA marina estatal de 162.710 ha, la major de Balears. Se superposa amb la Reserva Marina del Nord de Menorca, i és el règim de la reserva —no aquesta ZEPA— el que hi restringeix la pesca.',
+  'ZEPA marina estatal de 23.778 ha frente al sudeste de Menorca, en el entorno de la Illa de l’Aire. No impone por sí sola ninguna restricción a la pesca recreativa.':
+    'ZEPA marina estatal de 23.778 ha davant el sud-est de Menorca, a l’entorn de la Illa de l’Aire. No imposa per si sola cap restricció a la pesca recreativa.',
+  'ZEPA marina estatal de 40.240 ha, desde la bahía de Palma hacia Cabrera y ses Salines, declarada por las colonias de aves marinas. No impone restricciones de pesca recreativa ni de buceo: la Orden que la declara no las regula y no tiene plan de gestión aprobado.':
+    'ZEPA marina estatal de 40.240 ha, des de la badia de Palma cap a Cabrera i ses Salines, declarada per les colònies d’aus marines. No imposa restriccions de pesca recreativa ni de busseig: l’Ordre que la declara no les regula i no té pla de gestió aprovat.',
+  'ZEPA marina estatal de 47.166 ha que bordea sa Dragonera, els Malgrats, els Conills y el Toro. Se solapa con varias reservas marinas, y es el régimen de esas reservas —no esta ZEPA— el que restringe allí la pesca.':
+    'ZEPA marina estatal de 47.166 ha que voreja sa Dragonera, els Malgrats, els Conills i el Toro. Se superposa amb diverses reserves marines, i és el règim d’aquelles reserves —no aquesta ZEPA— el que hi restringeix la pesca.',
+  'ZEPA marina estatal de 99.072 ha frente a toda la costa norte de Mallorca. Es la figura más extensa del mapa y no impone por sí sola ninguna restricción a la pesca recreativa.':
+    'ZEPA marina estatal de 99.072 ha davant tota la costa nord de Mallorca. És la figura més extensa del mapa i no imposa per si sola cap restricció a la pesca recreativa.',
 };
