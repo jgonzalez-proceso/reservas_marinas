@@ -40,6 +40,11 @@ export default {
   'cabecera.zonas': 'Areas',
   'cabecera.estoyDentro': 'Am I inside?',
 
+  'menu.titulo': 'Menu',
+  'menu.abrir': 'Open menu',
+  'menu.cerrar': 'Close menu',
+  'menu.volver': 'Back',
+
   'islas.todas': 'All islands',
 
   // -- Footer ----------------------------------------------------------------

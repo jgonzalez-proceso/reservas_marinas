@@ -296,51 +296,302 @@ a {
   outline-offset: 1px;
 }
 
-/* En móvil la cabecera va justa: se cae la etiqueta y queda solo el desplegable,
-   que ya lleva su propio aria-label. */
-@media (max-width: 560px) {
-  .selector-isla__etiqueta {
-    display: none;
-  }
+/* En móvil los dos desplegables y «Zonas» se van al menú de hamburguesa.
 
-  /* Y aun cayendo la etiqueta no cabe: el título, el desplegable y los dos
-     botones suman más que el ancho de un móvil, y «¿Estoy dentro?» -que es el
-     botón que se usa en el agua- quedaba cortado contra el borde derecho.
-     Pasa a dos filas: marca arriba, controles abajo ocupando el ancho. Cuesta
-     unos 40px de mapa y es lo que hace que el botón exista. */
+   El título, dos desplegables y dos botones suman más que el ancho de un
+   móvil: antes la cabecera se caía a dos filas, y cada fila de cabecera es una
+   fila menos de mapa, que es lo que la gente viene a ver. Con el menú vuelve a
+   una sola fila y se recuperan esos ~40px.
+
+   «¿Estoy dentro?» no entra en el menú y se queda a la vista: es el botón que
+   se usa en el agua, con una mano y en movimiento, y ponerlo a dos toques de
+   distancia sería esconder la aplicación dentro de sí misma. */
+@media (max-width: 560px) {
   .cabecera {
-    flex-wrap: wrap;
-    align-items: flex-start;
     padding: 8px 12px;
-    gap: 8px;
+    gap: 10px;
   }
+  /* El título cede el ancho antes que los botones y se recorta con puntos
+     suspensivos: a 320px no hay sitio para todo, y lo que no puede encogerse
+     es el objetivo táctil. */
   .cabecera__marca {
-    flex: 1 1 100%;
+    min-width: 0;
   }
   .cabecera__marca h1 {
     font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  /* «Illes Balears» se cae: el desplegable de al lado ya dice qué isla se está
-     mirando, y en dos filas cada renglón de cabecera es un renglón menos de
-     mapa. */
+  /* «Illes Balears» se cae: el menú ya dice qué isla se está mirando. */
   #subtitulo {
     display: none;
   }
   .cabecera__acciones {
-    flex: 1 1 100%;
-    gap: 6px;
+    flex: none;
+    align-items: center;
+    gap: 8px;
   }
-  .cabecera__acciones .boton {
-    flex: 1 1 auto;
-    padding: 9px 8px;
-    text-align: center;
+  .cabecera__acciones .selector-isla,
+  .cabecera__acciones #btn-lista {
+    display: none;
   }
-  .selector-isla {
-    flex: 1 1 auto;
-    min-width: 0;
+}
+
+/* -- Menú de hamburguesa: solo por debajo de 560px --------------------------- */
+
+/* El gesto está tomado del cajón lateral de «Mike's Magical Mobile Mega Menu»
+   (CodePen tiffachoo/yzZRXK): el cajón entra desde la derecha sobre un velo
+   oscuro, y cada submenú entra encima con el mismo movimiento y se sale por
+   donde vino con un «Volver» arriba. Aquí solo hay dos niveles y las piezas
+   llevan los colores del tema.
+
+   Todo lo de esta sección arranca en `display: none` y solo lo enciende la
+   media query de arriba. Por encima de 560px los controles siguen en la
+   cabecera y el cajón no existe: ni oculto, ni en el orden de tabulación. */
+
+.hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 44px;
+  height: 44px;
+  padding: 0 11px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--fondo-3);
+  cursor: pointer;
+}
+.hamburguesa:focus-visible {
+  outline: 2px solid #6fa8dc;
+  outline-offset: 1px;
+}
+.hamburguesa__barra {
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--texto);
+}
+
+/* El velo no es decoración: mientras el cajón está abierto, un toque en el
+   mapa tiene que cerrarlo y no consultar un punto que no se ve entero. */
+.menu__velo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  background: rgba(4, 10, 16, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+body.con-menu .menu__velo {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
+}
+
+/* Por encima de la lista de zonas (1100) y del panel (1000): es lo último que
+   se ha abierto y lo que el siguiente toque tiene que poder alcanzar.
+
+   Cerrado va con `visibility: hidden` y no solo desplazado: un cajón fuera de
+   pantalla pero visible sigue siendo tabulable, y el tabulador se metía en un
+   menú que nadie ve. La visibilidad se hereda, así que basta ponerla aquí.
+
+   Y la visibilidad no se interpola, se conmuta: al abrir cambia en el acto y
+   al cerrar espera a que el cajón haya salido de pantalla. Transicionada
+   como el resto, en el instante de abrir todavía vale `hidden`, y el
+   `focus()` de ese mismo tick cae sobre un elemento que aún no es
+   enfocable: el foco se quedaba en el documento y el tabulador no entraba
+   en el menú. */
+.menu {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1200;
+  width: min(300px, 84vw);
+  height: 100dvh;
+  background: var(--fondo-2);
+  border-left: 1px solid var(--borde);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0s linear 0.35s;
+}
+body.con-menu .menu {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s ease, visibility 0s linear 0s;
+}
+
+.menu__cabecera {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 8px 10px 14px;
+  border-bottom: 1px solid var(--borde);
+}
+.menu__titulo {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texto-2);
+}
+.menu__cerrar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  border: 0;
+  border-radius: var(--radio);
+  background: transparent;
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.menu__cerrar:hover {
+  color: var(--texto);
+}
+
+.menu__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* El primer nivel se queda con el alto restante y se desplaza si algún día
+   crece; los submenús ocupan el cajón entero y se desplazan solos. */
+.menu > .menu__items {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.menu__item + .menu__item {
+  border-top: 1px solid var(--borde);
+}
+
+/* 48px de alto: esto se usa a bordo, en movimiento y con las manos mojadas. */
+.menu__enlace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  cursor: pointer;
+}
+.menu__enlace:hover:not(:disabled) {
+  background: var(--fondo-3);
+}
+.menu__enlace:focus-visible {
+  outline: 2px solid #6fa8dc;
+  outline-offset: -2px;
+}
+.menu__enlace:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+/* El valor actual se lee en el propio menú: sin él hay que entrar en el
+   submenú para saber en qué idioma o en qué isla se está. */
+.menu__valor {
+  font-weight: 400;
+  font-size: 0.84rem;
+  color: var(--texto-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Las flechas van dibujadas con bordes y no con una tipografía de iconos: una
+   fuente externa más que descargar, para dos triángulos, en una web que ya
+   baja 6,6 MB de cartografía. */
+.menu__enlace--grupo::after,
+.menu__enlace--volver::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.8;
+}
+.menu__enlace--grupo::after {
+  transform: rotate(-45deg);
+  margin-left: 2px;
+}
+.menu__enlace--volver::before {
+  transform: rotate(135deg);
+  margin-right: 4px;
+}
+.menu__enlace--volver {
+  justify-content: flex-start;
+  background: var(--fondo-3);
+  color: var(--texto-2);
+  font-size: 0.82rem;
+  min-height: 44px;
+}
+
+/* La opción en uso, marcada con una palomita del color de acento. Un color de
+   texto distinto no bastaría: sobre un fondo oscuro y a pleno sol, la
+   diferencia entre dos grises no se ve. */
+.menu__enlace--opcion[aria-current]::after {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 11px;
+  margin: 0 4px 3px 0;
+  border-right: 2px solid var(--acento);
+  border-bottom: 2px solid var(--acento);
+  transform: rotate(45deg);
+}
+
+.menu__submenu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--fondo-2);
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.28s ease, visibility 0s linear 0.28s;
+}
+.menu__item.abierto > .menu__submenu {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.28s ease, visibility 0s linear 0s;
+}
+
+/* El interruptor de todo lo de arriba, y va aquí abajo a propósito: estas
+   reglas y los `display: none` de cada pieza tienen la misma especificidad,
+   así que gana la última que lee el navegador. Puesto junto a las reglas de
+   la cabecera —que es donde se leería mejor— el menú no llegaba a aparecer.
+
+   Con esto, y solo con esto, existe el menú: por encima de 560px no hay nada
+   que pintar, nada que tabular y nada que mantener. */
+@media (max-width: 560px) {
+  .hamburguesa,
+  .menu {
+    display: flex;
   }
-  .selector-isla select {
-    width: 100%;
+  .menu__velo {
+    display: block;
   }
 }
 
@@ -1104,7 +1355,10 @@ body.reordenando .panel__cuerpo {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel {
+  .panel,
+  .menu,
+  .menu__submenu,
+  .menu__velo {
     transition: none;
   }
 }

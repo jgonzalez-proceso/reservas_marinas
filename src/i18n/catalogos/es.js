@@ -43,6 +43,11 @@ export default {
   'cabecera.zonas': 'Zonas',
   'cabecera.estoyDentro': '¿Estoy dentro?',
 
+  'menu.titulo': 'Menú',
+  'menu.abrir': 'Abrir menú',
+  'menu.cerrar': 'Cerrar menú',
+  'menu.volver': 'Volver',
+
   'islas.todas': 'Todas las islas',
 
   // -- Pie -------------------------------------------------------------------

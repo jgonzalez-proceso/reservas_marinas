@@ -33,6 +33,11 @@ export default {
   'cabecera.zonas': 'Zones',
   'cabecera.estoyDentro': 'Soc a dins?',
 
+  'menu.titulo': 'Menú',
+  'menu.abrir': 'Obrir el menú',
+  'menu.cerrar': 'Tancar el menú',
+  'menu.volver': 'Enrere',
+
   'islas.todas': 'Totes les illes',
 
   // -- Peu -------------------------------------------------------------------

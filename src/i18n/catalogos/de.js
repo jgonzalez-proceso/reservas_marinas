@@ -39,6 +39,11 @@ export default {
   'cabecera.zonas': 'Gebiete',
   'cabecera.estoyDentro': 'Bin ich drin?',
 
+  'menu.titulo': 'Menü',
+  'menu.abrir': 'Menü öffnen',
+  'menu.cerrar': 'Menü schließen',
+  'menu.volver': 'Zurück',
+
   'islas.todas': 'Alle Inseln',
 
   // -- Fusszeile -------------------------------------------------------------

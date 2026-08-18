@@ -63,7 +63,7 @@ Los 4xx hacen fallar; los 5xx, los 429 y los fallos de red solo avisan, porque s
 
 ## Idiomas
 
-La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una cookie, como el orden de las tarjetas de actividad, y se elige desde un selector en la cabecera junto al de isla.
+La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una cookie, como el orden de las tarjetas de actividad, y se elige desde un selector en la cabecera junto al de isla —o desde el menú de hamburguesa, en móvil.
 
 **No va en la URL, y eso tiene un precio que conviene tener presente**: para un buscador esta web sigue siendo una sola página en castellano, y un enlace compartido no lleva el idioma. El día que se quieran rutas propias —`/en/`, `/de/`, `/ca/`— con su `hreflang` y sus entradas en el sitemap, lo único que hay que cambiar es de dónde sale el idioma activo en `src/i18n/index.js`; los catálogos y las llamadas a `t()` valen igual.
 
@@ -162,7 +162,7 @@ src/
                              mismo motivo: tres fuentes, una sola norma
   rules/normas-generales.js  normas que no son de ninguna figura (RD 191/2026)
   map/                   capas base, capa de áreas, geolocalización
-  ui/                    panel, leyenda, buscador
+  ui/                    panel, leyenda, buscador, menú de móvil
   i18n/                  idioma activo, t(), formato con Intl
   i18n/catalogos/        interfaz en es, ca, en y de: mismas claves
   i18n/normativa/        texto de las fichas, indexado por la cadena origen
@@ -398,6 +398,14 @@ Va **en `.zona-pie`, hermano de `<footer>` y no hijo suyo**. Hermano porque el f
 Antes estuvo **arriba a la derecha sobre el mapa y era el sitio equivocado**: chocaba con el control de capas de Leaflet. Y colocarlo calculando una posición desde `--pie-alto` tampoco vale, porque **`--pie-alto` miente**: `.pie` declara 56 px pero en pantallas estrechas el aviso legal envuelve y mide 116. Medido, no supuesto. Al ir en flujo normal dentro del envoltorio no hay nada que calcular y no puede solaparse con nada; el panel se abre hacia arriba contra el borde del pie, que es lo único que queda por encima.
 
 **En móvil el envoltorio se apila en columna.** En fila la pestaña le roba ancho al pie, el texto envuelve más y la franja crece. Apilada, el texto legal conserva el ancho completo y la franja entera queda en 94 px. Cada píxel del pie es un píxel que se le quita al mapa, que es lo que la gente viene a ver.
+
+**Por debajo de 560 px el idioma, la isla y «Zonas» se recogen en un menú de hamburguesa.** El título, dos desplegables y dos botones no caben en el ancho de un móvil: la cabecera se caía a dos filas y costaba unos 40 px de mapa. Con el menú vuelve a una sola fila —61 px medidos a 375 px de ancho, frente a los 101 de antes—.
+
+**«¿Estoy dentro?» no entra en el menú.** Es el botón que se usa en el agua, con una mano y en movimiento; ponerlo a dos toques de distancia sería esconder la aplicación dentro de sí misma. El menú es para lo que se toca una vez por sesión, o ninguna.
+
+Los desplegables nativos **no se meten dentro del cajón**: al pulsarlos el sistema abre su propia hoja encima y el cajón deja de existir para el usuario. Cada grupo abre un submenú que entra desde la derecha, con la opción en uso marcada y filas de 48 px. El menú **no reimplementa nada**: recibe las mismas listas que los desplegables de la cabecera y llama a las mismas funciones —`vistasDisponibles`, `vaAIsla`, `cambiaIdioma`—, y «Zonas» delega en su botón, incluida la comprobación de si ya se puede pulsar. Dos listas de islas que pudieran divergir serían dos mapas distintos según por dónde se entre.
+
+Dos detalles del CSS que costaron un rato. **Los `display` que encienden el menú van al final de la sección, no junto a la cabecera**: tienen la misma especificidad que los `display: none` de cada pieza y gana el último que lee el navegador; puestos arriba —que es donde se leerían mejor— el menú no llegaba a aparecer. Y **la visibilidad se conmuta, no se interpola**: `visibility` cambia en el acto al abrir y con 0,35 s de retardo al cerrar, para que el cajón se vea salir. Transicionada como el resto, en el instante de abrir todavía vale `hidden` y el `focus()` de ese mismo tick cae sobre un elemento que aún no es enfocable: el foco se quedaba en el documento y el tabulador no entraba en el menú.
 
 **La leyenda arranca plegada en cualquier tamaño de pantalla.** Explica los colores, que es información de apoyo: quien abre la web quiere ver el mar y pulsar un punto, no leer una lista de figuras que además tapa parte del mapa desde el primer segundo.
 

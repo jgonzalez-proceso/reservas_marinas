@@ -20,7 +20,15 @@ import { ISLAS, ISLA_ACTIVA, TODAS_LAS_ISLAS } from './data/islas.js';
 import { creaPanel } from './ui/panel.js';
 import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
-import { t, existeClave, IDIOMA, IDIOMAS, cambiaIdioma } from './i18n/index.js';
+import { creaMenu } from './ui/menu.js';
+import {
+  t,
+  existeClave,
+  IDIOMA,
+  IDIOMAS,
+  IDIOMAS_SOPORTADOS,
+  cambiaIdioma,
+} from './i18n/index.js';
 import { traduceDocumento } from './i18n/dom.js';
 import { cargaNormativa } from './i18n/normativa.js';
 
@@ -102,15 +110,33 @@ function tituloFuente(id, respaldo) {
  * empezar de cero; el coste es una recarga que además reaprovecha la caché del
  * navegador para las capas ya descargadas.
  */
+/**
+ * Vistas que se pueden elegir, en el orden en que se ofrecen.
+ *
+ * Una isla declarada pero sin cartografía en el manifiesto no se ofrece: la
+ * vista existiría y acabaría en «El manifiesto no declara cartografía para
+ * esta vista» como pantalla final.
+ *
+ * Vive aparte porque la usan dos interfaces —el desplegable de la cabecera y
+ * el menú de móvil— y dos listas de islas que pudieran divergir serían dos
+ * mapas distintos según por dónde se entre.
+ */
+function vistasDisponibles() {
+  const conCartografia = Object.keys(ISLAS).filter((i) => manifest.porIsla?.[i]?.ficheros?.length);
+  return [[TODAS_LAS_ISLAS, t('islas.todas')], ...conCartografia.map((i) => [i, ISLAS[i]])];
+}
+
+/** Cambiar de isla: el hash es la fuente de la verdad y la recarga la aplica. */
+function vaAIsla(valor) {
+  window.location.hash = `isla=${valor}`;
+  window.location.reload();
+}
+
 function montaSelectorIsla() {
   const select = $('#selector-isla');
   if (!select) return;
 
-  const disponibles = Object.keys(ISLAS).filter((i) => manifest.porIsla?.[i]?.ficheros?.length);
-  for (const [valor, etiqueta] of [
-    [TODAS_LAS_ISLAS, t('islas.todas')],
-    ...disponibles.map((i) => [i, ISLAS[i]]),
-  ]) {
+  for (const [valor, etiqueta] of vistasDisponibles()) {
     const op = document.createElement('option');
     op.value = valor;
     op.textContent = etiqueta;
@@ -118,10 +144,7 @@ function montaSelectorIsla() {
     select.append(op);
   }
 
-  select.addEventListener('change', () => {
-    window.location.hash = `isla=${select.value}`;
-    window.location.reload();
-  });
+  select.addEventListener('change', () => vaAIsla(select.value));
 
   const subtitulo = $('#subtitulo');
   if (subtitulo) {
@@ -156,6 +179,48 @@ function montaSelectorIdioma() {
   }
 
   select.addEventListener('change', () => cambiaIdioma(select.value));
+}
+
+/**
+ * Menú de hamburguesa de la cabecera, solo visible por debajo de 560px.
+ *
+ * Recoge lo mismo que los controles de al lado y llama a las mismas funciones:
+ * no es una segunda implementación del cambio de isla o de idioma, es otra
+ * manera de llegar a la primera. «Zonas» delega en su botón —incluida la
+ * comprobación de si ya se puede pulsar— por el mismo motivo.
+ */
+function montaMenuMovil() {
+  const boton = $('#btn-menu');
+  const btnLista = $('#btn-lista');
+  if (!boton || !btnLista) return;
+
+  creaMenu(boton, [
+    {
+      etiqueta: t('cabecera.idioma'),
+      valor: IDIOMAS[IDIOMA],
+      opciones: IDIOMAS_SOPORTADOS.map((id) => ({
+        valor: id,
+        etiqueta: IDIOMAS[id],
+        activa: id === IDIOMA,
+      })),
+      onElegir: (id) => cambiaIdioma(id),
+    },
+    {
+      etiqueta: t('cabecera.isla'),
+      valor: NOMBRE_VISTA,
+      opciones: vistasDisponibles().map(([valor, etiqueta]) => ({
+        valor,
+        etiqueta,
+        activa: valor === ISLA,
+      })),
+      onElegir: (valor) => vaAIsla(valor),
+    },
+    {
+      etiqueta: t('cabecera.zonas'),
+      accion: () => btnLista.click(),
+      deshabilitada: () => btnLista.disabled,
+    },
+  ]);
 }
 
 /**
@@ -228,6 +293,7 @@ async function main() {
   traduceDocumento();
   montaSelectorIdioma();
   montaSelectorIsla();
+  montaMenuMovil();
 
   // El texto normativo traducido va aparte del bundle. Se espera aquí, junto a
   // la cartografía, y no en el primer pintado del panel: si llegara tarde, la

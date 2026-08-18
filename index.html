@@ -107,6 +107,25 @@
         >
           ¿Estoy dentro?
         </button>
+        <!--
+          Solo se ve por debajo de 560px. El cajón que abre lo monta
+          src/ui/menu.js, que es donde vive todo lo demás de este menú: el
+          contenido son los mismos controles de al lado y no aporta nada que
+          un rastreador pueda indexar, así que no se escribe dos veces aquí.
+        -->
+        <button
+          id="btn-menu"
+          class="hamburguesa"
+          type="button"
+          aria-label="Abrir menú"
+          data-i18n-aria-label="menu.abrir"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          <span class="hamburguesa__barra"></span>
+          <span class="hamburguesa__barra"></span>
+          <span class="hamburguesa__barra"></span>
+        </button>
       </div>
     </header>
 
