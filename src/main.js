@@ -16,10 +16,13 @@ import { creaCapaAreas, creaMarcadorConsulta } from './map/areas-layer.js';
 import { pideUbicacion, veredictoUbicacion } from './map/ubicacion.js';
 import { resolver } from './engine/resolve.js';
 import { FICHAS, afectaALaPesca } from './rules/index.js';
-import { ISLAS, ISLA_ACTIVA, TODAS_LAS_ISLAS, ETIQUETA_TODAS } from './data/islas.js';
+import { ISLAS, ISLA_ACTIVA, TODAS_LAS_ISLAS } from './data/islas.js';
 import { creaPanel } from './ui/panel.js';
 import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
+import { t, existeClave, IDIOMA, IDIOMAS, cambiaIdioma } from './i18n/index.js';
+import { traduceDocumento } from './i18n/dom.js';
+import { cargaNormativa } from './i18n/normativa.js';
 
 import manifest from './data/manifest.json';
 
@@ -68,8 +71,27 @@ const TODAS = ISLA === TODAS_LAS_ISLAS;
 // única forma de que el hash y el mapa vuelvan a estar de acuerdo es recargar.
 window.addEventListener('hashchange', () => window.location.reload());
 
-/** Nombre legible de la vista actual. */
-const NOMBRE_VISTA = TODAS ? ETIQUETA_TODAS : ISLAS[ISLA];
+/**
+ * Nombre legible de la vista actual.
+ *
+ * «Todas las islas» se traduce; los nombres de las islas no. Mallorca se llama
+ * Mallorca en los cuatro idiomas, y las formas castellanizadas —Ibiza,
+ * Menorca— no son las que lleva la cartografía oficial ni las que hay que
+ * buscar en el BOIB.
+ */
+const NOMBRE_VISTA = TODAS ? t('islas.todas') : ISLAS[ISLA];
+
+/**
+ * Título de una fuente de cartografía en el idioma activo.
+ *
+ * El respaldo es el título del manifiesto, que es un fichero generado y por
+ * tanto se queda en castellano: una fuente nueva aparecerá en el control de
+ * capas con su nombre castellano hasta que se le escriba la clave, que es
+ * mejor que aparecer con su identificador.
+ */
+function tituloFuente(id, respaldo) {
+  return existeClave(`fuente.${id}`) ? t(`fuente.${id}`) : (respaldo ?? id);
+}
 
 /**
  * Selector de isla.
@@ -86,7 +108,7 @@ function montaSelectorIsla() {
 
   const disponibles = Object.keys(ISLAS).filter((i) => manifest.porIsla?.[i]?.ficheros?.length);
   for (const [valor, etiqueta] of [
-    [TODAS_LAS_ISLAS, ETIQUETA_TODAS],
+    [TODAS_LAS_ISLAS, t('islas.todas')],
     ...disponibles.map((i) => [i, ISLAS[i]]),
   ]) {
     const op = document.createElement('option');
@@ -102,7 +124,38 @@ function montaSelectorIsla() {
   });
 
   const subtitulo = $('#subtitulo');
-  if (subtitulo) subtitulo.textContent = TODAS ? 'Illes Balears' : `Illes Balears · ${NOMBRE_VISTA}`;
+  if (subtitulo) {
+    subtitulo.textContent = TODAS
+      ? t('app.subtitulo')
+      : t('app.subtituloIsla', { isla: NOMBRE_VISTA });
+  }
+}
+
+/**
+ * Selector de idioma.
+ *
+ * Cambiarlo recarga, igual que el de isla y por el mismo motivo: el control de
+ * capas de Leaflet, la leyenda y el panel llevan texto ya pintado. La
+ * cartografía ya está en la caché del navegador, así que la recarga no vuelve
+ * a bajar los megabytes.
+ *
+ * Cada idioma se escribe en su propio idioma. Quien busca el suyo en una lista
+ * lo busca escrito como él lo escribe, no traducido al idioma que tiene
+ * delante y que precisamente no entiende.
+ */
+function montaSelectorIdioma() {
+  const select = $('#selector-idioma');
+  if (!select) return;
+
+  for (const [valor, etiqueta] of Object.entries(IDIOMAS)) {
+    const op = document.createElement('option');
+    op.value = valor;
+    op.textContent = etiqueta;
+    op.selected = valor === IDIOMA;
+    select.append(op);
+  }
+
+  select.addEventListener('change', () => cambiaIdioma(select.value));
 }
 
 /**
@@ -124,14 +177,14 @@ async function cargaAreas() {
     ? [...new Set(Object.values(manifest.porIsla ?? {}).flatMap((i) => i.ficheros.map((f) => f.fichero)))]
     : (manifest.porIsla?.[ISLA]?.ficheros ?? []).map((f) => f.fichero);
 
-  if (ficheros.length === 0) throw new Error('El manifiesto no declara cartografía para esta vista.');
+  if (ficheros.length === 0) throw new Error(t('app.errorManifiesto'));
 
   const lotes = await Promise.all(
     ficheros.map(async (fichero) => {
       const url = URLS_GEOJSON[`./data/capas/${fichero}`];
-      if (!url) throw new Error(`Falta ${fichero}; ejecuta "npm run data".`);
+      if (!url) throw new Error(t('app.errorFalta', { fichero }));
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`No se ha podido cargar ${fichero} (${res.status}).`);
+      if (!res.ok) throw new Error(t('app.errorDescarga', { fichero, estado: res.status }));
       return (await res.json()).features;
     }),
   );
@@ -144,8 +197,8 @@ async function cargaAreas() {
 }
 
 function pintaEstadoDatos(features) {
-  const fecha = manifest.generado?.slice(0, 10) ?? 'desconocida';
-  const fuentes = manifest.fuentes?.map((f) => f.titulo).join(', ') ?? '';
+  const fecha = manifest.generado?.slice(0, 10) ?? t('pie.fechaDesconocida');
+  const fuentes = manifest.fuentes?.map((f) => tituloFuente(f.id, f.titulo)).join(', ') ?? '';
   // Se parte en trozos para poder recortarlo en móvil sin perder lo que
   // importa. La enumeración de fuentes ocupaba seis renglones en una pantalla
   // estrecha, tapando mapa a cambio de una lista que ya está en la leyenda.
@@ -159,16 +212,28 @@ function pintaEstadoDatos(features) {
   };
   $('#estado-datos').innerHTML = '';
   $('#estado-datos').append(
-    document.createTextNode(`${features.length} geometrías`),
-    detalle(` de ${NOMBRE_VISTA}`),
-    document.createTextNode(' · datos'),
-    detalle(` de ${fuentes}`),
-    document.createTextNode(` del ${fecha}`),
+    document.createTextNode(t('pie.geometrias', { n: features.length })),
+    detalle(t('pie.deVista', { vista: NOMBRE_VISTA })),
+    document.createTextNode(t('pie.datos')),
+    detalle(t('pie.deFuentes', { fuentes })),
+    document.createTextNode(t('pie.delDia', { fecha })),
   );
 }
 
 async function main() {
+  // Lo primero de todo: el documento arranca en castellano —que es lo que ve
+  // un rastreador sin JavaScript— y hay que pasarlo al idioma activo antes de
+  // montar nada, o habría un fotograma con la cabecera en un idioma y el panel
+  // en otro.
+  traduceDocumento();
+  montaSelectorIdioma();
   montaSelectorIsla();
+
+  // El texto normativo traducido va aparte del bundle. Se espera aquí, junto a
+  // la cartografía, y no en el primer pintado del panel: si llegara tarde, la
+  // primera consulta saldría en castellano y la segunda en catalán, que parece
+  // un fallo aunque las dos digan lo mismo.
+  const normativa = cargaNormativa();
 
   const mapa = L.map('mapa', {
     center: VISTA_INICIAL.centro,
@@ -194,9 +259,9 @@ async function main() {
   // detrás. Deshabilitados cuentan la verdad en los dos casos.
   let features = [];
   try {
-    features = await cargaAreas();
+    [features] = await Promise.all([cargaAreas(), normativa]);
   } catch (e) {
-    $('#carga').textContent = `${e.message} Recarga la página para reintentarlo.`;
+    $('#carga').textContent = t('app.cargaError', { mensaje: e.message });
     $('#carga').classList.add('carga--error');
     return;
   }
@@ -240,9 +305,10 @@ async function main() {
   // Apagar una capa NO la saca del cálculo: `consulta` resuelve siempre contra
   // `features` al completo, y una figura oculta sigue apareciendo en el panel
   // al pulsar un punto suyo. La leyenda lo advierte.
-  for (const entrada of areas.porFuente.values()) {
+  for (const [id, entrada] of areas.porFuente.entries()) {
     const pesa = entrada.features.some((f) => afectaALaPesca(f.properties.zoneId));
-    control.addOverlay(entrada.capa, pesa ? entrada.titulo : `${entrada.titulo} — sin efecto en la pesca`);
+    const titulo = tituloFuente(id, entrada.titulo);
+    control.addOverlay(entrada.capa, pesa ? titulo : t('capa.sinEfectoPesca', { titulo }));
     if (pesa) entrada.capa.addTo(mapa);
   }
 

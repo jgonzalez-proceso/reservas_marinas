@@ -15,6 +15,9 @@ import { ESTADOS } from '../engine/resolve.js';
 import { colorDe, nivelDe } from '../map/estilos-proteccion.js';
 import { FUENTES } from '../rules/fuentes.js';
 import { leeOrdenActividades, guardaOrdenActividades } from './orden-actividades.js';
+import { t, tp } from '../i18n/index.js';
+import { tn, tnLista, NORMATIVA_EN_OTRO_IDIOMA } from '../i18n/normativa.js';
+import { moneda, distancia, superficie, gradosLegibles } from '../i18n/formato.js';
 
 const el = (tag, clase, texto) => {
   const n = document.createElement(tag);
@@ -23,23 +26,8 @@ const el = (tag, clase, texto) => {
   return n;
 };
 
-/** Importes siempre con dos decimales: "53,90 €", nunca "53,9 EUR". */
-const moneda = (importe, divisa = 'EUR') =>
-  new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency: divisa,
-    minimumFractionDigits: 2,
-  }).format(importe);
-
 /** Cuánto encoge la tarjeta mientras se arrastra. */
 const ESCALA_ARRASTRE = 0.94;
-
-const gradosLegibles = (valor, positivo, negativo) => {
-  const abs = Math.abs(valor);
-  const g = Math.floor(abs);
-  const m = (abs - g) * 60;
-  return `${g}° ${m.toFixed(3).replace('.', ',')}' ${valor >= 0 ? positivo : negativo}`;
-};
 
 export function creaPanel(contenedor, { onCerrar } = {}) {
   contenedor.innerHTML = '';
@@ -50,10 +38,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
   let ordenActividades = leeOrdenActividades();
 
   const cabecera = el('header', 'panel__cabecera');
-  const titulo = el('h2', 'panel__titulo', 'Toca el mapa');
-  const subtitulo = el('p', 'panel__subtitulo', 'Consulta las restricciones de cualquier punto.');
+  const titulo = el('h2', 'panel__titulo', t('panel.titulo'));
+  const subtitulo = el('p', 'panel__subtitulo', t('panel.subtitulo'));
   const cerrar = el('button', 'panel__cerrar', '×');
-  cerrar.setAttribute('aria-label', 'Cerrar panel');
+  cerrar.setAttribute('aria-label', t('panel.cerrar'));
   cerrar.addEventListener('click', () => onCerrar?.());
   cabecera.append(titulo, subtitulo, cerrar);
 
@@ -62,21 +50,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
   function pintaVacio() {
     cuerpo.innerHTML = '';
-    titulo.textContent = 'Toca el mapa';
-    subtitulo.textContent = 'Consulta las restricciones de cualquier punto del mar.';
+    titulo.textContent = t('panel.titulo');
+    subtitulo.textContent = t('panel.subtituloLargo');
     const ayuda = el('div', 'vacio');
-    ayuda.append(
-      el(
-        'p',
-        null,
-        'Pulsa sobre cualquier punto para ver qué figuras de protección lo afectan y qué se puede hacer allí.',
-      ),
-      el(
-        'p',
-        null,
-        'Si estás navegando, usa el botón de ubicación: además de decirte si estás dentro, te dirá a qué distancia del límite estás y si tu GPS da para afirmarlo.',
-      ),
-    );
+    ayuda.append(el('p', null, t('panel.ayuda1')), el('p', null, t('panel.ayuda2')));
     cuerpo.append(ayuda);
   }
 
@@ -90,7 +67,7 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       subtitulo.textContent = veredicto.detalle;
       cabecera.dataset.nivel = veredicto.nivel;
     } else {
-      titulo.textContent = sinFiguras ? 'Sin figuras en este punto' : figuras[0].nombre;
+      titulo.textContent = sinFiguras ? t('panel.sinFiguras') : figuras[0].nombre;
       subtitulo.textContent =
         `${gradosLegibles(punto.lat, 'N', 'S')}  ·  ${gradosLegibles(punto.lon, 'E', 'W')}`;
       delete cabecera.dataset.nivel;
@@ -98,15 +75,28 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
     if (sinFiguras) {
       const aviso = el('div', 'aviso aviso--neutro');
-      aviso.append(el('p', null, mensajeSinFiguras));
+      // El motor publica la clave junto al texto; se prefiere la clave para que
+      // este mensaje —el unico que se lee cuando no hay ninguna figura— salga
+      // en el idioma de la interfaz y no en el de redaccion.
+      aviso.append(el('p', null, resultado.mensajeSinFigurasClave ? t(resultado.mensajeSinFigurasClave) : mensajeSinFiguras));
       cuerpo.append(aviso);
       cuerpo.append(bloqueDescargo());
       return;
     }
 
+    // Se dice una vez, arriba del todo, y solo cuando de verdad hay dos
+    // idiomas en juego: en ingles y aleman la interfaz esta traducida pero los
+    // motivos y las condiciones siguen en castellano, porque estan citados
+    // contra el boletin. Marcarlo frase por frase llenaria el panel de
+    // asteriscos; no decirlo dejaria al usuario pensando que algo ha fallado.
+    if (NORMATIVA_EN_OTRO_IDIOMA) {
+      const nota = el('p', 'panel__nota-idioma', t('panel.normativaEnCastellano'));
+      cuerpo.append(nota);
+    }
+
     // -- Conclusión por actividad ---------------------------------------------
     const secAct = el('section', 'seccion');
-    secAct.append(el('h3', 'seccion__titulo', 'Qué se puede hacer aquí'));
+    secAct.append(el('h3', 'seccion__titulo', t('panel.queSePuedeHacer')));
 
     for (const clave of ordenActividades) {
       secAct.append(tarjetaActividad(actividades[clave], clave));
@@ -117,22 +107,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     // -- Figuras que afectan al punto -----------------------------------------
     const secFig = el('section', 'seccion');
     secFig.append(
-      el(
-        'h3',
-        'seccion__titulo',
-        figuras.length === 1
-          ? 'Figura que afecta a este punto'
-          : `${figuras.length} figuras afectan a este punto`,
-      ),
+      el('h3', 'seccion__titulo', tp('panel.figuraUna', 'panel.figurasVarias', figuras.length)),
     );
     if (figuras.length > 1) {
-      secFig.append(
-        el(
-          'p',
-          'seccion__nota',
-          'Se listan de la más general a la más restrictiva. Todas aplican simultáneamente.',
-        ),
-      );
+      secFig.append(el('p', 'seccion__nota', t('panel.notaOrden')));
     }
     for (const fig of figuras) secFig.append(tarjetaFigura(fig));
     cuerpo.append(secFig);
@@ -145,17 +123,26 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     const card = el('article', `actividad actividad--${estado.nivel}`);
     card.dataset.clave = clave;
 
+    // El nombre de la actividad y la etiqueta del estado salen del catalogo y
+    // no del motor. El motor sigue publicando los suyos en castellano porque
+    // los scripts de Node los leen; aqui manda el idioma de la interfaz.
+    const nombre = t(`actividad.${clave}`);
+
     const fila = el('div', 'actividad__fila');
     const asa = el('span', 'actividad__asa', '⠿');
     asa.setAttribute('role', 'button');
-    asa.setAttribute('aria-label', `Arrastrar para reordenar «${a.titulo}»`);
+    asa.setAttribute('aria-label', t('panel.arrastrar', { nombre }));
     asa.setAttribute('tabindex', '0');
     fila.append(asa);
-    fila.append(el('span', 'actividad__nombre', a.titulo));
-    fila.append(el('span', 'actividad__estado', estado.etiqueta));
+    fila.append(el('span', 'actividad__nombre', nombre));
+    fila.append(el('span', 'actividad__estado', t(`estado.${a.status}`)));
     card.append(fila);
 
-    if (a.motivo) card.append(el('p', 'actividad__motivo', a.motivo));
+    // Dos motivos distintos con la misma pinta: los de `motivoClave` los
+    // escribe el motor y son interfaz; el resto salen de la ficha y son texto
+    // normativo, que solo esta traducido donde consta traducido.
+    const motivo = a.motivoClave ? t(a.motivoClave) : tn(a.motivo);
+    if (motivo) card.append(el('p', 'actividad__motivo', motivo));
 
     if (a.permit) {
       const p = el('div', 'permiso');
@@ -163,29 +150,35 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       // panel anunciaba «Tasa: 0,00 €» para permisos cuyo precio no consta.
       const importe =
         a.permit.importe === 0
-          ? 'Autorización gratuita'
+          ? t('panel.autorizacionGratuita')
           : Number.isFinite(a.permit.importe)
-            ? `Tasa: ${moneda(a.permit.importe, a.permit.moneda)}`
-            : 'Requiere autorización · importe no publicado';
+            ? t('panel.tasa', { importe: moneda(a.permit.importe, a.permit.moneda) })
+            : t('panel.importeNoPublicado');
       p.append(el('strong', null, importe));
-      if (a.permit.vigencia) p.append(el('span', null, ` · vigencia ${a.permit.vigencia}`));
-      if (a.permit.nota) p.append(el('p', 'permiso__nota', a.permit.nota));
+      // La vigencia y la nota vienen escritas en la ficha —«3 años»,
+      // «Consultar en el trámite»— y por tanto son texto normativo.
+      if (a.permit.vigencia) {
+        p.append(el('span', null, t('panel.vigencia', { vigencia: tn(a.permit.vigencia) })));
+      }
+      if (a.permit.nota) p.append(el('p', 'permiso__nota', tn(a.permit.nota)));
       if (a.permit.url) {
-        const enlace = el('a', 'permiso__enlace', 'Tramitar en la Seu Electrònica');
+        const enlace = el('a', 'permiso__enlace', t('panel.tramitar'));
         enlace.href = a.permit.url;
         enlace.target = '_blank';
         enlace.rel = 'noopener noreferrer';
         p.append(enlace);
       }
       if (a.permit.ultimaVerificacion) {
-        p.append(el('p', 'permiso__fecha', `Importe verificado el ${a.permit.ultimaVerificacion}`));
+        p.append(
+          el('p', 'permiso__fecha', t('panel.importeVerificado', { fecha: a.permit.ultimaVerificacion })),
+        );
       }
       card.append(p);
     }
 
     if (a.conditions?.length) {
       const ul = el('ul', 'condiciones');
-      for (const c of a.conditions) ul.append(el('li', null, c));
+      for (const c of tnLista(a.conditions)) ul.append(el('li', null, c));
       card.append(ul);
     }
 
@@ -194,16 +187,18 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     // reserva no son los que rigen dentro de una zona interior que los limita.
     for (const otra of a.condicionesDeOtrasFiguras ?? []) {
       const bloque = el('div', 'condiciones-otra');
-      bloque.append(el('span', 'condiciones-otra__titulo', `También rige aquí, por ${otra.nombre}:`));
+      bloque.append(
+        el('span', 'condiciones-otra__titulo', t('panel.tambienRige', { nombre: otra.nombre })),
+      );
       const ul = el('ul', 'condiciones');
-      for (const c of otra.conditions) ul.append(el('li', null, c));
+      for (const c of tnLista(otra.conditions)) ul.append(el('li', null, c));
       bloque.append(ul);
       card.append(bloque);
     }
 
     if (a.determinadaPor) {
       const det = el('p', 'actividad__origen');
-      det.append(document.createTextNode('Lo determina: '));
+      det.append(document.createTextNode(t('panel.loDetermina')));
       det.append(el('strong', null, a.determinadaPor.nombre));
       // El nombre solo no basta para identificar la figura. Sobre un mismo
       // punto del Llevant conviven la reserva marina y la reserva integral con
@@ -216,7 +211,7 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       if (a.tambienImponen?.length) {
         det.append(
           document.createTextNode(
-            ` (también lo imponen: ${a.tambienImponen.join('; ')})`,
+            t('panel.tambienImponen', { lista: a.tambienImponen.join('; ') }),
           ),
         );
       }
@@ -228,7 +223,7 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
         el(
           'p',
           'actividad__heredada',
-          `Regla del régimen general de ${a.heredadaDe.nombreCorto}, que se aplica también a esta zona.`,
+          t('panel.heredada', { nombre: a.heredadaDe.nombreCorto }),
         ),
       );
     }
@@ -239,8 +234,8 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       const inc = el('p', 'actividad__incompleto');
       inc.textContent =
         a.figurasSinRegla.length > 0
-          ? `Información incompleta: ${a.figurasSinRegla.join('; ')} todavía no tiene redactada su regla para esta actividad. Consulta la norma.`
-          : 'Información incompleta para esta actividad.';
+          ? t('panel.incompletaCon', { lista: a.figurasSinRegla.join('; ') })
+          : t('panel.incompletaSin');
       card.append(inc);
     }
 
@@ -498,9 +493,13 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
     const meta = el('p', 'figura__meta');
     meta.textContent = [
+      // El nombre oficial de la figura no se traduce nunca: es como aparece en
+      // el BOIB y es lo que hay que poder buscar allí.
       fig.proteccion,
-      fig.competencia ? `competencia ${fig.competencia.toLowerCase()}` : null,
-      `${fig.areaKm2.toLocaleString('es-ES', { maximumFractionDigits: 1 })} km²`,
+      fig.competencia
+        ? t('panel.competencia', { competencia: t(`competencia.${fig.competencia}`) })
+        : null,
+      superficie(fig.areaKm2),
     ]
       .filter(Boolean)
       .join(' · ');
@@ -509,13 +508,8 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     card.append(el('p', 'figura__descripcion', nivelDe(fig.proteccion).descripcion));
 
     if (Number.isFinite(fig.metrosAlBorde)) {
-      const d = fig.metrosAlBorde;
       card.append(
-        el(
-          'p',
-          'figura__distancia',
-          `A ${d >= 1000 ? `${(d / 1000).toFixed(1).replace('.', ',')} km` : `${Math.round(d)} m`} del límite.`,
-        ),
+        el('p', 'figura__distancia', t('panel.distancia', { distancia: distancia(fig.metrosAlBorde) })),
       );
     }
 
@@ -541,20 +535,27 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     const ul = el('ul');
     for (const n of normas) {
       const li = el('li');
+      // El titulo de la norma NO se traduce en ningun idioma: es la cita, y
+      // es lo que hay que poder buscar en el BOIB. Buena parte ya vienen en
+      // catalan, que es como las publica el boletin.
+      const titulo = n.titulo;
       if (n.url) {
-        const a = el('a', null, n.titulo);
+        const a = el('a', null, titulo);
         a.href = n.url;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
         li.append(a);
       } else {
-        li.append(document.createTextNode(n.titulo));
+        li.append(document.createTextNode(titulo));
       }
       if (n.fecha) li.append(el('span', 'normas__fecha', ` (${n.fecha})`));
       ul.append(li);
     }
-    const titulo = normas.length > 1 ? `Normas (${normas.length})` : 'Norma';
-    return bloquePlegable('normas', titulo, ul);
+    return bloquePlegable(
+      'normas',
+      tp('panel.normaUna', 'panel.normasVarias', normas.length),
+      ul,
+    );
   }
 
   function listaFuentes(claves) {
@@ -570,24 +571,18 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       li.append(a);
-      if (f.referencia) li.append(el('span', 'fuentes__ref', ` — ${f.referencia}`));
+      if (f.referencia) li.append(el('span', 'fuentes__ref', ` — ${tn(f.referencia)}`));
       ul.append(li);
     }
     // Puede quedar vacío si una clave no existe en el registro; sin este corte
     // el panel pintaría un desplegable «Fuentes (0)» que no abre nada.
     if (n === 0) return null;
-    return bloquePlegable('fuentes', n > 1 ? `Fuentes (${n})` : 'Fuente', ul);
+    return bloquePlegable('fuentes', tp('panel.fuenteUna', 'panel.fuentesVarias', n), ul);
   }
 
   function bloqueDescargo() {
     const d = el('div', 'descargo');
-    d.append(
-      el(
-        'p',
-        null,
-        'Información orientativa y no oficial. La fuente vinculante es la norma publicada en el BOIB o el BOE y la cartografía oficial de IDEIB.',
-      ),
-    );
+    d.append(el('p', null, t('panel.descargo')));
     return d;
   }
 

@@ -12,62 +12,60 @@
  * con una reserva marina o con el área marina de un espacio natural protegido.
  * Pintarlos del mismo rojo que una reserva integral sería afirmar en el mapa lo
  * contrario de lo que dice la norma.
+ *
+ * Aqui solo viven el color y el orden. La descripcion de cada figura esta en
+ * los catalogos de idioma, indexada por el nombre oficial: es texto que se lee
+ * y por tanto se traduce, mientras que el color es una decision de diseno que
+ * no depende del idioma.
  */
+
+import { t, existeClave } from '../i18n/index.js';
 
 export const NIVELES = [
   {
     proteccion: 'Reserva integral',
     color: '#b4232a',
     orden: 1,
-    descripcion: 'Núcleo de máxima protección. Como regla, ninguna extracción.',
   },
   {
     proteccion: 'Zona de protecció màxima',
     color: '#c9453c',
     orden: 2,
-    descripcion: 'Máxima restricción dentro de la reserva.',
   },
   {
     proteccion: "Zona d'alta protecció",
     color: '#d4574a',
     orden: 3,
-    descripcion: 'Alta protección; actividades muy limitadas.',
   },
   {
     proteccion: "Zona d'us restringit",
     color: '#e07b39',
     orden: 4,
-    descripcion: 'Uso restringido, normalmente condicionado a autorización.',
   },
   {
     proteccion: 'Zona de veda de pesca recreativa',
     color: '#8156a8',
     orden: 5,
-    descripcion: 'Veda específica de pesca recreativa.',
   },
   {
     proteccion: 'Zona de protecció especial',
     color: '#e0a02e',
     orden: 6,
-    descripcion: 'Restricciones adicionales sobre el régimen general.',
   },
   {
     proteccion: 'Zona de protecció pesquera',
     color: '#3f9268',
     orden: 7,
-    descripcion: 'Restricciones de carácter pesquero.',
   },
   {
     proteccion: 'Zona especial de busseig',
     color: '#2a9bb0',
     orden: 8,
-    descripcion: 'Buceo regulado de forma específica.',
   },
   {
     proteccion: 'Reserva marina',
     color: '#2f6fa8',
     orden: 9,
-    descripcion: 'Perímetro general de la reserva.',
   },
 
   // Red Natura 2000. Conservan un color propio y una descripción que no
@@ -77,31 +75,26 @@ export const NIVELES = [
     proteccion: 'ZEC',
     color: '#3f9268',
     orden: 20,
-    descripcion: 'Zona especial de conservación (Natura 2000).',
   },
   {
     proteccion: 'LIC',
     color: '#4f9e77',
     orden: 21,
-    descripcion: 'Lugar de importancia comunitaria (Natura 2000).',
   },
   {
     proteccion: 'ZEPA',
     color: '#57a98a',
     orden: 22,
-    descripcion: 'Zona de especial protección para las aves (Natura 2000).',
   },
   {
     proteccion: 'ZEC i ZEPA',
     color: '#3f9268',
     orden: 23,
-    descripcion: 'Espacio Natura 2000 con doble designación.',
   },
   {
     proteccion: 'LIC i ZEPA',
     color: '#4f9e77',
     orden: 24,
-    descripcion: 'Espacio Natura 2000 con doble designación.',
   },
 
   // Espacios naturales protegidos, ámbito marino. Gama violeta para que no se
@@ -112,25 +105,21 @@ export const NIVELES = [
     proteccion: 'Parc nacional',
     color: '#7a5aa6',
     orden: 30,
-    descripcion: 'Parque nacional marítimo-terrestre; régimen propio y muy restrictivo.',
   },
   {
     proteccion: 'Parc natural',
     color: '#8a68b4',
     orden: 31,
-    descripcion: 'Parque natural; el PORN o el PRUG fijan lo que se puede hacer en el mar.',
   },
   {
     proteccion: 'Paratge natural',
     color: '#9a78c2',
     orden: 32,
-    descripcion: 'Paraje natural; el PORN fija el régimen del ámbito marino.',
   },
   {
     proteccion: 'Reserva natural',
     color: '#6b4d96',
     orden: 33,
-    descripcion: 'Reserva natural; máxima protección dentro del espacio.',
   },
 
   // Zonificación interior de un espacio natural protegido (art. 22 de la Ley
@@ -142,19 +131,16 @@ export const NIVELES = [
     proteccion: "Zona d'exclusió",
     color: '#b4232a',
     orden: 10,
-    descripcion: 'Zona de exclusión: ni pesca, ni fondeo, ni navegación.',
   },
   {
     proteccion: "Zona d'ús limitat",
     color: '#9a78c2',
     orden: 34,
-    descripcion: 'Uso limitado: fondeo regulado o prohibido sobre fanerógamas.',
   },
   {
     proteccion: "Zona d'ús compatible",
     color: '#b49ad2',
     orden: 35,
-    descripcion: 'Uso compatible con cierto grado de aprovechamiento.',
   },
 
   // Zonificación del PRUG de ses Salines (art. 22 de la Ley 5/2005 con los
@@ -165,31 +151,26 @@ export const NIVELES = [
     proteccion: 'Àrea de protecció estricta',
     color: '#b4232a',
     orden: 13,
-    descripcion: 'Protección estricta: ni pesca, ni fondeo, ni buceo recreativo.',
   },
   {
     proteccion: 'Àrea de conservació predominant',
     color: '#9a78c2',
     orden: 36,
-    descripcion: 'Conservación predominante; el régimen lo fija el parque.',
   },
   {
     proteccion: 'Àrea de conservació',
     color: '#b49ad2',
     orden: 37,
-    descripcion: 'Conservación; la mayor parte del ámbito marino del parque.',
   },
   {
     proteccion: "Àrea d'aprofitament condicionat a la conservació",
     color: '#c4aede',
     orden: 38,
-    descripcion: 'Aprovechamiento condicionado a la conservación.',
   },
   {
     proteccion: 'Ús portuari',
     color: '#8c9aa6',
     orden: 39,
-    descripcion: 'Zona de uso portuario dentro del parque.',
   },
 
   // Regulación del fondeo. Aquí el color habla de fondear, no de pescar.
@@ -197,19 +178,16 @@ export const NIVELES = [
     proteccion: 'Fondeig prohibit',
     color: '#c9453c',
     orden: 14,
-    descripcion: 'Fondeo prohibido salvo fuerza mayor.',
   },
   {
     proteccion: 'Fondeig regulat',
     color: '#e0a02e',
     orden: 15,
-    descripcion: 'Campo de boyas: hay que amarrar, no echar el ancla.',
   },
   {
     proteccion: 'Fondeig lliure condicionat',
     color: '#2a9bb0',
     orden: 16,
-    descripcion: 'Fondeo libre solo sobre arena, nunca sobre fanerógamas.',
   },
 
   // Regulación específica de pesca submarina. Es la única capa del mapa cuyo
@@ -218,27 +196,53 @@ export const NIVELES = [
     proteccion: 'Zona pesca submarina prohibida',
     color: '#c9453c',
     orden: 11,
-    descripcion: 'Pesca submarina prohibida por delimitación oficial.',
   },
   {
     proteccion: 'Zona pesca submarina condicionada',
     color: '#e0a02e',
     orden: 12,
-    descripcion: 'Pesca submarina autorizable con permiso específico.',
   },
 ];
 
 const POR_PROTECCION = new Map(NIVELES.map((n) => [n.proteccion, n]));
 
-const GENERICO = {
-  proteccion: 'Otras figuras',
-  color: '#6b7d8c',
-  orden: 99,
-  descripcion: 'Figura de protección sin color asignado.',
-};
+const COLOR_GENERICO = '#6b7d8c';
+const ORDEN_GENERICO = 99;
 
+/**
+ * Descripcion de una figura, en el idioma activo.
+ *
+ * El **nombre** de la figura no se traduce en ningun idioma: es el
+ * identificador juridico con el que aparece en el BOIB, y traducirlo dejaria
+ * al usuario sin manera de buscarlo. Lo que se traduce es esta descripcion.
+ *
+ * Una figura que la cartografia oficial publique manana y que todavia no tenga
+ * descripcion escrita cae a la generica en vez de pintar la clave: es la misma
+ * regla de «ante la duda, se dibuja» que decide que capas arrancan encendidas.
+ */
+function descripcionDe(proteccion) {
+  const clave = `proteccion.${proteccion}`;
+  return existeClave(clave) ? t(clave) : t('proteccion.genericoDescripcion');
+}
+
+/**
+ * Nivel de una figura: color y orden salen de la tabla de arriba, el nombre
+ * del dato y la descripcion del catalogo del idioma activo.
+ *
+ * Se compone en cada llamada y no se cachea a proposito. Dentro de una misma
+ * carga el idioma no cambia —cambiarlo recarga la pagina— asi que cachear solo
+ * ahorraria unas decenas de objetos por pintado, y a cambio ataria el
+ * resultado al primer idioma que preguntara.
+ */
 export function nivelDe(proteccion) {
-  return POR_PROTECCION.get(proteccion) ?? GENERICO;
+  const base = POR_PROTECCION.get(proteccion);
+  if (base) return { ...base, descripcion: descripcionDe(proteccion) };
+  return {
+    proteccion: t('proteccion.generico'),
+    color: COLOR_GENERICO,
+    orden: ORDEN_GENERICO,
+    descripcion: t('proteccion.genericoDescripcion'),
+  };
 }
 
 export function colorDe(proteccion) {

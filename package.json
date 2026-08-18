@@ -6,11 +6,12 @@
   "description": "Motor de consulta de restricciones maritimas de las Illes Balears",
   "scripts": {
     "dev": "vite",
-    "build": "npm run rules:check && npm test && vite build",
+    "build": "npm run rules:check && npm run i18n:check && npm test && vite build",
     "preview": "vite preview",
     "data": "node scripts/fetch-sources.mjs",
     "verify": "node scripts/verify-coords.mjs",
     "rules:check": "node scripts/check-rules.mjs",
+    "i18n:check": "node scripts/check-i18n.mjs",
     "links:check": "node scripts/check-links.mjs",
     "test": "node --test scripts/test-reglas.mjs",
     "deploy": "wrangler deploy"

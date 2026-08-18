@@ -41,6 +41,8 @@
 
 import L from 'leaflet';
 
+import { t } from '../i18n/index.js';
+
 const ATRIB_IDEIB =
   '<a href="https://ideib.caib.es/">IDEIB</a> — Govern de les Illes Balears';
 
@@ -293,14 +295,17 @@ export function creaCapasBase() {
     zIndex: 3,
   });
 
+  // Las claves de estos dos objetos son lo que Leaflet pinta en el control de
+  // capas, asi que van traducidas. Los nombres propios que llevan dentro
+  // —IDEIB, OpenStreetMap, OpenSeaMap— no se traducen en ningun idioma.
   return {
     bases: {
-      'Satélite': satelite,
-      'Ortofoto oficial (IDEIB)': ortofoto,
-      'Mapa (OpenStreetMap)': callejero,
+      [t('capa.satelite')]: satelite,
+      [t('capa.ortofoto')]: ortofoto,
+      [t('capa.callejero')]: callejero,
     },
     overlays: {
-      'Carta náutica (OpenSeaMap)': nautica,
+      [t('capa.nautica')]: nautica,
     },
     porDefecto: satelite,
     nautica,

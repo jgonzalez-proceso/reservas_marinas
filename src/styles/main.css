@@ -263,8 +263,11 @@ a {
   color: var(--texto-2);
 }
 
-/* -- Selector de isla ------------------------------------------------------- */
+/* -- Selectores de la cabecera ------------------------------------------------------- */
 
+/* Isla e idioma comparten estilo. La clase se llama `selector-isla` porque fue
+   la primera y renombrarla no cambiaria nada de lo que se ve; lo que importa es
+   que las dos cajas se lean como la misma pieza de interfaz. */
 .selector-isla {
   display: inline-flex;
   align-items: center;
@@ -278,7 +281,7 @@ a {
   color: var(--texto-2);
 }
 
-#selector-isla {
+.selector-isla select {
   background: #16202b;
   color: inherit;
   border: 1px solid var(--borde);
@@ -288,7 +291,7 @@ a {
   font-size: 0.84rem;
   cursor: pointer;
 }
-#selector-isla:focus-visible {
+.selector-isla select:focus-visible {
   outline: 2px solid #6fa8dc;
   outline-offset: 1px;
 }
@@ -336,7 +339,7 @@ a {
     flex: 1 1 auto;
     min-width: 0;
   }
-  #selector-isla {
+  .selector-isla select {
     width: 100%;
   }
 }
@@ -1104,4 +1107,20 @@ body.reordenando .panel__cuerpo {
   .panel {
     transition: none;
   }
+}
+
+/* -- Aviso de idioma del texto normativo ------------------------------------ */
+
+/* Aparece solo en ingles y en aleman, donde la interfaz esta traducida y los
+   motivos y condiciones siguen en castellano. Va discreto y una sola vez, en
+   cabeza del panel: marcar frase por frase lo llenaria de asteriscos. */
+.panel__nota-idioma {
+  margin: 0 0 14px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--borde);
+  background: var(--fondo-3);
+  border-radius: 0 var(--radio) var(--radio) 0;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--texto-2);
 }

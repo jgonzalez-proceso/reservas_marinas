@@ -4,6 +4,7 @@
  */
 
 import { colorDe } from '../map/estilos-proteccion.js';
+import { t, LOCALE } from '../i18n/index.js';
 
 const normaliza = (s) =>
   String(s ?? '')
@@ -26,15 +27,18 @@ export function creaBuscador(contenedor, features, { onElegir, tieneFicha }) {
       busqueda: normaliza(`${p.nombre} ${p.proteccion} ${p.competencia ?? ''}`),
     });
   }
-  zonas.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+  // El orden alfabetico depende del idioma: en aleman la 'a' con dieresis
+  // ordena junto a la 'a' y en sueco al final del alfabeto. Se ordena con el
+  // del usuario, aunque los nombres esten en catalan.
+  zonas.sort((a, b) => a.nombre.localeCompare(b.nombre, LOCALE));
 
   contenedor.innerHTML = '';
 
   const campo = document.createElement('input');
   campo.type = 'search';
   campo.className = 'buscador__campo';
-  campo.placeholder = `Buscar entre ${zonas.length} zonas…`;
-  campo.setAttribute('aria-label', 'Buscar zona de protección');
+  campo.placeholder = t('buscador.placeholder', { n: zonas.length });
+  campo.setAttribute('aria-label', t('buscador.aria'));
 
   const lista = document.createElement('ul');
   lista.className = 'buscador__lista';
@@ -47,7 +51,7 @@ export function creaBuscador(contenedor, features, { onElegir, tieneFicha }) {
     if (visibles.length === 0) {
       const li = document.createElement('li');
       li.className = 'buscador__vacio';
-      li.textContent = 'Ninguna zona coincide con la búsqueda.';
+      li.textContent = t('buscador.vacio');
       lista.append(li);
       return;
     }
@@ -76,8 +80,8 @@ export function creaBuscador(contenedor, features, { onElegir, tieneFicha }) {
       if (!tieneFicha(z.zoneId)) {
         const marca = document.createElement('span');
         marca.className = 'buscador__pendiente';
-        marca.textContent = 'sin ficha';
-        marca.title = 'Las restricciones de esta zona todavía no están redactadas.';
+        marca.textContent = t('buscador.sinFicha');
+        marca.title = t('buscador.sinFichaTitulo');
         btn.append(marca);
       }
 

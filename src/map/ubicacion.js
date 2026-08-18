@@ -9,11 +9,13 @@
  */
 
 import { evaluaPosicion, PRECISION_DESCONOCIDA_M } from '../engine/locate.js';
+import { t } from '../i18n/index.js';
+import { distancia as formateaDistancia, hora } from '../i18n/formato.js';
 
 export function pideUbicacion() {
   return new Promise((resolve, reject) => {
     if (!('geolocation' in navigator)) {
-      reject(new Error('Este navegador no permite obtener la ubicación.'));
+      reject(new Error(t('ubicacion.noSoportada')));
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -27,52 +29,48 @@ export function pideUbicacion() {
           obtenidaEn: pos.timestamp,
         }),
       (err) => {
+        // Los códigos son los de la especificación: 1 PERMISSION_DENIED,
+        // 2 POSITION_UNAVAILABLE, 3 TIMEOUT.
         const mensajes = {
-          1: 'Has denegado el acceso a la ubicación.',
-          2: 'No se ha podido determinar la posición.',
-          3: 'La obtención de la posición ha tardado demasiado.',
+          1: 'ubicacion.denegada',
+          2: 'ubicacion.noDeterminada',
+          3: 'ubicacion.tiempoAgotado',
         };
-        reject(new Error(mensajes[err.code] ?? 'No se ha podido obtener la ubicación.'));
+        reject(new Error(t(mensajes[err.code] ?? 'ubicacion.errorGenerico')));
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 5000 },
     );
   });
 }
 
-const metros = (m) =>
-  m >= 1000 ? `${(m / 1000).toFixed(1).replace('.', ',')} km` : `${Math.round(m)} m`;
-
 /**
  * Traduce la evaluación geométrica a un veredicto legible.
  * Devuelve { nivel, titulo, detalle } donde nivel ∈ dentro | fuera | dudosa.
  */
-/** Hora local corta de un timestamp, para fechar la lectura del GPS. */
-const hora = (ts) =>
-  new Date(ts).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
 export function veredictoUbicacion(punto, features, precisionMetros, { obtenidaEn = null } = {}) {
   const ev = evaluaPosicion(punto, features, precisionMetros);
   // El veredicto es una foto, no un seguimiento: una embarcación deriva, y
   // «estás 40 m dentro» envejece sin avisar. Fechar la lectura deja claro de
   // cuándo es la respuesta y que para saber dónde se está AHORA hay que volver
   // a pulsar.
-  const sello = Number.isFinite(obtenidaEn) ? ` Posición leída a las ${hora(obtenidaEn)}.` : '';
+  const sello = Number.isFinite(obtenidaEn) ? t('ubicacion.sello', { hora: hora(obtenidaEn) }) : '';
   // Cuando el receptor no declara su precisión, el motor asume un radio
   // conservador; el texto lo dice tal cual, en vez de callarse el margen con
   // el que se ha decidido el veredicto.
   const precision = Number.isFinite(precisionMetros)
     ? `±${Math.round(precisionMetros)} m`
-    : `desconocida (se asume ±${PRECISION_DESCONOCIDA_M} m)`;
+    : t('ubicacion.precisionDesconocida', { metros: PRECISION_DESCONOCIDA_M });
 
   if (ev.certeza === 'dudosa' && ev.masCercana) {
     return {
       nivel: 'dudosa',
-      titulo: 'Posición dudosa',
+      titulo: t('ubicacion.dudosaTitulo'),
       detalle:
-        `Estás aproximadamente a ${metros(Math.abs(ev.masCercana.distancia))} del límite de ` +
-        `${ev.masCercana.nombre}. Precisión GPS actual: ${precision}. ` +
-        'No es posible determinar con seguridad si estás dentro o fuera.' +
-        sello,
+        t('ubicacion.dudosaDetalle', {
+          distancia: formateaDistancia(Math.abs(ev.masCercana.distancia)),
+          nombre: ev.masCercana.nombre,
+          precision,
+        }) + sello,
       evaluacion: ev,
     };
   }
@@ -81,23 +79,30 @@ export function veredictoUbicacion(punto, features, precisionMetros, { obtenidaE
     const principal = ev.dentroDe[ev.dentroDe.length - 1];
     return {
       nivel: 'dentro',
-      titulo: `Dentro de ${principal.nombre}`,
+      titulo: t('ubicacion.dentroTitulo', { nombre: principal.nombre }),
       detalle:
-        `Estás aproximadamente ${metros(principal.metrosAlBorde)} dentro del límite.` +
+        t('ubicacion.dentroDetalle', { distancia: formateaDistancia(principal.metrosAlBorde) }) +
         (ev.dentroDe.length > 1
-          ? ` Este punto está afectado por ${ev.dentroDe.length} figuras de protección.`
-          : '') + ` Precisión GPS: ${precision}.` + sello,
+          ? t('ubicacion.dentroVarias', { n: ev.dentroDe.length })
+          : '') +
+        t('ubicacion.precisionGps', { precision }) +
+        sello,
       evaluacion: ev,
     };
   }
 
   return {
     nivel: 'fuera',
-    titulo: 'Fuera de las zonas cargadas',
+    titulo: t('ubicacion.fueraTitulo'),
     detalle:
       (ev.masCercana
-        ? `El límite más cercano, ${ev.masCercana.nombre}, está a ${metros(Math.abs(ev.masCercana.distancia))}. `
-        : '') + `Precisión GPS: ${precision}.` + sello,
+        ? t('ubicacion.fueraDetalle', {
+            nombre: ev.masCercana.nombre,
+            distancia: formateaDistancia(Math.abs(ev.masCercana.distancia)),
+          })
+        : '') +
+      t('ubicacion.precisionGps', { precision }).trimStart() +
+      sello,
     evaluacion: ev,
   };
 }

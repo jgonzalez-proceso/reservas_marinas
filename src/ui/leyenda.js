@@ -8,12 +8,7 @@
  */
 
 import { NIVELES, nivelDe } from '../map/estilos-proteccion.js';
-
-const NOTA =
-  'Las capas se pueden encender y apagar desde el control del mapa. Apagar una capa no la ' +
-  'desactiva: al pulsar un punto se sigue consultando todas, y sus figuras aparecen igualmente en ' +
-  'el panel. El color indica el tipo de figura, no lo que está prohibido; eso lo dice el panel, ' +
-  'actividad por actividad.';
+import { t } from '../i18n/index.js';
 
 export function creaLeyenda(contenedor, features) {
   contenedor.innerHTML = '';
@@ -21,14 +16,14 @@ export function creaLeyenda(contenedor, features) {
   const boton = document.createElement('button');
   boton.className = 'leyenda__toggle';
   boton.setAttribute('aria-expanded', 'false');
-  boton.textContent = 'Leyenda';
+  boton.textContent = t('leyenda.titulo');
 
   const lista = document.createElement('ul');
   lista.className = 'leyenda__lista';
 
   const nota = document.createElement('p');
   nota.className = 'leyenda__nota';
-  nota.textContent = NOTA;
+  nota.textContent = t('leyenda.nota');
 
   const fila = (proteccion, color, descripcion) => {
     const li = document.createElement('li');
@@ -55,7 +50,12 @@ export function creaLeyenda(contenedor, features) {
     const otros = [...presentes].filter((p) => !NIVELES.some((n) => n.proteccion === p));
 
     lista.innerHTML = '';
-    for (const n of usados) lista.append(fila(n.proteccion, n.color, n.descripcion));
+    // `NIVELES` solo lleva color y orden; la descripcion la compone `nivelDe`
+    // en el idioma activo. El nombre de la figura sale del dato tal cual, sin
+    // traducir, porque es como aparece en la norma.
+    for (const n of usados) {
+      lista.append(fila(n.proteccion, n.color, nivelDe(n.proteccion).descripcion));
+    }
     for (const p of otros) {
       const n = nivelDe(p);
       lista.append(fila(p, n.color, n.descripcion));

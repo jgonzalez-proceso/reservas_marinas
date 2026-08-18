@@ -59,20 +59,52 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   </head>
   <body>
-    <a class="salta" href="#mapa">Ir al mapa</a>
+    <!--
+      El castellano va escrito aquí, no inyectado desde JavaScript, y es
+      deliberado: es lo único que ve un rastreador que no ejecute el bundle.
+      Los atributos data-i18n dicen con qué clave sustituirlo cuando el idioma
+      activo es otro; en castellano no se toca nada. Ver src/i18n/dom.js.
+    -->
+    <a class="salta" href="#mapa" data-i18n="app.saltarAlMapa">Ir al mapa</a>
 
     <header class="cabecera">
       <div class="cabecera__marca">
-        <h1>Restricciones marítimas</h1>
+        <h1 data-i18n="app.titulo">Restricciones marítimas</h1>
         <p id="subtitulo">Illes Balears</p>
       </div>
       <div class="cabecera__acciones">
         <label class="selector-isla">
-          <span class="selector-isla__etiqueta">Isla</span>
-          <select id="selector-isla" aria-label="Isla que se muestra en el mapa"></select>
+          <span class="selector-isla__etiqueta" data-i18n="cabecera.idioma">Idioma</span>
+          <select
+            id="selector-idioma"
+            aria-label="Idioma de la interfaz"
+            data-i18n-aria-label="cabecera.idiomaAria"
+          ></select>
         </label>
-        <button id="btn-lista" class="boton boton--secundario" type="button" disabled>Zonas</button>
-        <button id="btn-ubicacion" class="boton boton--principal" type="button" disabled>
+        <label class="selector-isla">
+          <span class="selector-isla__etiqueta" data-i18n="cabecera.isla">Isla</span>
+          <select
+            id="selector-isla"
+            aria-label="Isla que se muestra en el mapa"
+            data-i18n-aria-label="cabecera.islaAria"
+          ></select>
+        </label>
+        <button
+          id="btn-lista"
+          class="boton boton--secundario"
+          type="button"
+          disabled
+          data-i18n="cabecera.zonas"
+        >
+          Zonas
+        </button>
+        <button
+          id="btn-ubicacion"
+          class="boton boton--principal"
+          type="button"
+          disabled
+          data-i18n="cabecera.estoyDentro"
+        >
           ¿Estoy dentro?
         </button>
       </div>
@@ -80,16 +112,32 @@
 
     <main class="disposicion">
       <div class="mapa-envoltorio">
-        <div id="mapa" role="application" aria-label="Mapa de zonas de protección"></div>
-        <p id="carga" class="carga">Cargando la cartografía oficial…</p>
+        <div
+          id="mapa"
+          role="application"
+          aria-label="Mapa de zonas de protección"
+          data-i18n-aria-label="app.mapaAria"
+        ></div>
+        <p id="carga" class="carga" data-i18n="app.cargando">Cargando la cartografía oficial…</p>
         <div id="leyenda" class="leyenda"></div>
       </div>
 
-      <aside id="lista" class="lista" aria-label="Listado de zonas">
+      <aside
+        id="lista"
+        class="lista"
+        aria-label="Listado de zonas"
+        data-i18n-aria-label="app.listaAria"
+      >
         <div id="buscador" class="buscador"></div>
       </aside>
 
-      <aside id="panel" class="panel" aria-live="polite" aria-label="Restricciones del punto consultado"></aside>
+      <aside
+        id="panel"
+        class="panel"
+        aria-live="polite"
+        aria-label="Restricciones del punto consultado"
+        data-i18n-aria-label="app.panelAria"
+      ></aside>
     </main>
 
     <div class="zona-pie">
@@ -109,10 +157,10 @@
         corto porque el aviso legal envuelve a mas lineas.
       -->
       <details class="acerca">
-        <summary class="acerca__resumen">Qué es este mapa</summary>
+        <summary class="acerca__resumen" data-i18n="acerca.resumen">Qué es este mapa</summary>
         <div class="acerca__contenido">
-          <h2>Qué es este mapa</h2>
-          <p>
+          <h2 data-i18n="acerca.resumen">Qué es este mapa</h2>
+          <p data-i18n-html="acerca.p1Html">
             Esto no es un mapa de reservas marinas: es un motor de consulta de restricciones
             marítimas, donde la reserva marina es una de <strong>seis capas regulatorias</strong>
             que se cruzan sobre cada punto del mar. Pulsa cualquier punto y el motor reúne todas
@@ -122,14 +170,14 @@
             embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el
             motivo y la norma que la justifica.
           </p>
-          <p>
+          <p data-i18n-html="acerca.p2Html">
             Cubre las <strong>96 zonas</strong> cargadas hasta ahora en las cuatro islas y
             Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas
             marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios
             naturales protegidos con ámbito marino y la zonificación interna de s'Albufera des
             Grau y ses Salines.
           </p>
-          <p>
+          <p data-i18n-html="acerca.p3Html">
             Sigue faltando trabajo: capas enteras como la posidonia o la zonificación de Cabrera y
             sa Dragonera todavía no están cargadas, y dentro de las fichas hay condiciones que
             remiten a normas que este mapa aún no dibuja. Es una web informativa no oficial —la
@@ -141,7 +189,7 @@
 
       <footer class="pie">
         <p id="estado-datos" class="pie__datos"></p>
-        <p class="pie__aviso">
+        <p class="pie__aviso" data-i18n-html="pie.avisoHtml">
           Web informativa no oficial. La fuente vinculante es la norma publicada en el
           <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a>
           o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> y la

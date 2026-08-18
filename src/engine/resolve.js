@@ -88,6 +88,13 @@ function resuelveActividad(clave, figuras, fichas) {
       actividad: clave,
       titulo: ACTIVIDADES[clave],
       status: 'unknown',
+      // `motivoClave` acompaña a `motivo` en vez de sustituirlo. El motor no
+      // importa el modulo de idiomas —lo ejecutan tambien los scripts de Node,
+      // que no tienen `document` ni `navigator`, y meterle interfaz a un motor
+      // de reglas es la manera de que deje de poder probarse a solas—, asi que
+      // publica la clave y deja que la traduzca quien pinta. Las dos unicas
+      // frases de este fichero que ve el usuario son estas dos.
+      motivoClave: figuras.length === 0 ? 'motor.sinFiguras' : 'motor.sinRegla',
       motivo:
         figuras.length === 0
           ? SIN_FIGURAS
@@ -236,6 +243,7 @@ export function resolver(punto, features, fichas) {
     actividades,
     sinFiguras: figuras.length === 0,
     mensajeSinFiguras: SIN_FIGURAS,
+    mensajeSinFigurasClave: 'motor.sinFiguras',
     // Cierto cuando alguna figura carece de ficha: la web debe decirlo en vez
     // de presentar la conclusión como completa.
     incompleto: Object.values(actividades).some((a) => a.incompleto),
