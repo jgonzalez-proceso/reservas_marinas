@@ -263,4 +263,12 @@ export default {
   'unidad.km': '{valor} km',
   'unidad.m': '{valor} m',
   'unidad.km2': '{valor} km²',
+
+  // -- Analyse-Cookie ----------------------------------------------------------
+  'cookies.mensaje':
+    'Wir verwenden ein Analyse-Cookie (Google Analytics), um zu sehen, wie viele Menschen diese ' +
+    'Karte nutzen. Es ist für die Funktion der Anwendung nicht erforderlich: du kannst es ' +
+    'ablehnen, ohne Funktionen zu verlieren.',
+  'cookies.aceptar': 'Akzeptieren',
+  'cookies.rechazar': 'Ablehnen',
 };

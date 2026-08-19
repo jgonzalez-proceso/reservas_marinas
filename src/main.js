@@ -21,6 +21,7 @@ import { creaPanel } from './ui/panel.js';
 import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
 import { creaMenu } from './ui/menu.js';
+import { creaConsentimiento } from './ui/consentimiento.js';
 import {
   t,
   existeClave,
@@ -294,6 +295,7 @@ async function main() {
   montaSelectorIdioma();
   montaSelectorIsla();
   montaMenuMovil();
+  creaConsentimiento();
 
   // El texto normativo traducido va aparte del bundle. Se espera aquí, junto a
   // la cartografía, y no en el primer pintado del panel: si llegara tarde, la

@@ -249,4 +249,11 @@ export default {
   'unidad.km': '{valor} km',
   'unidad.m': '{valor} m',
   'unidad.km2': '{valor} km²',
+
+  // -- Cookies d'anàlisi -------------------------------------------------------
+  'cookies.mensaje':
+    "Fem servir una cookie d'anàlisi (Google Analytics) per saber quanta gent fa servir aquest " +
+    "mapa. No cal perquè l'aplicació funcioni: la pots rebutjar sense perdre cap funció.",
+  'cookies.aceptar': 'Acceptar',
+  'cookies.rechazar': 'Rebutjar',
 };

@@ -257,4 +257,11 @@ export default {
   'unidad.km': '{valor} km',
   'unidad.m': '{valor} m',
   'unidad.km2': '{valor} km²',
+
+  // -- Analytics cookie --------------------------------------------------------
+  'cookies.mensaje':
+    'We use an analytics cookie (Google Analytics) to see how many people use this map. It is ' +
+    "not required for the application to work: you can decline it without losing any feature.",
+  'cookies.aceptar': 'Accept',
+  'cookies.rechazar': 'Decline',
 };

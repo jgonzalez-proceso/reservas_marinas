@@ -1383,3 +1383,41 @@ body.reordenando .panel__cuerpo {
   line-height: 1.45;
   color: var(--texto-2);
 }
+
+/* -- Banner de consentimiento de cookies ------------------------------------- */
+
+/* Fijo y por encima de todo, menú de móvil incluido (1200): no forma parte de
+   la columna flexible de la página, así que no altera ningún cálculo de alto,
+   y tiene que poder alcanzarse aunque el cajón esté abierto. Desaparece del
+   DOM en cuanto hay respuesta, se elige la que se elija; no vuelve a
+   preguntarse hasta que caduque la cookie. */
+.cookies {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1300;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 14px 16px;
+  background: var(--fondo-2);
+  border-top: 1px solid var(--borde);
+  box-shadow: var(--sombra);
+}
+
+.cookies__mensaje {
+  flex: 1 1 320px;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--texto-2);
+}
+
+.cookies__acciones {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
