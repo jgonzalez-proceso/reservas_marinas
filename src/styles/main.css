@@ -125,6 +125,17 @@ a {
   opacity: 0.55;
   cursor: progress;
 }
+/* `.boton` se escribio para <button>, que ya centra su texto y no subraya.
+   Un <a> con la misma pinta necesita las dos cosas a mano, y ademas
+   `inline-flex` para que la altura minima tactil de 44px del movil se reparta
+   arriba y abajo en vez de empujar el texto hacia el borde superior. */
+.boton--enlace {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .boton--principal {
   background: var(--acento);
   border-color: var(--acento);
@@ -296,7 +307,8 @@ a {
   outline-offset: 1px;
 }
 
-/* En móvil los dos desplegables y «Zonas» se van al menú de hamburguesa.
+/* En móvil los dos desplegables, «Guía peces» y «Zonas» se van al menú de
+   hamburguesa.
 
    El título, dos desplegables y dos botones suman más que el ancho de un
    móvil: antes la cabecera se caía a dos filas, y cada fila de cabecera es una
@@ -333,6 +345,7 @@ a {
     gap: 8px;
   }
   .cabecera__acciones .selector-isla,
+  .cabecera__acciones #enlace-guia,
   .cabecera__acciones #btn-lista {
     display: none;
   }

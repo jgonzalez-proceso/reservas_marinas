@@ -89,6 +89,21 @@
             data-i18n-aria-label="cabecera.islaAria"
           ></select>
         </label>
+        <!--
+          Enlace de verdad, no un boton que navega: es una URL de otro sitio,
+          asi que tiene que poder abrirse en otra pestana, copiarse y seguirse
+          sin JavaScript. Lleva la pinta de boton secundario porque vive en la
+          misma barra que «Zonas».
+        -->
+        <a
+          id="enlace-guia"
+          class="boton boton--secundario boton--enlace"
+          href="https://pecesmediterraneo.com/peces-del-mar-mediterraneo/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n="cabecera.guiaPeces"
+          >Guía peces</a
+        >
         <button
           id="btn-lista"
           class="boton boton--secundario"

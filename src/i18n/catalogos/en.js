@@ -37,6 +37,7 @@ export default {
   'cabecera.islaAria': 'Island shown on the map',
   'cabecera.idioma': 'Language',
   'cabecera.idiomaAria': 'Interface language',
+  'cabecera.guiaPeces': 'Fish guide',
   'cabecera.zonas': 'Areas',
   'cabecera.estoyDentro': 'Am I inside?',
 

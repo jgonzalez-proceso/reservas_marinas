@@ -193,6 +193,7 @@ function montaSelectorIdioma() {
 function montaMenuMovil() {
   const boton = $('#btn-menu');
   const btnLista = $('#btn-lista');
+  const enlaceGuia = $('#enlace-guia');
   if (!boton || !btnLista) return;
 
   creaMenu(boton, [
@@ -215,6 +216,13 @@ function montaMenuMovil() {
         activa: valor === ISLA,
       })),
       onElegir: (valor) => vaAIsla(valor),
+    },
+    {
+      etiqueta: t('cabecera.guiaPeces'),
+      // Igual que «Zonas»: delega en el elemento de la cabecera en vez de
+      // repetir la URL aquí. Un click sintético sobre el <a> conserva su
+      // `target` y su `rel`, y deja la dirección escrita en un solo sitio.
+      accion: () => enlaceGuia?.click(),
     },
     {
       etiqueta: t('cabecera.zonas'),

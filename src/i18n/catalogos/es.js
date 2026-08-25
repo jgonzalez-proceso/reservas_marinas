@@ -40,6 +40,7 @@ export default {
   'cabecera.islaAria': 'Isla que se muestra en el mapa',
   'cabecera.idioma': 'Idioma',
   'cabecera.idiomaAria': 'Idioma de la interfaz',
+  'cabecera.guiaPeces': 'Guía peces',
   'cabecera.zonas': 'Zonas',
   'cabecera.estoyDentro': '¿Estoy dentro?',
 

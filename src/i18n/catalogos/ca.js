@@ -30,6 +30,7 @@ export default {
   'cabecera.islaAria': 'Illa que es mostra al mapa',
   'cabecera.idioma': 'Idioma',
   'cabecera.idiomaAria': 'Idioma de la interfície',
+  'cabecera.guiaPeces': 'Guia de peixos',
   'cabecera.zonas': 'Zones',
   'cabecera.estoyDentro': 'Soc a dins?',
 

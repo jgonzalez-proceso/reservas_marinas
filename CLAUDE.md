@@ -399,7 +399,9 @@ Antes estuvo **arriba a la derecha sobre el mapa y era el sitio equivocado**: ch
 
 **En móvil el envoltorio se apila en columna.** En fila la pestaña le roba ancho al pie, el texto envuelve más y la franja crece. Apilada, el texto legal conserva el ancho completo y la franja entera queda en 94 px. Cada píxel del pie es un píxel que se le quita al mapa, que es lo que la gente viene a ver.
 
-**Por debajo de 560 px el idioma, la isla y «Zonas» se recogen en un menú de hamburguesa.** El título, dos desplegables y dos botones no caben en el ancho de un móvil: la cabecera se caía a dos filas y costaba unos 40 px de mapa. Con el menú vuelve a una sola fila —61 px medidos a 375 px de ancho, frente a los 101 de antes—.
+**Por debajo de 560 px el idioma, la isla, «Guía peces» y «Zonas» se recogen en un menú de hamburguesa.** El título, dos desplegables y varios botones no caben en el ancho de un móvil: la cabecera se caía a dos filas y costaba unos 40 px de mapa. Con el menú vuelve a una sola fila —61 px medidos a 375 px de ancho, frente a los 101 de antes—.
+
+**«Guía peces» es un `<a>` con pinta de botón, no un botón que navega.** Apunta fuera del sitio (`pecesmediterraneo.com/peces-del-mar-mediterraneo/`), así que tiene que poder abrirse en otra pestaña, copiarse y seguirse sin JavaScript. La entrada del menú de móvil no repite la URL: hace `click()` sobre ese ancla, igual que «Zonas» delega en su botón, y así la dirección está escrita en un solo sitio.
 
 **«¿Estoy dentro?» no entra en el menú.** Es el botón que se usa en el agua, con una mano y en movimiento; ponerlo a dos toques de distancia sería esconder la aplicación dentro de sí misma. El menú es para lo que se toca una vez por sesión, o ninguna.
 
