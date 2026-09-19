@@ -21,6 +21,7 @@ import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 
 import { FICHAS_DECLARADAS, FICHAS_LISTA } from '../src/rules/index.js';
 import { FUENTES } from '../src/rules/fuentes.js';
+import { SUSTITUCIONES, urlOficial } from '../src/sources/normalize.js';
 import { validaFicha } from '../src/rules/schema.js';
 import { ISLAS, ISLA_ACTIVA, zonaEnIsla } from '../src/data/islas.js';
 import { N2000_MARINO, MOTIVOS_INCLUSION } from '../src/data/natura2000-marino.js';
@@ -87,6 +88,34 @@ for (const ficha of FICHAS_LISTA) {
 
 for (const [clave, f] of Object.entries(FUENTES)) {
   problemas.push(...urlEnClaro(f.url, `fuentes.js/${clave}`));
+}
+
+// -- 2 bis. La tabla de citas muertas sigue apuntando a algo real -------------
+//
+// `SUSTITUCIONES` (normalize.js) redirige dos citas del IDEIB que devuelven
+// 404 al texto consolidado de la misma norma. Se sostiene sobre una cadena
+// exacta, y una cadena exacta se puede romper con una errata sin que falle
+// nada: la sustitución dejaría de aplicarse en silencio y volverían los dos
+// enlaces muertos al panel. `links:check` lo vería, pero necesita red y por
+// eso no está en el build. Esto sí, y no la necesita.
+//
+// Que una clave deje de aparecer NO es un fallo que haya que silenciar
+// subiendo nada: significa que el IDEIB ha corregido su enlace —que es la
+// buena noticia— y que la entrada sobra. Hay que borrarla, no esconderla.
+const urlsPublicadas = new Set(
+  areas.features.flatMap((f) => (f.properties?.normas ?? []).map((n) => n.url)),
+);
+for (const [muerta, destino] of SUSTITUCIONES) {
+  if (!urlsPublicadas.has(muerta)) {
+    problemas.push(
+      `SUSTITUCIONES: ninguna norma publica ya «${muerta.slice(0, 80)}…». ` +
+        'O hay una errata en la clave, o el IDEIB la ha corregido y sobra la entrada.',
+    );
+  }
+  problemas.push(...urlEnClaro(destino, `SUSTITUCIONES: destino de «${muerta.slice(0, 60)}…»`));
+  if (!urlOficial(destino).href) {
+    problemas.push(`SUSTITUCIONES: el destino ${destino} no pasa la política de urlOficial()`);
+  }
 }
 
 // -- 3. Herencia: la hija debe estar realmente dentro de la madre --------------

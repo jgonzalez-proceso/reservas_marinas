@@ -87,6 +87,42 @@ const HOSTS_OFICIALES = ['caib.es', 'boe.es'];
 const HOSTS_INALCANZABLES = ['intranet.caib.es'];
 
 /**
+ * Citas cuyo enlace publicado ya no resuelve, con el destino oficial de la
+ * misma norma.
+ *
+ * El IDEIB cita dos normas contra su propia ficha del espacio y las dos
+ * devuelven **404**: el Decret 8/2023 (PORN de Llevant) y la Llei 2/2017 (es
+ * Trenc). No es una cita menor en ninguno de los dos casos: son justo las
+ * normas que prohíben la pesca submarina en esos dos parques, y el panel las
+ * presenta como la que justifica el veredicto.
+ *
+ * El destino no se inventa: es el que este mismo proyecto ya cita en
+ * `fuentes.js` para esas dos normas —la versión consolidada del Institut
+ * d'Estudis Autonòmics, que además incorpora las modificaciones posteriores,
+ * cosa que el PDF del día de publicación no hace—. La web venía diciendo la
+ * misma norma con dos direcciones distintas en la misma pantalla, una viva y
+ * otra muerta, según se mirara la ficha o la tarjeta de la figura.
+ *
+ * **La clave es la URL exacta publicada, y eso es deliberado.** El día que el
+ * IDEIB arregle la suya dejará de casar con esta tabla y pasará la suya, sin
+ * que nadie tenga que acordarse de venir a borrar nada. La sustitución se
+ * desactiva sola, que es el lado seguro por el que tiene que fallar.
+ *
+ * No es sitio para redirigir nada más. Una URL que responde se deja en paz
+ * aunque se conozca un destino «mejor»: aquí solo entra lo que está roto.
+ */
+export const SUSTITUCIONES = new Map([
+  [
+    'https://www.caib.es/sites/espaisnaturalsprotegits/ca/parc_natural_de_la_peninsula_de_llevant-21675/archivopub.do?ctrl=MCRST34ZI419577&id=419577',
+    'https://www.caib.es/sites/institutestudisautonomics/f/465088',
+  ],
+  [
+    'https://www.caib.es/sites/espaisnaturalsprotegits/ca/parc_natural_maritimoterrestre_es_trenc-salobrar_de_campos/archivopub.do?ctrl=MCRST34ZI297808&id=297808',
+    'https://www.caib.es/sites/institutestudisautonomics/f/232570',
+  ],
+]);
+
+/**
  * Limpia y valida una URL publicada por el servicio.
  *
  * La capa de Natura 2000 arrastra el identificador de sesión del servidor en
@@ -140,6 +176,12 @@ export function urlOficial(url) {
 
   const ascendida = u.protocol === 'http:';
   if (ascendida) u.protocol = 'https:';
+
+  // Después de ascender, para que una variante en claro de una URL muerta
+  // también case con la tabla.
+  const sustituta = SUSTITUCIONES.get(u.href);
+  if (sustituta) return { href: sustituta, motivo: 'sustituida: el enlace publicado da 404' };
+
   return { href: u.href, motivo: ascendida ? 'ascendida a https' : null };
 }
 

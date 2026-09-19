@@ -31,6 +31,7 @@ import { fileURLToPath } from 'node:url';
 
 import { FICHAS_LISTA } from '../src/rules/index.js';
 import { FUENTES } from '../src/rules/fuentes.js';
+import { SUSTITUCIONES } from '../src/sources/normalize.js';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -117,7 +118,16 @@ for (const fichero of readdirSync(dirCapas).filter((n) => n.endsWith('.geojson')
   const capa = JSON.parse(readFileSync(resolve(dirCapas, fichero), 'utf8'));
   for (const f of capa.features ?? []) {
     for (const n of f.properties?.normas ?? []) {
-      anota(n.url, `capas/${fichero} → ${f.properties.nombre} → norma «${(n.titulo ?? '').slice(0, 40)}…»`);
+      // Lo que hay que comprobar es el destino al que el panel manda a la
+      // gente, no el que el IDEIB dejó escrito. Si no, las dos citas que
+      // `SUSTITUCIONES` ya redirige seguirían saliendo rojas para siempre
+      // en un informe que precisamente existe para que el rojo signifique
+      // algo. Se anota que van sustituidas para que no parezca que el
+      // enlace original se ha arreglado solo.
+      const sustituta = SUSTITUCIONES.get(n.url);
+      const norma = `norma «${(n.titulo ?? '').slice(0, 40)}…»`;
+      const donde = `capas/${fichero} → ${f.properties.nombre} → ${norma}`;
+      anota(sustituta ?? n.url, sustituta ? `${donde} [sustituida: el enlace del IDEIB da 404]` : donde);
     }
   }
 }
