@@ -110,6 +110,16 @@ const HOSTS_INALCANZABLES = ['intranet.caib.es'];
  *
  * No es sitio para redirigir nada más. Una URL que responde se deja en paz
  * aunque se conozca un destino «mejor»: aquí solo entra lo que está roto.
+ *
+ * **Solo se aplica al pintar, nunca al generar**, y esto no es un detalle.
+ * `normasDesdeAtributos` construye `normas[]` a partir de `attrs.normaUrl`,
+ * que ya ha pasado por `limpiaUrl`: si la sustitución entrara ahí, quedaría
+ * escrita en el geojson el siguiente `npm run data` y el dato generado
+ * dejaría de decir qué publica el IDEIB. Con eso se pierden dos cosas a la
+ * vez —la posibilidad de detectar que ha corregido su enlace, que es lo
+ * único que apaga esta tabla, y la comprobación de `rules:check`, que busca
+ * la clave en la cartografía publicada y la encontraría ya sustituida—. Un
+ * dato generado registra lo que sirve la fuente; repararlo es cosa del sink.
  */
 export const SUSTITUCIONES = new Map([
   [
@@ -150,7 +160,7 @@ export const SUSTITUCIONES = new Map([
  * Lo que no pasa vuelve `null`, y entonces el panel pinta el título de la norma
  * como texto sin enlace: eso ya lo hacía cuando una norma no traía URL.
  */
-export function urlOficial(url) {
+export function urlOficial(url, { sustituye = true } = {}) {
   if (!url) return { href: null, motivo: null };
   const limpia = String(url).replace(/;jsessionid=[^?#]*/i, '');
   if (!limpia) return { href: null, motivo: null };
@@ -179,7 +189,7 @@ export function urlOficial(url) {
 
   // Después de ascender, para que una variante en claro de una URL muerta
   // también case con la tabla.
-  const sustituta = SUSTITUCIONES.get(u.href);
+  const sustituta = sustituye ? SUSTITUCIONES.get(u.href) : null;
   if (sustituta) return { href: sustituta, motivo: 'sustituida: el enlace publicado da 404' };
 
   return { href: u.href, motivo: ascendida ? 'ascendida a https' : null };
@@ -194,7 +204,9 @@ export function urlOficial(url) {
  * —el panel se repinta con cada pulsación y llenaría la consola—.
  */
 export function limpiaUrl(url) {
-  const { href, motivo } = urlOficial(url);
+  // Sin sustituir: lo que se guarda es lo que publica el servicio. Ver
+  // `SUSTITUCIONES`.
+  const { href, motivo } = urlOficial(url, { sustituye: false });
   if (motivo) {
     const texto = String(url).slice(0, 120);
     console.warn(href ? `  URL ${motivo}: ${href}` : `  URL descartada por ${motivo}: ${texto}`);
