@@ -105,6 +105,7 @@ function resuelveActividad(clave, figuras, fichas) {
       conditions: [],
       normas: [],
       permit: null,
+      otrosPermisos: [],
       determinadaPor: null,
     };
   }
@@ -177,6 +178,61 @@ function resuelveActividad(clave, figuras, fichas) {
     }))
     .filter((x) => x.conditions.length > 0);
 
+  // Los permisos sí se acumulan, y esa asimetría con las condiciones es
+  // deliberada.
+  //
+  // Una condición dice CÓMO se practica la actividad bajo un régimen concreto
+  // —qué aparejos, en qué ventana—, así que cuando una figura más específica
+  // sustituye ese régimen, sus condiciones sustituyen a las otras: eso es lo que
+  // justifica el filtro de arriba. Un permiso no es eso. Es una obligación
+  // autónoma de una administración concreta, y que otra figura imponga un
+  // régimen más estricto sobre el mismo trozo de mar no deroga la autorización
+  // que la primera sigue exigiendo. Son trámites distintos ante organismos
+  // distintos.
+  //
+  // Se descartaban en silencio. En ses Salines el ámbito marino del parque son
+  // 153,9 km² y la Reserva Marina dels Freus 120,4, así que el desempate por
+  // área siempre daba la victoria a la reserva: la tarjeta de buceo publicaba el
+  // permiso de la Dirección General de Pesca y la autorización del órgano gestor
+  // del parque no aparecía en ninguna parte —tampoco en la tarjeta de la figura,
+  // que no pinta permisos—. Y para la pesca desde embarcación era peor: el
+  // parque gana por rango con `restricted` y sin permiso propio, así que el
+  // bloque desaparecía entero y con él la obligación de llevar registro de
+  // capturas «bajo pena de perder la licencia».
+  //
+  // `conPermisoHeredado` (rules/schema.js) resuelve el caso equivalente dentro
+  // de una cadena `heredaDe` declarada, pero solo ese: lo llama `resuelveHerencia`
+  // y nada más. Aquí no hay herencia que declarar —el parque y la reserva son
+  // normas de administraciones distintas que se apilan, no una zona interior de
+  // la otra—, así que declararla sería jurídicamente falso. Por eso la
+  // acumulación tiene que ocurrir en el apilado, que es este sitio.
+  //
+  // Deliberadamente SIN filtro de área: es justo el que dejaba fuera al parque.
+  const ADMITEN_PERMISO = new Set(['allowed_with_authorization', 'restricted']);
+  const vistosPermiso = new Set([ganadora.regla.permit?.url].filter(Boolean));
+  // Si el estado publicado es `prohibited`, no se listan: empujar a alguien a
+  // tramitar una autorización para algo que allí está prohibido es peor que
+  // callarse. Ningún permiso habilita lo prohibido.
+  const permisosDeOtrasFiguras = !ADMITEN_PERMISO.has(ganadora.regla.status)
+    ? []
+    : aportaciones
+        .slice(1)
+        .filter((a) => {
+          if (!a.regla.permit) return false;
+          // La URL del trámite identifica al permiso; dos figuras que remiten al
+          // mismo trámite son una sola gestión. Sin URL desempata el zoneId, que
+          // es único por figura, para no colapsar dos permisos distintos.
+          const clave = a.regla.permit.url ?? `zona:${a.figura.zoneId}`;
+          if (vistosPermiso.has(clave)) return false;
+          vistosPermiso.add(clave);
+          return true;
+        })
+        .map((a) => ({
+          nombre: a.figura.nombre,
+          zoneId: a.figura.zoneId,
+          permit: a.regla.permit,
+        }));
+
   const normas = [];
   const vistas = new Set();
   for (const a of aportaciones) {
@@ -200,6 +256,9 @@ function resuelveActividad(clave, figuras, fichas) {
     condicionesDeOtrasFiguras,
     schedule: ganadora.regla.schedule ?? null,
     permit: ganadora.regla.permit ?? null,
+    // Las autorizaciones que siguen siendo exigibles aunque su figura no sea la
+    // que determina el estado. Ver la nota larga donde se construyen.
+    otrosPermisos: permisosDeOtrasFiguras,
     // Las fuentes de todas las reglas aplicables, no solo las de la ganadora:
     // el usuario debe poder comprobar cada afirmación que se le muestra.
     sources: [...new Set(aportaciones.flatMap((a) => a.regla.sources ?? []))],

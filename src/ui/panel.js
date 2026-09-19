@@ -144,36 +144,14 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     const motivo = a.motivoClave ? t(a.motivoClave) : tn(a.motivo);
     if (motivo) card.append(el('p', 'actividad__motivo', motivo));
 
-    if (a.permit) {
-      const p = el('div', 'permiso');
-      // Importe nulo significa «no publicado», no «gratis»: sin este caso el
-      // panel anunciaba «Tasa: 0,00 €» para permisos cuyo precio no consta.
-      const importe =
-        a.permit.importe === 0
-          ? t('panel.autorizacionGratuita')
-          : Number.isFinite(a.permit.importe)
-            ? t('panel.tasa', { importe: moneda(a.permit.importe, a.permit.moneda) })
-            : t('panel.importeNoPublicado');
-      p.append(el('strong', null, importe));
-      // La vigencia y la nota vienen escritas en la ficha —«3 años»,
-      // «Consultar en el trámite»— y por tanto son texto normativo.
-      if (a.permit.vigencia) {
-        p.append(el('span', null, t('panel.vigencia', { vigencia: tn(a.permit.vigencia) })));
-      }
-      if (a.permit.nota) p.append(el('p', 'permiso__nota', tn(a.permit.nota)));
-      if (a.permit.url) {
-        const enlace = el('a', 'permiso__enlace', t('panel.tramitar'));
-        enlace.href = a.permit.url;
-        enlace.target = '_blank';
-        enlace.rel = 'noopener noreferrer';
-        p.append(enlace);
-      }
-      if (a.permit.ultimaVerificacion) {
-        p.append(
-          el('p', 'permiso__fecha', t('panel.importeVerificado', { fecha: a.permit.ultimaVerificacion })),
-        );
-      }
-      card.append(p);
+    if (a.permit) card.append(bloquePermiso(a.permit));
+
+    // Las autorizaciones que exigen otras figuras del punto. Van cada una con el
+    // nombre de la suya delante, como las condiciones, y por el mismo motivo:
+    // son trámites ante organismos distintos y quien los lee necesita saber ante
+    // cuál. No se fusionan con la de arriba ni se resumen en una sola.
+    for (const otro of a.otrosPermisos ?? []) {
+      card.append(bloquePermiso(otro.permit, otro.nombre));
     }
 
     if (a.conditions?.length) {
@@ -515,6 +493,52 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
     if (fig.normas?.length) card.append(listaNormas(fig.normas));
     return card;
+  }
+
+  /**
+   * El bloque de una autorización.
+   *
+   * `nombreFigura` solo se pasa cuando el permiso no es el de la figura que
+   * determina el estado, sino el de otra que se apila sobre el mismo punto y
+   * sigue exigiéndolo. En ese caso encabeza el bloque, porque lo que el usuario
+   * necesita saber de un trámite es ante quién se hace: la autorización del
+   * órgano gestor de un parque y el permiso de la Dirección General de Pesca
+   * son dos gestiones distintas, y presentarlas sin atribuir haría pensar que
+   * basta con una.
+   */
+  function bloquePermiso(permit, nombreFigura = null) {
+    const p = el('div', 'permiso');
+    if (nombreFigura) {
+      p.append(el('span', 'permiso__figura', t('panel.tambienExige', { nombre: nombreFigura })));
+    }
+    // Importe nulo significa «no publicado», no «gratis»: sin este caso el
+    // panel anunciaba «Tasa: 0,00 €» para permisos cuyo precio no consta.
+    const importe =
+      permit.importe === 0
+        ? t('panel.autorizacionGratuita')
+        : Number.isFinite(permit.importe)
+          ? t('panel.tasa', { importe: moneda(permit.importe, permit.moneda) })
+          : t('panel.importeNoPublicado');
+    p.append(el('strong', null, importe));
+    // La vigencia y la nota vienen escritas en la ficha —«3 años»,
+    // «Consultar en el trámite»— y por tanto son texto normativo.
+    if (permit.vigencia) {
+      p.append(el('span', null, t('panel.vigencia', { vigencia: tn(permit.vigencia) })));
+    }
+    if (permit.nota) p.append(el('p', 'permiso__nota', tn(permit.nota)));
+    if (permit.url) {
+      const enlace = el('a', 'permiso__enlace', t('panel.tramitar'));
+      enlace.href = permit.url;
+      enlace.target = '_blank';
+      enlace.rel = 'noopener noreferrer';
+      p.append(enlace);
+    }
+    if (permit.ultimaVerificacion) {
+      p.append(
+        el('p', 'permiso__fecha', t('panel.importeVerificado', { fecha: permit.ultimaVerificacion })),
+      );
+    }
+    return p;
   }
 
   // Normas y fuentes van en <details> plegado, con el recuento en el resumen.

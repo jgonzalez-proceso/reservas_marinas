@@ -247,6 +247,26 @@ test('ses Salines: en el resto del ámbito marino la pesca de superficie es rest
   assert.equal(r.actividades.pescaRecreativaEmbarcacion.status, 'restricted');
   assert.equal(r.actividades.buceo.status, 'allowed_with_authorization');
   assert.ok(r.actividades.buceo.permit, 'el buceo autorizable debe describir su permiso');
+
+  // El parque gana por rango con `restricted` y no declara permiso propio, así
+  // que la tarjeta se quedaba SIN bloque de autorización: desaparecían la
+  // autorización trienal de la reserva y la obligación de llevar registro de
+  // capturas, que la propia ficha advierte que se incumple «bajo pena de perder
+  // la licencia». El permiso de la figura desplazada tiene que seguir ahí.
+  const emb = r.actividades.pescaRecreativaEmbarcacion;
+  assert.equal(
+    emb.determinadaPor.zoneId,
+    PARQUE_SALINES,
+    'el estado lo determina el parque, que no declara permiso propio',
+  );
+  assert.equal(emb.permit, null);
+  assert.equal(
+    emb.otrosPermisos.length,
+    1,
+    'la autorización de la reserva marina no puede perderse al ganar el parque',
+  );
+  assert.match(emb.otrosPermisos[0].nombre, /Reserva Marina dels Freus/);
+  assert.ok(emb.otrosPermisos[0].permit.url, 'y debe conservar su enlace de trámite');
 });
 
 const FONDEO_SALINES = [
@@ -316,6 +336,33 @@ test('ses Salines: parque, reserva marina y zona de veda se apilan y manda la m�
     fuentes.includes('boib-decreto-132-2005-prug-salines'),
     'la fuente del PRUG del parque debe seguir citada; hay: ' + fuentes.join(', '),
   );
+
+  // El buceo es autorizable por las dos figuras, y son dos trámites ante
+  // organismos distintos: el permiso de la Dirección General de Pesca y la
+  // autorización del órgano gestor del parque. Como el desempate es por área
+  // ascendente y el parque (153,9 km²) es mayor que cualquier figura de la
+  // reserva, la del parque siempre pierde: se publicaba solo el de Pesca y el
+  // buceador se sumergía sin el otro. Tienen que aparecer los dos.
+  const buceo = r.actividades.buceo;
+  assert.equal(buceo.status, 'allowed_with_authorization');
+  assert.match(buceo.determinadaPor.nombre, /Reserva Marina dels Freus/);
+  assert.ok(buceo.permit?.url, 'el permiso de la figura que determina el estado');
+  assert.equal(
+    buceo.otrosPermisos.length,
+    1,
+    'y la autorización del parque, que es de otra administración y sigue siendo exigible',
+  );
+  assert.equal(buceo.otrosPermisos[0].zoneId, PARQUE_SALINES);
+  assert.notEqual(
+    buceo.otrosPermisos[0].permit.url,
+    buceo.permit.url,
+    'son dos trámites distintos, no el mismo repetido',
+  );
+
+  // Ningún permiso habilita lo prohibido: donde el estado publicado es
+  // `prohibited` no se listan autorizaciones de otras figuras, porque empujar a
+  // tramitar una para algo vedado es peor que callarse.
+  assert.deepEqual(r.actividades.pescaRecreativaEmbarcacion.otrosPermisos, []);
 });
 
 test('ses Salines: ningún punto de sus figuras contesta otra cosa que «prohibida» a la pesca submarina', () => {

@@ -112,6 +112,7 @@ export default {
   'panel.tramitar': 'Bei der Seu Electrònica beantragen',
   'panel.importeVerificado': 'Gebühr geprüft am {fecha}',
   'panel.tambienRige': 'Hier gilt ausserdem, durch {nombre}:',
+  'panel.tambienExige': 'Genehmigung ausserdem erforderlich von {nombre}:',
   'panel.loDetermina': 'Massgeblich: ',
   'panel.tambienImponen': ' (ebenfalls auferlegt durch: {lista})',
   'panel.heredada':

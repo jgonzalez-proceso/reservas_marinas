@@ -355,7 +355,15 @@ A igual grado de restricción manda la figura **más específica** (menor área;
 
 Por eso `resolve.js` muestra **solo las condiciones de la figura que determina el estado**, y añade las de otras figuras únicamente cuando son igual de específicas o más. Fusionarlas todas haría aparecer el curricán y el spinning como permitidos dentro de una zona que los prohíbe — el error opuesto al que existe esta web.
 
-Las obligaciones generales que sí sobreviven a la sustitución —autorización, registro de capturas, prohibición de competiciones— viajan en el `permit`, que se hereda.
+**Los permisos sí se acumulan, y esa asimetría es el matiz que más costó ver.** Una condición dice *cómo* se practica la actividad bajo un régimen concreto, así que cuando una figura más específica sustituye ese régimen sus condiciones sustituyen a las otras. Un permiso no es eso: es una obligación autónoma de una administración, y que otra figura imponga un régimen más estricto sobre el mismo trozo de mar no deroga la autorización que la primera sigue exigiendo. Son trámites distintos ante organismos distintos.
+
+Se descartaban en silencio. `resuelveActividad` publicaba `permit` solo de la ganadora, y en ses Salines el ámbito marino del parque son 153,9 km² frente a los 120,4 de la Reserva Marina dels Freus: el desempate por área daba siempre la victoria a la reserva, la tarjeta de buceo publicaba el permiso de la Dirección General de Pesca y **la autorización del órgano gestor del parque no aparecía en ninguna parte** —tampoco en la tarjeta de la figura, que no pinta permisos—. En la pesca desde embarcación era peor: el parque gana por rango con `restricted` y sin permiso propio, así que el bloque desaparecía entero y con él la obligación de llevar registro de capturas «bajo pena de perder la licencia».
+
+`conPermisoHeredado` (`rules/schema.js`) resuelve el caso equivalente dentro de una cadena `heredaDe` declarada, pero **solo ese**: lo llama `resuelveHerencia` y nada más. Entre figuras apiladas no hay herencia que declarar —el parque y la reserva son normas de administraciones distintas, no una zona interior de la otra—, así que declararla sería jurídicamente falso. Por eso la acumulación ocurre en `resolve.js`, al apilar.
+
+Dos reglas que conviene no perder. **Sin filtro de área**: es justo el que dejaba fuera al parque, y repetirlo aquí reproduciría el fallo. Y **si el estado publicado es `prohibited` no se lista ninguno**: empujar a alguien a tramitar una autorización para algo que allí está vedado es peor que callarse, porque ningún permiso habilita lo prohibido.
+
+Cada permiso ajeno va encabezado por el nombre de su figura, como las condiciones atribuidas y por el mismo motivo: lo que hay que saber de un trámite es ante quién se hace. Hay prueba de regresión sobre los dos puntos de ses Salines en `test-reglas.mjs`.
 
 ### Geometrías degeneradas
 

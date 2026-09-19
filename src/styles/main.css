@@ -992,6 +992,16 @@ body.reordenando .panel__cuerpo {
   background: var(--fondo-3);
   font-size: 0.78rem;
 }
+/* Encabeza el permiso que exige otra figura del punto, no la que determina el
+   estado. Mismo tratamiento que el título de las condiciones atribuidas: en voz
+   baja, porque lo que manda sigue siendo el importe que va debajo. */
+.permiso__figura {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.7rem;
+  color: var(--texto-2);
+  font-style: italic;
+}
 .permiso__nota {
   margin: 4px 0 0;
   color: var(--texto-2);

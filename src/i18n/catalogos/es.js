@@ -115,6 +115,7 @@ export default {
   'panel.tramitar': 'Tramitar en la Seu Electrònica',
   'panel.importeVerificado': 'Importe verificado el {fecha}',
   'panel.tambienRige': 'También rige aquí, por {nombre}:',
+  'panel.tambienExige': 'También exige autorización {nombre}:',
   'panel.loDetermina': 'Lo determina: ',
   'panel.tambienImponen': ' (también lo imponen: {lista})',
   'panel.heredada': 'Regla del régimen general de {nombre}, que se aplica también a esta zona.',

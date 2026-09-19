@@ -112,6 +112,7 @@ export default {
   'panel.tramitar': 'Apply at the Seu Electrònica',
   'panel.importeVerificado': 'Fee verified on {fecha}',
   'panel.tambienRige': 'Also in force here, from {nombre}:',
+  'panel.tambienExige': 'Authorization also required by {nombre}:',
   'panel.loDetermina': 'Determined by: ',
   'panel.tambienImponen': ' (also imposed by: {lista})',
   'panel.heredada': 'Rule from the general regime of {nombre}, which applies to this area too.',
