@@ -14,6 +14,7 @@
 import { ESTADOS } from '../engine/resolve.js';
 import { colorDe, nivelDe } from '../map/estilos-proteccion.js';
 import { FUENTES } from '../rules/fuentes.js';
+import { urlOficial } from '../sources/normalize.js';
 import { leeOrdenActividades, guardaOrdenActividades } from './orden-actividades.js';
 import { t, tp } from '../i18n/index.js';
 import { tn, tnLista, NORMATIVA_EN_OTRO_IDIOMA } from '../i18n/normativa.js';
@@ -217,7 +218,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       card.append(inc);
     }
 
-    if (a.normas?.length) card.append(listaNormas(a.normas));
+    // `listaNormas` devuelve null cuando ninguna entrada tiene título legible
+    // ni destino publicable. `append(null)` pintaría la cadena «null».
+    const normas = a.normas?.length ? listaNormas(a.normas) : null;
+    if (normas) card.append(normas);
     if (a.sources?.length) {
       const fuentes = listaFuentes(a.sources);
       if (fuentes) card.append(fuentes);
@@ -491,7 +495,8 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       );
     }
 
-    if (fig.normas?.length) card.append(listaNormas(fig.normas));
+    const normasFigura = fig.normas?.length ? listaNormas(fig.normas) : null;
+    if (normasFigura) card.append(normasFigura);
     return card;
   }
 
@@ -557,15 +562,23 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
   function listaNormas(normas) {
     const ul = el('ul');
+    let pintadas = 0;
     for (const n of normas) {
+      // El campo DECLARACIO de la capa de Natura 2000 llega como un espacio en
+      // blanco en 20 figuras, sin URL que lo acompañe. Se pintaba igual: un
+      // <li> vacío dentro de un desplegable «Norma (1)» que se abre sobre nada.
+      // Sin título legible y sin destino no hay cita que mostrar.
+      const titulo = (n.titulo ?? '').trim();
+      const href = urlOficial(n.url).href;
+      if (!titulo && !href) continue;
+      pintadas++;
       const li = el('li');
-      // El titulo de la norma NO se traduce en ningun idioma: es la cita, y
-      // es lo que hay que poder buscar en el BOIB. Buena parte ya vienen en
-      // catalan, que es como las publica el boletin.
-      const titulo = n.titulo;
-      if (n.url) {
+      // El título de la norma NO se traduce en ningún idioma: es la cita, y es
+      // lo que hay que poder buscar en el BOIB. Buena parte ya vienen en
+      // catalán, que es como las publica el boletín.
+      if (href) {
         const a = el('a', null, titulo);
-        a.href = n.url;
+        a.href = href;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
         li.append(a);
@@ -575,9 +588,12 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       if (n.fecha) li.append(el('span', 'normas__fecha', ` (${n.fecha})`));
       ul.append(li);
     }
+    // El recuento cuenta lo pintado, no lo recibido: un «Normas (4)» que abre
+    // tres es la clase de detalle que hace dudar del resto del panel.
+    if (pintadas === 0) return null;
     return bloquePlegable(
       'normas',
-      tp('panel.normaUna', 'panel.normasVarias', normas.length),
+      tp('panel.normaUna', 'panel.normasVarias', pintadas),
       ul,
     );
   }

@@ -53,11 +53,31 @@ npm run build        # rules:check + i18n:check + test + build de producción
 
 `rules:check` valida la **forma** de las fichas: que citen fuente, que no haya ciclos de herencia, que ningún zoneId quede huérfano. Lo que no puede ver es si la conclusión que sale por el otro lado es la correcta, ni —sobre todo— **si una regla se ha atado al polígono equivocado**. Eso lo prueba `npm test`, que toma una coordenada concreta, la resuelve contra la cartografía real y comprueba el estado y de qué figura sale. Cada prueba afirma primero las propiedades geométricas del punto que usa, para que un cambio en una geometría oficial falle diciendo eso y no mande a buscar el error al sitio equivocado.
 
+`links:check` recorre también `src/data/capas/`, no solo `src/rules/`: lo que el panel convierte en enlaces son las URLs del servicio, y eran precisamente las que nadie comprobaba. Ver «Una URL publicada no se cree» más abajo.
+
 `links:check` **no se engancha al build**: el build tiene que funcionar sin red y de forma determinista, y esto depende de que el CAIB y el BOE estén en pie. Se ejecuta al tocar fuentes o permisos. Existe porque el panel manda a la gente a tramitar autorizaciones y a leer normas: la URL de permisos de buceo llevaba meses devolviendo **404** en siete fichas y ningún control lo veía.
 
 Dos cosas que costó aprender y que el script ya incorpora. **Un 200 no basta**: el eboibfront contesta a un documento inexistente con un 200 y una redirección a su propia página `pdfError`, así que se compara el destino final, no solo el código. Y **nada se declara roto a la primera**: con seis peticiones en paralelo el BOIB desvía a `pdfError` enlaces que están perfectamente sanos —la misma URL que parecía rota sirve un PDF de 27 MB cuando se le pregunta sola—, así que la concurrencia baja a 4 y todo veredicto malo se reintenta. Un verificador que acusa en falso se acaba ignorando, que es la manera segura de perder un 404 de verdad.
 
 Los 4xx hacen fallar; los 5xx, los 429 y los fallos de red solo avisan, porque son del servidor o del momento. `--estricto` hace fallar también con los avisos.
+
+### Una URL publicada no se cree: se valida
+
+El campo `URL`/`URL_DECLA` de las capas del IDEIB es **texto libre en una tabla ajena**, y acaba en el `href` de la cita que el panel presenta como la norma que justifica el veredicto. Nadie lo miraba: `check-links.mjs` solo recorría `src/rules/`, así que las URLs que de verdad se convierten en enlaces —las que vienen del servicio— quedaban fuera de todo control.
+
+Lo que había de verdad en la cartografía cuando se miró: **cuatro figuras con `http://`** (la Serra de Tramuntana, las dos de Tagomago y el Nord de Menorca) y **tres apuntando a `intranet.caib.es`**, que el propio `registry.js` anota que no resuelve desde fuera de la red del Govern. Siete citas muertas o forzables en un sitio cuyo valor es llevarte a la norma auténtica.
+
+`urlOficial()` en `sources/normalize.js` fija la política, y son tres reglas:
+
+- **Se exige https.** A bordo, sobre el wifi de un puerto o una red móvil, un PDF del BOIB pedido en claro lo sustituye quien esté en medio. Como el propio corpus cita esos mismos hosts por https, se **asciende** en vez de descartar: perder la cita de la norma que declara un espacio protegido sería peor que el problema que arregla.
+- **Se exige host oficial** (`caib.es`, `boe.es` y subdominios). No es una lista de «sitios de confianza»: es la lista de quién publica boletines.
+- **Se descartan los hosts internos.** Un enlace que no abre es peor que ninguno: el usuario cree que va a leer la norma y se queda mirando un error. Sin enlace, el título sigue siendo buscable.
+
+**Se comprueba en los dos extremos**, y esa duplicidad es deliberada. Al generar, `limpiaUrl()` deja constancia en consola de cada descarte —una cita que desaparece en silencio es una cita que deja de estar, igual que con las geometrías degeneradas—. Y en el panel, porque los ficheros de `capas/` son un artefacto generado y versionado: el generador puede no haberse vuelto a ejecutar desde que se escribieron, y el sink no debe fiarse de eso. Gracias a eso las siete citas quedaron arregladas **sin regenerar los 30 MB**.
+
+Los dos gates cambiaron también: `rules:check` **rechaza cualquier URL que no sea https** en lo escrito a mano —normas, permisos y `fuentes.js`— y corre dentro del build, que es lo que impide que la clase vuelva; el esquema no necesita red, así que no hay excusa para dejarlo fuera. Y `links:check` ya no filtra con `/^https?:/i`, que aceptaba el texto en claro por construcción y lo daba por sano: ahora lo **denuncia** y además recorre `src/data/capas/`.
+
+Una norma sin título legible y sin destino publicable **no se pinta**. El campo `DECLARACIO` llega como un espacio en blanco en 20 figuras de Natura 2000 y producía un desplegable «Norma (1)» que se abría sobre un `<li>` vacío. El recuento del resumen cuenta lo pintado, no lo recibido.
 
 `abrir_web.ps1` **no comprueba si el puerto está ocupado, sino si responde nuestra web**. Comprobar el puerto es poco fiable en Windows —un proceso puede escuchar solo en `::1` y una prueba por IPv4 lo da por libre— y además no distingue nuestro servidor del de otro proyecto. La URL buena se lee de la salida de Vite, tomando la **última** coincidencia del log: si un arranque anterior dejó contenido, la primera sería la suya. Antes de buscarla hay que **quitar los códigos ANSI**: Vite pinta el puerto en negrita aunque su salida esté redirigida a un fichero, y `http://localhost:<ESC>[1m5173` no casa con ninguna expresión que espere el número pegado a los dos puntos — el script se quedaba los 90 s de espera mirando un servidor que ya estaba listo. Si aun así el log no da URL, se prueba el rango de puertos: la respuesta de la web manda sobre el log. La cartografía se da por descargada si hay ficheros en `src/data/capas/`, no por un nombre concreto; cuando se comprobaba `protected-areas.mallorca.geojson`, que ya no se genera, cada arranque volvía a descargar los 29,6 MB de IDEIB.
 
@@ -132,6 +152,10 @@ Publicada en **https://reservas.pecesmediterraneo.com/** (proyecto Cloudflare Pa
 **Un `.geojson` no se comprime solo.** Las CDN deciden qué comprimen por una lista de tipos MIME y `application/geo+json` no está en ninguna: sin forzarlo, la cartografía viaja sin comprimir, que son 31 MB en vez de 6,6. `public/_headers` lo fuerza a `application/json`. Es lo primero que hay que comprobar con `curl` tras el primer despliegue, porque falla en silencio: la web funciona igual, solo que cinco veces más lenta, que en una barca con cobertura de móvil es la diferencia entre usarla y cerrarla.
 
 `public/_headers` lo leen Cloudflare Pages y Netlify. **Vercel no lo lee**: allí las mismas reglas irían en `vercel.json`.
+
+**`npm run deploy` compila antes de publicar, y no siempre fue así.** Era un `wrangler deploy` pelado: publicaba lo que hubiera en `dist/` —que está en `.gitignore`, así que podía ser de otro commit o de un árbol sucio— **sin pasar ninguno de los tres gates**. Nadie lo ejecutaba, pero era un arma cargada: el día que alguien lo hiciera, la red de seguridad del párrafo anterior no existía. Ahora encadena `npm run build`.
+
+**Y `wrangler.jsonc` decía lo contrario que `public/404.html`.** Llevaba `not_found_handling: "single-page-application"`, que sirve el index.html con estado 200 para cualquier ruta inexistente: exactamente la regresión que `404.html` existe para corregir y que ya se diagnosticó una vez en producción. Este fichero la habría reintroducido el día que se desplegara por ahí. Ahora es `"404-page"`. Ojo: ese valor es semántica de Cloudflare, no del repositorio, así que si alguna vez se usa de verdad ese camino conviene verificarlo contra su documentación antes de fiarse.
 
 **Sin `404.html`, Cloudflare Pages contesta 200 con el index.html a cualquier ruta.** Comprobado en producción antes de arreglarlo: `/pagina-que-no-existe`, `/robots.txt` y `/sitemap.xml` devolvían los tres la portada con estado 200. Eso no rompe la web —nadie teclea esas rutas— pero convierte cada URL inventada en una copia indexable de la portada, y hace que un `sitemap.xml` enviado a Google falle al parsear porque le llega HTML. `public/404.html` existe para eso y va **suelto, sin enlazar al bundle**: los nombres de `assets/` llevan hash y cambian en cada despliegue, así que una página de error que dependa de ellos se rompe justo el día que hace falta.
 

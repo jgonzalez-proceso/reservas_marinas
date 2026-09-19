@@ -25,8 +25,14 @@
  *     manera de perder un 404 real. Con --estricto también fallan.
  */
 
+import { readdirSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { FICHAS_LISTA } from '../src/rules/index.js';
 import { FUENTES } from '../src/rules/fuentes.js';
+
+const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const ESTRICTO = process.argv.includes('--estricto');
 
@@ -65,8 +71,25 @@ const duerme = (ms) => new Promise((r) => setTimeout(r, ms));
 /** @type {Map<string, Set<string>>} url -> dónde se publica */
 const usos = new Map();
 
+/**
+ * URLs en claro. No se comprueban: se denuncian.
+ *
+ * Antes la guarda era `/^https?:/i`, que acepta `http` por construcción, así
+ * que una cita en claro se descargaba por cleartext y se daba por sana. Un
+ * verificador que bendice el problema que debería encontrar es peor que no
+ * tenerlo. `rules:check` ya rechaza el esquema en lo que se escribe a mano y
+ * corre dentro del build; esto cubre además lo que llega del IDEIB.
+ */
+const enClaro = new Map();
+
 const anota = (url, donde) => {
-  if (typeof url !== 'string' || !/^https?:/i.test(url)) return;
+  if (typeof url !== 'string') return;
+  if (/^http:/i.test(url)) {
+    if (!enClaro.has(url)) enClaro.set(url, new Set());
+    enClaro.get(url).add(donde);
+    return;
+  }
+  if (!/^https:/i.test(url)) return;
   if (!usos.has(url)) usos.set(url, new Set());
   usos.get(url).add(donde);
 };
@@ -82,6 +105,20 @@ for (const ficha of FICHAS_LISTA) {
   }
   for (const [actividad, regla] of Object.entries(ficha.actividades ?? {})) {
     anota(regla?.permit?.url, `${quien} → permiso de ${actividad}`);
+  }
+}
+
+// Las capas servidas, que es lo que el navegador descarga y lo que el panel
+// convierte en enlaces. Se quedaban fuera: este script solo miraba lo escrito a
+// mano en `src/rules/`, y las URLs de norma que vienen del campo de texto libre
+// del IDEIB —siete figuras con host interno o en claro— no las veía nadie.
+const dirCapas = resolve(RAIZ, 'src/data/capas');
+for (const fichero of readdirSync(dirCapas).filter((n) => n.endsWith('.geojson'))) {
+  const capa = JSON.parse(readFileSync(resolve(dirCapas, fichero), 'utf8'));
+  for (const f of capa.features ?? []) {
+    for (const n of f.properties?.normas ?? []) {
+      anota(n.url, `capas/${fichero} → ${f.properties.nombre} → norma «${(n.titulo ?? '').slice(0, 40)}…»`);
+    }
   }
 }
 
@@ -194,13 +231,25 @@ if (rotos.length > 0) {
   }
 }
 
-if (rotos.length > 0 || (ESTRICTO && avisos.length > 0)) {
+if (enClaro.size > 0) {
+  console.error('\nENLACES EN CLARO (http://):');
+  for (const [url, dondes] of enClaro) {
+    console.error(`\n  ${url}`);
+    for (const donde of dondes) console.error(`    publicado en: ${donde}`);
+  }
   console.error(
-    `\n${rotos.length} enlace(s) roto(s)` +
-      (ESTRICTO && avisos.length > 0 ? ` y ${avisos.length} no verificable(s)` : '') +
-      '. Corrige la URL o retírala.',
+    '\n  No se han comprobado: se denuncian. Si el host sirve https, cámbialo;' +
+      '\n  si viene del IDEIB, lo asciende limpiaUrl al ejecutar npm run data.',
   );
+}
+
+if (rotos.length > 0 || enClaro.size > 0 || (ESTRICTO && avisos.length > 0)) {
+  const partes = [];
+  if (rotos.length > 0) partes.push(`${rotos.length} enlace(s) roto(s)`);
+  if (enClaro.size > 0) partes.push(`${enClaro.size} en claro`);
+  if (ESTRICTO && avisos.length > 0) partes.push(`${avisos.length} no verificable(s)`);
+  console.error(`\n${partes.join(', ')}. Corrige la URL o retírala.`);
   process.exit(1);
 }
 
-console.log('\nTodos los enlaces publicados responden.');
+console.log('\nTodos los enlaces publicados responden, y ninguno viaja en claro.');

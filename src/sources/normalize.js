@@ -65,16 +65,99 @@ export function zoneIdFor(source, attrs) {
 }
 
 /**
- * Limpia una URL publicada por el servicio.
+ * Hosts que publican normativa. Una URL que no esté aquí no se publica.
+ *
+ * No es una lista de «sitios de confianza» en abstracto: es la lista de quién
+ * publica boletines oficiales. Lo que sale por el otro lado de esta función
+ * acaba en el `href` de un enlace que el panel presenta como la norma que
+ * justifica el veredicto, así que el destino tiene que ser el butlletí o el
+ * boletín, no lo que el servicio haya escrito en un campo de texto libre.
+ */
+const HOSTS_OFICIALES = ['caib.es', 'boe.es'];
+
+/**
+ * Hosts oficiales que no resuelven desde fuera de la red del Govern.
+ *
+ * `URL_BOIB` apunta a intranet.caib.es en varias figuras —está anotado en
+ * `registry.js` para el PRUG de s'Albufera y el de ses Salines—, y como es
+ * subdominio de caib.es pasaría la lista blanca. Un enlace que no abre es peor
+ * que ninguno: el usuario cree que va a leer la norma y se queda mirando un
+ * error. Sin enlace, al menos el título de la norma sigue siendo buscable.
+ */
+const HOSTS_INALCANZABLES = ['intranet.caib.es'];
+
+/**
+ * Limpia y valida una URL publicada por el servicio.
  *
  * La capa de Natura 2000 arrastra el identificador de sesión del servidor en
  * algunas fichas (`…_lic_zepa;jsessionid=319147E4…`). Es basura de la sesión
  * del funcionario que cargó el dato, no parte de la dirección: caduca y en
  * algunos servidores devuelve error.
+ *
+ * Lo demás es validación, y hace falta porque este campo es **texto libre en
+ * una tabla ajena**: lo escribe quien mantiene la capa en el IDEIB, viaja hasta
+ * el `href` de la cita y por el camino no lo miraba nadie. `check-links.mjs`
+ * tampoco, porque solo recorría `src/rules/`.
+ *
+ * Tres reglas, y las tres nacen de lo que había de verdad en los datos:
+ *
+ *  - **Se exige https.** Cuatro figuras llegaban con `http://` —la Serra de
+ *    Tramuntana, las dos de Tagomago y el Nord de Menorca—. A bordo, sobre el
+ *    wifi de un puerto, un PDF del BOIB en claro lo sustituye quien esté en
+ *    medio. Como el propio corpus cita esos mismos hosts por https, aquí se
+ *    **asciende** en vez de descartar: perder la cita de la norma que declara
+ *    un espacio protegido sería peor que el problema que se arregla, y
+ *    `links:check` comprueba después que el ascenso no rompe nada.
+ *  - **Se exige host oficial.** Ver `HOSTS_OFICIALES`.
+ *  - **Se descartan los hosts internos.** Ver `HOSTS_INALCANZABLES`.
+ *
+ * Lo que no pasa vuelve `null`, y entonces el panel pinta el título de la norma
+ * como texto sin enlace: eso ya lo hacía cuando una norma no traía URL.
+ */
+export function urlOficial(url) {
+  if (!url) return { href: null, motivo: null };
+  const limpia = String(url).replace(/;jsessionid=[^?#]*/i, '');
+  if (!limpia) return { href: null, motivo: null };
+
+  let u;
+  try {
+    u = new URL(limpia);
+  } catch {
+    return { href: null, motivo: 'no es una URL absoluta' };
+  }
+
+  if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+    return { href: null, motivo: `esquema "${u.protocol}"` };
+  }
+
+  const host = u.hostname.toLowerCase();
+  if (HOSTS_INALCANZABLES.includes(host)) {
+    return { href: null, motivo: `host interno del Govern (${host})` };
+  }
+  if (!HOSTS_OFICIALES.some((h) => host === h || host.endsWith(`.${h}`))) {
+    return { href: null, motivo: `host no oficial (${host})` };
+  }
+
+  const ascendida = u.protocol === 'http:';
+  if (ascendida) u.protocol = 'https:';
+  return { href: u.href, motivo: ascendida ? 'ascendida a https' : null };
+}
+
+/**
+ * `urlOficial` con constancia en consola, para el generador.
+ *
+ * El motivo se imprime porque una URL que desaparece en silencio es una cita
+ * que deja de estar y nadie se entera: lo mismo que se evita con las geometrías
+ * degeneradas. En el navegador se usa `urlOficial` a secas, que no escribe nada
+ * —el panel se repinta con cada pulsación y llenaría la consola—.
  */
 export function limpiaUrl(url) {
-  if (!url) return null;
-  return String(url).replace(/;jsessionid=[^?#]*/i, '') || null;
+  const { href, motivo } = urlOficial(url);
+  if (motivo) {
+    const texto = String(url).slice(0, 120);
+    console.warn(href ? `  URL ${motivo}: ${href}` : `  URL descartada por ${motivo}: ${texto}`);
+  }
+  return href;
 }
 
 /**

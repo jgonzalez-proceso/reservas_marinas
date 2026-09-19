@@ -13,10 +13,23 @@
     // que sirve esta web son ficheros estáticos, así que el binding y el
     // entry point (`main`) se omiten a propósito.
     "directory": "./dist",
-    // Sin esto, una ruta que no exista (o el hash-router de la SPA en un
-    // futuro) devolvería el 404 por defecto de Cloudflare en vez de
-    // index.html. Hoy la web no tiene rutas propias, pero cuesta cero y
-    // evita el problema si algún día las tiene.
-    "not_found_handling": "single-page-application"
+    // Aquí ponía "single-page-application", y contradecía al resto del
+    // proyecto. Ese modo sirve index.html con estado 200 para cualquier ruta
+    // inexistente, que es EXACTAMENTE el comportamiento que `public/404.html`
+    // existe para corregir: está documentado en docs/publicacion.md que en
+    // producción `/pagina-que-no-existe`, `/robots.txt` y `/sitemap.xml`
+    // devolvían los tres la portada con un 200, convirtiendo cada URL
+    // inventada en una copia indexable de la portada y rompiendo el parseo
+    // del sitemap. Se arregló una vez; este fichero lo habría reintroducido
+    // el día que alguien desplegara por aquí.
+    //
+    // La web no tiene rutas propias —la vista por isla va en el hash, que el
+    // servidor no ve—, así que no hay ninguna SPA que enrutar. Lo que hace
+    // falta es que `dist/404.html` se sirva con un 404 de verdad.
+    //
+    // Si algún día se usa este camino, verifica el valor contra la
+    // documentación de Cloudflare antes de fiarte: es semántica de la
+    // plataforma, no del repositorio, y cambia con el tiempo.
+    "not_found_handling": "404-page"
   }
 }

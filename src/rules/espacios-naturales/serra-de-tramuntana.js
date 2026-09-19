@@ -44,7 +44,7 @@ const NORMA_DECLARACION = {
   titulo:
     'Acord del Consell de Govern de 16 de març de 2007 pel qual es declara Paratge Natural la Serra de Tramuntana',
   fecha: '2007-03-16',
-  url: 'http://boib.caib.es//pdf/2007054/mp83.pdf',
+  url: 'https://boib.caib.es//pdf/2007054/mp83.pdf',
   tipo: 'creacion',
 };
 

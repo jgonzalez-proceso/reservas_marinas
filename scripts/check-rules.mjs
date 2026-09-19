@@ -44,6 +44,27 @@ for (const z of sinIsla) {
 const zoneIds = new Set(areas.features.map((f) => f.properties.zoneId));
 const vistos = new Set();
 
+/**
+ * Una cita que el panel presenta como la norma oficial no puede viajar en claro.
+ *
+ * Esto corre **dentro del build**, que es lo que lo distingue de
+ * `links:check`: aquel comprueba que el enlace siga vivo, necesita red y está
+ * fuera del build a propósito. El esquema no necesita red, así que no hay
+ * excusa para no exigirlo antes de compilar. Había una sola URL `http://` en
+ * las 163 del corpus —la declaración de la Serra de Tramuntana— y ningún
+ * control la veía: `check-links.mjs` filtraba con `/^https?:/i`, que la acepta
+ * por construcción.
+ *
+ * A bordo, sobre el wifi de un puerto o una red móvil, un PDF del BOIB pedido
+ * en claro lo sustituye quien esté en medio. Y lo que esta web promete es
+ * justamente llevarte a la norma auténtica.
+ */
+function urlEnClaro(url, donde) {
+  if (typeof url !== 'string' || !url) return [];
+  if (/^https:\/\//i.test(url)) return [];
+  return [`${donde}: la URL no es https (${url.slice(0, 100)})`];
+}
+
 for (const ficha of FICHAS_LISTA) {
   problemas.push(...validaFicha(ficha, { zoneIdsConocidos: zoneIds }));
 
@@ -56,7 +77,16 @@ for (const ficha of FICHAS_LISTA) {
         problemas.push(`${ficha.zoneId}/${clave}: fuente no registrada "${s}"`);
       }
     }
+    problemas.push(...urlEnClaro(regla.permit?.url, `${ficha.zoneId}/${clave}: permit.url`));
   }
+
+  for (const n of ficha.normas ?? []) {
+    problemas.push(...urlEnClaro(n.url, `${ficha.zoneId}: norma «${(n.titulo ?? '').slice(0, 60)}»`));
+  }
+}
+
+for (const [clave, f] of Object.entries(FUENTES)) {
+  problemas.push(...urlEnClaro(f.url, `fuentes.js/${clave}`));
 }
 
 // -- 3. Herencia: la hija debe estar realmente dentro de la madre --------------
