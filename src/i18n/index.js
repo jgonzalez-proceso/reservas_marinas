@@ -7,7 +7,8 @@
  *    interfaz, como el orden de las tarjetas de actividad, y sigue el mismo
  *    camino que aquel. La consecuencia hay que aceptarla con los ojos
  *    abiertos: un enlace compartido no lleva el idioma, y para un buscador
- *    esta web sigue siendo una sola pagina en castellano. El dia que se
+ *    esta web es una sola pagina en castellano —siempre que no se le aplique
+ *    la deteccion por navegador; ver `esRastreador()`—. El dia que se
  *    quieran rutas propias por idioma —/en/, /de/, /ca/— con su hreflang y su
  *    sitemap, lo que hay que cambiar es de donde sale `idiomaActivo()`; los
  *    catalogos y las llamadas a `t()` valen igual.
@@ -93,6 +94,25 @@ function idiomaDelNavegador() {
 }
 
 /**
+ * ¿Carga la pagina un rastreador?
+ *
+ * Googlebot renderiza con un Chrome en `en-US` y sin cookies, asi que la
+ * deteccion por navegador le traducia la pagina al ingles y eso es lo que
+ * quedaba indexado: titulo «Maritime restrictions · Balearic Islands» y el
+ * bloque «Que es este mapa» en ingles, en una web cuyo publico busca en
+ * castellano. Comprobado en Google el 2026-09-28.
+ *
+ * No es servirle otra cosa: recibe la version en castellano, la misma que ve
+ * cualquier visitante sin preferencia. Lo unico que se deja de hacer es
+ * adivinar un idioma para quien no lo ha pedido.
+ */
+function esRastreador() {
+  return /bot\b|crawl|spider|slurp|Google-InspectionTool|Mediapartners-Google/i.test(
+    navigator.userAgent ?? '',
+  );
+}
+
+/**
  * Idioma activo: lo elegido a mano manda sobre lo que pida el navegador.
  *
  * Se resuelve una sola vez al cargar el modulo. Cambiarlo recarga la pagina,
@@ -102,6 +122,7 @@ function idiomaDelNavegador() {
 function resuelveIdioma() {
   const guardado = leeCookie(COOKIE_IDIOMA);
   if (guardado && IDIOMAS_SOPORTADOS.includes(guardado)) return guardado;
+  if (esRastreador()) return IDIOMA_BASE;
   return idiomaDelNavegador() ?? IDIOMA_BASE;
 }
 

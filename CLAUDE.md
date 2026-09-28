@@ -93,7 +93,9 @@ Una norma sin título legible y sin destino publicable **no se pinta**. El campo
 
 La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una cookie, como el orden de las tarjetas de actividad, y se elige desde un selector en la cabecera junto al de isla —o desde el menú de hamburguesa, en móvil.
 
-**No va en la URL, y eso tiene un precio que conviene tener presente**: para un buscador esta web sigue siendo una sola página en castellano, y un enlace compartido no lleva el idioma. El día que se quieran rutas propias —`/en/`, `/de/`, `/ca/`— con su `hreflang` y sus entradas en el sitemap, lo único que hay que cambiar es de dónde sale el idioma activo en `src/i18n/index.js`; los catálogos y las llamadas a `t()` valen igual.
+**No va en la URL, y eso tiene un precio que conviene tener presente**: para un buscador esta web es una sola página en castellano, y un enlace compartido no lleva el idioma.
+
+**Y a un rastreador no se le detecta el idioma, porque lo indexa traducido.** Sin cookie, el idioma sale de `navigator.languages`, y Googlebot renderiza con un Chrome en `en-US`: la web quedó indexada como «Maritime restrictions · Balearic Islands», con el bloque «Qué es este mapa» en inglés, y no salía entre los 30 primeros resultados ni buscando su propio título en castellano. Comprobado en Google el 2026-09-28. `esRastreador()`, en `src/i18n/index.js`, les da el castellano. No es *cloaking*: es la misma página que ve cualquier visitante sin preferencia; solo se deja de adivinar un idioma para quien no lo ha pedido. El día que se quieran rutas propias —`/en/`, `/de/`, `/ca/`— con su `hreflang` y sus entradas en el sitemap, lo único que hay que cambiar es de dónde sale el idioma activo en `src/i18n/index.js`; los catálogos y las llamadas a `t()` valen igual.
 
 **Cambiar de idioma recarga la página**, igual que cambiar de isla y por el mismo motivo: el control de capas de Leaflet, la leyenda y el panel llevan texto ya pintado, y volverlos a montar en caliente sin dejar restos es mucho más frágil que empezar de cero. La cartografía ya está en la caché del navegador.
 
