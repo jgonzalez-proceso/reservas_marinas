@@ -106,7 +106,7 @@ function idiomaDelNavegador() {
  * cualquier visitante sin preferencia. Lo unico que se deja de hacer es
  * adivinar un idioma para quien no lo ha pedido.
  */
-function esRastreador() {
+export function esRastreador() {
   return /bot\b|crawl|spider|slurp|Google-InspectionTool|Mediapartners-Google/i.test(
     navigator.userAgent ?? '',
   );

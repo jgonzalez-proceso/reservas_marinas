@@ -47,6 +47,7 @@ npm run verify       # contrasta las 64 coordenadas oficiales con la geometría
 npm run rules:check  # integridad de fichas, islas y fuentes (corre antes del build)
 npm run i18n:check   # claves de idioma y cobertura del texto normativo
 npm test             # resuelve puntos reales y comprueba la conclusión
+npm run eventos      # informe del contador anónimo (CF_ACCOUNT_ID, CF_API_TOKEN)
 npm run links:check  # comprueba que los enlaces publicados siguen vivos (usa red)
 npm run build        # rules:check + i18n:check + test + build de producción
 ```
@@ -182,6 +183,9 @@ scripts/
   check-rules.mjs        integridad previa al build
   check-links.mjs        los enlaces publicados siguen vivos (fuera del build)
   test-reglas.mjs        resuelve puntos reales y comprueba la conclusión
+  test-evento.mjs        el contador anónimo no guarda lo que no debe
+  informe-eventos.mjs    informe del contador por SQL (npm run eventos)
+functions/api/evento.js  contador anónimo de consultas (Pages Function)
 src/
   sources/registry.js    fuentes declaradas (activas y registradas)
   sources/normalize.js   identidad, canonicalización geométrica, atributos
@@ -509,6 +513,24 @@ Las fuentes admiten dos filtros: `filtroWhere` es la cláusula que se manda al s
 Estado actual de la verificacion: **64 puntos — 52 ok, 5 aviso, 4 revisar, 3 error documentados.**
 
 Las discrepancias >50 m solo dejan de fallar si están en `DISCREPANCIAS_CONOCIDAS` de `src/data/coordenadas-oficiales.js` **con su motivo**. Una discrepancia nueva hace fallar el script, que es lo que se quiere. **Nunca subir el umbral para que dejen de aparecer.**
+
+## Medición
+
+Hay **tres** mediciones, y no se sustituyen entre sí:
+
+| | Qué cuenta | Consentimiento |
+|---|---|---|
+| Cloudflare Web Analytics | todas las visitas: páginas, país, dispositivo | no: sin cookies |
+| Contador anónimo (`/api/evento`) | todas las **consultas**: figuras, veredicto por actividad, GPS | no: sin cookies ni identificador |
+| Google Analytics 4 | sesiones y recorrido de quien acepta | **sí**, tras el banner |
+
+**No hay muro de cookies, y no debe haberlo.** Se planteó para «medir de forma fiable» y se descartó: la AEPD solo admite cerrar el acceso a quien rechaza si se ofrece una alternativa real de acceso sin cookies, el consentimiento obtenido a la fuerza no vale, Googlebot no acepta cookies y se quedaría indexando el muro, y nadie va a vender a la Conselleria una consulta normativa que solo se abre tras aceptar a Google. El dato fiable de volumen sale de las dos primeras filas, no de forzar la tercera.
+
+**El contador no pasa por el banner porque no hay nada que consentir**, y eso depende de tres cosas que `src/ui/medicion.js` no debe romper nunca: no escribe nada en el dispositivo, no manda ningún identificador y **la posición del GPS no sale del navegador** —de una consulta por GPS solo viaja el veredicto, y de un clic en el mapa una celda de 0,01° (~1 km)—. La función vuelve a redondear y tira cualquier coordenada que llegue en una consulta de GPS: no se fía del cliente. El día que haga falta un identificador de sesión, eso ya no es este contador: es analítica con seguimiento y va en `analytics.js`, detrás del consentimiento.
+
+Se mide en el `onSeleccion` del mapa y en el botón de GPS, **no dentro de `consulta()`**, que también se llama desde `window.__restriccions` y no es uso real. Los rastreadores (`esRastreador()`) y `import.meta.env.DEV` no cuentan.
+
+Escribe en Workers Analytics Engine (dataset `reservas_consultas`, binding `EVENTOS` en el panel de Pages: ver [docs/publicacion.md](docs/publicacion.md)). **El orden de `BLOBS` y `DOUBLES` en `functions/api/evento.js` es el esquema**: Analytics Engine no tiene nombres de columna, solo `blob1…blob20`, así que un campo nuevo va al final y nunca se reordena. `npm run eventos` saca el informe por SQL usando esos mismos nombres, y los recuentos son `SUM(_sample_interval)`, no `count()`, porque con tráfico alto Analytics Engine muestrea. Guarda tres meses: lo que haya que conservar más, se exporta antes.
 
 ## Aviso legal
 

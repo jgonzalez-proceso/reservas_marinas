@@ -116,6 +116,32 @@ respuesta equivocada es peor que una web caída.
 depende de que el CAIB y el BOE estén en pie. Se sigue ejecutando a mano al
 tocar fuentes o permisos.
 
+## El contador anónimo de consultas
+
+`functions/api/evento.js` es una Pages Function: Cloudflare Pages compila
+`functions/` sola en cada despliegue desde Git, sin tocar la configuración de
+compilación. Escribe en **Workers Analytics Engine**, y el binding se declara
+**una vez, en el panel**:
+
+1. Proyecto `reservas-marinas` → *Settings* → *Bindings* → *Add* →
+   **Analytics Engine**.
+2. Nombre de la variable: `EVENTOS`. Dataset: `reservas_consultas`.
+3. Hacerlo en *Production*. En *Preview* es opcional: sin binding la función
+   contesta 204 y no escribe nada, que es justo lo que interesa para no mezclar
+   pruebas con uso real.
+4. **Volver a desplegar** (*Deployments → Retry deployment*): un binding nuevo
+   no llega a un despliegue ya publicado.
+
+Comprobación tras desplegar: pulsar un punto en el mapa y ver en DevTools →
+Network una petición a `/api/evento` con estado **204**. Unos minutos después
+`npm run eventos` (con `CF_ACCOUNT_ID` y un `CF_API_TOKEN` con permiso
+*Account Analytics: Read*) ya tiene que enseñar esa consulta.
+
+El binding **no va en `wrangler.jsonc`**, a propósito: si ese fichero declarara
+`pages_build_output_dir`, Pages pasaría a tomarlo como la configuración del
+proyecto y el panel quedaría en solo lectura. Hoy el panel manda, y así se
+queda.
+
 ## El dominio propio y el DNS
 
 Primero, dentro del proyecto Pages ya creado: *Custom domains → Set up a

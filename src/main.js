@@ -22,6 +22,7 @@ import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
 import { creaMenu } from './ui/menu.js';
 import { creaConsentimiento } from './ui/consentimiento.js';
+import { registraConsulta } from './ui/medicion.js';
 import {
   t,
   existeClave,
@@ -369,7 +370,12 @@ async function main() {
     return resultado;
   }
 
-  const areas = creaCapaAreas(features, { mapa, onSeleccion: (punto) => consulta(punto) });
+  // Se mide aquí y no dentro de `consulta`, que también se llama desde la
+  // consola (`window.__restriccions`) y no debe contar como uso real.
+  const areas = creaCapaAreas(features, {
+    mapa,
+    onSeleccion: (punto) => registraConsulta(consulta(punto), { tipo: 'mapa', isla: ISLA }),
+  });
   areas.conectaMapa();
 
   // Cada fuente es una capa conmutable. Arrancan encendidas las que imponen
@@ -433,7 +439,8 @@ async function main() {
       const { lat, lon, precisionMetros, obtenidaEn } = await pideUbicacion();
       const punto = { lat, lon };
       const veredicto = veredictoUbicacion(punto, features, precisionMetros, { obtenidaEn });
-      consulta(punto, { precisionMetros, veredicto });
+      const resultado = consulta(punto, { precisionMetros, veredicto });
+      registraConsulta(resultado, { tipo: 'gps', isla: ISLA, veredicto });
       mapa.setView([lat, lon], Math.max(mapa.getZoom(), 13));
     } catch (e) {
       window.alert(e.message);
