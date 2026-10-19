@@ -3,3 +3,7 @@ dist/
 .DS_Store
 *.log
 .wrangler/
+
+# Credenciales locales (token de Cloudflare para npm run eventos). Nunca al repo.
+.env
+.env.*

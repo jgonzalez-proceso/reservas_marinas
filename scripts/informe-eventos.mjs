@@ -2,7 +2,10 @@
 /**
  * Informe del contador anónimo de consultas (Workers Analytics Engine).
  *
- *   CF_ACCOUNT_ID=… CF_API_TOKEN=… node scripts/informe-eventos.mjs [días]
+ *   npm run eventos [-- días]
+ *
+ * Lee CF_ACCOUNT_ID y CF_API_TOKEN del entorno o de un `.env` en la raíz
+ * (ignorado por git; nunca se versiona).
  *
  * El token necesita el permiso «Account Analytics: Read». Por defecto, los
  * últimos 30 días; Analytics Engine guarda tres meses.

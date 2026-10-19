@@ -15,7 +15,7 @@
     "links:check": "node scripts/check-links.mjs",
     "test": "node --test scripts/test-reglas.mjs scripts/test-evento.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "eventos": "node scripts/informe-eventos.mjs"
+    "eventos": "node --env-file-if-exists=.env scripts/informe-eventos.mjs"
   },
   "dependencies": {
     "@turf/area": "^7.2.0",
