@@ -147,3 +147,78 @@ export async function leeEventos(dias) {
     celdas,
   };
 }
+
+// -- Visitas: Cloudflare Web Analytics ----------------------------------------
+
+const HOST = 'reservas.pecesmediterraneo.com';
+
+/**
+ * Visitas de Cloudflare Web Analytics por la API GraphQL. Sirve el mismo
+ * token: el permiso «Account Analytics: Read» cubre también este dataset.
+ *
+ * **Son estimaciones, y con poco tráfico muy gruesas.** Web Analytics
+ * muestrea de forma adaptativa: cada baliza registrada cuenta por
+ * `sampleInterval` visitas, y con este volumen ese factor es 20 o 100 según
+ * el periodo que se pida. Por eso salen cifras redondas (20, 100, 300) y la
+ * misma semana puede dar números distintos pedida dentro de un mes o de tres.
+ * Además el script de la baliza lo bloquean los bloqueadores de anuncios.
+ * Se devuelve el factor para que el panel lo diga, en vez de presentar la
+ * cifra como exacta.
+ *
+ * Devuelve `null` si la API falla: el panel de consultas no debe caerse por
+ * no poder leer las visitas.
+ */
+export async function leeVisitas(dias) {
+  const desde = new Date();
+  desde.setUTCDate(desde.getUTCDate() - (dias - 1));
+  const filtro = `{ date_geq: "${desde.toISOString().slice(0, 10)}", requestHost: "${HOST}" }`;
+  const grupo = (alias, dimension, limite = 10) =>
+    `${alias}: rumPageloadEventsAdaptiveGroups(limit: ${limite}, filter: ${filtro}, orderBy: [sum_visits_DESC]) {
+       count sum { visits } dimensions { ${dimension} } }`;
+  const consulta = `query($cuenta: String!) { viewer { accounts(filter: { accountTag: $cuenta }) {
+    porDia: rumPageloadEventsAdaptiveGroups(limit: 200, filter: ${filtro}, orderBy: [date_ASC]) {
+      count sum { visits } avg { sampleInterval } dimensions { date } }
+    ${grupo('paises', 'countryName')}
+    ${grupo('dispositivos', 'deviceType')}
+    ${grupo('navegadores', 'userAgentBrowser')}
+    ${grupo('origenes', 'refererHost')}
+  } } }`;
+
+  try {
+    const r = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${process.env.CF_API_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: consulta, variables: { cuenta: process.env.CF_ACCOUNT_ID } }),
+    });
+    const j = await r.json();
+    if (!r.ok || j.errors?.length) throw new Error(JSON.stringify(j.errors ?? r.status));
+    const a = j.data.viewer.accounts[0];
+    // Las filas a cero son recargas dentro de una visita ya contada (p. ej. la
+    // propia web como origen): no aportan nada a un reparto de visitas.
+    const plano = (filas, dim) =>
+      filas.filter((f) => f.sum.visits > 0).map((f) => ({ clave: f.dimensions[dim], n: f.sum.visits, cargas: f.count }));
+
+    const porDia = new Map(a.porDia.map((f) => [f.dimensions.date, { visitas: f.sum.visits, cargas: f.count }]));
+    const serie = [];
+    for (let i = dias - 1; i >= 0; i--) {
+      const d = new Date();
+      d.setUTCDate(d.getUTCDate() - i);
+      const dia = d.toISOString().slice(0, 10);
+      serie.push({ dia, n: porDia.get(dia)?.visitas ?? 0 });
+    }
+    const factores = a.porDia.map((f) => f.avg.sampleInterval).filter(Boolean);
+    return {
+      total: a.porDia.reduce((s, f) => s + f.sum.visits, 0),
+      cargas: a.porDia.reduce((s, f) => s + f.count, 0),
+      porDia: serie,
+      factorMuestreo: factores.length ? Math.max(...factores) : null,
+      paises: plano(a.paises, 'countryName'),
+      dispositivos: plano(a.dispositivos, 'deviceType'),
+      navegadores: plano(a.navegadores, 'userAgentBrowser'),
+      origenes: plano(a.origenes, 'refererHost'),
+    };
+  } catch (e) {
+    console.warn(`No se han podido leer las visitas de Web Analytics: ${e.message}`);
+    return null;
+  }
+}

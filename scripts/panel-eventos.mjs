@@ -19,7 +19,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
-import { compruebaCredenciales, leeDias, leeEventos } from './eventos-datos.mjs';
+import { compruebaCredenciales, leeDias, leeEventos, leeVisitas, INICIO_CONTADOR } from './eventos-datos.mjs';
 import { ACTIVIDADES } from '../src/engine/resolve.js';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,7 +27,7 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 compruebaCredenciales();
 const dias = leeDias(process.argv[2]);
 console.log(`Leyendo las consultas de los últimos ${dias} días…`);
-const datos = await leeEventos(dias);
+const [datos, visitas] = await Promise.all([leeEventos(dias), leeVisitas(dias)]);
 
 // -- Nombres legibles de las figuras -------------------------------------------
 // El evento guarda el zoneId; el nombre oficial y el tipo de protección salen
@@ -152,7 +152,31 @@ const diasConUso = datos.porDia.filter((d) => d.mapa + d.gps > 0).length;
 const mejorDia = datos.porDia.reduce((m, d) => (d.mapa + d.gps > (m ? m.mapa + m.gps : 0) ? d : m), null);
 const horaPunta = datos.horaDelDia.indexOf(Math.max(...datos.horaDelDia));
 
+// Consultas por visita, solo sobre los días en que existían las dos mediciones.
+const visitasDesdeContador = visitas
+  ? visitas.porDia.filter((d) => d.dia >= INICIO_CONTADOR).reduce((s, d) => s + d.n, 0)
+  : 0;
+const consultasPorVisita = visitasDesdeContador
+  ? num(Math.round((datos.total / visitasDesdeContador) * 10) / 10)
+  : '—';
+
+const PAISES = new Intl.DisplayNames(['es'], { type: 'region' });
+const nombrePais = (c) => {
+  try {
+    return c ? PAISES.of(c) : 'Sin dato';
+  } catch {
+    return c;
+  }
+};
+const DISPOSITIVOS = { mobile: 'Móvil', desktop: 'Ordenador', tablet: 'Tableta', '': 'Sin dato' };
+
 const kpis = [
+  ...(visitas
+    ? [
+        ['Visitas', `≈ ${num(visitas.total)}`, 'estimación de Cloudflare'],
+        ['Consultas por visita', consultasPorVisita, 'aprox., desde ' + fechaCorta(INICIO_CONTADOR)],
+      ]
+    : []),
   ['Consultas', num(datos.total), `últimos ${dias} días`],
   ['Hoy', num(hoyN), fechaCorta(datos.hoy)],
   ['Media diaria', num(Math.round((datos.total / datos.porDia.length) * 10) / 10), `${diasConUso} de ${datos.porDia.length} días con uso`],
@@ -217,7 +241,9 @@ const html = `<!doctype html>
     grid-column: span 12; min-width: 0; }
   .mitad { grid-column: span 6; }
   .tercio { grid-column: span 4; }
-  @media (max-width: 900px) { .mitad, .tercio { grid-column: span 12; } main, header { padding-left: 16px; padding-right: 16px; } }
+  .cuarto { grid-column: span 3; }
+  @media (max-width: 1100px) { .cuarto { grid-column: span 6; } }
+  @media (max-width: 900px) { .mitad, .tercio, .cuarto { grid-column: span 12; } main, header { padding-left: 16px; padding-right: 16px; } }
   h2 { margin: 0 0 4px; font-size: 16px; }
   .nota { margin: 0 0 14px; color: var(--suave); font-size: 13px; }
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;
@@ -268,6 +294,27 @@ const html = `<!doctype html>
       )
       .join('')}
   </div>
+
+  ${
+    visitas
+      ? `<section>
+    <h2>Visitas por día</h2>
+    <p class="nota">De Cloudflare Web Analytics, sin cookies. <strong>Son estimaciones gruesas:</strong> con este volumen Cloudflare
+    muestrea y cada visita registrada cuenta por ${visitas.factorMuestreo ?? '?'}, así que salen en bloques redondos y un día con una
+    sola visita real puede aparecer como ${visitas.factorMuestreo ?? '?'} o como 0. Los bloqueadores de anuncios tampoco cuentan.
+    Para tendencias de semanas sirven; para comparar días sueltos, mejor las consultas.</p>
+    ${columnas(visitas.porDia, { alto: 200, etiqueta: (s) => fechaCorta(s.dia) })}
+  </section>
+  <section class="cuarto"><h2>País</h2><p class="nota">Visitas estimadas.</p>
+    ${barras(visitas.paises.map((f) => ({ etiqueta: nombrePais(f.clave), n: f.n })))}</section>
+  <section class="cuarto"><h2>Dispositivo</h2><p class="nota">Visitas estimadas.</p>
+    ${barras(visitas.dispositivos.map((f) => ({ etiqueta: DISPOSITIVOS[f.clave] ?? f.clave, n: f.n })))}</section>
+  <section class="cuarto"><h2>Navegador</h2><p class="nota">Visitas estimadas.</p>
+    ${barras(visitas.navegadores.map((f) => ({ etiqueta: f.clave || 'Sin dato', n: f.n })))}</section>
+  <section class="cuarto"><h2>De dónde vienen</h2><p class="nota">Web de origen; vacío es acceso directo.</p>
+    ${barras(visitas.origenes.map((f) => ({ etiqueta: f.clave || 'Directo / app', n: f.n })))}</section>`
+      : `<section><h2>Visitas</h2><p class="vacio">No se han podido leer las visitas de Cloudflare Web Analytics. El resto del panel sí está al día.</p></section>`
+  }
 
   <section>
     <h2>Consultas por día</h2>
@@ -329,7 +376,7 @@ const html = `<!doctype html>
 </main>
 <footer>
   Contador anónimo: no usa cookies ni identificadores, así que cuenta consultas, no personas. Se excluyen los eventos de prueba.
-  Los datos vienen de Workers Analytics Engine, que guarda tres meses. Las visitas están en Cloudflare Web Analytics.
+  Los datos vienen de Workers Analytics Engine, que guarda tres meses. Las visitas son estimaciones muestreadas de Cloudflare Web Analytics.
 </footer>
 ${
   datos.celdas.length
