@@ -25,9 +25,10 @@ const tabla = (titulo, filas) => {
 };
 
 console.log(`Contador anónimo de consultas · últimos ${datos.dias} días\n`);
-tabla('Consultas por tipo', [datos.porTipo]);
+tabla('Consultas por tipo y visitas exactas', [{ ...datos.porTipo, visitas: datos.visitas }]);
 tabla('Consultas por día (hora de Madrid)', datos.porDia.filter((d) => d.mapa || d.gps));
 tabla('Vista e idioma', datos.vistas);
+tabla('De dónde llegan las visitas', datos.origenes);
 tabla('Figuras más consultadas (la más específica del punto)', datos.figuras.slice(0, 25));
 tabla(
   'Pesca submarina: qué se contestó',

@@ -22,7 +22,7 @@ import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
 import { creaMenu } from './ui/menu.js';
 import { creaConsentimiento } from './ui/consentimiento.js';
-import { registraConsulta } from './ui/medicion.js';
+import { registraCarga, registraConsulta } from './ui/medicion.js';
 import {
   t,
   existeClave,
@@ -305,6 +305,9 @@ async function main() {
   montaSelectorIsla();
   montaMenuMovil();
   creaConsentimiento();
+  // Al entrar, antes de descargar la cartografía: quien se va mientras carga
+  // también ha visitado la web, y es justo el dato que interesa ver.
+  registraCarga({ isla: ISLA });
 
   // El texto normativo traducido va aparte del bundle. Se espera aquí, junto a
   // la cartografía, y no en el primer pintado del panel: si llegara tarde, la

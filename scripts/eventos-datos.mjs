@@ -24,6 +24,10 @@ const ZONA_HORARIA = 'Europe/Madrid';
 // sin uso, son días sin medir: contarlos como ceros hundiría la media diaria.
 export const INICIO_CONTADOR = '2026-10-19';
 
+// Primer día con las entradas a la web (tipo `carga`) en el contador. Antes
+// de esta fecha las visitas solo existen como estimación de Web Analytics.
+export const INICIO_CARGAS = '2026-10-21';
+
 export function compruebaCredenciales() {
   if (!process.env.CF_ACCOUNT_ID || !process.env.CF_API_TOKEN) {
     console.error('Faltan CF_ACCOUNT_ID y CF_API_TOKEN (en el entorno o en .env).');
@@ -83,10 +87,13 @@ function aMadrid(textoUtc) {
  * Todo lo que enseñan el informe y el panel, en una sola pasada.
  */
 export async function leeEventos(dias) {
-  const filtro = `timestamp > NOW() - INTERVAL '${dias}' DAY AND ${col('isla')} != 'prueba'`;
-  const de = `FROM ${DATASET} WHERE ${filtro}`;
+  const base = `timestamp > NOW() - INTERVAL '${dias}' DAY AND ${col('isla')} != 'prueba'`;
+  // Las consultas y las entradas comparten dataset: sin este filtro cada
+  // entrada a la web se sumaría como un clic en el mapa.
+  const de = `FROM ${DATASET} WHERE ${base} AND ${col('tipo')} IN ('mapa', 'gps')`;
+  const deCargas = `FROM ${DATASET} WHERE ${base} AND ${col('tipo')} = 'carga'`;
 
-  const [porHora, vistas, figuras, estados, gps, celdas] = await Promise.all([
+  const [porHora, vistas, figuras, estados, gps, celdas, cargasHora, origenes] = await Promise.all([
     sql(`SELECT toStartOfHour(timestamp) AS h, ${col('tipo')} AS tipo, SUM(_sample_interval) AS n
          ${de} GROUP BY h, tipo ORDER BY h`),
     sql(`SELECT ${col('isla')} AS isla, ${col('idioma')} AS idioma, SUM(_sample_interval) AS n
@@ -100,7 +107,17 @@ export async function leeEventos(dias) {
     sql(`SELECT ${col('celdaLat')} AS lat, ${col('celdaLon')} AS lon, SUM(_sample_interval) AS n
          ${de} AND ${col('tipo')} = 'mapa' AND ${col('celdaLat')} != 0
          GROUP BY lat, lon ORDER BY n DESC LIMIT 1000`),
+    sql(`SELECT toStartOfHour(timestamp) AS h, SUM(_sample_interval) AS n ${deCargas} GROUP BY h ORDER BY h`),
+    sql(`SELECT ${col('origen')} AS origen, SUM(_sample_interval) AS n
+         ${deCargas} GROUP BY origen ORDER BY n DESC LIMIT 15`),
   ]);
+
+  // Entradas a la web por día, en hora de Madrid, desde que se cuentan.
+  const cargasPorDia = new Map();
+  for (const { h, n } of cargasHora) {
+    const { dia } = aMadrid(h);
+    cargasPorDia.set(dia, (cargasPorDia.get(dia) ?? 0) + n);
+  }
 
   // Por día y por hora del día, en hora de Madrid, separando mapa y GPS.
   const porDia = new Map();
@@ -124,7 +141,9 @@ export async function leeEventos(dias) {
     fecha.setUTCDate(fecha.getUTCDate() - i);
     const dia = fecha.toISOString().slice(0, 10);
     if (dia < INICIO_CONTADOR) continue;
-    dias_.push(porDia.get(dia) ?? { dia, mapa: 0, gps: 0 });
+    // `visitas` es null antes de INICIO_CARGAS: no medido, que no es lo mismo que cero.
+    const visitas = dia < INICIO_CARGAS ? null : (cargasPorDia.get(dia) ?? 0);
+    dias_.push({ ...(porDia.get(dia) ?? { dia, mapa: 0, gps: 0 }), visitas });
   }
 
   // Estado por actividad: de la agrupación conjunta se saca el reparto de cada una.
@@ -138,6 +157,8 @@ export async function leeEventos(dias) {
     hoy,
     total: porTipo.mapa + porTipo.gps,
     porTipo,
+    visitas: [...cargasPorDia.values()].reduce((s, n) => s + n, 0),
+    origenes,
     porDia: dias_,
     horaDelDia,
     vistas,

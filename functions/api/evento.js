@@ -14,6 +14,10 @@
  *    GPS solo se registra el veredicto (dentro, fuera, dudosa) y las figuras.
  *    De un clic en el mapa se registra una celda de 0,01° (~1 km), redondeada
  *    otra vez aquí: el redondeo del cliente no se da por bueno.
+ *  - **Una carga de página es solo eso.** El tipo `carga` cuenta entradas a
+ *    la web (no recargas: el cliente ya las descarta) y lleva como mucho el
+ *    host de la web de origen —`www.google.com`—, nunca la ruta ni la
+ *    consulta, que pueden llevar términos de búsqueda o identificadores.
  *
  * Todo lo que llega se valida contra listas cerradas y longitudes máximas. Un
  * campo inesperado se descarta; un evento sin tipo válido se ignora entero.
@@ -31,7 +35,7 @@
  * se añade al final; `scripts/informe-eventos.mjs` usa estos mismos nombres.
  */
 
-export const TIPOS = ['mapa', 'gps'];
+export const TIPOS = ['mapa', 'gps', 'carga'];
 export const IDIOMAS = ['es', 'ca', 'en', 'de'];
 export const NIVELES_GPS = ['dentro', 'fuera', 'dudosa'];
 export const ESTADOS = [
@@ -51,13 +55,14 @@ export const ACTIVIDADES = [
   'navegacion',
 ];
 
-export const BLOBS = ['tipo', 'isla', 'idioma', 'nivelGps', 'figuraPrincipal', 'figuras', ...ACTIVIDADES];
+export const BLOBS = ['tipo', 'isla', 'idioma', 'nivelGps', 'figuraPrincipal', 'figuras', ...ACTIVIDADES, 'origen'];
 export const DOUBLES = ['numFiguras', 'celdaLat', 'celdaLon'];
 
 const MAX_BYTES = 4096;
 const MAX_FIGURAS = 20;
 const RE_ZONE_ID = /^[a-z0-9-]{1,160}$/;
 const RE_ISLA = /^[a-z]{1,20}$/;
+const RE_HOST = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)+$/;
 
 // Recuadro holgado de Baleares. Una celda fuera de él no es una consulta de
 // esta web, y guardarla sería guardar lo que alguien haya querido mandar.
@@ -112,6 +117,9 @@ export function normalizaEvento(datos) {
       principal,
       figuras.join(' '),
       ...ACTIVIDADES.map((a) => enLista(ESTADOS, estados[a])),
+      tipo === 'carga' && typeof datos.origen === 'string' && datos.origen.length <= 100 && RE_HOST.test(datos.origen)
+        ? datos.origen
+        : '',
     ],
     doubles: [figuras.length, lat, lon],
   };

@@ -19,7 +19,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
-import { compruebaCredenciales, leeDias, leeEventos, leeVisitas, INICIO_CONTADOR } from './eventos-datos.mjs';
+import { compruebaCredenciales, leeDias, leeEventos, leeVisitas, INICIO_CONTADOR, INICIO_CARGAS } from './eventos-datos.mjs';
 import { ACTIVIDADES } from '../src/engine/resolve.js';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -152,13 +152,18 @@ const diasConUso = datos.porDia.filter((d) => d.mapa + d.gps > 0).length;
 const mejorDia = datos.porDia.reduce((m, d) => (d.mapa + d.gps > (m ? m.mapa + m.gps : 0) ? d : m), null);
 const horaPunta = datos.horaDelDia.indexOf(Math.max(...datos.horaDelDia));
 
-// Consultas por visita, solo sobre los días en que existían las dos mediciones.
-const visitasDesdeContador = visitas
-  ? visitas.porDia.filter((d) => d.dia >= INICIO_CONTADOR).reduce((s, d) => s + d.n, 0)
-  : 0;
-const consultasPorVisita = visitasDesdeContador
-  ? num(Math.round((datos.total / visitasDesdeContador) * 10) / 10)
-  : '—';
+// Consultas por visita, solo sobre los días en que existían las dos
+// mediciones. Con entradas exactas se usan esas; si no hay ninguna todavía,
+// la estimación de Web Analytics, y la tarjeta dice cuál es.
+const diasConCargas = datos.porDia.filter((d) => d.visitas !== null);
+const hayExactas = datos.visitas > 0;
+const [consultasBase, visitasBase] = hayExactas
+  ? [
+      diasConCargas.reduce((s, d) => s + d.mapa + d.gps, 0),
+      diasConCargas.reduce((s, d) => s + d.visitas, 0),
+    ]
+  : [datos.total, visitas ? visitas.porDia.filter((d) => d.dia >= INICIO_CONTADOR).reduce((s, d) => s + d.n, 0) : 0];
+const consultasPorVisita = visitasBase ? num(Math.round((consultasBase / visitasBase) * 10) / 10) : '—';
 
 const PAISES = new Intl.DisplayNames(['es'], { type: 'region' });
 const nombrePais = (c) => {
@@ -171,12 +176,14 @@ const nombrePais = (c) => {
 const DISPOSITIVOS = { mobile: 'Móvil', desktop: 'Ordenador', tablet: 'Tableta', '': 'Sin dato' };
 
 const kpis = [
-  ...(visitas
-    ? [
-        ['Visitas', `≈ ${num(visitas.total)}`, 'estimación de Cloudflare'],
-        ['Consultas por visita', consultasPorVisita, 'aprox., desde ' + fechaCorta(INICIO_CONTADOR)],
-      ]
-    : []),
+  hayExactas
+    ? ['Visitas', num(datos.visitas), 'exactas, desde el ' + fechaCorta(INICIO_CARGAS)]
+    : ['Visitas', visitas ? `≈ ${num(visitas.total)}` : '—', 'estimación de Cloudflare'],
+  [
+    'Consultas por visita',
+    consultasPorVisita,
+    hayExactas ? 'desde el ' + fechaCorta(INICIO_CARGAS) : 'aprox., con la estimación',
+  ],
   ['Consultas', num(datos.total), `últimos ${dias} días`],
   ['Hoy', num(hoyN), fechaCorta(datos.hoy)],
   ['Media diaria', num(Math.round((datos.total / datos.porDia.length) * 10) / 10), `${diasConUso} de ${datos.porDia.length} días con uso`],
@@ -295,24 +302,46 @@ const html = `<!doctype html>
       .join('')}
   </div>
 
+  <section class="mitad">
+    <h2>Visitas por día</h2>
+    <p class="nota">Entradas a la web contadas una a una, desde el ${esc(fechaCorta(INICIO_CARGAS))}. No cuentan las recargas
+    —cambiar de isla o de idioma recarga la página— ni los buscadores. Son visitas, no personas: quien entra dos veces son dos.</p>
+    ${
+      diasConCargas.length
+        ? columnas(
+            diasConCargas.map((d) => ({ dia: d.dia, n: d.visitas })),
+            { alto: 220, ancho: 520, etiqueta: (s) => fechaCorta(s.dia) },
+          )
+        : '<p class="vacio">Aún no hay días con entradas contadas.</p>'
+    }
+  </section>
+
+  <section class="mitad">
+    <h2>De dónde llegan</h2>
+    <p class="nota">Web desde la que se entra, exacto. «Directo» es enlace guardado, escrito a mano o desde una app que no lo dice.</p>
+    ${barras(
+      datos.origenes.map((f) => ({ etiqueta: f.origen || 'Directo', n: f.n })),
+      { vacio: 'Aún no hay entradas contadas.' },
+    )}
+  </section>
+
   ${
     visitas
       ? `<section>
-    <h2>Visitas por día</h2>
-    <p class="nota">De Cloudflare Web Analytics, sin cookies. <strong>Son estimaciones gruesas:</strong> con este volumen Cloudflare
+    <h2>Estimación de Cloudflare Web Analytics</h2>
+    <p class="nota">Sirve para ver el histórico anterior al ${esc(fechaCorta(INICIO_CARGAS))} y el país, el dispositivo y el navegador, que el contador propio no guarda. <strong>Son estimaciones gruesas:</strong> con este volumen Cloudflare
     muestrea y cada visita registrada cuenta por ${visitas.factorMuestreo ?? '?'}, así que salen en bloques redondos y un día con una
     sola visita real puede aparecer como ${visitas.factorMuestreo ?? '?'} o como 0. Los bloqueadores de anuncios tampoco cuentan.
-    Para tendencias de semanas sirven; para comparar días sueltos, mejor las consultas.</p>
+    Para cifras exactas, las de arriba.</p>
     ${columnas(visitas.porDia, { alto: 200, etiqueta: (s) => fechaCorta(s.dia) })}
   </section>
-  <section class="cuarto"><h2>País</h2><p class="nota">Visitas estimadas.</p>
+  <section class="tercio"><h2>País</h2><p class="nota">Visitas estimadas.</p>
     ${barras(visitas.paises.map((f) => ({ etiqueta: nombrePais(f.clave), n: f.n })))}</section>
-  <section class="cuarto"><h2>Dispositivo</h2><p class="nota">Visitas estimadas.</p>
+  <section class="tercio"><h2>Dispositivo</h2><p class="nota">Visitas estimadas.</p>
     ${barras(visitas.dispositivos.map((f) => ({ etiqueta: DISPOSITIVOS[f.clave] ?? f.clave, n: f.n })))}</section>
-  <section class="cuarto"><h2>Navegador</h2><p class="nota">Visitas estimadas.</p>
+  <section class="tercio"><h2>Navegador</h2><p class="nota">Visitas estimadas.</p>
     ${barras(visitas.navegadores.map((f) => ({ etiqueta: f.clave || 'Sin dato', n: f.n })))}</section>
-  <section class="cuarto"><h2>De dónde vienen</h2><p class="nota">Web de origen; vacío es acceso directo.</p>
-    ${barras(visitas.origenes.map((f) => ({ etiqueta: f.clave || 'Directo / app', n: f.n })))}</section>`
+`
       : `<section><h2>Visitas</h2><p class="vacio">No se han podido leer las visitas de Cloudflare Web Analytics. El resto del panel sí está al día.</p></section>`
   }
 

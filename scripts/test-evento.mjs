@@ -72,6 +72,20 @@ test('los valores fuera de lista se vacían en vez de guardarse', () => {
   assert.equal(blob(p, 'nivelGps'), '', 'el nivel solo tiene sentido en una consulta por GPS');
 });
 
+test('una carga de página guarda el host de origen y nada más', () => {
+  const p = normalizaEvento({ tipo: 'carga', isla: 'todas', idioma: 'ca', origen: 'www.google.com', lat: 39.5, lon: 2.6 });
+  assert.deepEqual(p.indexes, ['carga']);
+  assert.equal(blob(p, 'origen'), 'www.google.com');
+  assert.equal(double(p, 'celdaLat'), 0, 'una carga no lleva posición');
+});
+
+test('el origen solo admite un nombre de host, nunca una URL con ruta o consulta', () => {
+  for (const origen of ['https://www.google.com/search?q=pesca', 'www.google.com/search', 'usuario@correo.com', 'localhost', 'X'.repeat(150) + '.com']) {
+    assert.equal(blob(normalizaEvento({ tipo: 'carga', origen }), 'origen'), '', origen);
+  }
+  assert.equal(blob(normalizaEvento({ tipo: 'mapa', origen: 'www.google.com' }), 'origen'), '', 'solo en cargas');
+});
+
 test('el número de blobs y doubles no supera el límite de Analytics Engine', () => {
   const p = normalizaEvento({ tipo: 'mapa', figuras: Array.from({ length: 50 }, (_, i) => `zona-${i}`) });
   assert.ok(p.blobs.length <= 20 && p.doubles.length <= 20);
