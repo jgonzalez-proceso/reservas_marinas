@@ -47,7 +47,9 @@ npm run verify       # contrasta las 64 coordenadas oficiales con la geometría
 npm run rules:check  # integridad de fichas, islas y fuentes (corre antes del build)
 npm run i18n:check   # claves de idioma y cobertura del texto normativo
 npm test             # resuelve puntos reales y comprueba la conclusión
-npm run eventos      # informe del contador anónimo (CF_ACCOUNT_ID, CF_API_TOKEN)
+npm run eventos      # informe del contador anónimo en consola (lee .env)
+npm run panel        # el mismo informe con gráficos y mapa, en Chrome
+ver_consultas.bat    # doble clic: abre ese panel
 npm run links:check  # comprueba que los enlaces publicados siguen vivos (usa red)
 npm run build        # rules:check + i18n:check + test + build de producción
 ```
@@ -184,7 +186,9 @@ scripts/
   check-links.mjs        los enlaces publicados siguen vivos (fuera del build)
   test-reglas.mjs        resuelve puntos reales y comprueba la conclusión
   test-evento.mjs        el contador anónimo no guarda lo que no debe
-  informe-eventos.mjs    informe del contador por SQL (npm run eventos)
+  eventos-datos.mjs      consultas SQL del contador, comunes a informe y panel
+  informe-eventos.mjs    informe del contador en consola (npm run eventos)
+  panel-eventos.mjs      panel HTML del contador; lo abre en Chrome (npm run panel)
 functions/api/evento.js  contador anónimo de consultas (Pages Function)
 src/
   sources/registry.js    fuentes declaradas (activas y registradas)
@@ -530,7 +534,7 @@ Hay **tres** mediciones, y no se sustituyen entre sí:
 
 Se mide en el `onSeleccion` del mapa y en el botón de GPS, **no dentro de `consulta()`**, que también se llama desde `window.__restriccions` y no es uso real. Los rastreadores (`esRastreador()`) y `import.meta.env.DEV` no cuentan.
 
-Escribe en Workers Analytics Engine (dataset `reservas_consultas`, binding `EVENTOS` en el panel de Pages: ver [docs/publicacion.md](docs/publicacion.md)). **El orden de `BLOBS` y `DOUBLES` en `functions/api/evento.js` es el esquema**: Analytics Engine no tiene nombres de columna, solo `blob1…blob20`, así que un campo nuevo va al final y nunca se reordena. `npm run eventos` saca el informe por SQL usando esos mismos nombres, y los recuentos son `SUM(_sample_interval)`, no `count()`, porque con tráfico alto Analytics Engine muestrea. Guarda tres meses: lo que haya que conservar más, se exporta antes.
+Escribe en Workers Analytics Engine (dataset `reservas_consultas`, binding `EVENTOS` en el panel de Pages: ver [docs/publicacion.md](docs/publicacion.md)). **El orden de `BLOBS` y `DOUBLES` en `functions/api/evento.js` es el esquema**: Analytics Engine no tiene nombres de columna, solo `blob1…blob20`, así que un campo nuevo va al final y nunca se reordena. `npm run eventos` (consola) y `npm run panel` (HTML en Chrome, o doble clic en `ver_consultas.bat`) leen por SQL desde `scripts/eventos-datos.mjs` usando esos mismos nombres; las credenciales van en un `.env` local, fuera de git, y node va con `--use-system-ca` porque la inspección TLS del antivirus pone su propia CA en el almacén de Windows. Se excluye la vista `prueba`, que es la marca de los eventos mandados a mano para comprobar el contador, y la serie diaria empieza en `INICIO_CONTADOR`: los días anteriores no son días sin uso sino sin medir. Los recuentos son `SUM(_sample_interval)`, no `count()`, porque con tráfico alto Analytics Engine muestrea. Guarda tres meses: lo que haya que conservar más, se exporta antes.
 
 ## Aviso legal
 
