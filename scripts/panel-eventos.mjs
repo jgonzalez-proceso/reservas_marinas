@@ -337,8 +337,15 @@ ${
 <script>
   const celdas = ${JSON.stringify(datos.celdas.map((c) => [c.lat, c.lon, c.n]))};
   const mapa = L.map('mapa', { scrollWheelZoom: false });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18, attribution: '&copy; OpenStreetMap',
+  // No se usan las teselas de openstreetmap.org: este HTML se abre como
+  // file://, sin cabecera Referer, y su política de uso bloquea esas
+  // peticiones con un 403 que se pinta en cada tesela («Access blocked»).
+  // CARTO sirve el mismo mapa base sin exigir Referer, y en claro u oscuro
+  // según el tema del sistema, igual que el resto del panel.
+  const oscuro = matchMedia('(prefers-color-scheme: dark)').matches;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/' + (oscuro ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png', {
+    maxZoom: 18, subdomains: 'abcd',
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
   }).addTo(mapa);
   const max = Math.max(...celdas.map((c) => c[2]));
   const capa = L.featureGroup(celdas.map(([lat, lon, n]) =>
