@@ -337,16 +337,19 @@ ${
 <script>
   const celdas = ${JSON.stringify(datos.celdas.map((c) => [c.lat, c.lon, c.n]))};
   const mapa = L.map('mapa', { scrollWheelZoom: false });
-  // No se usan las teselas de openstreetmap.org: este HTML se abre como
-  // file://, sin cabecera Referer, y su política de uso bloquea esas
-  // peticiones con un 403 que se pinta en cada tesela («Access blocked»).
-  // CARTO sirve el mismo mapa base sin exigir Referer, y en claro u oscuro
+  // Este HTML se abre como file://, sin cabecera Referer, y eso descarta dos
+  // proveedores que parecían obvios. openstreetmap.org contesta con un 403
+  // pintado en cada tesela («Access blocked»). CARTO contesta 200 con una
+  // imagen válida… que dice «API KEY REQUIRED»: un 200 no prueba nada, hay
+  // que mirar la tesela. Los lienzos grises de Esri sí sirven sin clave ni
+  // Referer —el mismo servidor del satélite de la web—, en claro u oscuro
   // según el tema del sistema, igual que el resto del panel.
   const oscuro = matchMedia('(prefers-color-scheme: dark)').matches;
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/' + (oscuro ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png', {
-    maxZoom: 18, subdomains: 'abcd',
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
-  }).addTo(mapa);
+  L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_' +
+      (oscuro ? 'Dark' : 'Light') + '_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    { maxZoom: 16, attribution: 'Esri, HERE, Garmin, &copy; OpenStreetMap' },
+  ).addTo(mapa);
   const max = Math.max(...celdas.map((c) => c[2]));
   const capa = L.featureGroup(celdas.map(([lat, lon, n]) =>
     L.circleMarker([lat, lon], {
