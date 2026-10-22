@@ -227,6 +227,46 @@ son la misma página, y por eso el `canonical` de `index.html` apunta a la raíz
 El día que existan rutas propias por isla, el plugin del sitemap es donde se
 añaden.
 
+### La copia de pages.dev
+
+Cloudflare publica el proyecto también en `https://reservas-marinas.pages.dev/`
+(el destino del CNAME), y cada despliegue de preview en
+`<hash>.reservas-marinas.pages.dev`. Son copias completas de la web y los
+rastreadores las encuentran: el 2026-10-22 el panel marcaba 291 peticiones en
+15 minutos sobre pages.dev sin ninguna ejecución de JavaScript de un
+visitante. Indexada, esa copia compite con el dominio propio.
+
+No hay zona de Cloudflare para el dominio —el DNS está en Hostinger—, así que
+no hay reglas de redirección de zona: tiene que hacerlo el propio proyecto. Y
+`public/_headers` no filtra por host. Lo hace `functions/_middleware.js`:
+
+| Host | Respuesta |
+|---|---|
+| `reservas-marinas.pages.dev`, GET/HEAD fuera de `/api/` | **301** al dominio propio, misma ruta y consulta |
+| `reservas-marinas.pages.dev`, POST a `/api/evento` | pasa sin tocar (el contador no se pierde) |
+| `*.reservas-marinas.pages.dev` (previews) | pasa con `X-Robots-Tag: noindex` |
+| `reservas.pecesmediterraneo.com` | pasa sin tocar |
+
+Los previews ya los marca Cloudflare con `x-robots-tag: noindex` por su
+cuenta —se ve también en `/assets/`, que no pasa por la Function—; el del
+middleware es una segunda capa que no depende de ese comportamiento.
+
+`public/_routes.json` deja `/assets/*` fuera de las Functions. Cada petición
+que entra en una Function cuenta contra el límite diario del plan gratuito
+(100.000), una visita a la vista de todas las islas son decenas de ficheros, y
+si se agotara el límite dejaría de servirse la web entera.
+
+Comprobado en un preview real antes de publicarlo que las cabeceras de
+`_headers` (caché, HSTS, CSP, el `Content-Type` de `/assets/capas/`) se
+mantienen en lo que pasa por `context.next()`. **`wrangler pages dev` no sirve
+para probarlo**: en local entrega los ficheros estáticos existentes sin pasar
+por la Function, así que `/` nunca redirige. Tras cada cambio del middleware:
+
+```bash
+curl -sI https://reservas-marinas.pages.dev/             # 301 → dominio propio
+curl -sI https://reservas.pecesmediterraneo.com/         # 200, sin x-robots-tag
+```
+
 Falta el alta en Google Search Console, que es lo que de verdad dispara la
 indexación: sin verificar la propiedad no se puede enviar el sitemap ni pedir
 el rastreo de una URL.

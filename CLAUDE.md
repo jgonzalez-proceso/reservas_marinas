@@ -174,6 +174,8 @@ Publicada en **https://reservas.pecesmediterraneo.com/** (proyecto Cloudflare Pa
 
 **`robots.txt` no bloquea `/assets/capas/`, y es deliberado.** Ahorraría rastreo —son 30 MB que ningún buscador va a indexar— pero el mapa no se dibuja sin ellos: el rastreador se quedaría mirando el «Cargando la cartografía oficial…» y juzgaría la página por esa pantalla. Un sitio de una sola URL no tiene un problema de presupuesto de rastreo que compense ese riesgo.
 
+**`reservas-marinas.pages.dev` redirige con 301 al dominio propio.** Cloudflare publica el proyecto también ahí, y es una copia completa de la web que los rastreadores encuentran solos —291 peticiones en 15 minutos el 2026-10-22, sin ninguna visita real— y que competiría en Google con el dominio propio. El `canonical` de `index.html` ya apuntaba al dominio propio, pero es una pista, no una orden. `public/_headers` no distingue por host, así que lo hace `functions/_middleware.js`: 301 en el host de producción de pages.dev, `X-Robots-Tag: noindex` en los previews (que tienen que seguir funcionando para probar) y nada en cualquier otro host. **Solo se redirigen GET y HEAD y nunca `/api/`**: el contador recibe POST, y un POST redirigido se pierde sin error. **`public/_routes.json` deja `/assets/*` fuera de la Function**: cada petición que entra en una Function cuenta contra el límite diario del plan gratuito, y una visita son decenas de ficheros de cartografía; agotarlo tiraría la web entera. Comprobado en un preview real que `_headers` se sigue aplicando a lo que pasa por `context.next()`. Ojo: `wrangler pages dev` **no sirve para probar esto**, porque en local entrega los ficheros estáticos existentes sin pasar por la Function.
+
 **En el panel de Cloudflare hay dos asistentes que parecen el mismo y no lo son.** *Create application → Pages → Connect to Git* resuelve el dominio propio con un CNAME suelto, sin tocar nada más del dominio. *Compute (Workers) → Import a repository* —la pantalla con los campos "Build command" y "Deploy command" por separado— crea un Worker, y ponerle un dominio propio exige mover los nameservers de **todo** el dominio a Cloudflare, lo que también afecta al correo (MX, SPF, DKIM). Para esta web, que solo necesita un subdominio sin tocar el resto del dominio, el asistente correcto es el de Pages.
 
 ## Estructura
@@ -190,6 +192,8 @@ scripts/
   informe-eventos.mjs    informe del contador en consola (npm run eventos)
   panel-eventos.mjs      panel HTML del contador; lo abre en Chrome (npm run panel)
 functions/api/evento.js  contador anónimo de consultas (Pages Function)
+functions/_middleware.js pages.dev redirige al dominio propio; previews noindex
+public/_routes.json      qué rutas pasan por las Functions (no /assets/*)
 src/
   sources/registry.js    fuentes declaradas (activas y registradas)
   sources/normalize.js   identidad, canonicalización geométrica, atributos
