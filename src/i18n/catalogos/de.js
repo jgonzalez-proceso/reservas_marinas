@@ -18,7 +18,7 @@ export default {
   'app.titulo': 'Meeresbeschränkungen',
   'app.subtitulo': 'Balearen',
   'app.subtituloIsla': 'Balearen · {isla}',
-  'app.tituloDocumento': 'Meeresbeschränkungen · Balearen',
+  'app.tituloDocumento': 'Meeresschutzgebiete der Balearen: Karte zum Angeln und Ankern',
   'app.metaDescripcion':
     'Karte der Meeresschutzgebiete und Fischereibeschränkungen der Balearen. Prüfe, was an ' +
     'jedem Punkt des Meeres erlaubt ist und welche Genehmigungen nötig sind.',

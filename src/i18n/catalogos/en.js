@@ -19,7 +19,7 @@ export default {
   'app.titulo': 'Maritime restrictions',
   'app.subtitulo': 'Balearic Islands',
   'app.subtituloIsla': 'Balearic Islands · {isla}',
-  'app.tituloDocumento': 'Maritime restrictions · Balearic Islands',
+  'app.tituloDocumento': 'Balearic marine reserves: map of where to fish and anchor',
   'app.metaDescripcion':
     'Map of marine reserves and fishing restrictions in the Balearic Islands. Check what may ' +
     'be done at each point of the sea and which permits are required.',

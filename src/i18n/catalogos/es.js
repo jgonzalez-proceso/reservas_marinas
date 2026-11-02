@@ -22,7 +22,7 @@ export default {
   'app.titulo': 'Restricciones marítimas',
   'app.subtitulo': 'Illes Balears',
   'app.subtituloIsla': 'Illes Balears · {isla}',
-  'app.tituloDocumento': 'Restricciones marítimas · Illes Balears',
+  'app.tituloDocumento': 'Reservas marinas de Baleares: mapa de dónde pescar y fondear',
   'app.metaDescripcion':
     'Mapa de reservas marinas y restricciones de pesca de las Illes Balears. Consulta qué ' +
     'se puede hacer en cada punto del mar y qué autorizaciones hacen falta.',
