@@ -94,10 +94,17 @@ const permisoParque = (nota, vigencia) =>
     ultimaVerificacion: '2026-08-15',
   });
 
-const PERMISO_NAVEGACION = permisoParque(
-  'Autorización de navegación del parque nacional. En la solicitud constan los datos del patrón, del armador y de la embarcación.',
-  'Anual',
-);
+// Gratuito y anual: lo dice la información oficial del parque («tiene vigencia
+// por un año y es gratuito»). Por eso lleva importe 0 y no `null`, que es lo que
+// llevan el de fondeo y el de buceo, cuyo importe no consta publicado.
+const PERMISO_NAVEGACION = permiso({
+  importe: 0,
+  nota:
+    'Permiso de navegación en aguas del parque nacional. Es gratuito, vale un año y se pide por internet; en la solicitud constan los datos del patrón, del armador y de la embarcación.',
+  vigencia: '1 año',
+  url: 'https://www.caib.es/rescabfront/?lang=es',
+  ultimaVerificacion: REVISION,
+});
 
 const PERMISO_FONDEO = permisoParque(
   'Autorización de fondeo o pernocta del parque nacional. Se solicita con un máximo de veinte días de antelación y un mínimo de dos, y hay que confirmarla el día de llegada antes de las 17.00 h.',
@@ -109,7 +116,12 @@ const PERMISO_BUCEO = permisoParque(
   'Según autorización',
 );
 
-const FUENTES_PARQUE = ['prug-cabrera', 'rescab-autorizaciones', 'boe-ampliacion-cabrera-2019'];
+const FUENTES_PARQUE = [
+  'prug-cabrera',
+  'caib-parque-cabrera',
+  'rescab-autorizaciones',
+  'boe-ampliacion-cabrera-2019',
+];
 const FUENTES_ZONA = ['prug-cabrera', 'ideib-zonificacion-cabrera'];
 
 const PARQUE = 'enp-es530002-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--parc-nacional--mari';
@@ -242,8 +254,9 @@ export default [
           'Fuera de las boyas del puerto y de las tres zonas de fondeo diurno —es Burri, la zona del ' +
             'muelle y la Coveta Roja— no se puede fondear en ningún punto del parque. Este mapa ' +
             'dibuja esas zonas como figura aparte: conviene comprobar en cuál cae el punto.',
-          'Fondeo diurno entre una hora después del amanecer y una hora antes del ocaso: 30 fondeos ' +
-            'en es Burri, 12 en la zona del muelle y 8 en la Coveta Roja.',
+          'De día, las embarcaciones de hasta 15 m de eslora con permiso de navegación pueden amarrar ' +
+            'a las boyas de fondeo diurno, entre una hora después del amanecer y una hora antes del ' +
+            'ocaso: 30 boyas en es Burri, 12 en la zona del Port y 8 en sa Coveta Roja.',
           'Hay que respetar en todo momento los fondos cubiertos por praderas de posidonia.',
           'Solo se puede pernoctar en la zona de uso especial del puerto de Cabrera, en las cincuenta ' +
             'boyas de amarre habilitadas.',
@@ -256,19 +269,20 @@ export default [
       navegacion: {
         status: 'allowed_with_authorization',
         motivo:
-          'El apartado ll) de los usos prohibidos del PRUG prohíbe la navegación por el interior de las ' +
-          'aguas del parque salvo la necesaria para los fines de la ley de creación, la pesca artesanal ' +
-          'censada, el uso público y la gestión del parque y el salvamento marítimo. Navegar con ' +
-          'embarcación propia exige por tanto autorización.',
+          'Se puede navegar por las aguas del parque con embarcación propia, pero hace falta el ' +
+          'permiso de navegación, que es gratuito y vale un año (apartado 2.3.3 del PRUG). Navegar ' +
+          'sin él es lo que el PRUG prohíbe (apartados 2.2.ll y 2.2.z).',
         conditions: [
+          'Con el permiso se puede navegar por todas las aguas del parque nacional excepto las zonas ' +
+            'de reserva, según la información oficial del parque.',
           'Velocidad máxima de diez nudos en el parque y de dos nudos dentro del puerto.',
           'Hay que evitar ruidos excesivos —motores, bocinas, música— para no alterar las colonias de ' +
             'aves que anidan en estas costas.',
           'El desembarco está restringido a los lugares autorizados.',
-          'La autorización permite amarrar a las boyas del puerto o fondear en las zonas de uso ' +
-            'restringido de fondeo diurno.',
-          'En las zonas de reserva marina y en la de regeneración de ses Rates no se puede navegar ' +
-            'aunque se tenga la autorización. Este mapa las dibuja como figura aparte.',
+          'El permiso de navegación basta para pasar el día amarrado a las boyas de fondeo diurno. ' +
+            'Para pasar la noche hace falta además la reserva de boya en el puerto.',
+          'Las zonas de reserva marina, donde no se puede entrar ni con el permiso, están dibujadas ' +
+            'en este mapa como figura aparte.',
         ],
         permit: PERMISO_NAVEGACION,
         sources: FUENTES_PARQUE,
@@ -364,6 +378,9 @@ export default [
             'también con la autorización anual del parque.',
           'Zona de los fondos de maërl, el rectángulo del suroeste: se puede navegar con la ' +
             'autorización del parque, a diez nudos como máximo. Lo que no se puede es fondear.',
+          'La información oficial del parque dice que se puede navegar por todas sus aguas excepto ' +
+            'las zonas de reserva, sin mencionar ses Rates. Se mantiene aquí lo que dice el PRUG, que ' +
+            'es la norma: ante la duda, conviene preguntarlo al parque.',
         ],
         permit: PERMISO_NAVEGACION,
         sources: [...FUENTES_ZONA, 'rescab-autorizaciones'],
@@ -454,18 +471,20 @@ export default [
       fondeo: {
         status: 'allowed_with_authorization',
         motivo:
-          'El apartado 2.3.3.1 del PRUG permite a las embarcaciones con autorización de navegación ' +
-          'fondear en las zonas de fondeo diurno, entre una hora después del amanecer y una hora ' +
-          'antes del ocaso.',
+          'El apartado 2.3.3.1 del PRUG permite a las embarcaciones con permiso de navegación pasar ' +
+          'el día en las zonas de fondeo diurno, entre una hora después del amanecer y una hora ' +
+          'antes del ocaso. Hoy se hace amarrando a las boyas instaladas en ellas.',
         conditions: [
+          'Se amarra a las boyas de fondeo diurno: 30 en es Burri, 12 en la zona del Port, cerca del ' +
+            'muelle principal, y 8 en sa Coveta Roja.',
+          'Solo embarcaciones de hasta 15 m de eslora, según la información oficial del parque.',
           'Solo de día: desde una hora después del amanecer hasta una hora antes del ocaso. Para ' +
-            'pasar la noche hay que ir a las boyas del puerto, con su propia autorización.',
-          'Cupo de fondeos autorizados: 30 en es Burri, 12 en la zona del muelle y 8 en la Coveta Roja.',
+            'pasar la noche hay que ir a las boyas del puerto, con su propia reserva.',
+          'Basta el permiso de navegación, que es gratuito y anual: no hay que reservar la boya de día.',
           'Hay que respetar en todo momento los fondos cubiertos por praderas de posidonia.',
-          'La autorización que habilita es la de navegación, que es anual.',
         ],
         permit: PERMISO_NAVEGACION,
-        sources: [...FUENTES_ZONA, 'rescab-autorizaciones'],
+        sources: [...FUENTES_ZONA, 'caib-parque-cabrera', 'rescab-autorizaciones'],
       },
       buceo: {
         status: 'prohibited',

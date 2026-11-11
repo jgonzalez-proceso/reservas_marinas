@@ -224,7 +224,7 @@ export default {
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Zona de busseig amb escafandre, amb autorització del parc.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":
-    'Fondeig diürn amb autorització; no s’hi pot pernoctar.',
+    'Boies de fondeig diürn, amb el permís de navegació; no s’hi pot pernoctar.',
   "proteccion.Zona d'ús especial":
     'Port de Cabrera: amarratge a boia amb autorització; únic lloc de pernoctació.',
   "proteccion.Zona d'ús moderat":

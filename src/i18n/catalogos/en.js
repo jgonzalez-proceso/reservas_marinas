@@ -231,7 +231,7 @@ export default {
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Scuba diving zone, with a permit from the park.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":
-    'Daytime anchoring with a permit; no overnight stays.',
+    'Daytime mooring buoys, with the navigation permit; no overnight stays.',
   "proteccion.Zona d'ús especial":
     'Cabrera harbour: mooring buoys with a permit; the only place to stay overnight.',
   "proteccion.Zona d'ús moderat":

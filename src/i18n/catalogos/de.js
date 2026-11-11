@@ -237,7 +237,7 @@ export default {
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Tauchzone für Gerätetauchen, mit Genehmigung des Parks.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":
-    'Ankern am Tag mit Genehmigung; keine Übernachtung.',
+    'Tagesbojen mit der Navigationsgenehmigung; keine Übernachtung.',
   "proteccion.Zona d'ús especial":
     'Hafen von Cabrera: Bojen mit Genehmigung; einziger Ort zum Übernachten.',
   "proteccion.Zona d'ús moderat":

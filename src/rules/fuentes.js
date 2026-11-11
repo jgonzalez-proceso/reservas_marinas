@@ -442,6 +442,13 @@ export const FUENTES = {
       'Decreto 58/2006, de 1 de julio (BOIB núm. 97, de 11 de julio de 2006), publicado solo en catalán. Apartado 2.1.1 (zonificación marina: reserva, zonas de buceo, de fondeo diurno y de regeneración, uso moderado y uso especial), 2.1.2 (qué implica cada zona; a.3 ni navegación ni anclaje en las reservas marinas, b.4 fondeo diurno, b.5 regeneración), 2.2 (usos prohibidos: l atraque fuera de zonas autorizadas, z navegar, fondear o bucear sin autorización, ii apnea en mayo y junio, jj pesca deportiva, ll navegación, mm buceo), 2.3.3 (navegación y anclaje) y 2.3.4 (buceo)',
     consultada: '2026-11-11',
   },
+  'caib-parque-cabrera': {
+    titulo: 'Parque Nacional Marítimo-terrestre del Archipiélago de Cabrera — página oficial del parque',
+    url: 'https://www.caib.es/sites/espaisnaturalsprotegits/es/parque_nacional_maritimoterrestre_del_archipielago_de_cabrera/',
+    referencia:
+      'Preguntas frecuentes del parque: el permiso de navegación es gratuito y vale un año; se puede navegar por todas las aguas del parque nacional excepto las zonas de reserva; las embarcaciones de hasta 15 m con permiso de navegación pueden amarrar de día a las boyas de fondeo diurno de es Burri (30), el Port (12) y sa Coveta Roja (8); para pasar la noche hace falta reserva de boya en el puerto',
+    consultada: '2026-11-11',
+  },
   'ideib-zonificacion-cabrera': {
     titulo:
       'Zonificació PRUG Parc Nacional Maritimoterrestre Arxipèlag Cabrera — cartografía oficial (IDEIB, capa 22 del servicio GOIB_NATURA_ENP_IB)',
