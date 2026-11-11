@@ -109,6 +109,24 @@ const ESTADOS_QUE_PESAN = new Set(['allowed_with_authorization', 'restricted', '
  * imponga nada, y esconderla del mapa sería dar por bueno un silencio que solo
  * es nuestro. Solo se descarta lo que consta leído y consta que no restringe.
  */
+/**
+ * ¿Esta zona veda el paso?
+ *
+ * Segundo motivo para dibujar una capa de entrada, además de la pesca. La
+ * zonificación de Cabrera no cambia nada de la pesca —la prohíbe el parque
+ * entero— y por eso arrancaba apagada en la vista de la isla, con las zonas de
+ * reserva marina, donde no se puede ni navegar, invisibles. Una zona en la que
+ * no se puede entrar le importa a cualquiera que vaya en barca, pesque o no.
+ *
+ * Solo cuenta la navegación prohibida, no el fondeo. La capa de regulación del
+ * fondeo de ses Salines tiene zonas de fondeo prohibido y debe seguir
+ * arrancando apagada: su polígono de fondeo libre condicionado cubre el parque
+ * entero y encendida lo teñiría todo.
+ */
+export function vedaElPaso(zoneId) {
+  return FICHAS[zoneId]?.actividades?.navegacion?.status === 'prohibited';
+}
+
 export function afectaALaPesca(zoneId) {
   const ficha = FICHAS[zoneId];
   if (!ficha) return true;

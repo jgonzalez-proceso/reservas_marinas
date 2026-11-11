@@ -292,7 +292,7 @@ export const SOURCES = [
       // Cabrera. Sin esta capa el motor contestaba «con autorización» al
       // fondeo, a la navegación y al buceo en todo el parque, y el PRUG prohíbe
       // navegar y fondear en las zonas de reserva marina (213 ha) y fondear,
-      // bucear y la navegación deportiva en las de regeneración (563 ha). Vive
+      // y bucear en las de regeneración (563 ha). Vive
       // en el servicio general de ENP, no en uno propio del parque.
       //
       // La de sa Dragonera (capa 23 del mismo servicio) no se carga y no hace

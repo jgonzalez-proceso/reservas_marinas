@@ -1830,8 +1830,6 @@ export default {
     'Dues zones d’ús restringit en regeneració: la de l’illa de ses Rates i el rectangle dels fons de maërl, al sud-oest, 563 ha en total. El PRUG només hi permet la pesca professional, i amb límits.',
   'El apartado 2.1.1.b.2 del PRUG dice de la zona de regeneración de ses Rates que el buceo no está permitido, y ninguna de las dos zonas de regeneración está entre las cuatro zonas de buceo del parque.':
     'L’apartat 2.1.1.b.2 del PRUG diu de la zona de regeneració de ses Rates que el busseig no hi és permès, i cap de les dues zones de regeneració és entre les quatre zones de busseig del parc.',
-  'El apartado 2.1.1.b.2 del PRUG dice de la zona de regeneración de ses Rates que la navegación deportiva no está permitida, y el 2.1.2.b.5 solo admite en las zonas de regeneración la pesca profesional.':
-    'L’apartat 2.1.1.b.2 del PRUG diu de la zona de regeneració de ses Rates que la navegació esportiva no hi és permesa, i el 2.1.2.b.5 només admet a les zones de regeneració la pesca professional.',
   'El apartado 2.1.2.b.4 del PRUG excluye expresamente de las zonas de fondeo diurno el buceo con escafandra autónoma.':
     'L’apartat 2.1.2.b.4 del PRUG exclou expressament de les zones d’ancoratge diürn el busseig amb escafandre autònom.',
   'El apartado 2.3.3 del PRUG considera el anclaje actividad compatible pero sujeta a autorización administrativa previa, y solo lo admite en el puerto de Cabrera y en tres zonas de fondeo diurno.':
@@ -1848,16 +1846,10 @@ export default {
     'El PRUG només deixa a les embarcacions autoritzades amarrar a les boies del port o ancorar a les tres zones d’ancoratge diürn (apartat 2.3.3.1), i prohibeix ocupar el parc perquè hi atraquin embarcacions fora de les zones expressament autoritzades (apartat 2.2.l). La zona d’ús moderat no n’és cap.',
   'El puerto no está entre las cuatro zonas de buceo del parque, y el apartado mm) del PRUG prohíbe las inmersiones con escafandra fuera de ellas.':
     'El port no és entre les quatre zones de busseig del parc, i l’apartat mm) del PRUG prohibeix les immersions amb escafandre fora d’aquestes.',
-  'En la zona de los fondos de maërl queda prohibido incluso a la pesca profesional cualquier arte o aparejo que toque el fondo.':
-    'A la zona dels fons de maërl queda prohibit fins i tot a la pesca professional qualsevol art o ormeig que toqui el fons.',
   'En las aguas incorporadas al parque en 2019 el PRUG no delimita ninguna zona de fondeo: tampoco allí hay dónde fondear con autorización.':
     'A les aigües incorporades al parc el 2019 el PRUG no delimita cap zona d’ancoratge: tampoc allà no hi ha on ancorar amb autorització.',
   'En las zonas de buceo solo puede quedarse la embarcación de apoyo de una inmersión autorizada, amarrada a las boyas temporales y no más de seis horas (apartado 2.3.4.2).':
     'A les zones de busseig només s’hi pot quedar l’embarcació de suport d’una immersió autoritzada, amarrada a les boies temporals i no més de sis hores (apartat 2.3.4.2).',
-  'En las zonas de regeneración el PRUG solo permite la pesca profesional (apartado 2.1.2.b.5), y en la de ses Rates dice expresamente que el anclaje, el buceo y la navegación deportiva no están permitidos (apartado 2.1.1.b.2).':
-    'A les zones de regeneració el PRUG només permet la pesca professional (apartat 2.1.2.b.5), i a la de ses Rates diu expressament que l’ancoratge, el busseig i la navegació esportiva no hi són permesos (apartat 2.1.1.b.2).',
-  'En las zonas de reserva marina y en las de regeneración no se puede navegar aunque se tenga la autorización. Este mapa las dibuja como figura aparte.':
-    'A les zones de reserva marina i a les de regeneració no es pot navegar encara que es tingui l’autorització. Aquest mapa les dibuixa com a figura a part.',
   'Estas zonas no son de fondeo para quien no bucea: el fondeo diurno tiene sus tres zonas propias y la pernocta solo es posible en las boyas del puerto.':
     'Aquestes zones no són d’ancoratge per a qui no busseja: l’ancoratge diürn té les seves tres zones pròpies i la pernoctació només és possible a les boies del port.',
   'Fondeo diurno entre una hora después del amanecer y una hora antes del ocaso: 30 fondeos en es Burri, 12 en la zona del muelle y 8 en la Coveta Roja.':
@@ -1866,18 +1858,12 @@ export default {
     'Fora de les boies del port i de les tres zones d’ancoratge diürn —es Burri, la zona del moll i la Coveta Roja— no es pot ancorar a cap punt del parc. Aquest mapa dibuixa aquestes zones com a figura a part: convé comprovar en quina cau el punt.',
   'La autorización anual de navegación del parque no habilita a cruzar estas zonas.':
     'L’autorització anual de navegació del parc no habilita a travessar aquestes zones.',
-  'La autorización anual de navegación del parque no habilita a navegar por estas zonas.':
-    'L’autorització anual de navegació del parc no habilita a navegar per aquestes zones.',
   'La autorización de buceo no permite bajar a tierra ni fondear en otras áreas del parque.':
     'L’autorització de busseig no permet l’accés a terra ni l’ancoratge en altres àrees del parc.',
   'La autorización que habilita es la de navegación, que es anual.':
     'L’autorització que habilita és la de navegació, que és anual.',
   'La prohibición es del buceo con escafandra autónoma. El baño está permitido en las aguas junto a las playas de uso moderado (apartado 2.1.2.c.3).':
     'La prohibició és del busseig amb escafandre autònom. El bany és permès a les aigües adjacents a les platges d’ús moderat (apartat 2.1.2.c.3).',
-  'La prohibición expresa de fondear está escrita para la zona de ses Rates. Para la de maërl resulta de que el PRUG solo admite allí la pesca profesional y de que no es una de las zonas donde se puede fondear.':
-    'La prohibició expressa d’ancorar està escrita per a la zona de ses Rates. Per a la de maërl resulta del fet que el PRUG només hi admet la pesca professional i que no és una de les zones on es pot ancorar.',
-  'La prohibición expresa de la navegación deportiva está escrita para la zona de ses Rates. Para la de los fondos de maërl resulta de que el PRUG solo admite allí la pesca profesional: ante la duda, no se cruza.':
-    'La prohibició expressa de la navegació esportiva està escrita per a la zona de ses Rates. Per a la dels fons de maërl resulta del fet que el PRUG només hi admet la pesca professional: davant el dubte, no es travessa.',
   'Las cuatro zonas donde el PRUG admite el buceo con escafandra autónoma: ses Bledes, el pecio Ana Rosa, Cala Galiota y el suroeste de l’illa dels Conills, 25 ha en total. Hace falta autorización de la Dirección del parque.':
     'Les quatre zones on el PRUG admet el busseig amb escafandre autònom: ses Bledes, el derelicte Ana Rosa, Cala Galiota i el sud-oest de l’illa dels Conills, 25 ha en total. Cal autorització de la Direcció del parc.',
   'Las tres zonas donde se puede fondear de día con la autorización de navegación del parque: la Coveta Roja, la zona del puerto junto al muelle y es Burri, 47 ha en total. No se puede pernoctar.':
@@ -1916,4 +1902,18 @@ export default {
     'Velocitat màxima de dos nusos dins el port.',
   'Zona de uso especial marina: el interior de la bahía del puerto de Cabrera, 71 ha. Es el único lugar del parque donde se puede pasar la noche, amarrado a una de sus cincuenta boyas y con autorización.':
     'Zona d’ús especial marina: l’interior de la badia del port de Cabrera, 71 ha. És l’únic lloc del parc on es pot passar la nit, amarrat a una de les cinquanta boies i amb autorització.',
+
+  // -- Cabrera: la navegacio a les zones de regeneracio ----------------------
+  'El apartado 2.1.1.b.2 del PRUG dice que en la zona de regeneración de l’illa de ses Rates la navegación deportiva no está permitida. Para la de los fondos de maërl no lo dice: allí rige la autorización general de navegación del parque.':
+    'L’apartat 2.1.1.b.2 del PRUG diu que a la zona de regeneració de l’illa de ses Rates la navegació esportiva no hi és permesa. Per a la dels fons de maërl no ho diu: allà regeix l’autorització general de navegació del parc.',
+  'En la zona de los fondos de maërl queda prohibido incluso a la pesca profesional cualquier arte o aparejo que toque el fondo (apartado 2.1.2.b.5).':
+    'A la zona dels fons de maërl queda prohibit fins i tot a la pesca professional qualsevol art o ormeig que toqui el fons (apartat 2.1.2.b.5).',
+  'En la zona de regeneración de ses Rates el PRUG dice expresamente que el anclaje no está permitido (apartado 2.1.1.b.2), y ninguna de las dos zonas de regeneración está entre los lugares donde deja fondear: el puerto y las tres zonas de fondeo diurno (apartado 2.3.3.1).':
+    'A la zona de regeneració de ses Rates el PRUG diu expressament que l’ancoratge no hi és permès (apartat 2.1.1.b.2), i cap de les dues zones de regeneració és entre els llocs on deixa ancorar: el port i les tres zones d’ancoratge diürn (apartat 2.3.3.1).',
+  'En las zonas de reserva marina y en la de regeneración de ses Rates no se puede navegar aunque se tenga la autorización. Este mapa las dibuja como figura aparte.':
+    'A les zones de reserva marina i a la de regeneració de ses Rates no es pot navegar encara que es tingui l’autorització. Aquest mapa les dibuixa com a figura a part.',
+  'Zona de los fondos de maërl, el rectángulo del suroeste: se puede navegar con la autorización del parque, a diez nudos como máximo. Lo que no se puede es fondear.':
+    'Zona dels fons de maërl, el rectangle del sud-oest: s’hi pot navegar amb l’autorització del parc, a deu nusos com a màxim. El que no es pot fer és ancorar-hi.',
+  'Zona de l’illa de ses Rates: prohibida la navegación deportiva, también con la autorización anual del parque.':
+    'Zona de l’illa de ses Rates: prohibida la navegació esportiva, també amb l’autorització anual del parc.',
 };

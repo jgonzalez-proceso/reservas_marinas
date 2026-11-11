@@ -333,7 +333,7 @@ Con solo el límite del parque cargado, el motor contestaba «con autorización�
 | Categoría | Superficie | Fondeo | Navegación | Buceo |
 |---|---|---|---|---|
 | Zona de reserva | 213 ha | prohibido | prohibida | prohibido |
-| Regeneración (ses Rates y maërl) | 563 ha | prohibido | prohibida | prohibido |
+| Regeneración (ses Rates y maërl) | 563 ha | prohibido | restringida: vedada solo en ses Rates | prohibido |
 | Zonas de buceo | 25 ha | solo la embarcación de apoyo, a boya | la del parque | con autorización |
 | Fondeo diurno | 47 ha | con autorización, solo de día | la del parque | prohibido |
 | Uso especial (el puerto) | 71 ha | con autorización, a boya; única pernocta | la del parque | prohibido |
@@ -343,7 +343,7 @@ Tres cosas que conviene no volver a descubrir:
 
 - **La ficha del parque no puede decir «prohibido» al fondeo, aunque sea lo cierto en casi toda su superficie.** El motor deja mandar a la figura más restrictiva: un «prohibido» en el límite del parque ganaría también dentro de las zonas de fondeo diurno y del puerto, donde sí se puede. El parque publica el régimen de fondo —todo exige autorización— y es la **zona de uso moderado** la que lleva la prohibición, porque el PRUG la define como «todas las aguas restantes del parque».
 - **Eso deja corta la respuesta en las aguas de la ampliación de 2019**, que no están en la capa de zonificación: se dibujó sobre el parque anterior. Allí el punto solo cae en el límite y el fondeo sale «con autorización», con la primera condición diciendo que fuera de las zonas habilitadas no hay dónde fondear. Es agua profunda y abierta, pero el hueco existe por construcción.
-- **El PRUG tiene dos puntos oscuros y los dos están escritos en las condiciones, no resueltos en silencio.** La frase que prohíbe el anclaje, el buceo y la navegación deportiva en regeneración está en el epígrafe de ses Rates; para la zona de maërl sale de que el 2.1.2.b.5 solo admite allí la pesca profesional, y el IDEIB publica las dos bajo una misma categoría. Y el 2.1.2.b.3 prevé un máximo de tres zonas de buceo abiertas mientras el 2.3.4.7 dice que se abren las cuatro.
+- **El PRUG tiene dos puntos oscuros y los dos están escritos en las condiciones, no resueltos en silencio.** La frase que prohíbe el anclaje, el buceo y la navegación deportiva en regeneración está en el epígrafe de ses Rates y no en el del maërl, y el IDEIB publica las dos zonas bajo una misma categoría, así que comparten ficha. La primera versión prohibía navegar en las dos, deduciéndolo del 2.1.2.b.5 («solo se permite la pesca profesional»); esa frase regula artes de pesca, no el paso, y aplicarla a la navegación era inventar una prohibición sobre 514 ha de mar abierto que hay que cruzar para llegar desde el suroeste. La navegación queda en `restricted`, con ses Rates dicho en las condiciones. **Deducir una prohibición de un silencio es el mismo error que deducir un permiso.** Y el 2.1.2.b.3 prevé un máximo de tres zonas de buceo abiertas mientras el 2.3.4.7 dice que se abren las cuatro.
 
 El PRUG solo se publicó en catalán. La cita de las figuras apunta al BOIB (`boib.caib.es/pdf/2006097/mp8.pdf`) y no a la copia del MITECO que usan las fichas, porque `urlOficial()` solo deja pasar caib.es y boe.es. Hay un PRUG nuevo en tramitación —información pública en el BOIB núm. 173 de 2025, procedimiento prorrogado en marzo de 2026—: cuando se apruebe, esta zonificación cambia.
 

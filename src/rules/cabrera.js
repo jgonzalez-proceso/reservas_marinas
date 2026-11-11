@@ -46,12 +46,16 @@
  *
  *  - Las zonas de regeneración son dos, ses Rates y los fondos de maërl, y la
  *    frase «el anclaje, el buceo y la navegación deportiva no están
- *    permitidos» está en el epígrafe de ses Rates (2.1.1.b.2.III). Para la de
- *    maërl la prohibición sale del 2.1.2.b.5, que en las zonas de
- *    regeneración «solo» permite la pesca profesional. El IDEIB publica las
- *    dos bajo una misma categoría y aquí comparten ficha; se prohíben las
- *    tres actividades en ambas, que es la lectura que no deja a nadie fondear
- *    sobre maërl creyendo que puede.
+ *    permitidos» está en el epígrafe de ses Rates (2.1.1.b.2.III), no en el
+ *    del maërl. El IDEIB publica las dos bajo una misma categoría y aquí
+ *    comparten ficha. Fondeo y buceo van prohibidos en las dos, porque el
+ *    maërl tampoco es zona de fondeo ni de buceo. La navegación NO: la primera
+ *    versión la prohibía también en el rectángulo de maërl, deduciéndolo del
+ *    2.1.2.b.5 («solo se permite la pesca profesional»), y esa frase regula
+ *    artes de pesca, no el paso de embarcaciones. Era inventar una prohibición
+ *    sobre 514 ha de mar abierto que hay que cruzar para llegar a Cabrera
+ *    desde el suroeste. Queda en `restricted`, con ses Rates dicho en las
+ *    condiciones.
  *  - El 2.1.2.b.3 prevé un sistema rotatorio con un máximo de tres zonas de
  *    buceo abiertas, y el 2.3.4.7 dice que se abren las cuatro a la vez. Cuáles
  *    lo están en cada momento consta en la autorización.
@@ -263,8 +267,8 @@ export default [
           'El desembarco está restringido a los lugares autorizados.',
           'La autorización permite amarrar a las boyas del puerto o fondear en las zonas de uso ' +
             'restringido de fondeo diurno.',
-          'En las zonas de reserva marina y en las de regeneración no se puede navegar aunque se ' +
-            'tenga la autorización. Este mapa las dibuja como figura aparte.',
+          'En las zonas de reserva marina y en la de regeneración de ses Rates no se puede navegar ' +
+            'aunque se tenga la autorización. Este mapa las dibuja como figura aparte.',
         ],
         permit: PERMISO_NAVEGACION,
         sources: FUENTES_PARQUE,
@@ -335,31 +339,34 @@ export default [
       fondeo: {
         status: 'prohibited',
         motivo:
-          'En las zonas de regeneración el PRUG solo permite la pesca profesional (apartado ' +
-          '2.1.2.b.5), y en la de ses Rates dice expresamente que el anclaje, el buceo y la ' +
-          'navegación deportiva no están permitidos (apartado 2.1.1.b.2).',
+          'En la zona de regeneración de ses Rates el PRUG dice expresamente que el anclaje no está ' +
+          'permitido (apartado 2.1.1.b.2), y ninguna de las dos zonas de regeneración está entre ' +
+          'los lugares donde deja fondear: el puerto y las tres zonas de fondeo diurno (apartado ' +
+          '2.3.3.1).',
         conditions: [
           'En la zona de los fondos de maërl queda prohibido incluso a la pesca profesional cualquier ' +
-            'arte o aparejo que toque el fondo.',
-          'La prohibición expresa de fondear está escrita para la zona de ses Rates. Para la de ' +
-            'maërl resulta de que el PRUG solo admite allí la pesca profesional y de que no es una ' +
-            'de las zonas donde se puede fondear.',
+            'arte o aparejo que toque el fondo (apartado 2.1.2.b.5).',
+          'Para fondear de día hay que ir a es Burri, a la zona del muelle o a la Coveta Roja; para ' +
+            'pasar la noche, a las boyas del puerto. Este mapa dibuja esas zonas como figura aparte.',
         ],
         sources: FUENTES_ZONA,
       },
+      // `restricted` y no `prohibited`: la prohibición solo está escrita para una
+      // de las dos zonas que comparten esta ficha. Ver la cabecera.
       navegacion: {
-        status: 'prohibited',
+        status: 'restricted',
         motivo:
-          'El apartado 2.1.1.b.2 del PRUG dice de la zona de regeneración de ses Rates que la ' +
-          'navegación deportiva no está permitida, y el 2.1.2.b.5 solo admite en las zonas de ' +
-          'regeneración la pesca profesional.',
+          'El apartado 2.1.1.b.2 del PRUG dice que en la zona de regeneración de l’illa de ses Rates ' +
+          'la navegación deportiva no está permitida. Para la de los fondos de maërl no lo dice: ' +
+          'allí rige la autorización general de navegación del parque.',
         conditions: [
-          'La prohibición expresa de la navegación deportiva está escrita para la zona de ses Rates. ' +
-            'Para la de los fondos de maërl resulta de que el PRUG solo admite allí la pesca ' +
-            'profesional: ante la duda, no se cruza.',
-          'La autorización anual de navegación del parque no habilita a navegar por estas zonas.',
+          'Zona de l’illa de ses Rates: prohibida la navegación deportiva, ' +
+            'también con la autorización anual del parque.',
+          'Zona de los fondos de maërl, el rectángulo del suroeste: se puede navegar con la ' +
+            'autorización del parque, a diez nudos como máximo. Lo que no se puede es fondear.',
         ],
-        sources: FUENTES_ZONA,
+        permit: PERMISO_NAVEGACION,
+        sources: [...FUENTES_ZONA, 'rescab-autorizaciones'],
       },
       buceo: {
         status: 'prohibited',

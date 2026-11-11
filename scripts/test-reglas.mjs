@@ -510,10 +510,12 @@ const CASOS_CABRERA = [
     espera: { fondeo: 'prohibited', navegacion: 'prohibited', buceo: 'prohibited' },
   },
   {
-    nombre: 'zona de regeneración: ni fondeo, ni buceo, ni navegación',
+    // La navegación NO va prohibida: el PRUG solo la veda en ses Rates, y este
+    // punto está en el rectángulo de maërl, que hay que poder cruzar.
+    nombre: 'zona de regeneración: ni fondeo ni buceo; la navegación no se veda entera',
     zona: zonaCabrera('zona-d-us-restringit-zona-de-regeneracio'),
     p: punto(2.907261, 39.115094),
-    espera: { fondeo: 'prohibited', navegacion: 'prohibited', buceo: 'prohibited' },
+    espera: { fondeo: 'prohibited', navegacion: 'restricted', buceo: 'prohibited' },
   },
   {
     nombre: 'zona de uso moderado: se navega con autorización, no se fondea',

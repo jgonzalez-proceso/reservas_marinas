@@ -241,7 +241,7 @@ export default {
   "proteccion.Zona de reserva":
     'Reserva marina del parque: ni navegación ni fondeo.',
   "proteccion.Zona d'ús restringit: zona de regeneració":
-    'Zona en regeneración: ni fondeo, ni buceo, ni navegación deportiva.',
+    'Zona en regeneración: ni fondeo ni buceo.',
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Zona de buceo con escafandra, con autorización del parque.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":

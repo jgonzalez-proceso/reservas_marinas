@@ -227,7 +227,7 @@ export default {
   "proteccion.Zona de reserva":
     'Marine reserve of the park: no navigation, no anchoring.',
   "proteccion.Zona d'ús restringit: zona de regeneració":
-    'Regeneration zone: no anchoring, no diving, no recreational navigation.',
+    'Regeneration zone: no anchoring, no diving.',
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Scuba diving zone, with a permit from the park.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":

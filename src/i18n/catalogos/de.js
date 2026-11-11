@@ -233,7 +233,7 @@ export default {
   "proteccion.Zona de reserva":
     'Meeresreservat des Parks: keine Navigation, kein Ankern.',
   "proteccion.Zona d'ús restringit: zona de regeneració":
-    'Regenerationszone: kein Ankern, kein Tauchen, keine Sportschifffahrt.',
+    'Regenerationszone: kein Ankern, kein Tauchen.',
   "proteccion.Zona d'ús restringit: zona de busseig":
     'Tauchzone für Gerätetauchen, mit Genehmigung des Parks.',
   "proteccion.Zona d'ús restringit: zona de fondeig diürn":

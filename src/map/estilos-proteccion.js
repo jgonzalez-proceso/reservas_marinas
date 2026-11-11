@@ -173,8 +173,9 @@ export const NIVELES = [
     orden: 39,
   },
 
-  // Zonificación marina del PRUG de Cabrera. La reserva y la regeneración van
-  // en rojo porque allí no se navega ni se fondea; el fondeo diurno y el puerto
+  // Zonificación marina del PRUG de Cabrera. La reserva va en rojo porque allí
+  // no se navega ni se fondea, y la regeneración en naranja: no se fondea ni se
+  // bucea, pero el rectángulo de maërl se puede cruzar; el fondeo diurno y el puerto
   // en los tonos de la regulación del fondeo, que es de lo que hablan; el buceo
   // en el azul de las zonas especiales de buceo; y el uso moderado, que cubre
   // casi todo el parque antiguo, en el violeta más claro para no tapar lo demás.
@@ -185,7 +186,7 @@ export const NIVELES = [
   },
   {
     proteccion: "Zona d'ús restringit: zona de regeneració",
-    color: '#c9453c',
+    color: '#e07b39',
     orden: 12,
   },
   {
@@ -323,17 +324,45 @@ const RELLENO_POR_FUENTE = {
   'regulacion-pesca-submarina': 0.16,
 };
 
+/**
+ * Categorías de zonificación que no pueden ir casi transparentes.
+ *
+ * El relleno tenue de la zonificación está pensado para las categorías que
+ * cubren el parque entero y no imponen nada —uso compatible, conservación, uso
+ * moderado—. Pero dentro de la misma fuente hay piezas pequeñas que son lo más
+ * restrictivo del mapa: las zonas de reserva marina de Cabrera, donde no se
+ * puede ni navegar, medían 213 ha y con un 6 % de relleno bajo el violeta del
+ * parque no se veían. Lo mismo vale para la zona de exclusión de s'Albufera
+ * des Grau y las áreas de protección estricta de ses Salines.
+ *
+ * Las zonas donde sí se puede hacer algo —buceo, fondeo diurno, el puerto—
+ * llevan un relleno intermedio: son pequeñas y son justo lo que busca quien
+ * abre el mapa de Cabrera para saber dónde puede echar el ancla.
+ */
+const RELLENO_POR_PROTECCION = {
+  'Zona de reserva': 0.34,
+  "Zona d'ús restringit: zona de regeneració": 0.2,
+  "Zona d'exclusió": 0.34,
+  'Àrea de protecció estricta': 0.34,
+  "Zona d'ús restringit: zona de busseig": 0.3,
+  "Zona d'ús restringit: zona de fondeig diürn": 0.3,
+  "Zona d'ús especial": 0.24,
+};
+
 /** Estilo de un polígono en el mapa. */
 export function estiloDe(feature, { resaltado = false, atenuado = false } = {}) {
   const { proteccion, fuente } = feature.properties;
   const color = colorDe(proteccion);
-  const base = RELLENO_POR_FUENTE[fuente] ?? 0.18;
+  const propio = fuente === 'zonificacion-enp' ? RELLENO_POR_PROTECCION[proteccion] : undefined;
+  const base = propio ?? RELLENO_POR_FUENTE[fuente] ?? 0.18;
   return {
     color,
     weight: resaltado ? 3 : 1.6,
     opacity: atenuado ? 0.35 : 0.95,
     dashArray: tramaDe(fuente),
     fillColor: color,
-    fillOpacity: atenuado ? 0.04 : resaltado ? Math.max(base, 0.3) : base,
+    // Una zona vedada no se atenúa hasta desaparecer cuando el usuario pulsa
+    // en otra parte: sigue siendo lo que hay que ver.
+    fillOpacity: atenuado ? (propio ? 0.14 : 0.04) : resaltado ? Math.max(base, 0.3) : base,
   };
 }

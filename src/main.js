@@ -15,7 +15,7 @@ import { creaCapasBase } from './map/baselayers.js';
 import { creaCapaAreas, creaMarcadorConsulta } from './map/areas-layer.js';
 import { pideUbicacion, veredictoUbicacion } from './map/ubicacion.js';
 import { resolver } from './engine/resolve.js';
-import { FICHAS, afectaALaPesca } from './rules/index.js';
+import { FICHAS, afectaALaPesca, vedaElPaso } from './rules/index.js';
 import { ISLAS, ISLA_ACTIVA, TODAS_LAS_ISLAS } from './data/islas.js';
 import { creaPanel } from './ui/panel.js';
 import { creaLeyenda } from './ui/leyenda.js';
@@ -391,7 +391,11 @@ async function main() {
   // `features` al completo, y una figura oculta sigue apareciendo en el panel
   // al pulsar un punto suyo. La leyenda lo advierte.
   for (const [id, entrada] of areas.porFuente.entries()) {
-    const pesa = entrada.features.some((f) => afectaALaPesca(f.properties.zoneId));
+    // O vedan el paso: una zona donde no se puede ni navegar se dibuja aunque
+    // su fuente no toque la pesca. Es el caso de la zonificación de Cabrera.
+    const pesa = entrada.features.some(
+      (f) => afectaALaPesca(f.properties.zoneId) || vedaElPaso(f.properties.zoneId),
+    );
     const titulo = tituloFuente(id, entrada.titulo);
     control.addOverlay(entrada.capa, pesa ? titulo : t('capa.sinEfectoPesca', { titulo }));
     if (pesa) entrada.capa.addTo(mapa);
