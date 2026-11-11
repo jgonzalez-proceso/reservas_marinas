@@ -21,7 +21,7 @@ Estado: **seis capas regulatorias activas**, 96 zonas, **todas con ficha redacta
 
 Cobertura por isla: Mallorca 50/50, Menorca 27/27, Eivissa 18/18, Formentera 13/13 y Cabrera 2/2. **Ninguna zona cargada se resuelve ya como no determinable.** Las doce reservas marinas de Baleares tienen ficha, y Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
 
-Que no quede ningún `unknown` no significa que no falte trabajo: faltan capas enteras —la posidonia, la zonificación PRUG de Cabrera y sa Dragonera— y dentro de las fichas hay condiciones que remiten a normas que este mapa no dibuja. El mensaje de `SIN_FIGURAS` sigue siendo tan necesario como el primer día.
+Que no quede ningún `unknown` no significa que no falte trabajo: faltan capas enteras y dentro de las fichas hay condiciones que remiten a normas que este mapa no dibuja. La lista de lo que falta, medida en la auditoría del 2026-11-11, está en «Lo que falta por cargar». El mensaje de `SIN_FIGURAS` sigue siendo tan necesario como el primer día.
 
 La web lleva **selector de isla** y abre por defecto en **todas las islas a la vez**. La vista real se lee del hash de la URL (`#isla=eivissa`), para que se pueda compartir. `npm run rules:check` informa de la cobertura isla por isla.
 
@@ -304,6 +304,40 @@ A igual grado de restricción manda la figura más específica, y el desempate e
 
 La solución no es tocar el desempate por área, sino distinguir de dónde sale la regla. Una regla marcada **`generica: true`** —hoy solo `fondeoPorPosidoniaGeneral()`, que es la norma estatal aplicable en todo el Mediterráneo— **cede ante cualquier regla que una figura haya escrito para ese trozo de mar**, aunque su polígono sea mayor. El estado no cambia: las dos decían «restringida». Lo que cambia es quién figura como determinante y, sobre todo, qué condiciones se muestran.
 
+### La regla genérica cede entera, así que la regla del sitio tiene que decir lo de la posidonia
+
+La consecuencia del apartado anterior que nadie vio durante meses: al ceder, la regla genérica **desaparece entera** de la respuesta. Es lo correcto cuando la regla del sitio ya habla de las praderas con sus propias palabras, que es lo habitual. No lo es cuando habla de otra cosa. En el Ponent de Mallorca la única regla de fondeo del Decret 26/2025 es la de los cinco puntos de artes de parada (art. 3.4), y con ella como regla propia el panel contestaba al fondeo en toda la reserva —y en sus zonas interiores, que la heredan— sin una palabra sobre la posidonia. Medido: 40 de 40 puntos en cada una de las seis zonas.
+
+El motor no puede arreglarlo solo, porque no sabe de qué habla cada regla. Por eso `normas-generales.js` exporta `CONDICIONES_FONDEO_POSIDONIA`, y una ficha con regla propia que no trate las praderas las suma detrás de la condición del sitio. `npm test` lo exige: toda regla de fondeo propia que deje fondear tiene que mencionar la posidonia o las fanerógamas, salvo las de `FONDEO_SIN_MENCION_JUSTIFICADA`, cada una con su motivo escrito —hoy solo el campo de boyas obligatorio de ses Salines, donde no se puede echar el ancla sobre ningún fondo—.
+
+Cuatro cosas de la redacción de la regla general, que se rehízo leyendo el art. 5 del Real Decreto 191/2026 entero:
+
+- **Lo afectado por el borneo son las praderas**, no los elementos del fondeo. La primera redacción lo decía al revés.
+- **No hay umbral de eslora**, ni en el Real Decreto ni en el Decret balear 25/2018. Se escribe porque en el puerto circula lo contrario.
+- **Del Decret 25/2018 solo se cita lo que sigue en pie.** El TSJIB anuló sus arts. 7.3, 7.4 y 13.1 (sentencia 248/21, BOIB núm. 125 de 2021), y la versión que sirve el eboibfront no lo marca. La regla de la cadena sobre pradera cercana ya no descansa en él sino en el art. 5.1 del Real Decreto.
+- **Zona de baño balizada no es lo mismo que franja de 200 m.** El art. 73.1 del Reglamento General de Costas prohíbe usar embarcaciones dentro de las zonas BALIZADAS. En la franja sin balizar —200 m en playas, 50 m en el resto— el 73.2 solo limita la velocidad a tres nudos. Escribir que no se puede fondear a menos de 200 m de una playa sin balizar sería inventar una prohibición.
+
+### Una norma «que no se puede leer» casi siempre se puede
+
+Dos fichas daban por perdido un texto que estaba publicado, y las dos resolvían el fondeo de menos por eso.
+
+- **Nord de Menorca.** El enlace que publica el Govern para la Orden de 1999 lleva a la página 9258 del BOCAIB, que solo trae el arranque. El articulado sigue en la 9259 (`boib.caib.es/pdf/1999081/mp9259.pdf`). Y sí tiene regla de fondeo: los arts. 2 y 3 prohíben en las zonas de protección especial «el fondeo de embarcaciones sobre las fanerógamas», que es más que posidonia y Cymodocea — el preámbulo nombra la Zostera noltii, y el Real Decreto no la cubre.
+- **Es Trenc.** El PORN (Decreto 27/2023) solo publica su articulado en el PDF, y la capa de texto del PDF no lleva tabla de caracteres: un extractor devuelve basura a partir de la página 24973, en castellano y en catalán. Hay que leerlo en pantalla. Leído, cambia cuatro respuestas: el fondeo tiene regla propia (art. 78, con Zostera, maërl y coralígeno), el buceo está **permitido** y solo es autorizable con ánimo de lucro o más de doce personas (art. 81), la navegación tiene su lista de prohibiciones (art. 76.4) y la pesca de superficie está permitida (art. 53.1). La ficha anterior deducía de la cláusula de cierre de la ley que todo lo no definido era autorizable, y mandaba a pedir permisos que no hacen falta.
+
+### Lo que falta por cargar
+
+Medido en la auditoría del 2026-11-11. Lo que sigue son capas o fichas que no existen todavía y donde el mapa **contesta de menos**:
+
+| Qué | Dónde está | Qué pasa hoy |
+|---|---|---|
+| Zonificación marina PRUG de Cabrera | `GOIB_NATURA_ENP_IB`, capa 22 (19 polígonos marinos) | El PRUG prohíbe fondear y navegar en las zonas de reserva (213 ha) y fondear, bucear y la navegación deportiva en las de regeneración (563 ha). El motor contesta «con autorización» a las tres en todo el parque |
+| Natura 2000 de Eivissa y Formentera | `natura2000-marino.js` no tiene ningún espacio pitiuso; el art. 2 del Decret 91/2023 lista 17 | Cuatro planes aprobados sin cargar. El de Formentera limita el fondeo en arenales a esloras de menos de 16 m; el de los illots del llevant d'Eivissa prohíbe la pesca submarina fuera de la reserva de Tagomago; el de la Costa Oest la hace autorizable solo ciertos días en Illots de Ponent |
+| Fondeo de la costa este de Menorca | `GOIB_N2000_CostaEMenorca`, capa 6 | 2.183 ha de fondeo prohibido y 35 de regulado contestan «restringido». La ficha de s'Albufera des Grau dice que esa delimitación no se publica como capa, y sí se publica. Pesa 12,9 MB en bruto (324.000 vértices) |
+| Posidonia de alto valor y a regular | `GOIB_Posidonia_IB`, capas 0 y 1 (37 polígonos) | Sin cargar. Tienen efectos propios en el Decret 25/2018: en las de alto valor no puede haber ni boyas |
+| Campos de boyas y zonas de servicio portuarias | `GOIB_PortsIB` y los perímetros del anexo 1.2 del Decret 25/2018 | Sin cargar. Dentro de un campo de boyas está prohibido fondear con ancla |
+
+Las lecturas jurídicas de las dos primeras filas las hicieron agentes sobre el texto oficial y **no están contrastadas artículo por artículo**: antes de escribir una ficha hay que volver a la norma.
+
 ### El parque de ses Salines: tres capas y una contradicción del propio PRUG
 
 15.390 ha de mar entre Eivissa y Formentera, el 85 % del parque. Encima se apilan la Reserva Marina dels Freus con sus subzonas y varios espacios Natura 2000, y el **art. 95 del PRUG** las relaciona expresamente: en lo que el PRUG no prevé, dice, se aplica en todo el ámbito marino el Decreto 63/1999 de la reserva. Es una regla de supletoriedad entre normas, **no una fusión de figuras**, y el motor la reproduce apilando ambas fichas.
@@ -501,7 +535,7 @@ Servidor ArcGIS REST público del Govern, `https://ideib.caib.es/geoserveis/rest
 
 Activar una fuente es cambiar `activa: true` en `src/sources/registry.js`, ejecutar `npm run data`, asignar islas y redactar fichas.
 
-Las fuentes admiten dos filtros: `filtroWhere` es la cláusula que se manda al servicio —optimización de red, para no descargar doscientos espacios terrestres y tirarlos después— y `incluye(attrs)` es la regla de verdad, que se aplica igualmente sobre lo descargado. Las capas de zonificación PRUG de Cabrera y sa Dragonera (22 y 23) siguen sin cargarse: subdividen el interior de esos espacios y necesitan fichas propias.
+Las fuentes admiten dos filtros: `filtroWhere` es la cláusula que se manda al servicio —optimización de red, para no descargar doscientos espacios terrestres y tirarlos después— y `incluye(attrs)` es la regla de verdad, que se aplica igualmente sobre lo descargado. La zonificación PRUG de Cabrera (capa 22) sigue sin cargarse: subdivide el interior del parque y necesita fichas propias. La de sa Dragonera (capa 23) no hace falta: sus siete polígonos son todos terrestres.
 
 **Ortofoto:** el mapa arranca sobre el **satélite mundial de Esri** y la ortofoto oficial del IDEIB es una base **activable** desde el selector. La oficial enseña el fondo marino a través del agua —posidonia, roquedo—, que en un mapa de reservas marinas es información útil y el satélite no da: ahí el mar es una masa plana. A cambio su mosaico está cosido a partir de vuelos de fechas distintas y las costuras entre bloques se notan sobre todo en mar abierto, donde el tono del agua depende del día del vuelo; se comprobó pidiendo al WMS la misma zona a 128 y a 2048 píxeles y el corte cae en el mismo sitio, así que no es un efecto del zoom sino del propio mosaico. Por eso no es la base de arranque. El caché REST de `GOIB_Orto_IB` es EPSG:25831 y obligaría a montar todo el mapa en ese CRS, dejando fuera OpenStreetMap y OpenSeaMap. Su **WMS sí anuncia EPSG:3857**, y por ahí se consume. El endpoint correcto es `/geoserveis/services/…` — **sin** `/rest`, que devuelve el directorio HTML de ArcGIS, no capacidades WMS.
 

@@ -428,3 +428,55 @@ test('toda regla de pesca submarina distinta de unknown cita al menos una fuente
     .map((f) => f.zoneId);
   assert.deepEqual(sinFuente, []);
 });
+
+// ---------------------------------------------------------------------------
+// Fondeo: la prohibición general no puede desaparecer
+//
+// La regla genérica de posidonia cede ante cualquier regla que una figura haya
+// escrito sobre el fondeo, y al ceder desaparece entera. En el Ponent de
+// Mallorca la regla propia solo hablaba de los puntos de artes de parada, y el
+// panel contestó durante meses al fondeo en toda la reserva sin mencionar la
+// posidonia. El motor no puede arreglarlo solo —no sabe de qué habla cada
+// regla—, así que se exige aquí: toda regla de fondeo propia que deje fondear
+// tiene que hablar de las praderas.
+// ---------------------------------------------------------------------------
+
+// Zonas donde la regla propia hace innecesaria la mención, con su motivo.
+const FONDEO_SIN_MENCION_JUSTIFICADA = new Map([
+  [
+    'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-regulat--mari',
+    'campo de boyas obligatorio: no se puede echar el ancla sobre ningún fondo',
+  ],
+]);
+
+test('fondeo: toda regla propia que deja fondear menciona las praderas', () => {
+  const calladas = Object.values(FICHAS)
+    .filter((f) => {
+      const regla = f.actividades?.fondeo;
+      if (!regla || regla.generica) return false;
+      if (!['allowed', 'allowed_with_authorization', 'restricted'].includes(regla.status)) return false;
+      if (FONDEO_SIN_MENCION_JUSTIFICADA.has(f.zoneId)) return false;
+      const texto = [regla.motivo, ...(regla.conditions ?? [])].join(' ');
+      return !/posidoni|faner[oó]gam/i.test(texto);
+    })
+    .map((f) => f.zoneId);
+  assert.deepEqual(
+    calladas,
+    [],
+    'reglas de fondeo propias que no mencionan la prohibición sobre praderas: ' + calladas.join(', '),
+  );
+});
+
+test('Ponent: el fondeo menciona la posidonia además de los puntos de artes de parada', () => {
+  const p = punto(2.493290, 39.460581);
+  const RESERVA_PONENT = 'rm-reserva-marina-del-ponent-de-mallorca--reserva-marina--autonomica';
+  assert.ok(dentroDe(p, RESERVA_PONENT), 'el punto debe caer dentro de la reserva del Ponent');
+
+  const a = resolver(p, FEATURES, FICHAS).actividades.fondeo;
+  assert.equal(a.status, 'restricted');
+  assert.ok(
+    a.conditions.some((c) => /Posidonia oceanica/.test(c)),
+    'la respuesta de fondeo debe incluir la prohibición sobre posidonia',
+  );
+  assert.ok(a.sources.includes('boe-rd-191-2026'), 'y citar el Real Decreto 191/2026');
+});

@@ -10,7 +10,7 @@
  *
  * La prohibición **no depende del PRUG ni del PORN**: nace de la ley de
  * declaración, en vigor desde 2017, y sigue igual en la versión consolidada de
- * 13/06/2026.
+ * 13/06/2026. El PORN la repite en su art. 53.2.a.
  *
  * Y no depende tampoco de la zonificación interior. El art. 4 se dirige al
  * «àmbit marí del Parc Natural» entero, sin distinguir zonas, así que la regla
@@ -25,14 +25,36 @@
  * ámbito marino completo sin depender de que las piezas de la zonificación
  * teselen el parque sin huecos.
  *
- * El resto de actividades se escriben con lo que dice la propia ley y se marcan
- * como remitidas al PORN de 2023 (Decreto 27/2023), cuyo articulado no está
- * cargado en este mapa. El art. 4.1.b es una cláusula de cierre importante: son
- * autorizables «tots els no definits com a permesos o prohibits», así que en
- * este parque el silencio de la norma no significa libertad.
+ * EL PORN ESTÁ LEÍDO DESDE EL 2026-11-11. La primera versión de esta ficha se
+ * quedó en el escalón de la ley y avisaba de que el articulado del Decreto
+ * 27/2023 no estaba cargado. Lo que cambia al leerlo:
+ *
+ *  - **El fondeo tiene regla propia** (art. 78) y va más allá de la norma
+ *    general: además de la posidonia y la Cymodocea, prohíbe fondear sobre
+ *    poblaciones de Zostera y sobre fondos de maërl y coralígeno. No fija
+ *    esloras, temporadas, distancias ni campos de boyas.
+ *  - **El buceo está permitido** (art. 81.1), no pendiente de autorización. La
+ *    ficha anterior lo deducía de la cláusula de cierre del art. 4.1.b de la
+ *    ley —autorizable todo lo no definido— y empujaba a pedir un permiso que
+ *    el buceador particular no necesita. Solo es autorizable con fines
+ *    lucrativos o en grupos de más de doce. Mismo criterio que en s'Albufera
+ *    des Grau: `restricted` con el umbral escrito en las condiciones.
+ *  - **La navegación no es un vacío a rellenar por el órgano gestor.** El
+ *    art. 76.2 permite los usos comunes «sin más limitaciones que las
+ *    establecidas en este PORN», y el 76.4 enumera cuáles son.
+ *  - **La pesca recreativa de superficie está permitida** (art. 53.1.a). Sigue
+ *    en `restricted` porque el mismo artículo prohíbe los concursos y remite a
+ *    las modalidades de la Reserva Marina del Migjorn.
+ *
+ * Por eso ya no se usa la cláusula de cierre del art. 4.1.b: sigue vigente,
+ * pero el PORN ha definido estos seis usos y no queda silencio que interpretar.
+ *
+ * Aviso para quien vuelva a leer el decreto: el articulado solo está en el PDF
+ * del BOIB, y su capa de texto no lleva tabla de caracteres. Un extractor
+ * devuelve basura a partir de la página 24973; hay que leerlo en pantalla.
  */
 
-const REVISION = '2026-08-17';
+const REVISION = '2026-11-11';
 
 const NORMA_LEY = {
   titulo:
@@ -44,35 +66,40 @@ const NORMA_LEY = {
 
 const NORMA_PORN = {
   titulo:
-    'Decreto 27/2023, de 8 de mayo, por el que se aprueba el Plan de Ordenación de los Recursos Naturales de Es Trenc-Salobrar de Campos',
+    'Decreto 27/2023, de 8 de mayo, por el que se aprueba el Plan de ordenación de los recursos naturales (PORN) de Es Trenc-Salobrar de Campos',
   fecha: '2023-05-08',
-  url: 'https://www.caib.es/sites/espaisnaturalsprotegits/es/n_parque_natural_maritimoterrestre_es_trenc-salobrar_de_campos',
-  tipo: 'modificacion',
+  url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2023/05/08/27/dof/spa/pdf',
+  tipo: 'general',
 };
 
-const FUENTES = ['boib-ley-2-2017-es-trenc'];
-const FUENTES_CON_PORN = [...FUENTES, 'caib-espacio-es-trenc'];
-
-/**
- * Aviso que acompaña a todo lo que la ley no resuelve por sí sola.
- *
- * Se dice en vez de callarlo: el PORN está aprobado y desarrolla el art. 4, y
- * quien consulte tiene derecho a saber que esta ficha se queda en el escalón de
- * la ley. No afecta a la pesca submarina, que la ley prohíbe directamente.
- */
-const AVISO_PORN =
-  'El PORN aprobado por el Decreto 27/2023 desarrolla estas normas y su articulado no está ' +
-  'cargado en este mapa: antes de salir conviene consultarlo. La prohibición de pesca submarina ' +
-  'no depende de él, porque la impone directamente el art. 4.1.c de la Ley 2/2017.';
-
-const CIERRE_4_1_B =
-  'El art. 4.1.b cierra el régimen: son autorizables todos los usos que no estén expresamente ' +
-  'definidos como admitidos ni como prohibidos. Aquí el silencio de la norma no equivale a ' +
-  'libertad, sino a necesidad de autorización del órgano gestor del parque.';
+const LEY = 'boib-ley-2-2017-es-trenc';
+const PORN = 'boib-decreto-27-2023-porn-es-trenc';
 
 const ALTERACION_SIGNIFICATIVA =
   'Prohibida cualquier actividad que suponga una alteración significativa de los hábitats y las ' +
-  'especies del parque (art. 4.1.c).';
+  'especies del parque (art. 4.1.c de la Ley 2/2017).';
+
+/** Régimen común a las dos modalidades de pesca de superficie (art. 53). */
+const PESCA_SUPERFICIE = {
+  status: 'restricted',
+  motivo:
+    'El art. 53.1 del PORN permite en el mar la pesca recreativa de artes menores, con las ' +
+    'modalidades que fijan la normativa de pesca y la de la Reserva Marina del Migjorn de ' +
+    'Mallorca, y el art. 53.2 prohíbe los concursos de pesca.',
+  conditions: [
+    'Permitida la pesca recreativa de artes menores, en las modalidades de la normativa general ' +
+      'de pesca y de la Reserva Marina del Migjorn de Mallorca (art. 53.1).',
+    'Prohibidos los concursos de pesca (art. 53.2.a).',
+    'Las capturas accidentales de las especies del anexo 3 del PORN deben devolverse de inmediato ' +
+      'al mar (art. 53.3).',
+    'Prohibida la pesca en las balsas litorales, lagunas salobres y estanques salineros del ' +
+      'parque (art. 52).',
+    ALTERACION_SIGNIFICATIVA,
+    'El futuro PRUG concretará el régimen de la actividad pesquera a partir de un estudio que el ' +
+      'PORN encarga (art. 53.4). Todavía no está aprobado.',
+  ],
+  sources: [PORN, LEY],
+};
 
 export default [
   {
@@ -97,67 +124,71 @@ export default [
         conditions: [
           'La prohibición alcanza el ámbito marino completo del parque, sin distinguir zonas de la zonificación del PORN.',
           'No depende de la aprobación de ningún PRUG: deriva directamente de la ley de declaración, en vigor desde 2017.',
+          'El PORN la repite en su art. 53.2.a, junto a la del arrastre, el cerco, el palangre de superficie y los concursos de pesca.',
         ],
-        sources: FUENTES,
+        sources: [LEY, PORN],
       },
 
-      pescaDesdeCosta: {
-        status: 'restricted',
-        motivo:
-          'El art. 4.1.a de la Ley 2/2017 admite en el ámbito marino los usos pesqueros y los usos ' +
-          'comunes del art. 31 de la Ley de Costas —entre ellos pescar—, pero solo en la medida en que ' +
-          'sean compatibles con los objetivos de protección del espacio y conforme al instrumento de ' +
-          'planificación, que puede regularlos y ordenarlos.',
-        conditions: [ALTERACION_SIGNIFICATIVA, CIERRE_4_1_B, AVISO_PORN],
-        sources: FUENTES_CON_PORN,
-      },
+      pescaDesdeCosta: PESCA_SUPERFICIE,
+      pescaRecreativaEmbarcacion: PESCA_SUPERFICIE,
 
-      pescaRecreativaEmbarcacion: {
-        status: 'restricted',
-        motivo:
-          'Mismo régimen que la pesca desde costa: el art. 4.1.a la admite como uso pesquero y como uso ' +
-          'común del art. 31 de la Ley de Costas, condicionada a la compatibilidad con los objetivos de ' +
-          'protección y a lo que disponga el instrumento de planificación.',
-        conditions: [ALTERACION_SIGNIFICATIVA, CIERRE_4_1_B, AVISO_PORN],
-        sources: FUENTES_CON_PORN,
-      },
-
+      // `restricted` y no `allowed_with_authorization`: el art. 81.1 permite el
+      // buceo y solo lo hace autorizable por encima de un umbral. Marcarlo como
+      // «requiere autorización» mandaría a tramitar un permiso a quien no lo
+      // necesita.
       buceo: {
         status: 'restricted',
         motivo:
-          'La ley de declaración no enumera el buceo ni entre los usos admitidos ni entre los ' +
-          'prohibidos, y el art. 4.1.b hace autorizables precisamente los usos no definidos como una ' +
-          'cosa ni la otra. Corresponde al PORN concretar en qué condiciones.',
+          'El art. 81 del PORN permite el submarinismo deportivo con escafandra o en apnea. Solo exige ' +
+          'autorización cuando tiene finalidad lucrativa o se hace en grupos de más de doce ' +
+          'personas, y fija un máximo de cuarenta buceadores al día.',
         conditions: [
-          CIERRE_4_1_B,
-          'Los buceadores no pueden llevar instrumentos de pesca submarina: la actividad está prohibida en todo el ámbito marino (art. 4.1.c).',
-          AVISO_PORN,
+          'Permitido sin autorización para el buceador particular, con escafandra o en apnea (art. 81.1).',
+          'Requiere autorización del órgano gestor si la actividad es lucrativa o el grupo pasa de 12 personas (art. 81.2).',
+          'Máximo de cuarenta buceadores al día en todo el ámbito marino (art. 81.2).',
+          'Prohibidos los propulsores acuáticos para buceo y los scooters submarinos (art. 76.4.b).',
+          'Los buceadores no pueden llevar instrumentos de pesca submarina: la actividad está prohibida en todo el ámbito marino (art. 4.1.c de la Ley 2/2017).',
+          'Prohibido alimentar a la fauna (art. 76.4.e).',
+          'La dirección general puede añadir por resolución límites por zonas o por temporadas (art. 81.3).',
         ],
-        sources: FUENTES_CON_PORN,
+        sources: [PORN, LEY],
       },
 
       fondeo: {
         status: 'restricted',
         motivo:
-          'El art. 4.2 de la Ley 2/2017 encarga al PORN regular específicamente el anclaje, el fondeo, ' +
-          'el amarre y la circulación de embarcaciones en el ámbito marino del parque. Rige además, en ' +
-          'todo el Mediterráneo español, la prohibición de fondear sobre praderas de fanerógamas.',
+          'El art. 78 del PORN prohíbe fondear sobre Posidonia oceanica y también sobre praderas de ' +
+          'Cymodocea nodosa, poblaciones de Zostera y fondos de maërl y coralígeno. Es la regulación ' +
+          'del fondeo que el art. 4.2 de la Ley 2/2017 le encargaba.',
         conditions: [
-          'Prohibido fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa, y en arena próxima si la cadena o el ancla acaban afectando a la pradera (RD 191/2026).',
-          'Es Trenc es uno de los sistemas litorales con más superficie de fanerógamas marinas de Mallorca: aquí esa prohibición general afecta a buena parte del fondo.',
-          AVISO_PORN,
+          'Prohibido fondear sobre Posidonia oceanica (art. 78.1, que remite al Decret 25/2018).',
+          'Prohibido también sobre praderas de Cymodocea nodosa, poblaciones de Zostera y fondos de maërl y coralígeno (art. 78.3).',
+          'El órgano gestor puede señalizar o balizar áreas en restauración sobre las que no se puede fondear (art. 78.2).',
+          'En arena próxima a una pradera tampoco, si la cadena queda sobre ella o el borneo la alcanza (Real Decreto 191/2026).',
+          'En las zonas de baño rige el art. 73 del Reglamento General de Costas, y su balizamiento no puede quedar a menos de 200 m de la playa ni de 50 m de los islotes (art. 79).',
+          'Es Trenc es uno de los sistemas litorales con más superficie de fanerógamas marinas de Mallorca: aquí estas prohibiciones afectan a buena parte del fondo.',
+          'El PORN no fija esloras máximas, temporadas ni campos de boyas. Puede hacerlo el futuro PRUG, que todavía no está aprobado (art. 75.3).',
         ],
-        sources: [...FUENTES_CON_PORN, 'boe-rd-191-2026'],
+        sources: [PORN, LEY, 'boib-decret-25-2018-posidonia', 'boe-rd-876-2014-costas', 'boe-rd-191-2026'],
       },
 
       navegacion: {
         status: 'restricted',
         motivo:
-          'El art. 4.2 de la Ley 2/2017 remite al PORN la regulación específica de la circulación de ' +
-          'embarcaciones y del transporte colectivo de viajeros por mar dentro del ámbito marino del ' +
-          'parque.',
-        conditions: [CIERRE_4_1_B, AVISO_PORN],
-        sources: FUENTES_CON_PORN,
+          'El art. 76 del PORN permite los usos comunes del mar sin más límites que los suyos, y ' +
+          'enumera cuáles son: prohíbe en todo el ámbito marino el esquí náutico, las motos ' +
+          'acuáticas, las fiestas a bordo y la botadura de embarcaciones a motor.',
+        conditions: [
+          'Prohibida la circulación de embarcaciones rápidas motorizadas como el esquí bus y el esquí náutico (art. 76.4.a).',
+          'Prohibidas las motos acuáticas y los aparatos remolcados o traccionados por embarcaciones: esquí, paracaidismo, flotadores y similares (art. 76.4.b).',
+          'Prohibido el desembarco y la botadura de embarcaciones a motor (art. 76.4.c).',
+          'Prohibidas las fiestas en embarcaciones, party boats o asimilables (art. 76.4.d).',
+          'Prohibido desembarcar en los islotes (art. 76.4.f).',
+          'Vela, remo, kayak, paddle surf y kitesurf están permitidos fuera de la zona de baño; requieren autorización si son lucrativos o en grupos de más de 20 personas (art. 80).',
+          'En verano la entrada y salida se hace por las zonas autorizadas. En temporada baja, o si no hay balizamiento, por una franja de 100 m junto a los núcleos de sa Ràpita y sa Colònia de Sant Jordi (art. 80.3).',
+          'Las excursiones marítimas comerciales y el transporte colectivo de viajeros requieren autorización (art. 76.3).',
+        ],
+        sources: [PORN, LEY],
       },
     },
   },

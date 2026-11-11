@@ -115,6 +115,11 @@ const BUCEO_ESTATAL = {
   sources: ['boe-orden-apa-690-2018'],
 };
 
+// La orden estatal dice dónde se puede fondear, no sobre qué fondo. Sin esta
+// línea las tres calas de fondeo libre se leían como libres del todo.
+const POSIDONIA_DONDE_SE_FONDEA =
+  'Donde sí se puede fondear rige la prohibición general de hacerlo sobre praderas de Posidonia oceanica y de Cymodocea nodosa, también en arena si la cadena queda sobre la pradera o el borneo la alcanza (Real Decreto 191/2026).';
+
 const FONDEO_ESTATAL = {
   status: 'restricted',
   motivo:
@@ -123,8 +128,9 @@ const FONDEO_ESTATAL = {
     'Fondeo libre únicamente en Cala Moltó o Es Gulló, Cala Agulla y Son Moll, por fuera de las zonas de baño y de los canales de acceso.',
     'También pueden fondear sin autorización las embarcaciones profesionales que estén pescando con potera en fondos detríticos.',
     'En el resto de la reserva, solo por emergencia relacionada con la seguridad de la vida humana en el mar, la seguridad nacional o el orden público.',
+    POSIDONIA_DONDE_SE_FONDEA,
   ],
-  sources: ['boe-orden-apa-690-2018'],
+  sources: ['boe-orden-apa-690-2018', 'boe-rd-191-2026'],
 };
 
 export default [
@@ -391,8 +397,9 @@ export default [
         conditions: [
           'Fondeo libre en Cala Agulla, por fuera de la zona de baño y de los canales de acceso.',
           'Fuera de esos lugares el fondeo está prohibido salvo emergencia.',
+          POSIDONIA_DONDE_SE_FONDEA,
         ],
-        sources: ['boe-orden-apa-690-2018'],
+        sources: ['boe-orden-apa-690-2018', 'boe-rd-191-2026'],
       },
       navegacion: NAVEGACION_ESTATAL,
     },

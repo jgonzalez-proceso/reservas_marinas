@@ -59,16 +59,8 @@ export default {
     'El pla de gestió permet la pràctica del busseig llevat d’on ho prohibeixi o ho condicioni la normativa de la reserva marina: no hi afegeix per si mateix cap restricció.',
 
   // -- Fondeig sobre fanerògames: el RD 191/2026 -----------------------------
-  'El Real Decreto 191/2026 prohíbe con carácter general fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa en todo el Mediterráneo español, incluido el fondeo en arena si la cadena, el ancla u otro elemento del fondeo afecta a la pradera.':
-    'El Reial Decret 191/2026 prohibeix amb caràcter general fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa a tot el Mediterrani espanyol, inclòs el fondeig en arena si la cadena, l’àncora o un altre element del fondeig afecta la prada.',
-  'Excepciones: fuerza mayor o peligro para la vida humana, trabajos científicos, de gestión ambiental o arqueológicos autorizados, y reparación de instalaciones preexistentes autorizadas.':
-    'Excepcions: força major o perill per a la vida humana, treballs científics, de gestió ambiental o arqueològics autoritzats, i reparació d’instal·lacions preexistents autoritzades.',
   'Prohibido fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa.':
     'Prohibit fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa.',
-  'Prohibido también en zonas de arena próximas si la cadena, el ancla u otros elementos del fondeo se sitúan sobre la pradera o resultan afectados por el borneo.':
-    'Prohibit també en zones d’arena properes si la cadena, l’àncora o altres elements del fondeig se situen sobre la prada o en resulten afectats pel borneig.',
-  'Solo se permite fondear sobre esas praderas con sistemas de bajo impacto debidamente autorizados (boyas ecológicas).':
-    'Només es permet fondejar sobre aquestes prades amb sistemes de baix impacte degudament autoritzats (boies ecològiques).',
   'Prohibido fondear sobre Posidonia oceanica. Si hay praderas próximas, tampoco la cadena ni los demás elementos del anclaje pueden afectarlas.':
     'Prohibit fondejar sobre Posidonia oceanica. Si hi ha prades properes, tampoc la cadena ni els altres elements de l’ancoratge no les poden afectar.',
   'Prohibido igualmente el anclaje sobre praderas de Cymodocea nodosa y Zostera noltii y sobre fondos de maërl o coralígeno.':
@@ -198,8 +190,6 @@ export default {
     'L’art. 110 prohibeix a més dur, tenir o transportar a bord instruments utilitzables per extreure espècies marines.',
   'El art. 118 prohíbe navegar y fondear dentro de las zonas de baño, que define como una franja de 200 m paralela a la línea de costa; las embarcaciones solo pueden atravesarlas por los canales de entrada y salida señalizados. Esa franja no se publica como capa cartográfica y este mapa no la dibuja.':
     'L’art. 118 prohibeix navegar i fondejar dins les zones de bany, que defineix com una franja de 200 m paral·lela a la línia de costa; les embarcacions només les poden travessar pels canals d’entrada i sortida senyalitzats. Aquesta franja no es publica com a capa cartogràfica i aquest mapa no la dibuixa.',
-  'El art. 4.1.b cierra el régimen: son autorizables todos los usos que no estén expresamente definidos como admitidos ni como prohibidos. Aquí el silencio de la norma no equivale a libertad, sino a necesidad de autorización del órgano gestor del parque.':
-    'L’art. 4.1.b tanca el règim: són autoritzables tots els usos que no estiguin expressament definits com a admesos ni com a prohibits. Aquí el silenci de la norma no equival a llibertat, sinó a necessitat d’autorització de l’òrgan gestor del parc.',
   'El art. 94.a del PRUG prohíbe la pesca de cualquier tipo en las áreas de protección estricta, donde aplica además el mismo régimen que la zona de protección máxima de la Reserva Marina dels Freus (art. 2 del Decreto 63/1999).':
     'L’art. 94.a del PRUG prohibeix la pesca de qualsevol tipus a les àrees de protecció estricta, on s’aplica a més el mateix règim que a la zona de protecció màxima de la Reserva Marina dels Freus (art. 2 del Decret 63/1999).',
   'Rige aquí el régimen de la zona de protección máxima de la Reserva Marina dels Freus, por remisión expresa del art. 94.a.':
@@ -218,8 +208,6 @@ export default {
     'L’art. 39.1 del PORN fixa que a l’àmbit marí del parc regeix el seu capítol V i, en defecte de previsió, les prohibicions i limitacions del Decret 71/2016 (Reserva Marina del Llevant) i del Decret 41/2015. On la reserva marina també arriba, les seves normes se sumen a aquestes.',
 
   // -- Es Trenc - Salobrar de Campos ------------------------------------------
-  'El PORN aprobado por el Decreto 27/2023 desarrolla estas normas y su articulado no está cargado en este mapa: antes de salir conviene consultarlo. La prohibición de pesca submarina no depende de él, porque la impone directamente el art. 4.1.c de la Ley 2/2017.':
-    'El PORN aprovat pel Decret 27/2023 desplega aquestes normes i el seu articulat no està carregat en aquest mapa: abans de sortir convé consultar-lo. La prohibició de pesca submarina no en depèn, perquè la imposa directament l’art. 4.1.c de la Llei 2/2017.',
 
   // -- Busseig: règim per zones ----------------------------------------------
   'El buceo autónomo se permite previa autorización de la Dirección General de Pesca Sostenible y con cupos. El snorkel desde embarcación al pairo no necesita autorización.':
@@ -417,8 +405,6 @@ export default {
     'Discrepància documentada del mateix PRUG: el seu art. 11.4.d prohibeix «a tot l’àmbit marí l’extracció de flora i fauna marina», mentre que l’art. 94.b permet la pesca recreativa fora de les àrees de protecció estricta i l’art. 94.c només manté la prohibició per a la flora. Aquí mana el capítol d’activitats pesqueres, que és l’específic, i així ho aplica la informació oficial del parc.',
   'Prohibida cualquier pesca en las áreas marinas de protección estricta, que este mapa dibuja como figura aparte (art. 94.a).':
     'Prohibida qualsevol pesca a les àrees marines de protecció estricta, que aquest mapa dibuixa com a figura a part (art. 94.a).',
-  'Prohibida cualquier actividad que suponga una alteración significativa de los hábitats y las especies del parque (art. 4.1.c).':
-    'Prohibida qualsevol activitat que suposi una alteració significativa dels hàbitats i les espècies del parc (art. 4.1.c).',
 
   // -- Serra de Tramuntana: PORN ----------------------------------------------
   'El art. 81.3 del PORN prohíbe la captura o recolección de la nacra (Pinna nobilis); el art. 81.2 hace autorizable la captura de cigarra de mar (Scyllarides latus). El art. 78 prohíbe además, a la flota profesional, el arrastre, el cerco y el palangre de superficie.':
@@ -687,10 +673,6 @@ export default {
     'Art. 2, règim de la reserva integral de cap Ferrutx',
   'Art. 2, régimen jurídico dentro del área de protección especial':
     'Art. 2, règim jurídic dins l’àrea de protecció especial',
-  'Art. 5, fondeo sobre Posidonia oceanica y Cymodocea nodosa':
-    'Art. 5, fondeig sobre Posidonia oceanica i Cymodocea nodosa',
-  'Art. 73, zonas de baño balizadas y franjas de 200 m en playas y 50 m en el resto de la costa':
-    'Art. 73, zones de bany abalisades i franges de 200 m a les platges i 50 m a la resta de la costa',
   'Arts. 1 y 2. Norma de creación del ámbito autonómico de sa Dragonera':
     'Arts. 1 i 2. Norma de creació de l’àmbit autonòmic de sa Dragonera',
   'Arts. 2 y 3': 'Arts. 2 i 3',
@@ -936,14 +918,6 @@ export default {
     'El Decret 71/2016 regula l’extracció de flora i fauna i les activitats subaquàtiques, però no estableix cap limitació de navegació per a l’àmbit autonòmic.',
 
   // -- Es Trenc: Llei 2/2017 --------------------------------------------------
-  'El art. 4.1.a de la Ley 2/2017 admite en el ámbito marino los usos pesqueros y los usos comunes del art. 31 de la Ley de Costas —entre ellos pescar—, pero solo en la medida en que sean compatibles con los objetivos de protección del espacio y conforme al instrumento de planificación, que puede regularlos y ordenarlos.':
-    'L’art. 4.1.a de la Llei 2/2017 admet a l’àmbit marí els usos pesquers i els usos comuns de l’art. 31 de la Llei de Costes —entre ells pescar—, però només en la mesura que siguin compatibles amb els objectius de protecció de l’espai i d’acord amb l’instrument de planificació, que els pot regular i ordenar.',
-  'El art. 4.2 de la Ley 2/2017 encarga al PORN regular específicamente el anclaje, el fondeo, el amarre y la circulación de embarcaciones en el ámbito marino del parque. Rige además, en todo el Mediterráneo español, la prohibición de fondear sobre praderas de fanerógamas.':
-    'L’art. 4.2 de la Llei 2/2017 encarrega al PORN regular específicament l’ancoratge, el fondeig, l’amarratge i la circulació d’embarcacions a l’àmbit marí del parc. Regeix a més, a tot el Mediterrani espanyol, la prohibició de fondejar sobre prades de fanerògames.',
-  'El art. 4.2 de la Ley 2/2017 remite al PORN la regulación específica de la circulación de embarcaciones y del transporte colectivo de viajeros por mar dentro del ámbito marino del parque.':
-    'L’art. 4.2 de la Llei 2/2017 remet al PORN la regulació específica de la circulació d’embarcacions i del transport col·lectiu de viatgers per mar dins l’àmbit marí del parc.',
-  'El PORN desarrolla el art. 4 de la Ley 2/2017. Su articulado no está cargado en este mapa: en la fecha de esta revisión el eboibfront devolvía 503 por mantenimiento':
-    'El PORN desplega l’art. 4 de la Llei 2/2017. El seu articulat no està carregat en aquest mapa: en la data d’aquesta revisió l’eboibfront retornava 503 per manteniment',
 
   // -- Península de Llevant: PORN --------------------------------------------
   'El art. 40.1 del PORN prohíbe en el ámbito marino del parque cualquier vertido desde las embarcaciones, las competiciones y las excursiones o rutas organizadas de motonáutica, y las fiestas en embarcaciones con emisión de ruido mediante equipos de música.':
@@ -1168,10 +1142,6 @@ export default {
     'A les zones de la reserva incloses al LIC nord de Sant Joan (ES5310112), el LIC i ZEPA de Tagomago (ES0000082), el LIC àrea marina de Tagomago (ES5310107), el LIC i ZEPA dels illots de Santa Eulària, Redona i es Canar (ES0000242) i la ZEPA de l’espai marí del llevant d’Eivissa (ES0000517) cal complir a més el seu pla de gestió.',
   'En lo no previsto rige el Decret 25/2018 sobre la conservación de la Posidonia oceanica, y el RD 191/2026 en todo el Mediterráneo español.':
     'En allò no previst regeix el Decret 25/2018 sobre la conservació de la Posidonia oceanica, i el RD 191/2026 a tot el Mediterrani espanyol.',
-  'Es Trenc es uno de los sistemas litorales con más superficie de fanerógamas marinas de Mallorca: aquí esa prohibición general afecta a buena parte del fondo.':
-    'Es Trenc és un dels sistemes litorals amb més superfície de fanerògames marines de Mallorca: aquí aquesta prohibició general afecta bona part del fons.',
-  'La ley de declaración no enumera el buceo ni entre los usos admitidos ni entre los prohibidos, y el art. 4.1.b hace autorizables precisamente los usos no definidos como una cosa ni la otra. Corresponde al PORN concretar en qué condiciones.':
-    'La llei de declaració no enumera el busseig ni entre els usos admesos ni entre els prohibits, i l’art. 4.1.b fa autoritzables precisament els usos no definits com una cosa ni l’altra. Correspon al PORN concretar en quines condicions.',
 
   // -- Illa de l’Aire i Nord de Menorca: navegació i fondeig -----------------
   'En las zonas de fondeo libre que rodean la isla se pueden instalar hasta tres puntos de fondeo ecológico, a los que las embarcaciones deben amarrarse preferentemente.':
@@ -1251,8 +1221,6 @@ export default {
     'La prohibició abasta el busseig recreatiu en qualsevol modalitat.',
   'No depende de la aprobación de ningún PRUG: deriva directamente de la ley de declaración, en vigor desde 2017.':
     'No depèn de l’aprovació de cap PRUG: deriva directament de la llei de declaració, en vigor des del 2017.',
-  'Los buceadores no pueden llevar instrumentos de pesca submarina: la actividad está prohibida en todo el ámbito marino (art. 4.1.c).':
-    'Els bussejadors no poden dur instruments de pesca submarina: l’activitat és prohibida a tot l’àmbit marí (art. 4.1.c).',
   'Los buceadores no pueden llevar instrumentos de pesca submarina: la pesca recreativa submarina está prohibida en todo el ámbito marino del parque (art. 40.1.h).':
     'Els bussejadors no poden dur instruments de pesca submarina: la pesca recreativa submarina és prohibida a tot l’àmbit marí del parc (art. 40.1.h).',
   'Los buceadores no pueden llevar, en la mano ni en la embarcación, instrumentos utilizables para pescar o extraer especies marinas (art. 83.2).':
@@ -1287,8 +1255,6 @@ export default {
     'L’única activitat pesquera extractiva admesa és la professional artesanal, tradicional i selectiva de les embarcacions incloses al cens del parc, i només en les modalitats i èpoques expressament autoritzades.',
   'Mismo régimen que desde costa: el PORN prohíbe las competiciones de pesca deportiva y toda pesca en el área de reserva integral, y prohíbe además a la flota profesional el arrastre y el cerco en todo el ámbito marino del parque.':
     'Mateix règim que des de costa: el PORN prohibeix les competicions de pesca esportiva i tota pesca a l’àrea de reserva integral, i prohibeix a més a la flota professional l’arrossegament i el cèrcol a tot l’àmbit marí del parc.',
-  'Mismo régimen que la pesca desde costa: el art. 4.1.a la admite como uso pesquero y como uso común del art. 31 de la Ley de Costas, condicionada a la compatibilidad con los objetivos de protección y a lo que disponga el instrumento de planificación.':
-    'Mateix règim que la pesca des de costa: l’art. 4.1.a l’admet com a ús pesquer i com a ús comú de l’art. 31 de la Llei de Costes, condicionada a la compatibilitat amb els objectius de protecció i al que disposi l’instrument de planificació.',
   'La zonificación terrestre del PORN no está cargada en este mapa: antes de pescar desde tierra hay que comprobar en la cartografía oficial si el punto es zona de exclusión.':
     'La zonificació terrestre del PORN no està carregada en aquest mapa: abans de pescar des de terra cal comprovar a la cartografia oficial si el punt és zona d’exclusió.',
 
@@ -1623,8 +1589,6 @@ export default {
     'Prohibit fondejar sobre les prades de fanerògames de l’àrea de protecció especial.',
   'Prohibido fondear sobre praderas de Posidonia oceanica en todo el ámbito marino del parque (art. 40.2).':
     'Prohibit fondejar sobre prades de Posidonia oceanica a tot l’àmbit marí del parc (art. 40.2).',
-  'Prohibido fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa, y en arena próxima si la cadena o el ancla acaban afectando a la pradera (RD 191/2026).':
-    'Prohibit fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa, i en arena propera si la cadena o l’àncora acaben afectant la prada (RD 191/2026).',
   'Prohibido fondear sobre praderas de Posidonia oceanica y sobre fondos de maërl (art. 82).':
     'Prohibit fondejar sobre prades de Posidonia oceanica i sobre fons de maërl (art. 82).',
   'Prohibido también sobre Cymodocea nodosa y en arena próxima si la cadena, el ancla u otros elementos del fondeo afectan a la pradera (RD 191/2026).':
@@ -1752,4 +1716,106 @@ export default {
     'ZEPA marina estatal de 47.166 ha que voreja sa Dragonera, els Malgrats, els Conills i el Toro. Se superposa amb diverses reserves marines, i és el règim d’aquelles reserves —no aquesta ZEPA— el que hi restringeix la pesca.',
   'ZEPA marina estatal de 99.072 ha frente a toda la costa norte de Mallorca. Es la figura más extensa del mapa y no impone por sí sola ninguna restricción a la pesca recreativa.':
     'ZEPA marina estatal de 99.072 ha davant tota la costa nord de Mallorca. És la figura més extensa del mapa i no imposa per si sola cap restricció a la pesca recreativa.',
+
+  // -- Auditoria de fondeig de 2026-11-11 ------------------------------------
+  // La regla general reescrita sobre l’art. 5 del Reial Decret 191/2026, el
+  // PORN d’es Trenc (Decret 27/2023) i l’ordre de 1999 del Nord de Menorca.
+  'Excepciones: fuerza mayor o peligro para la seguridad de la vida humana en el mar o de la navegación, y trabajos científicos, de gestión, arqueológicos o de reparación de instalaciones preexistentes que estén autorizados.':
+    'Excepcions: força major o perill per a la seguretat de la vida humana a la mar o de la navegació, i treballs científics, de gestió, arqueològics o de reparació d’instal·lacions preexistents que estiguin autoritzats.',
+  'La prohibición no depende de la eslora: ni el Real Decreto 191/2026 ni el Decret 25/2018 fijan un tamaño mínimo de embarcación.':
+    'La prohibició no depèn de l’eslora: ni el Reial Decret 191/2026 ni el Decret 25/2018 fixen una mida mínima d’embarcació.',
+  'No se puede fondear dentro de una zona de baño balizada: el art. 73.1 del Reglamento General de Costas prohíbe allí la navegación de recreo y el uso de cualquier embarcación a vela o motor. Donde no hay balizamiento, la franja de 200 m frente a las playas y de 50 m en el resto de la costa se navega a tres nudos como máximo.':
+    'No es pot fondejar dins una zona de bany abalisada: l’art. 73.1 del Reglament general de costes hi prohibeix la navegació d’esbarjo i l’ús de qualsevol embarcació de vela o motor. On no hi ha abalisament, la franja de 200 m davant les platges i de 50 m a la resta de la costa es navega a tres nusos com a màxim.',
+  'Prohibido también en zonas de arena próximas si la cadena u otros elementos del fondeo quedan sobre la pradera o esta resulta afectada por el borneo.':
+    'Prohibit també en zones d’arena properes si la cadena o altres elements del fondeig queden sobre la prada o aquesta resulta afectada pel borneig.',
+  'Sobre esas praderas solo se puede amarrar a sistemas de bajo impacto autorizados: boyas unitarias o campos de boyas. Donde hay un campo de boyas se amarra a la boya y nunca se fondea directamente sobre la pradera.':
+    'Sobre aquestes prades només es pot amarrar a sistemes de baix impacte autoritzats: boies unitàries o camps de boies. On hi ha un camp de boies s’amarra a la boia i mai no es fondeja directament sobre la prada.',
+  'El Real Decreto 191/2026 prohíbe con carácter general fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa en todo el Mediterráneo español, también en arena si la cadena queda sobre la pradera o el borneo la alcanza. En aguas de competencia balear lo prohíbe además el art. 7.1 del Decret 25/2018.':
+    'El Reial Decret 191/2026 prohibeix amb caràcter general fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa a tot el Mediterrani espanyol, també en arena si la cadena queda sobre la prada o el borneig hi arriba. En aigües de competència balear ho prohibeix a més l’art. 7.1 del Decret 25/2018.',
+  'Donde sí se puede fondear rige la prohibición general de hacerlo sobre praderas de Posidonia oceanica y de Cymodocea nodosa, también en arena si la cadena queda sobre la pradera o el borneo la alcanza (Real Decreto 191/2026).':
+    'On sí que es pot fondejar regeix la prohibició general de fer-ho sobre prades de Posidonia oceanica i de Cymodocea nodosa, també en arena si la cadena queda sobre la prada o el borneig hi arriba (Reial Decret 191/2026).',
+  'El art. 53.1 del PORN permite en el mar la pesca recreativa de artes menores, con las modalidades que fijan la normativa de pesca y la de la Reserva Marina del Migjorn de Mallorca, y el art. 53.2 prohíbe los concursos de pesca.':
+    'L’art. 53.1 del PORN permet a la mar la pesca recreativa d’arts menors, amb les modalitats que fixen la normativa de pesca i la de la Reserva Marina del Migjorn de Mallorca, i l’art. 53.2 prohibeix els concursos de pesca.',
+  'El futuro PRUG concretará el régimen de la actividad pesquera a partir de un estudio que el PORN encarga (art. 53.4). Todavía no está aprobado.':
+    'El futur PRUG concretarà el règim de l’activitat pesquera a partir d’un estudi que el PORN encarrega (art. 53.4). Encara no està aprovat.',
+  'Las capturas accidentales de las especies del anexo 3 del PORN deben devolverse de inmediato al mar (art. 53.3).':
+    'Les captures accidentals de les espècies de l’annex 3 del PORN s’han de tornar immediatament a la mar (art. 53.3).',
+  'Permitida la pesca recreativa de artes menores, en las modalidades de la normativa general de pesca y de la Reserva Marina del Migjorn de Mallorca (art. 53.1).':
+    'Permesa la pesca recreativa d’arts menors, en les modalitats de la normativa general de pesca i de la Reserva Marina del Migjorn de Mallorca (art. 53.1).',
+  'Prohibida cualquier actividad que suponga una alteración significativa de los hábitats y las especies del parque (art. 4.1.c de la Ley 2/2017).':
+    'Prohibida qualsevol activitat que suposi una alteració significativa dels hàbitats i les espècies del parc (art. 4.1.c de la Llei 2/2017).',
+  'Prohibida la pesca en las balsas litorales, lagunas salobres y estanques salineros del parque (art. 52).':
+    'Prohibida la pesca a les basses litorals, llacunes salabroses i estanys saliners del parc (art. 52).',
+  'Prohibidos los concursos de pesca (art. 53.2.a).':
+    'Prohibits els concursos de pesca (art. 53.2.a).',
+  'Art. 73. 73.1: en las zonas de baño balizadas se prohíbe la navegación de recreo y el uso de cualquier embarcación a vela o motor. 73.2: sin balizamiento la zona de baño es una franja de 200 m en las playas y 50 m en el resto de la costa, donde no se puede navegar a más de tres nudos; ese apartado no prohíbe fondear':
+    'Art. 73. 73.1: a les zones de bany abalisades es prohibeix la navegació d’esbarjo i l’ús de qualsevol embarcació de vela o motor. 73.2: sense abalisament la zona de bany és una franja de 200 m a les platges i 50 m a la resta de la costa, on no es pot navegar a més de tres nusos; aquest apartat no prohibeix fondejar',
+  'BOCAIB núm. 81 de 1999, pág. 9259. Art. 2 (área A, de Cala Barril al Pla de Mar): prohíbe cualquier pesca, la extracción de flora y fauna, el fondeo de embarcaciones sobre las fanerógamas y el buceo con escafandra. El preámbulo identifica las fanerógamas de la zona: Posidonia oceanica, Cymodocea nodosa y Zostera noltii. El art. 3 (área B, Fornells) se lee en su redacción vigente, la del Decreto 26/2019':
+    'BOCAIB núm. 81 de 1999, pàg. 9259. Art. 2 (àrea A, de Cala Barril al Pla de Mar): prohibeix qualsevol pesca, l’extracció de flora i fauna, el fondeig d’embarcacions sobre les fanerògames i el busseig amb escafandre. El preàmbul identifica les fanerògames de la zona: Posidonia oceanica, Cymodocea nodosa i Zostera noltii. L’art. 3 (àrea B, Fornells) es llegeix en la redacció vigent, la del Decret 26/2019',
+  'BOE núm. 64, de 13 de marzo de 2026. Art. 5: 5.1 prohibición general de fondear sobre las praderas y en arena próxima si la cadena queda sobre ellas o el borneo las afecta; 5.2 sistemas de bajo impacto autorizados (boyas unitarias o campos de boyas); 5.3 excepciones. Art. 1.2: norma de mínimos, compatible con las autonómicas. No distingue por eslora':
+    'BOE núm. 64, de 13 de març de 2026. Art. 5: 5.1 prohibició general de fondejar sobre les prades i en arena propera si la cadena hi queda al damunt o el borneig les afecta; 5.2 sistemes de baix impacte autoritzats (boies unitàries o camps de boies); 5.3 excepcions. Art. 1.2: norma de mínims, compatible amb les autonòmiques. No distingeix per eslora',
+  'BOIB núm. 59, de 9 de mayo de 2023, págs. 24960-25067. Art. 53 (pesca en el mar: 53.1 permite la recreativa de artes menores, 53.2.a prohíbe la submarina y los concursos, 53.3 capturas accidentales), art. 76 (régimen de usos del ámbito marino; 76.4 prohibiciones), art. 78 (fondeo), art. 79 (zonas de baño), art. 80 (actividades deportivas) y art. 81 (buceo). El articulado solo está en el PDF, cuya capa de texto no es legible por máquina: hay que leerlo en pantalla':
+    'BOIB núm. 59, de 9 de maig de 2023, pàg. 24960-25067. Art. 53 (pesca a la mar: 53.1 permet la recreativa d’arts menors, 53.2.a prohibeix la submarina i els concursos, 53.3 captures accidentals), art. 76 (règim d’usos de l’àmbit marí; 76.4 prohibicions), art. 78 (fondeig), art. 79 (zones de bany), art. 80 (activitats esportives) i art. 81 (busseig). L’articulat només és al PDF, la capa de text del qual no és llegible per màquina: s’ha de llegir en pantalla',
+  'BOIB núm. 93, de 28 de julio de 2018. Art. 7.1 (prohibición general de fondear sobre Posidonia oceanica) y 7.2 (solo con sistemas de bajo impacto; donde hay campo de boyas se usa la boya). Los arts. 7.3, 7.4 y 13.1 están anulados por la sentencia 248/21 del TSJIB (BOIB núm. 125, de 11 de septiembre de 2021), y la versión que sirve este enlace no lo marca. No distingue por eslora':
+    'BOIB núm. 93, de 28 de juliol de 2018. Art. 7.1 (prohibició general de fondejar sobre Posidonia oceanica) i 7.2 (només amb sistemes de baix impacte; on hi ha camp de boies s’usa la boia). Els arts. 7.3, 7.4 i 13.1 estan anul·lats per la sentència 248/21 del TSJIB (BOIB núm. 125, d’11 de setembre de 2021), i la versió que serveix aquest enllaç no ho marca. No distingeix per eslora',
+  'El art. 76 del PORN permite los usos comunes del mar sin más límites que los suyos, y enumera cuáles son: prohíbe en todo el ámbito marino el esquí náutico, las motos acuáticas, las fiestas a bordo y la botadura de embarcaciones a motor.':
+    'L’art. 76 del PORN permet els usos comuns de la mar sense més límits que els seus, i enumera quins són: prohibeix a tot l’àmbit marí l’esquí nàutic, les motos aquàtiques, les festes a bord i l’avarada d’embarcacions de motor.',
+  'El art. 78 del PORN prohíbe fondear sobre Posidonia oceanica y también sobre praderas de Cymodocea nodosa, poblaciones de Zostera y fondos de maërl y coralígeno. Es la regulación del fondeo que el art. 4.2 de la Ley 2/2017 le encargaba.':
+    'L’art. 78 del PORN prohibeix fondejar sobre Posidonia oceanica i també sobre prades de Cymodocea nodosa, poblacions de Zostera i fons de maërl i coral·ligen. És la regulació del fondeig que l’art. 4.2 de la Llei 2/2017 li encarregava.',
+  'El art. 81 del PORN permite el submarinismo deportivo con escafandra o en apnea. Solo exige autorización cuando tiene finalidad lucrativa o se hace en grupos de más de doce personas, y fija un máximo de cuarenta buceadores al día.':
+    'L’art. 81 del PORN permet el submarinisme esportiu amb escafandre o en apnea. Només exigeix autorització quan té finalitat lucrativa o es fa en grups de més de dotze persones, i fixa un màxim de quaranta bussejadors al dia.',
+  'El Decret 26/2025 no prohíbe fondear en la reserva: su única regla de fondeo es la de los cinco puntos de artes de parada (art. 3.4). Rige, como en todo el Mediterráneo español, la prohibición de fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa.':
+    'El Decret 26/2025 no prohibeix fondejar a la reserva: l’única regla de fondeig que conté és la dels cinc punts d’arts de parada (art. 3.4). Regeix, com a tot el Mediterrani espanyol, la prohibició de fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa.',
+  'El órgano gestor puede señalizar o balizar áreas en restauración sobre las que no se puede fondear (art. 78.2).':
+    'L’òrgan gestor pot senyalitzar o abalisar àrees en restauració sobre les quals no es pot fondejar (art. 78.2).',
+  'El PORN la repite en su art. 53.2.a, junto a la del arrastre, el cerco, el palangre de superficie y los concursos de pesca.':
+    'El PORN la repeteix a l’art. 53.2.a, juntament amb la de l’arrossegament, l’encerclament, el palangre de superfície i els concursos de pesca.',
+  'El PORN no fija esloras máximas, temporadas ni campos de boyas. Puede hacerlo el futuro PRUG, que todavía no está aprobado (art. 75.3).':
+    'El PORN no fixa eslores màximes, temporades ni camps de boies. Ho pot fer el futur PRUG, que encara no està aprovat (art. 75.3).',
+  'En arena próxima a una pradera tampoco, si la cadena queda sobre ella o el borneo la alcanza (Real Decreto 191/2026).':
+    'En arena propera a una prada tampoc, si la cadena hi queda al damunt o el borneig hi arriba (Reial Decret 191/2026).',
+  'En las zonas de baño rige el art. 73 del Reglamento General de Costas, y su balizamiento no puede quedar a menos de 200 m de la playa ni de 50 m de los islotes (art. 79).':
+    'A les zones de bany regeix l’art. 73 del Reglament general de costes, i l’abalisament no pot quedar a menys de 200 m de la platja ni de 50 m dels illots (art. 79).',
+  'En verano la entrada y salida se hace por las zonas autorizadas. En temporada baja, o si no hay balizamiento, por una franja de 100 m junto a los núcleos de sa Ràpita y sa Colònia de Sant Jordi (art. 80.3).':
+    'A l’estiu l’entrada i la sortida es fan per les zones autoritzades. En temporada baixa, o si no hi ha abalisament, per una franja de 100 m devora els nuclis de sa Ràpita i sa Colònia de Sant Jordi (art. 80.3).',
+  'Es Trenc es uno de los sistemas litorales con más superficie de fanerógamas marinas de Mallorca: aquí estas prohibiciones afectan a buena parte del fondo.':
+    'Es Trenc és un dels sistemes litorals amb més superfície de fanerògames marines de Mallorca: aquí aquestes prohibicions afecten bona part del fons.',
+  'La dirección general puede añadir por resolución límites por zonas o por temporadas (art. 81.3).':
+    'La direcció general pot afegir per resolució límits per zones o per temporades (art. 81.3).',
+  'La orden de la reserva prohíbe expresamente en las dos zonas de protección especial «el fondeo de embarcaciones sobre las fanerógamas»: el art. 2 en el área de Cala Barril al Pla de Mar y el art. 3, en la redacción del Decreto 26/2019, en la de Fornells.':
+    'L’ordre de la reserva prohibeix expressament a les dues zones de protecció especial «el fondeig d’embarcacions sobre les fanerògames»: l’art. 2 a l’àrea de Cala Barril al Pla de Mar i l’art. 3, en la redacció del Decret 26/2019, a la de Fornells.',
+  'Las excursiones marítimas comerciales y el transporte colectivo de viajeros requieren autorización (art. 76.3).':
+    'Les excursions marítimes comercials i el transport col·lectiu de viatgers requereixen autorització (art. 76.3).',
+  'Los buceadores no pueden llevar instrumentos de pesca submarina: la actividad está prohibida en todo el ámbito marino (art. 4.1.c de la Ley 2/2017).':
+    'Els bussejadors no poden dur instruments de pesca submarina: l’activitat és prohibida a tot l’àmbit marí (art. 4.1.c de la Llei 2/2017).',
+  'Máximo de cuarenta buceadores al día en todo el ámbito marino (art. 81.2).':
+    'Màxim de quaranta bussejadors al dia a tot l’àmbit marí (art. 81.2).',
+  'Página oficial del espacio. El articulado del PORN se cita aparte, por el decreto':
+    'Pàgina oficial de l’espai. L’articulat del PORN se cita a part, pel decret',
+  'Permitido sin autorización para el buceador particular, con escafandra o en apnea (art. 81.1).':
+    'Permès sense autorització per al bussejador particular, amb escafandre o en apnea (art. 81.1).',
+  'Prohibida la circulación de embarcaciones rápidas motorizadas como el esquí bus y el esquí náutico (art. 76.4.a).':
+    'Prohibida la circulació d’embarcacions ràpides motoritzades com l’esquí bus i l’esquí nàutic (art. 76.4.a).',
+  'Prohibidas las fiestas en embarcaciones, party boats o asimilables (art. 76.4.d).':
+    'Prohibides les festes en embarcacions, party boats o assimilables (art. 76.4.d).',
+  'Prohibidas las motos acuáticas y los aparatos remolcados o traccionados por embarcaciones: esquí, paracaidismo, flotadores y similares (art. 76.4.b).':
+    'Prohibides les motos aquàtiques i els aparells remolcats o arrossegats per embarcacions: esquí, paracaigudisme, flotadors i similars (art. 76.4.b).',
+  'Prohibido alimentar a la fauna (art. 76.4.e).':
+    'Prohibit alimentar la fauna (art. 76.4.e).',
+  'Prohibido desembarcar en los islotes (art. 76.4.f).':
+    'Prohibit desembarcar als illots (art. 76.4.f).',
+  'Prohibido el desembarco y la botadura de embarcaciones a motor (art. 76.4.c).':
+    'Prohibits el desembarcament i l’avarada d’embarcacions de motor (art. 76.4.c).',
+  'Prohibido fondear sobre cualquier fanerógama marina, no solo sobre posidonia: el preámbulo de la orden nombra Posidonia oceanica, Cymodocea nodosa y Zostera noltii, de la que dice que la zona tiene la mayor extensión de Baleares.':
+    'Prohibit fondejar sobre qualsevol fanerògama marina, no només sobre posidònia: el preàmbul de l’ordre anomena Posidonia oceanica, Cymodocea nodosa i Zostera noltii, de la qual diu que la zona té l’extensió més gran de les Balears.',
+  'Prohibido fondear sobre Posidonia oceanica (art. 78.1, que remite al Decret 25/2018).':
+    'Prohibit fondejar sobre Posidonia oceanica (art. 78.1, que remet al Decret 25/2018).',
+  'Prohibido también sobre praderas de Cymodocea nodosa, poblaciones de Zostera y fondos de maërl y coralígeno (art. 78.3).':
+    'Prohibit també sobre prades de Cymodocea nodosa, poblacions de Zostera i fons de maërl i coral·ligen (art. 78.3).',
+  'Prohibidos los propulsores acuáticos para buceo y los scooters submarinos (art. 76.4.b).':
+    'Prohibits els propulsors aquàtics per a busseig i els escúters submarins (art. 76.4.b).',
+  'Requiere autorización del órgano gestor si la actividad es lucrativa o el grupo pasa de 12 personas (art. 81.2).':
+    'Requereix autorització de l’òrgan gestor si l’activitat és lucrativa o el grup passa de 12 persones (art. 81.2).',
+  'Vela, remo, kayak, paddle surf y kitesurf están permitidos fuera de la zona de baño; requieren autorización si son lucrativos o en grupos de más de 20 personas (art. 80).':
+    'Vela, rem, caiac, surf de rem i surf d’estel són permesos fora de la zona de bany; requereixen autorització si són lucratius o en grups de més de 20 persones (art. 80).',
 };

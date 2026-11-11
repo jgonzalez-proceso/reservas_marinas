@@ -28,7 +28,12 @@
  */
 
 import { permiso } from '../schema.js';
-import { fondeoPorPosidoniaGeneral } from '../normas-generales.js';
+import {
+  CONDICIONES_FONDEO_POSIDONIA,
+  CONDICION_ZONAS_DE_BANO,
+  FUENTES_FONDEO_GENERAL,
+  fondeoPorPosidoniaGeneral,
+} from '../normas-generales.js';
 
 const RESERVA = 'rm-reserva-marina-del-ponent-de-mallorca--reserva-marina--autonomica';
 
@@ -153,17 +158,25 @@ export default [
         permit: PERMISO_BUCEO,
         sources: ['caib-regulacion-ponent', 'boib-decret-26-2025', 'decret-41-2015', 'tramite-autorizacion-buceo'],
       },
+      // La única regla de fondeo que escribe el Decret 26/2025 es la de los
+      // puntos de artes de parada (art. 3.4); ni el régimen general ni las zonas
+      // de alta protección prohíben fondear. Pero una regla propia desplaza
+      // entera a la genérica, y esta lo hizo durante meses: el panel contestaba
+      // al fondeo en toda la reserva —y en las zonas interiores, que la
+      // heredan— sin una palabra sobre la posidonia. Por eso las condiciones
+      // generales van aquí escritas, detrás de la del sitio.
       fondeo: {
         status: 'restricted',
-        motivo: ARTES_DE_PARADA,
-        conditions: [ARTES_DE_PARADA],
-        sources: ['caib-regulacion-ponent'],
+        motivo:
+          'El Decret 26/2025 no prohíbe fondear en la reserva: su única regla de fondeo es la de los cinco puntos de artes de parada (art. 3.4). Rige, como en todo el Mediterráneo español, la prohibición de fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa.',
+        conditions: [ARTES_DE_PARADA, ...CONDICIONES_FONDEO_POSIDONIA, CONDICION_ZONAS_DE_BANO],
+        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent', ...FUENTES_FONDEO_GENERAL],
       },
       navegacion: {
         status: 'restricted',
         motivo: ARTES_DE_PARADA,
         conditions: [ARTES_DE_PARADA],
-        sources: ['caib-regulacion-ponent'],
+        sources: ['boib-decret-26-2025', 'caib-regulacion-ponent'],
       },
     },
   },

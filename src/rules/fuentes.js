@@ -101,8 +101,9 @@ export const FUENTES = {
     titulo:
       'Real Decreto 191/2026, de 11 de marzo, para la conservación de praderas de fanerógamas marinas en aguas marinas del Mediterráneo español',
     url: 'https://www.boe.es/buscar/doc.php?id=BOE-A-2026-5877',
-    referencia: 'Art. 5, fondeo sobre Posidonia oceanica y Cymodocea nodosa',
-    consultada: '2026-08-15',
+    referencia:
+      'BOE núm. 64, de 13 de marzo de 2026. Art. 5: 5.1 prohibición general de fondear sobre las praderas y en arena próxima si la cadena queda sobre ellas o el borneo las afecta; 5.2 sistemas de bajo impacto autorizados (boyas unitarias o campos de boyas); 5.3 excepciones. Art. 1.2: norma de mínimos, compatible con las autonómicas. No distingue por eslora',
+    consultada: '2026-11-11',
   },
   'boib-decret-62-2016-dragonera': {
     titulo:
@@ -224,14 +225,17 @@ export const FUENTES = {
     titulo:
       'Decret 25/2018, de 27 de juliol, sobre la conservació de la Posidonia oceanica a les Illes Balears',
     url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2018/07/27/25/dof/spa/html',
-    consultada: '2026-08-15',
+    referencia:
+      'BOIB núm. 93, de 28 de julio de 2018. Art. 7.1 (prohibición general de fondear sobre Posidonia oceanica) y 7.2 (solo con sistemas de bajo impacto; donde hay campo de boyas se usa la boya). Los arts. 7.3, 7.4 y 13.1 están anulados por la sentencia 248/21 del TSJIB (BOIB núm. 125, de 11 de septiembre de 2021), y la versión que sirve este enlace no lo marca. No distingue por eslora',
+    consultada: '2026-11-11',
   },
   'boe-rd-876-2014-costas': {
     titulo:
       'Real Decreto 876/2014, de 10 de octubre, por el que se aprueba el Reglamento General de Costas',
     url: 'https://www.boe.es/buscar/act.php?id=BOE-A-2014-10345',
-    referencia: 'Art. 73, zonas de baño balizadas y franjas de 200 m en playas y 50 m en el resto de la costa',
-    consultada: '2026-08-15',
+    referencia:
+      'Art. 73. 73.1: en las zonas de baño balizadas se prohíbe la navegación de recreo y el uso de cualquier embarcación a vela o motor. 73.2: sin balizamiento la zona de baño es una franja de 200 m en las playas y 50 m en el resto de la costa, donde no se puede navegar a más de tres nudos; ese apartado no prohíbe fondear',
+    consultada: '2026-11-11',
   },
   'boe-orden-aaa-1260-2014': {
     titulo:
@@ -470,9 +474,24 @@ export const FUENTES = {
     titulo:
       'Parque Natural Maritimoterrestre Es Trenc-Salobrar de Campos — página oficial del espacio y PORN aprobado por el Decreto 27/2023, de 8 de mayo',
     url: 'https://www.caib.es/sites/espaisnaturalsprotegits/es/n_parque_natural_maritimoterrestre_es_trenc-salobrar_de_campos',
+    referencia: 'Página oficial del espacio. El articulado del PORN se cita aparte, por el decreto',
+    consultada: '2026-11-11',
+  },
+  'boib-decreto-27-2023-porn-es-trenc': {
+    titulo:
+      'Decreto 27/2023, de 8 de mayo, por el que se aprueba el Plan de ordenación de los recursos naturales (PORN) de Es Trenc-Salobrar de Campos',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2023/05/08/27/dof/spa/pdf',
     referencia:
-      'El PORN desarrolla el art. 4 de la Ley 2/2017. Su articulado no está cargado en este mapa: en la fecha de esta revisión el eboibfront devolvía 503 por mantenimiento',
-    consultada: '2026-08-17',
+      'BOIB núm. 59, de 9 de mayo de 2023, págs. 24960-25067. Art. 53 (pesca en el mar: 53.1 permite la recreativa de artes menores, 53.2.a prohíbe la submarina y los concursos, 53.3 capturas accidentales), art. 76 (régimen de usos del ámbito marino; 76.4 prohibiciones), art. 78 (fondeo), art. 79 (zonas de baño), art. 80 (actividades deportivas) y art. 81 (buceo). El articulado solo está en el PDF, cuya capa de texto no es legible por máquina: hay que leerlo en pantalla',
+    consultada: '2026-11-11',
+  },
+  'boib-orden-1999-nord-menorca': {
+    titulo:
+      'Orden del consejero de Agricultura, Comercio e Industria de 15 de junio de 1999, por la que se establece la Reserva Marina del Norte de Menorca y se regulan las actividades a desarrollar',
+    url: 'https://boib.caib.es/pdf/1999081/mp9259.pdf',
+    referencia:
+      'BOCAIB núm. 81 de 1999, pág. 9259. Art. 2 (área A, de Cala Barril al Pla de Mar): prohíbe cualquier pesca, la extracción de flora y fauna, el fondeo de embarcaciones sobre las fanerógamas y el buceo con escafandra. El preámbulo identifica las fanerógamas de la zona: Posidonia oceanica, Cymodocea nodosa y Zostera noltii. El art. 3 (área B, Fornells) se lee en su redacción vigente, la del Decreto 26/2019',
+    consultada: '2026-11-11',
   },
 
   // -- Parc Natural de la Península de Llevant --------------------------------

@@ -13,14 +13,20 @@
  * circulen por el dominio público marítimo-terrestre inmediato. Pasar por allí
  * con el fusil a bordo ya es infracción, aunque no se pesque.
  *
- * LIMITACIÓN DE FUENTES. La Orden de 15 de junio de 1999 no ha podido leerse
- * íntegra: el enlace que el propio Govern publica sirve un extracto del BOCAIB
- * que contiene el anexo de aparejos pero no el articulado. Todo lo que aquí se
- * afirma se apoya en la página oficial de regulación de actividades, en el
- * Decreto 26/2019, en la Resolución de veda de 2024 y en la Orden 11/2026. Si
- * la orden de 1999 añade alguna regla de fondeo propia de las zonas de
- * protección especial, no está recogida: el fondeo se resuelve por la norma
- * estatal general, que ya prohíbe anclar sobre fanerógamas.
+ * LA ORDEN DE 1999 SÍ SE PUEDE LEER, y sí regula el fondeo. El enlace que el
+ * propio Govern publica lleva a la página 9258 del BOCAIB, que solo trae el
+ * arranque; el articulado sigue en la 9259. Durante meses esta ficha dio por
+ * hecho que no había regla propia y resolvió el fondeo de las zonas de
+ * protección especial con la norma estatal general. La hay en las dos áreas:
+ * el art. 2 (área A, de Cala Barril al Pla de Mar) y el art. 3 (área B,
+ * Fornells), este en la redacción que le dio el Decreto 26/2019, prohíben «el
+ * fondeo de embarcaciones sobre las fanerógamas».
+ *
+ * La diferencia con la regla general no es de matiz. «Fanerógamas» es más que
+ * posidonia y Cymodocea: el preámbulo de la orden nombra también la Zostera
+ * noltii, de la que dice que aquí está «la mayor extensión de Baleares», y el
+ * Real Decreto 191/2026 no la cubre. El régimen general de la reserva y la
+ * zona de veda siguen sin regla propia de fondeo: leído, no la tienen.
  *
  * Las tres zonas NO heredan unas de otras. Las áreas suman —28,19 del perímetro
  * general + 10,15 de protección especial + 12,49 de veda = 50,83 km²— porque el
@@ -28,7 +34,12 @@
  */
 
 import { permiso } from '../schema.js';
-import { fondeoPorPosidoniaGeneral } from '../normas-generales.js';
+import {
+  CONDICIONES_FONDEO_POSIDONIA,
+  CONDICION_ZONAS_DE_BANO,
+  FUENTES_FONDEO_GENERAL,
+  fondeoPorPosidoniaGeneral,
+} from '../normas-generales.js';
 
 const NORMA_CREACION = {
   titulo:
@@ -220,7 +231,7 @@ export default [
       'Fornells—, unas 1.015 ha en total. Ni pesca recreativa en ninguna modalidad, ni buceo con ' +
       'escafandra.',
     normas: NORMAS,
-    ultimaRevision: '2026-08-15',
+    ultimaRevision: '2026-11-11',
     actividades: {
       pescaDesdeCosta: {
         status: 'prohibited',
@@ -251,7 +262,25 @@ export default [
           'especial»: el buceo con escafandra no está admitido aquí.',
         sources: ['caib-regulacion-nord-menorca'],
       },
-      fondeo: fondeoPorPosidoniaGeneral(['caib-normativa-nord-menorca']),
+      fondeo: {
+        status: 'restricted',
+        motivo:
+          'La orden de la reserva prohíbe expresamente en las dos zonas de protección especial «el ' +
+          'fondeo de embarcaciones sobre las fanerógamas»: el art. 2 en el área de Cala Barril al Pla ' +
+          'de Mar y el art. 3, en la redacción del Decreto 26/2019, en la de Fornells.',
+        conditions: [
+          'Prohibido fondear sobre cualquier fanerógama marina, no solo sobre posidonia: el ' +
+            'preámbulo de la orden nombra Posidonia oceanica, Cymodocea nodosa y Zostera noltii, de ' +
+            'la que dice que la zona tiene la mayor extensión de Baleares.',
+          ...CONDICIONES_FONDEO_POSIDONIA.slice(1),
+          CONDICION_ZONAS_DE_BANO,
+        ],
+        sources: [
+          'boib-orden-1999-nord-menorca',
+          'boib-decreto-26-2019-illa-aire',
+          ...FUENTES_FONDEO_GENERAL,
+        ],
+      },
       navegacion: {
         status: 'not_regulated',
         motivo:
