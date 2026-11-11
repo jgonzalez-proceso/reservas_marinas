@@ -77,6 +77,17 @@ const NORMA_PRUG_SALINES = {
   normaUrl: 'https://www.caib.es/sites/puntdinformacioambiental/f/138364',
 };
 
+// El PRUG de Cabrera. El campo NORMATIVA vale «PRUG» también aquí. Se cita por
+// el BOIB y no por la copia del MITECO que usan las fichas: `urlOficial()` solo
+// deja pasar caib.es y boe.es, y la cita de una figura tiene que ser el boletín.
+// Va en catalán porque así se publicó; no hay versión castellana en el BOIB.
+const NORMA_PRUG_CABRERA = {
+  normaTitulo:
+    'Decret 58/2006, d’1 de juliol, pel qual s’aprova el Pla rector d’ús i gestió del Parc Nacional Maritimoterrestre de l’Arxipèlag de Cabrera per al període 2006-2012',
+  normaFecha: '2006-07-01',
+  normaUrl: 'https://boib.caib.es/pdf/2006097/mp8.pdf',
+};
+
 // Zonificación de un espacio natural protegido. `ZONIFICACI` es la categoría
 // del art. 22 de la Ley 5/2005 (exclusión, uso limitado, uso compatible, uso
 // general) y `AMBIT` separa la parte marina de la terrestre, igual que en la
@@ -231,9 +242,8 @@ export const SOURCES = [
     incluye: (attrs) => attrs.ambito === 'Marí',
 
     capas: [
-      // Solo la capa de límites. Las de zonificación PRUG (22 y 23) subdividen
-      // el interior de Cabrera y sa Dragonera y necesitan fichas propias; entran
-      // cuando se redacten, no antes.
+      // Solo la capa de límites. La zonificación PRUG de Cabrera (capa 22 de
+      // este mismo servicio) se carga desde la fuente `zonificacion-enp`.
       { id: 35, rol: 'areas', nombre: 'Límits ENP Illes Balears', mapea: ENP },
     ],
   },
@@ -247,7 +257,7 @@ export const SOURCES = [
     catalogo:
       'https://www.caib.es/sites/espaisnaturalsprotegits/es/parc_natural_de_salbufera_des_grau/',
     nota:
-      'El límite de un espacio natural protegido no basta para responder: dentro conviven categorías con regímenes distintos. En s’Albufera des Grau, la zona de exclusión marina prohíbe el fondeo y la navegación de cualquier embarcación (PRUG 6.2.2.5) mientras el resto del ámbito marino no lo hace. Por ahora solo se carga la zonificación de este parque, que es la única publicada como capa propia; la de Cabrera y sa Dragonera vive en otro servicio y entra cuando se redacten sus fichas.',
+      'El límite de un espacio natural protegido no basta para responder: dentro conviven categorías con regímenes distintos. En s’Albufera des Grau, la zona de exclusión marina prohíbe el fondeo y la navegación de cualquier embarcación (PRUG 6.2.2.5) mientras el resto del ámbito marino no lo hace. Se cargan la de este parque, la de ses Salines y la de Cabrera; la de sa Dragonera no, porque sus polígonos son todos terrestres.',
 
     // Igual que en la capa de límites: los PORN y PRUG regulan la pesca, el
     // fondeo y el buceo dentro del ámbito marino que delimitan, y la parte
@@ -278,6 +288,23 @@ export const SOURCES = [
       },
       // Y aquí la capa 2 es la zonificación del PORN de 2002, sustituida por
       // esta. Mismo criterio que en s'Albufera des Grau: solo la vigente.
+
+      // Cabrera. Sin esta capa el motor contestaba «con autorización» al
+      // fondeo, a la navegación y al buceo en todo el parque, y el PRUG prohíbe
+      // navegar y fondear en las zonas de reserva marina (213 ha) y fondear,
+      // bucear y la navegación deportiva en las de regeneración (563 ha). Vive
+      // en el servicio general de ENP, no en uno propio del parque.
+      //
+      // La de sa Dragonera (capa 23 del mismo servicio) no se carga y no hace
+      // falta: sus siete polígonos son todos terrestres.
+      {
+        id: 22,
+        rol: 'areas',
+        servicio: `${IDEIB}/GOIB_NATURA_ENP_IB/MapServer`,
+        nombre: 'Zonificació PRUG Parc Nacional Maritimoterrestre Arxipèlag Cabrera',
+        mapea: ZONIFICACION_ENP,
+        fijos: NORMA_PRUG_CABRERA,
+      },
     ],
   },
 

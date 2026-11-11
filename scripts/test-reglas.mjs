@@ -447,6 +447,14 @@ const FONDEO_SIN_MENCION_JUSTIFICADA = new Map([
     'fon-08-ss-parc-natural-de-ses-salines-d-eivissa-i-formentera--fondeig-regulat--mari',
     'campo de boyas obligatorio: no se puede echar el ancla sobre ningún fondo',
   ],
+  [
+    'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-especial--mari',
+    'puerto de Cabrera: se amarra a una de las cincuenta boyas, no se echa el ancla',
+  ],
+  [
+    'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-restringit-zona-de-busseig--mari',
+    'zonas de buceo: solo la embarcación de apoyo, amarrada a boya temporal',
+  ],
 ]);
 
 test('fondeo: toda regla propia que deja fondear menciona las praderas', () => {
@@ -479,4 +487,80 @@ test('Ponent: el fondeo menciona la posidonia además de los puntos de artes de 
     'la respuesta de fondeo debe incluir la prohibición sobre posidonia',
   );
   assert.ok(a.sources.includes('boe-rd-191-2026'), 'y citar el Real Decreto 191/2026');
+});
+
+// ---------------------------------------------------------------------------
+// Cabrera: el límite del parque no basta
+//
+// Con solo el límite cargado, el motor contestaba «con autorización» al fondeo,
+// a la navegación y al buceo en los 895 km² del parque. El PRUG prohíbe navegar
+// y fondear en las zonas de reserva marina, y solo deja fondear en el puerto y
+// en tres zonas de fondeo diurno. Cada prueba pulsa el centro del polígono
+// mayor de una categoría de la zonificación oficial.
+// ---------------------------------------------------------------------------
+
+const zonaCabrera = (categoria) =>
+  `zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--${categoria}--mari`;
+
+const CASOS_CABRERA = [
+  {
+    nombre: 'zona de reserva marina: ni fondeo ni navegación',
+    zona: zonaCabrera('zona-de-reserva'),
+    p: punto(2.935411, 39.125564),
+    espera: { fondeo: 'prohibited', navegacion: 'prohibited', buceo: 'prohibited' },
+  },
+  {
+    nombre: 'zona de regeneración: ni fondeo, ni buceo, ni navegación',
+    zona: zonaCabrera('zona-d-us-restringit-zona-de-regeneracio'),
+    p: punto(2.907261, 39.115094),
+    espera: { fondeo: 'prohibited', navegacion: 'prohibited', buceo: 'prohibited' },
+  },
+  {
+    nombre: 'zona de uso moderado: se navega con autorización, no se fondea',
+    zona: zonaCabrera('zona-d-us-moderat'),
+    p: punto(2.959199, 39.188791),
+    espera: { fondeo: 'prohibited', navegacion: 'allowed_with_authorization', buceo: 'prohibited' },
+  },
+  {
+    nombre: 'zona de fondeo diurno: fondeo con autorización, buceo no',
+    zona: zonaCabrera('zona-d-us-restringit-zona-de-fondeig-diurn'),
+    p: punto(2.960341, 39.142702),
+    espera: { fondeo: 'allowed_with_authorization', navegacion: 'allowed_with_authorization', buceo: 'prohibited' },
+  },
+  {
+    nombre: 'puerto: amarre con autorización',
+    zona: zonaCabrera('zona-d-us-especial'),
+    p: punto(2.930525, 39.148724),
+    espera: { fondeo: 'allowed_with_authorization', navegacion: 'allowed_with_authorization', buceo: 'prohibited' },
+  },
+  {
+    nombre: 'zona de buceo: buceo con autorización, fondeo solo de apoyo',
+    zona: zonaCabrera('zona-d-us-restringit-zona-de-busseig'),
+    p: punto(2.918189, 39.155563),
+    espera: { fondeo: 'restricted', navegacion: 'allowed_with_authorization', buceo: 'allowed_with_authorization' },
+  },
+];
+
+for (const caso of CASOS_CABRERA) {
+  test(`Cabrera — ${caso.nombre}`, () => {
+    assert.ok(dentroDe(caso.p, caso.zona), 'el punto debe caer dentro de la zona de la zonificación');
+    const r = resolver(caso.p, FEATURES, FICHAS);
+    for (const [actividad, estado] of Object.entries(caso.espera)) {
+      assert.equal(r.actividades[actividad].status, estado, `${actividad} debería ser "${estado}"`);
+    }
+    // La pesca no la toca la zonificación: la prohíbe el parque entero.
+    assert.equal(r.actividades.pescaSubmarina.status, 'prohibited');
+    assert.ok(
+      r.actividades.fondeo.determinadaPor.zoneId === caso.zona,
+      'el fondeo lo debe decidir la zona, no el límite del parque',
+    );
+  });
+}
+
+test('Cabrera: donde se puede fondear, el permiso sigue apareciendo', () => {
+  const diurno = resolver(punto(2.960341, 39.142702), FEATURES, FICHAS).actividades.fondeo;
+  assert.ok(diurno.permit, 'la zona de fondeo diurno debe publicar la autorización que habilita');
+  const reserva = resolver(punto(2.935411, 39.125564), FEATURES, FICHAS).actividades.fondeo;
+  assert.equal(reserva.permit, null, 'bajo una prohibición no se ofrece ningún permiso');
+  assert.deepEqual(reserva.otrosPermisos, [], 'ni propio ni de otra figura');
 });

@@ -173,6 +173,42 @@ export const NIVELES = [
     orden: 39,
   },
 
+  // Zonificación marina del PRUG de Cabrera. La reserva y la regeneración van
+  // en rojo porque allí no se navega ni se fondea; el fondeo diurno y el puerto
+  // en los tonos de la regulación del fondeo, que es de lo que hablan; el buceo
+  // en el azul de las zonas especiales de buceo; y el uso moderado, que cubre
+  // casi todo el parque antiguo, en el violeta más claro para no tapar lo demás.
+  {
+    proteccion: 'Zona de reserva',
+    color: '#b4232a',
+    orden: 11,
+  },
+  {
+    proteccion: "Zona d'ús restringit: zona de regeneració",
+    color: '#c9453c',
+    orden: 12,
+  },
+  {
+    proteccion: "Zona d'ús restringit: zona de busseig",
+    color: '#2f7fb8',
+    orden: 40,
+  },
+  {
+    proteccion: "Zona d'ús restringit: zona de fondeig diürn",
+    color: '#d9a441',
+    orden: 41,
+  },
+  {
+    proteccion: "Zona d'ús especial",
+    color: '#8c9aa6',
+    orden: 42,
+  },
+  {
+    proteccion: "Zona d'ús moderat",
+    color: '#c4aede',
+    orden: 43,
+  },
+
   // Regulación del fondeo. Aquí el color habla de fondear, no de pescar.
   {
     proteccion: 'Fondeig prohibit',

@@ -78,7 +78,7 @@ export default {
     'embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el ' +
     'motivo y la norma que la justifica.',
   'acerca.p2Html':
-    'Cubre las <strong>96 zonas</strong> cargadas hasta ahora en las cuatro islas y ' +
+    'Cubre las <strong>102 zonas</strong> cargadas hasta ahora en las cuatro islas y ' +
     'Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas ' +
     'marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios ' +
     'naturales protegidos con ámbito marino y la zonificación interna de s’Albufera des ' +
@@ -238,6 +238,18 @@ export default {
   "proteccion.Àrea d'aprofitament condicionat a la conservació":
     'Aprovechamiento condicionado a la conservación.',
   'proteccion.Ús portuari': 'Zona de uso portuario dentro del parque.',
+  "proteccion.Zona de reserva":
+    'Reserva marina del parque: ni navegación ni fondeo.',
+  "proteccion.Zona d'ús restringit: zona de regeneració":
+    'Zona en regeneración: ni fondeo, ni buceo, ni navegación deportiva.',
+  "proteccion.Zona d'ús restringit: zona de busseig":
+    'Zona de buceo con escafandra, con autorización del parque.',
+  "proteccion.Zona d'ús restringit: zona de fondeig diürn":
+    'Fondeo diurno con autorización; no se puede pernoctar.',
+  "proteccion.Zona d'ús especial":
+    'Puerto de Cabrera: amarre a boya con autorización; único lugar de pernocta.',
+  "proteccion.Zona d'ús moderat":
+    'Uso moderado: se navega con autorización, no se fondea ni se bucea.',
   'proteccion.Fondeig prohibit': 'Fondeo prohibido salvo fuerza mayor.',
   'proteccion.Fondeig regulat': 'Campo de boyas: hay que amarrar, no echar el ancla.',
   'proteccion.Fondeig lliure condicionat': 'Fondeo libre solo sobre arena, nunca sobre fanerógamas.',

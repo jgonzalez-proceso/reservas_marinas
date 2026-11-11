@@ -74,7 +74,7 @@ export default {
     'ein Ergebnis je Tätigkeit: Angeln vom Boot, Unterwasserjagd, Angeln von der Küste, ' +
     'Tauchen, Ankern und Navigation, mit der Begründung und der Vorschrift dahinter.',
   'acerca.p2Html':
-    'Sie deckt die bislang geladenen <strong>96 Gebiete</strong> auf den vier Inseln und ' +
+    'Sie deckt die bislang geladenen <strong>102 Gebiete</strong> auf den vier Inseln und ' +
     'Cabrera ab, jedes davon mit einem Datenblatt, das gegen das BOIB oder das BOE belegt ' +
     'ist: die zwölf Meeresschutzgebiete der Balearen, die marinen Natura-2000-Gebiete, die ' +
     'sieben Naturschutzgebiete mit Meeresanteil und die interne Zonierung von s’Albufera ' +
@@ -230,6 +230,18 @@ export default {
   "proteccion.Àrea d'aprofitament condicionat a la conservació":
     'Bewirtschaftung unter dem Vorbehalt der Erhaltung.',
   'proteccion.Ús portuari': 'Hafennutzungszone innerhalb des Parks.',
+  "proteccion.Zona de reserva":
+    'Meeresreservat des Parks: keine Navigation, kein Ankern.',
+  "proteccion.Zona d'ús restringit: zona de regeneració":
+    'Regenerationszone: kein Ankern, kein Tauchen, keine Sportschifffahrt.',
+  "proteccion.Zona d'ús restringit: zona de busseig":
+    'Tauchzone für Gerätetauchen, mit Genehmigung des Parks.',
+  "proteccion.Zona d'ús restringit: zona de fondeig diürn":
+    'Ankern am Tag mit Genehmigung; keine Übernachtung.',
+  "proteccion.Zona d'ús especial":
+    'Hafen von Cabrera: Bojen mit Genehmigung; einziger Ort zum Übernachten.',
+  "proteccion.Zona d'ús moderat":
+    'Gemässigte Nutzung: Navigation mit Genehmigung, kein Ankern oder Gerätetauchen.',
   'proteccion.Fondeig prohibit': 'Ankern verboten, ausser bei höherer Gewalt.',
   'proteccion.Fondeig regulat': 'Bojenfeld: festmachen, nicht ankern.',
   'proteccion.Fondeig lliure condicionat':

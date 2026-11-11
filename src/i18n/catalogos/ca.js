@@ -68,7 +68,7 @@ export default {
     'd’embarcació, pesca submarina, pesca des de costa, busseig, fondeig i navegació, amb ' +
     'el motiu i la norma que la justifica.',
   'acerca.p2Html':
-    'Cobreix les <strong>96 zones</strong> carregades fins ara a les quatre illes i ' +
+    'Cobreix les <strong>102 zones</strong> carregades fins ara a les quatre illes i ' +
     'Cabrera, totes amb fitxa redactada i citada contra el BOIB o el BOE: les dotze reserves ' +
     'marines de Balears, els espais marins de la Xarxa Natura 2000, els set espais ' +
     'naturals protegits amb àmbit marí i la zonificació interna de s’Albufera des ' +
@@ -217,6 +217,18 @@ export default {
   "proteccion.Àrea d'aprofitament condicionat a la conservació":
     'Aprofitament condicionat a la conservació.',
   'proteccion.Ús portuari': 'Zona d’ús portuari dins el parc.',
+  "proteccion.Zona de reserva":
+    'Reserva marina del parc: ni navegació ni fondeig.',
+  "proteccion.Zona d'ús restringit: zona de regeneració":
+    'Zona en regeneració: ni fondeig, ni busseig, ni navegació esportiva.',
+  "proteccion.Zona d'ús restringit: zona de busseig":
+    'Zona de busseig amb escafandre, amb autorització del parc.',
+  "proteccion.Zona d'ús restringit: zona de fondeig diürn":
+    'Fondeig diürn amb autorització; no s’hi pot pernoctar.',
+  "proteccion.Zona d'ús especial":
+    'Port de Cabrera: amarratge a boia amb autorització; únic lloc de pernoctació.',
+  "proteccion.Zona d'ús moderat":
+    'Ús moderat: s’hi navega amb autorització, no s’hi fondeja ni s’hi busseja.',
   'proteccion.Fondeig prohibit': 'Fondeig prohibit llevat de força major.',
   'proteccion.Fondeig regulat': 'Camp de boies: cal amarrar, no llançar l’àncora.',
   'proteccion.Fondeig lliure condicionat':

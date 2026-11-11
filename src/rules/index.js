@@ -30,7 +30,6 @@ import natura2000Estatals from './natura2000/estatals.js';
 import natura2000Menorca from './natura2000/menorca.js';
 
 import enpSerraDeTramuntana from './espacios-naturales/serra-de-tramuntana.js';
-import enpCabrera from './espacios-naturales/cabrera.js';
 import enpEsTrenc from './espacios-naturales/es-trenc-salobrar.js';
 import enpPeninsulaDeLlevant from './espacios-naturales/peninsula-de-llevant.js';
 
@@ -42,6 +41,10 @@ import albuferaDesGrau from './albufera-des-grau.js';
 // Mismo caso: nueve fichas repartidas entre el límite del parque, su
 // zonificación y la capa de regulación del fondeo, todas del Decreto 132/2005.
 import sesSalines from './ses-salines.js';
+
+// Y Cabrera: el límite del parque nacional y las seis categorías de su
+// zonificación marina, todas del PRUG de 2006.
+import cabrera from './cabrera.js';
 
 /** Fichas tal y como se redactan, sin herencia aplicada. */
 export const FICHAS_DECLARADAS = [
@@ -60,11 +63,11 @@ export const FICHAS_DECLARADAS = [
   ...natura2000Estatals,
   ...natura2000Menorca,
   ...enpSerraDeTramuntana,
-  ...enpCabrera,
   ...enpEsTrenc,
   ...enpPeninsulaDeLlevant,
   ...albuferaDesGrau,
   ...sesSalines,
+  ...cabrera,
 ];
 
 export const FICHAS_LISTA = resuelveHerencia(FICHAS_DECLARADAS);

@@ -75,7 +75,7 @@ export default {
     'shore angling, diving, anchoring and navigation, with the reason and the regulation ' +
     'behind it.',
   'acerca.p2Html':
-    'It covers the <strong>96 areas</strong> loaded so far across the four islands and ' +
+    'It covers the <strong>102 areas</strong> loaded so far across the four islands and ' +
     'Cabrera, every one of them with a written record cited against the BOIB or the BOE: ' +
     'the twelve marine reserves of the Balearics, the marine Natura 2000 sites, the seven ' +
     'protected natural areas with a marine scope, and the internal zoning of s’Albufera ' +
@@ -224,6 +224,18 @@ export default {
   "proteccion.Àrea d'aprofitament condicionat a la conservació":
     'Exploitation conditional on conservation.',
   'proteccion.Ús portuari': 'Port use zone within the park.',
+  "proteccion.Zona de reserva":
+    'Marine reserve of the park: no navigation, no anchoring.',
+  "proteccion.Zona d'ús restringit: zona de regeneració":
+    'Regeneration zone: no anchoring, no diving, no recreational navigation.',
+  "proteccion.Zona d'ús restringit: zona de busseig":
+    'Scuba diving zone, with a permit from the park.',
+  "proteccion.Zona d'ús restringit: zona de fondeig diürn":
+    'Daytime anchoring with a permit; no overnight stays.',
+  "proteccion.Zona d'ús especial":
+    'Cabrera harbour: mooring buoys with a permit; the only place to stay overnight.',
+  "proteccion.Zona d'ús moderat":
+    'Moderate use: navigation with a permit, no anchoring or scuba diving.',
   'proteccion.Fondeig prohibit': 'Anchoring prohibited except in an emergency.',
   'proteccion.Fondeig regulat': 'Mooring buoy field: you must moor, not drop anchor.',
   'proteccion.Fondeig lliure condicionat':

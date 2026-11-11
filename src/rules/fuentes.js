@@ -403,8 +403,16 @@ export const FUENTES = {
       'Plan Rector de Uso y Gestión del Parque Nacional Marítimo-Terrestre del Archipiélago de Cabrera',
     url: 'https://www.miteco.gob.es/content/dam/miteco/es/parques-nacionales-oapn/red-parques-nacionales/parques-nacionales/PRUGCabrera_tcm30-62821.pdf',
     referencia:
-      'Apartado 2.2 (usos prohibidos): jj) pesca deportiva en cualquier modalidad, ll) navegación, mm) buceo sin autorización, ii) apnea en mayo y junio. Apartado 2.3.2 (pesca profesional) y 2.3.3 (navegación y anclaje)',
-    consultada: '2026-08-15',
+      'Decreto 58/2006, de 1 de julio (BOIB núm. 97, de 11 de julio de 2006), publicado solo en catalán. Apartado 2.1.1 (zonificación marina: reserva, zonas de buceo, de fondeo diurno y de regeneración, uso moderado y uso especial), 2.1.2 (qué implica cada zona; a.3 ni navegación ni anclaje en las reservas marinas, b.4 fondeo diurno, b.5 regeneración), 2.2 (usos prohibidos: l atraque fuera de zonas autorizadas, z navegar, fondear o bucear sin autorización, ii apnea en mayo y junio, jj pesca deportiva, ll navegación, mm buceo), 2.3.3 (navegación y anclaje) y 2.3.4 (buceo)',
+    consultada: '2026-11-11',
+  },
+  'ideib-zonificacion-cabrera': {
+    titulo:
+      'Zonificació PRUG Parc Nacional Maritimoterrestre Arxipèlag Cabrera — cartografía oficial (IDEIB, capa 22 del servicio GOIB_NATURA_ENP_IB)',
+    url: 'https://ideib.caib.es/geoserveis/rest/services/public/GOIB_NATURA_ENP_IB/MapServer/22',
+    referencia:
+      'Campo ZONIFICACI sobre el ámbito marino (AMBIT=«Marí»): zona de reserva 213 ha, zonas de uso restringido de regeneración 563 ha, de buceo 25 ha y de fondeo diurno 47 ha, zona de uso especial 71 ha y zona de uso moderado 7.801 ha. Dibujada sobre el parque anterior a la ampliación de 2019',
+    consultada: '2026-11-11',
   },
   'boe-ampliacion-cabrera-2019': {
     titulo:

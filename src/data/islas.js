@@ -79,6 +79,21 @@ export const ISLAS_POR_ZONA = {
     'mallorca',
   'enp-es530002-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--parc-nacional--mari':
     'cabrera',
+
+  // Zonificación marina del PRUG de Cabrera (Decret 58/2006): seis categorías,
+  // todas dentro del parque anterior a la ampliación de 2019.
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-de-reserva--mari':
+    'cabrera',
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-restringit-zona-de-regeneracio--mari':
+    'cabrera',
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-restringit-zona-de-busseig--mari':
+    'cabrera',
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-restringit-zona-de-fondeig-diurn--mari':
+    'cabrera',
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-especial--mari':
+    'cabrera',
+  'zon-02-ca-parc-nacional-maritimoterrestre-de-l-arxipelag-de-cabrera--zona-d-us-moderat--mari':
+    'cabrera',
   'enp-es530004-parc-natural-de-s-albufera-des-grau--parc-natural--mari': 'menorca',
   'enp-es530014-reserves-naturals-de-les-illes-des-porros-s-estany-la-bassa-de-morella-es-prat-i-l-illa-d-en-colom--reserva-natural--mari':
     'menorca',
