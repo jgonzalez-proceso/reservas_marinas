@@ -68,7 +68,7 @@ export default {
     'd’embarcació, pesca submarina, pesca des de costa, busseig, fondeig i navegació, amb ' +
     'el motiu i la norma que la justifica.',
   'acerca.p2Html':
-    'Cobreix les <strong>102 zones</strong> carregades fins ara a les quatre illes i ' +
+    'Cobreix les <strong>121 zones</strong> carregades fins ara a les quatre illes i ' +
     'Cabrera, totes amb fitxa redactada i citada contra el BOIB o el BOE: les dotze reserves ' +
     'marines de Balears, els espais marins de la Xarxa Natura 2000, els set espais ' +
     'naturals protegits amb àmbit marí i la zonificació interna de s’Albufera des ' +

@@ -78,7 +78,7 @@ export default {
     'embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el ' +
     'motivo y la norma que la justifica.',
   'acerca.p2Html':
-    'Cubre las <strong>102 zonas</strong> cargadas hasta ahora en las cuatro islas y ' +
+    'Cubre las <strong>121 zonas</strong> cargadas hasta ahora en las cuatro islas y ' +
     'Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas ' +
     'marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios ' +
     'naturales protegidos con ámbito marino y la zonificación interna de s’Albufera des ' +

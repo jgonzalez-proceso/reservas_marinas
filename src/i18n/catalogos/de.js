@@ -74,7 +74,7 @@ export default {
     'ein Ergebnis je Tätigkeit: Angeln vom Boot, Unterwasserjagd, Angeln von der Küste, ' +
     'Tauchen, Ankern und Navigation, mit der Begründung und der Vorschrift dahinter.',
   'acerca.p2Html':
-    'Sie deckt die bislang geladenen <strong>102 Gebiete</strong> auf den vier Inseln und ' +
+    'Sie deckt die bislang geladenen <strong>121 Gebiete</strong> auf den vier Inseln und ' +
     'Cabrera ab, jedes davon mit einem Datenblatt, das gegen das BOIB oder das BOE belegt ' +
     'ist: die zwölf Meeresschutzgebiete der Balearen, die marinen Natura-2000-Gebiete, die ' +
     'sieben Naturschutzgebiete mit Meeresanteil und die interne Zonierung von s’Albufera ' +

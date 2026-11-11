@@ -148,7 +148,83 @@ export const N2000_MARINO = {
   ES0000233: { nombre: 'D’Addaia a s’Albufera', motivo: 'decret-91-2023-art-2', isla: 'menorca' },
   ES0000234: { nombre: 'S’Albufera des Grau', motivo: 'decret-91-2023-art-2', isla: 'menorca' },
 
+  // -- Eivissa y Formentera, ámbito marino del art. 2 del Decret 91/2023 ------
+  //
+  // Faltaron enteras hasta el 2026-11-11, y no por decisión de la norma: el
+  // art. 2 las lista igual que a las de Mallorca y Menorca. Fue una omisión de
+  // esta tabla, y de las que cuestan: cuatro planes de gestión aprobados
+  // cambian respuestas aquí —uno limita el fondeo por eslora, otro prohíbe la
+  // pesca submarina, otro la hace autorizable solo ciertos días—.
+  //
+  // Pla de Gestió Natura 2000 de Formentera (Decret 17/2020)
+  ES5310109: { nombre: 'Àrea marina de cala Saona', motivo: 'decret-91-2023-art-2', isla: 'formentera' },
+  ES5310110: {
+    nombre: 'Àrea marina de Platja de Tramuntana',
+    motivo: 'decret-91-2023-art-2',
+    isla: 'formentera',
+  },
+  ES5310111: {
+    nombre: 'Àrea marina de Platja de Migjorn',
+    motivo: 'decret-91-2023-art-2',
+    isla: 'formentera',
+  },
+  ES5310024: { nombre: 'La Mola', motivo: 'decret-91-2023-art-2', isla: 'formentera' },
+  ES5310025: { nombre: 'Cap de Barbaria', motivo: 'decret-91-2023-art-2', isla: 'formentera' },
+
+  // Pla de Gestió Natura 2000 de ses Salines d'Eivissa i Formentera (Decret 48/2015)
+  ES0000084: {
+    nombre: "Ses Salines d'Eivissa i Formentera",
+    motivo: 'decret-91-2023-art-2',
+    isla: ['eivissa', 'formentera'],
+  },
+
+  // Pla de Gestió Natura 2000 Costa Oest d'Eivissa (Decret 49/2022)
+  ES5310104: { nombre: "Costa de l'oest d'Eivissa", motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+  ES5310023: { nombre: "Illots de ponent d'Eivissa", motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+  ES0000078: { nombre: 'Es Vedrà - es Vedranell', motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+
+  // Pla de Gestió Natura 2000 Illots del llevant d'Eivissa (Decret 29/2022)
+  ES5310107: { nombre: 'Àrea marina de Tagomago', motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+  ES0000082: { nombre: 'Tagomago', motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+  ES0000242: {
+    nombre: 'Illots de Santa Eulària, Rodona i es Canar',
+    motivo: 'decret-91-2023-art-2',
+    isla: 'eivissa',
+  },
+
+  // Norte de Eivissa: en el art. 2, con el plan de gestión en tramitación
+  ES5310105: { nombre: "Es Amunts d'Eivissa", motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+  ES5310106: {
+    nombre: 'Àrea marina de ses Margalides',
+    motivo: 'decret-91-2023-art-2',
+    isla: 'eivissa',
+  },
+  ES5310112: { nombre: 'Nord de Sant Joan', motivo: 'decret-91-2023-art-2', isla: 'eivissa' },
+
   // -- Gestión estatal, aguas exteriores ------------------------------------
+  ES0000515: {
+    nombre: 'Espacio marino de Formentera y del sur de Ibiza',
+    motivo: 'estatal-aguas-exteriores',
+    isla: ['eivissa', 'formentera'],
+  },
+  ES0000516: {
+    nombre: 'Espacio marino del poniente y norte de Ibiza',
+    motivo: 'estatal-aguas-exteriores',
+    isla: 'eivissa',
+  },
+  ES0000517: {
+    nombre: 'Espacio marino del levante de Ibiza',
+    motivo: 'estatal-aguas-exteriores',
+    isla: 'eivissa',
+  },
+  // ZEC de gestión estatal con medidas de conservación aprobadas (Orden
+  // AAA/1366/2016). Es el único espacio estatal de Baleares cuyo instrumento
+  // regula algo que le importa a un patrón: el fondeo.
+  ES5310108: {
+    nombre: 'Área marina del cap Martinet',
+    motivo: 'estatal-aguas-exteriores',
+    isla: 'eivissa',
+  },
   ES0000518: {
     nombre: 'Espacio marino del sur de Mallorca y Cabrera',
     motivo: 'estatal-aguas-exteriores',

@@ -10,16 +10,16 @@ El usuario pulsa un punto del mar. El motor reúne **todas** las figuras de prot
 
 Este encuadre es deliberado. Diseñar alrededor de `ReservesMarines` obligaría a refactorizar media aplicación al incorporar Natura 2000, los espacios naturales protegidos o la protección de la posidonia — todas ellas se solapan sobre el mismo trozo de mar y todas aplican a la vez.
 
-Estado: **seis capas regulatorias activas**, 102 zonas, **todas con ficha redactada y citada**.
+Estado: **seis capas regulatorias activas**, 121 zonas, **todas con ficha redactada y citada**.
 
 - **Reservas marinas** (41 zonas, todas con ficha): las doce reservas de Baleares y sus zonas interiores, en sus ámbitos autonómico y estatal.
-- **Red Natura 2000, ámbito marino** (35 zonas, todas con ficha): los espacios autonómicos del art. 2 del Decret 91/2023, los del ámbito marino de un plan de gestión aprobado que no están en esa lista, y 6 espacios marinos de gestión estatal.
+- **Red Natura 2000, ámbito marino** (54 zonas, todas con ficha, en las cuatro islas): los espacios autonómicos del art. 2 del Decret 91/2023, los del ámbito marino de un plan de gestión aprobado que no están en esa lista, y 10 espacios marinos de gestión estatal.
 - **Espacios naturales protegidos, ámbito marino** (7 zonas): Serra de Tramuntana, Cabrera, s'Albufera des Grau y sus reservas naturales, es Trenc-Salobrar, la Península de Llevant y ses Salines d'Eivissa i Formentera.
 - **Zonificación marina de los ENP** (14 zonas): el interior del ámbito marino de s'Albufera des Grau —exclusión, uso limitado y uso compatible—, el de ses Salines, con las cinco categorías del PORN de 2002, y el de Cabrera, con las seis categorías marinas de su PRUG.
 - **Regulación específica de pesca submarina** (2 zonas): los polígonos oficiales de pesca submarina prohibida y condicionada de s'Albufera des Grau.
 - **Regulación del fondeo** (3 zonas): fondeo prohibido, regulado con campo de boyas y libre condicionado en ses Salines, según el art. 117 de su PRUG.
 
-Cobertura por isla: Mallorca 50/50, Menorca 27/27, Eivissa 18/18, Formentera 13/13 y Cabrera 8/8. **Ninguna zona cargada se resuelve ya como no determinable.** Las doce reservas marinas de Baleares tienen ficha, y Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
+Cobertura por isla: Mallorca 50/50, Menorca 27/27, Eivissa 32/32, Formentera 20/20 y Cabrera 8/8. **Ninguna zona cargada se resuelve ya como no determinable.** Las doce reservas marinas de Baleares tienen ficha, y Cabrera **no se modela como reserva marina** sino como parque nacional, con el PRUG como fuente.
 
 Que no quede ningún `unknown` no significa que no falte trabajo: faltan capas enteras y dentro de las fichas hay condiciones que remiten a normas que este mapa no dibuja. La lista de lo que falta, medida en la auditoría del 2026-11-11, está en «Lo que falta por cargar». El mensaje de `SIN_FIGURAS` sigue siendo tan necesario como el primer día.
 
@@ -29,7 +29,7 @@ La web lleva **selector de isla** y abre por defecto en **todas las islas a la v
 
 En esa vista hay que **deduplicar por `featureId`**: una figura que recae sobre dos islas está a propósito en los dos ficheros —el canal de Menorca en Mallorca y en Menorca, els Freus en Eivissa y en Formentera—, y sin deduplicar el panel enseñaría la misma reserva dos veces y el motor la contaría dos veces entre las figuras del punto.
 
-El coste es real y conviene tenerlo presente: **30,2 MB de cartografía, unos 6,7 MB con gzip**, frente a 3,1 MB gzip de Mallorca sola o 2,9 de Menorca. Se descarga una vez y queda en caché, pero para una consulta puntual en el agua la vista de una isla es mucho más ligera.
+El coste es real y conviene tenerlo presente: **35,2 MB de cartografía, unos 7,8 MB con gzip**, frente a 3,3 MB gzip de Mallorca sola, 3,0 de Menorca o 0,9 de Eivissa. Se descarga una vez y queda en caché, pero para una consulta puntual en el agua la vista de una isla es mucho más ligera.
 
 **El encuadre inicial se aplaza un fotograma y fuerza `invalidateSize`.** Leaflet calcula el zoom con el tamaño del contenedor, y en el primer ciclo la disposición flexible todavía no ha asentado el ancho: daba zoom 9 en vez de 8 y dejaba Eivissa y Formentera fuera de pantalla.
 
@@ -353,12 +353,11 @@ Medido en la auditoría del 2026-11-11. Lo que sigue son capas o fichas que no e
 
 | Qué | Dónde está | Qué pasa hoy |
 |---|---|---|
-| Natura 2000 de Eivissa y Formentera | `natura2000-marino.js` no tiene ningún espacio pitiuso; el art. 2 del Decret 91/2023 lista 17 | Cuatro planes aprobados sin cargar. El de Formentera limita el fondeo en arenales a esloras de menos de 16 m; el de los illots del llevant d'Eivissa prohíbe la pesca submarina fuera de la reserva de Tagomago; el de la Costa Oest la hace autorizable solo ciertos días en Illots de Ponent |
 | Fondeo de la costa este de Menorca | `GOIB_N2000_CostaEMenorca`, capa 6 | 2.183 ha de fondeo prohibido y 35 de regulado contestan «restringido». La ficha de s'Albufera des Grau dice que esa delimitación no se publica como capa, y sí se publica. Pesa 12,9 MB en bruto (324.000 vértices) |
 | Posidonia de alto valor y a regular | `GOIB_Posidonia_IB`, capas 0 y 1 (37 polígonos) | Sin cargar. Tienen efectos propios en el Decret 25/2018: en las de alto valor no puede haber ni boyas |
 | Campos de boyas y zonas de servicio portuarias | `GOIB_PortsIB` y los perímetros del anexo 1.2 del Decret 25/2018 | Sin cargar. Dentro de un campo de boyas está prohibido fondear con ancla |
 
-La lectura jurídica de la primera fila la hizo un agente sobre el texto oficial y **no está contrastada artículo por artículo**: antes de escribir una ficha hay que volver a la norma.
+Y dentro de las Pitiusas quedan tres espacios sin cargar: **Porroig** (ES5310031) y **Cap Llentrisca - sa Talaia** (ES5310032), que son del plan de la Costa Oest pero no figuran en el art. 2 —entrarían por `ambit-mari-del-pla-de-gestio` si su polígono tiene parte marina, y no se ha comprobado—, y el LIC estatal del **Canal de Ibiza** (ESZZ16012), cuyo instrumento no se ha leído.
 
 ### El parque de ses Salines: tres capas y una contradicción del propio PRUG
 
@@ -405,6 +404,29 @@ Tres hallazgos que conviene no volver a descubrir:
 
 **Las categorías de zonificación que no imponen nada van a `not_regulated`, no a `restricted`.** Las zonas de uso limitado y de uso compatible son categorías de planificación del art. 22 de la Ley 5/2005: fijan la vocación del área, no un régimen de usos. Si se les pusiera `restricted`, ganarían al parque por ser más pequeñas —*lex specialis*— y el panel enseñaría una restricción genérica en lugar de las condiciones reales del PORN y el PRUG. La única excepción es el fondeo en la zona de uso limitado, que el apartado 7.1.2 sí regula («donde el fondeo es una actividad regulada o prohibida») y cuya ficha lleva por eso sus condiciones completas, para no perder información al desplazar a la del parque.
 
+### Natura 2000 sí restringe la pesca en dos planes de Eivissa
+
+La regla de arriba tiene una puerta, y está en el propio art. 5: la remisión a la normativa general vale «sens perjudici que el pla de gestió de l'espai n'estableixi una regulació addicional». En Mallorca y Menorca ningún plan la había usado. En Eivissa la usan dos, y por eso estas fichas no llaman a `pescaSubmarinaRemitida`:
+
+| Plan | Espacios | Qué dice |
+|---|---|---|
+| Illots del llevant d'Eivissa (Decret 29/2022, ap. 5.5.4.2) | ES5310107, ES0000082, ES0000242 | Fuera de la reserva de Tagomago, prohibidas las pescas recreativas con fusil y con cebo vivo. Dentro la submarina ya la prohíbe el Decret 45/2018, así que es `prohibited` en todo el ámbito |
+| Costa Oest d'Eivissa (Decret 49/2022, ap. 5.9.2.2) | ES5310023 | En la ZEC Illots de Ponent, fuera de la reserva de ses Bledes, la submarina es autorizable y solo martes, jueves, fines de semana y festivos |
+
+Los otros dos planes aprobados no tocan la pesca pero sí el fondeo. El de **Formentera** (Decret 17/2020, ap. 9.7.4) trae la única regla de **eslora** de toda la cartografía: en los arenales de menos de 15 m de fondo solo fondean embarcaciones de menos de 16 m. Esa «zona de fondeo condicionado» está en los planos 5.1 a 5.5 del anexo II del plan y el IDEIB no la publica como capa, así que va como condición escrita y no como polígono. El de **ses Salines** (Decret 48/2015) repite el esquema de fondeo del art. 117 del PRUG y prohíbe por sí mismo la pesca submarina.
+
+**Los quince espacios pitiusos del art. 2 faltaron enteros hasta el 2026-11-11.** No los excluía ninguna norma: fue una omisión de la lista blanca, y de las caras, porque `rules:check` no puede ver lo que nunca se declaró. La comprobación que la habría cazado es contar los espacios del art. 2 contra la tabla.
+
+**Una ficha más restrictiva tapa las condiciones de la que desplaza, y eso obliga a mirar dónde rige de verdad cada regla.** Las prohibiciones de pesca de superficie del plan de llevant —ni cebo vivo ni competiciones— solo rigen fuera de la reserva de Tagomago, y la reserva cubre casi toda la ZEC: 218 de los 222 puntos muestreados. Con `restricted`, la ficha Natura 2000 ganaba por rango a la reserva —que es «con autorización»— también dentro de ella, y el panel perdía los aparejos y cupos de la reserva justo donde mandan. Por eso esa regla va en `allowed` con las dos prohibiciones en las condiciones. Hay prueba de regresión.
+
+### Una fuente se parte en dos capas cuando solo algunas de sus figuras pesan
+
+La decisión de dibujar una capa de entrada era por fuente entera, y bastaba mientras ningún espacio Natura 2000 restringía la pesca. Con los dos planes de Eivissa, tres espacios encendían la capa completa y los más de 5.000 km² de ZEPA sobre Mallorca volvían a teñir el mapa.
+
+Ahora `creaCapaAreas` recibe el predicado `pesa` y parte la fuente: las figuras que pesan van en una capa encendida y el resto en otra, apagada, con su propio interruptor y el rótulo «sin efecto en la pesca». Las dos mitades comparten plano de Leaflet, porque el apilado es de la fuente. En la vista general se encienden cinco espacios Natura 2000 y quedan apagados 49.
+
+**Solo Natura 2000 es partible** (`FUENTES_PARTIBLES`). Partir tiene sentido donde la mitad que no pesa es tan extensa que encendida tapa el mapa. En la zonificación de un parque pasa lo contrario: las piezas que no tocan la pesca —las zonas de fondeo diurno y de buceo de Cabrera— son pequeñas y son justo lo que se quiere ver junto a las vedadas. Partirla las apagaría, y pasó al primer intento.
+
 ### Lista blanca de espacios Natura 2000
 
 La capa oficial publica más de doscientos espacios de Baleares y la mayoría son exclusivamente terrestres. `src/data/natura2000-marino.js` declara cuáles se cargan y **por qué motivo jurídico**, nunca por criterio geométrico:
@@ -413,7 +435,7 @@ La capa oficial publica más de doscientos espacios de Baleares y la mayoría so
 |---|---|
 | `decret-91-2023-art-2` | El art. 2 lo lista nominalmente como espacio con ámbito marino. |
 | `ambit-mari-del-pla-de-gestio` | No está en ese art. 2, pero sí en el ámbito marino de un plan de gestión aprobado cuyas normas marinas se aplican al plan en conjunto. |
-| `estatal-aguas-exteriores` | Espacio marino de gestión estatal; su régimen está en el instrumento estatal. |
+| `estatal-aguas-exteriores` | Espacio marino de gestión estatal; su régimen está en el instrumento estatal. De los diez, solo la ZEC del cap Martinet (Orden AAA/1366/2016) regula algo que le importa a un patrón: el fondeo. |
 
 `rules:check` falla si un código declarado deja de aparecer en la capa descargada: significa que el espacio ha cambiado de designación o el servicio ha dejado de publicarlo, y eso hay que mirarlo.
 
@@ -501,7 +523,7 @@ Las capas se pueden ocultar desde el control del mapa, pero **ocultar no desacti
 
 Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo arriba: `natura2000` 401, `zonificacion-enp` 402, `espacios-naturales` 403, `reservas-marinas` 404, `regulacion-fondeo` 405 y `regulacion-pesca-submarina` 406; el marcador de la consulta va por encima de todos. Sin planos, apagar y volver a encender una capa desde el control la recolocaría encima de todo, que es justo lo que se quería evitar. La de pesca submarina va arriba del todo porque es la que contesta directamente a la pregunta de esta web, y quedar debajo del parque la haría invisible justo donde importa.
 
-**El bloque «Qué es este mapa» existe para que haya algo que indexar.** Sin él, un rastreador que no ejecute JavaScript veía **11 palabras**: el título, los botones y el aviso legal. Todo el trabajo del proyecto —las seis capas, las 102 zonas, la cita normativa por ficha— vivía en el bundle y en los GeoJSON, donde ningún buscador lo lee. Con él son 239. Va en el HTML estático y plegado por defecto, como la leyenda: el contenido es el mismo lo vea quien lo vea.
+**El bloque «Qué es este mapa» existe para que haya algo que indexar.** Sin él, un rastreador que no ejecute JavaScript veía **11 palabras**: el título, los botones y el aviso legal. Todo el trabajo del proyecto —las seis capas, las 121 zonas, la cita normativa por ficha— vivía en el bundle y en los GeoJSON, donde ningún buscador lo lee. Con él son 239. Va en el HTML estático y plegado por defecto, como la leyenda: el contenido es el mismo lo vea quien lo vea.
 
 Va **en `.zona-pie`, hermano de `<footer>` y no hijo suyo**. Hermano porque el footer es información de cierre y esto es contenido principal —además, los extractores de contenido descartan `<footer>` entero por heurística, y ahí el recuento vuelve a 11—. En el mismo envoltorio porque es donde tiene que verse: abajo a la derecha, discreto, sin disputarle sitio al mapa.
 

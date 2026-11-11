@@ -47,35 +47,78 @@ const ORDEN_FUENTES = [
   'regulacion-pesca-submarina',
 ];
 
+// Fuentes que se parten en dos capas cuando solo algunas de sus figuras pesan.
+//
+// Solo Natura 2000, y es deliberado. Partir tiene sentido donde la mitad que no
+// pesa es tan extensa que encendida tapa el mapa. En la zonificación de un
+// parque pasa lo contrario: las piezas que no tocan la pesca —las zonas de
+// fondeo diurno y de buceo de Cabrera, el uso limitado de s'Albufera des Grau—
+// son pequeñas y son justo lo que se quiere ver junto a las vedadas. Partirla
+// las apagaría.
+const FUENTES_PARTIBLES = new Set(['natura2000']);
+
 const pesoFuente = (id) => {
   const i = ORDEN_FUENTES.indexOf(id);
   return i === -1 ? -1 : i;
 };
 
-export function creaCapaAreas(features, { mapa, onSeleccion }) {
+export function creaCapaAreas(features, { mapa, onSeleccion, pesa = () => true }) {
+  // Una fuente se parte en dos capas cuando solo algunas de sus figuras pesan.
+  //
+  // Hasta que entraron las Pitiusas la decisión de dibujar era por fuente
+  // entera, y bastaba: ningún espacio Natura 2000 restringía la pesca, así que
+  // la capa arrancaba apagada. Dos planes de gestión de Eivissa sí lo hacen
+  // —uno prohíbe la pesca submarina, otro la somete a autorización—, y con la
+  // decisión por fuente esos tres espacios encendían la capa completa: los más
+  // de 5.000 km² de ZEPA sobre Mallorca volvían a teñir el mapa, que es justo
+  // lo que se quiso evitar. Ahora las figuras que pesan van en una capa
+  // encendida y el resto de la fuente en otra, apagada, con su propio
+  // interruptor. Si toda la fuente pesa, o ninguna, sigue siendo una sola capa.
   const porFuente = new Map();
+  const mixtas = new Set();
+  {
+    const vistas = new Map();
+    for (const f of features) {
+      const id = f.properties.fuente;
+      const v = vistas.get(id) ?? new Set();
+      v.add(Boolean(pesa(f)));
+      vistas.set(id, v);
+    }
+    for (const [id, v] of vistas) if (v.size === 2 && FUENTES_PARTIBLES.has(id)) mixtas.add(id);
+  }
 
   for (const f of features) {
-    const id = f.properties.fuente;
+    const fuente = f.properties.fuente;
+    const fPesa = Boolean(pesa(f));
+    const id = mixtas.has(fuente) && !fPesa ? `${fuente}:resto` : fuente;
     if (!porFuente.has(id)) {
       porFuente.set(id, {
         id,
-        titulo: f.properties.fuenteTitulo ?? id,
+        fuente,
+        // En una fuente mixta, esta es la mitad que no pesa.
+        resto: id !== fuente,
+        pesa: fPesa,
+        titulo: f.properties.fuenteTitulo ?? fuente,
         features: [],
       });
     }
     porFuente.get(id).features.push(f);
   }
 
+  const planos = new Set();
   for (const entrada of porFuente.values()) {
     // El plano fija el apilado; el canvas evita que cientos de miles de
-    // vértices se conviertan en otros tantos nodos SVG.
-    const nombrePlano = `areas-${entrada.id}`;
-    const plano = mapa.createPane(nombrePlano);
-    plano.style.zIndex = String(401 + pesoFuente(entrada.id));
-    // El plano no recibe eventos: el clic lo escucha el mapa y lo resuelve el
-    // motor, para que la respuesta incluya todas las figuras superpuestas.
-    plano.style.pointerEvents = 'none';
+    // vértices se conviertan en otros tantos nodos SVG. Las dos mitades de una
+    // fuente mixta comparten plano: el apilado es de la fuente, no de la mitad.
+    const nombrePlano = `areas-${entrada.fuente}`;
+    if (!planos.has(nombrePlano)) {
+      planos.add(nombrePlano);
+      const plano = mapa.createPane(nombrePlano);
+      plano.style.zIndex = String(401 + pesoFuente(entrada.fuente));
+      // El plano no recibe eventos: el clic lo escucha el mapa y lo resuelve el
+      // motor, para que la respuesta incluya todas las figuras superpuestas.
+      plano.style.pointerEvents = 'none';
+    }
 
     // Dentro de cada fuente, de mayor a menor área: así las zonas interiores
     // pequeñas quedan encima de los perímetros que las contienen.
@@ -145,8 +188,9 @@ export function creaCapaAreas(features, { mapa, onSeleccion }) {
 
   /** Límites de una sola fuente, para encuadrar sin que mande la más extensa. */
   function limitesDe(fuenteId) {
-    const entrada = porFuente.get(fuenteId);
-    return entrada ? entrada.capa.getBounds() : null;
+    const entradas = [...porFuente.values()].filter((e) => e.fuente === fuenteId);
+    if (entradas.length === 0) return null;
+    return entradas.slice(1).reduce((b, e) => b.extend(e.capa.getBounds()), entradas[0].capa.getBounds());
   }
 
   /** Features de las capas encendidas ahora mismo. Solo para la leyenda. */

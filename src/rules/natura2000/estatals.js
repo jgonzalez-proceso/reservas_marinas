@@ -23,10 +23,40 @@
  * desplegado su régimen.
  */
 
-import { fondeoPorPosidoniaGeneral } from '../normas-generales.js';
+import { CONDICIONES_FONDEO_POSIDONIA, fondeoPorPosidoniaGeneral } from '../normas-generales.js';
 import { NORMA_ORDEN_ZEPA_MARINAS } from './comun.js';
 
-const REVISION = '2026-08-15';
+const REVISION = '2026-11-11';
+
+// La única figura estatal de Baleares cuyo instrumento dice algo que le importa
+// a un patrón. La Orden AAA/1366/2016 declara ZEC siete espacios marinos
+// mediterráneos —uno de ellos el cap Martinet— y aprueba para todos un anexo I
+// de regulación de usos. De ese anexo, lo único que alcanza a la náutica de
+// recreo es el fondeo (apartado 5). La pesca recreativa no la regula: su
+// apartado 1 habla de cambios de modalidad, de dos ZEC andaluzas y de capturas
+// accidentales. Y el buceo solo queda sujeto a que se «podrá limitar» el número
+// de inmersiones, cosa que no consta hecha.
+const NORMA_ZEC_MARTINET = {
+  titulo:
+    'Orden AAA/1366/2016, de 4 de agosto, por la que se declaran zonas especiales de conservación de lugares de importancia comunitaria de la Región Marina Mediterránea de la Red Natura 2000, se aprueban sus correspondientes medidas de conservación y se propone la ampliación de los límites geográficos de dos lugares de importancia comunitaria',
+  fecha: '2016-08-04',
+  url: 'https://www.boe.es/buscar/doc.php?id=BOE-A-2016-7738',
+  tipo: 'creacion',
+};
+
+const F_MARTINET = 'boe-orden-aaa-1366-2016';
+
+const sinReglaMartinet = (motivo) => ({
+  status: 'not_regulated',
+  motivo,
+  conditions: CONDICIONES_SIN_REGIMEN_MARTINET,
+  sources: [F_MARTINET],
+});
+
+const CONDICIONES_SIN_REGIMEN_MARTINET = [
+  'Sigue aplicando íntegramente la normativa general de pesca recreativa y de actividades ' +
+    'subacuáticas que corresponda a estas aguas.',
+];
 
 const NORMA_LIC_CANAL = {
   titulo:
@@ -91,6 +121,84 @@ const LIC_CANAL = {
 };
 
 const ESPACIOS = [
+  // -- Eivissa y Formentera ---------------------------------------------------
+  {
+    zoneId: 'n2k-es0000515-espacio-marino-de-formentera-y-del-sur-de-ibiza--zepa--estatal',
+    nombreCorto: 'ZEPA marina de Formentera y del sur de Ibiza (ES0000515)',
+    resumen:
+      'ZEPA marina estatal de 46.420 ha en torno a Formentera y al sur de Eivissa, declarada por ' +
+      'las colonias de aves marinas. Se solapa con el parque de ses Salines y la reserva dels ' +
+      'Freus, y es el régimen de esas figuras —no esta ZEPA— el que restringe allí la pesca.',
+    normas: [NORMA_ORDEN_ZEPA_MARINAS],
+    actividades: regimenSinDesarrollo(ZEPA),
+  },
+  {
+    zoneId: 'n2k-es0000516-espacio-marino-del-poniente-y-norte-de-ibiza--zepa--estatal',
+    nombreCorto: 'ZEPA marina del poniente y norte de Ibiza (ES0000516)',
+    resumen:
+      'ZEPA marina estatal de 47.069 ha frente a las costas oeste y norte de Eivissa. No impone ' +
+      'por sí sola ninguna restricción a la pesca recreativa.',
+    normas: [NORMA_ORDEN_ZEPA_MARINAS],
+    actividades: regimenSinDesarrollo(ZEPA),
+  },
+  {
+    zoneId: 'n2k-es0000517-espacio-marino-del-levante-de-ibiza--zepa--estatal',
+    nombreCorto: 'ZEPA marina del levante de Ibiza (ES0000517)',
+    resumen:
+      'ZEPA marina estatal de 19.161 ha frente a la costa este de Eivissa, en el entorno de ' +
+      'Tagomago. No impone por sí sola ninguna restricción a la pesca recreativa.',
+    normas: [NORMA_ORDEN_ZEPA_MARINAS],
+    actividades: regimenSinDesarrollo(ZEPA),
+  },
+  {
+    zoneId: 'n2k-es5310108-area-marina-del-cap-martinet--zec--estatal',
+    nombreCorto: 'ZEC Área marina del cap Martinet (ES5310108)',
+    resumen:
+      'ZEC marina de gestión estatal de 553 ha al este de Eivissa, frente al cap Martinet. Sus ' +
+      'medidas de conservación prohíben fondear sobre fanerógamas, coralígeno y maërl; no regulan ' +
+      'la pesca recreativa.',
+    normas: [NORMA_ZEC_MARTINET],
+    actividades: {
+      pescaDesdeCosta: sinReglaMartinet(
+        'El anexo I de la Orden AAA/1366/2016 no regula la pesca recreativa en esta ZEC: su ' +
+          'apartado 1 se ocupa de la pesca profesional y de las capturas accidentales.',
+      ),
+      pescaRecreativaEmbarcacion: sinReglaMartinet(
+        'El anexo I de la Orden AAA/1366/2016 no regula la pesca recreativa en esta ZEC: su ' +
+          'apartado 1 se ocupa de la pesca profesional y de las capturas accidentales.',
+      ),
+      pescaSubmarina: sinReglaMartinet(
+        'El anexo I de la Orden AAA/1366/2016 no regula la pesca recreativa en esta ZEC, tampoco ' +
+          'la submarina: no existe ninguna prohibición derivada de esta figura.',
+      ),
+      buceo: sinReglaMartinet(
+        'El apartado 9 del anexo I de la Orden AAA/1366/2016 solo prevé que se pueda limitar el ' +
+          'número de inmersiones para preservar los hábitats sensibles. No consta que se haya ' +
+          'limitado en esta ZEC, y el buceo no exige aquí autorización previa.',
+      ),
+      fondeo: {
+        status: 'restricted',
+        motivo:
+          'El apartado 5 del anexo I de la Orden AAA/1366/2016 prohíbe fondear sobre praderas de ' +
+          'fanerógamas marinas, fondos coralígenos y fondos de maërl, salvo en los puntos ' +
+          'habilitados con las tecnologías menos lesivas.',
+        conditions: [
+          'Prohibido fondear sobre praderas de cualquier fanerógama marina —no solo posidonia y ' +
+            'Cymodocea— y sobre fondos coralígenos y de maërl.',
+          'Se exceptúan los puntos habilitados a tal efecto con las tecnologías menos lesivas para ' +
+            'esos hábitats. No consta ninguno en esta ZEC.',
+          ...CONDICIONES_FONDEO_POSIDONIA.slice(1),
+        ],
+        sources: [F_MARTINET, 'boe-rd-191-2026', 'boib-decret-25-2018-posidonia'],
+      },
+      navegacion: sinReglaMartinet(
+        'El apartado 5 del anexo I de la Orden AAA/1366/2016 no limita la navegación de recreo en ' +
+          'esta ZEC: se compromete a estudiar posibles límites de velocidad, sin fijar ninguno.',
+      ),
+    },
+  },
+
+  // -- Mallorca, Cabrera y Menorca --------------------------------------------
   {
     zoneId: 'n2k-es0000518-espacio-marino-del-sur-de-mallorca-y-cabrera--zepa--estatal',
     nombreCorto: 'ZEPA marina del sur de Mallorca y Cabrera (ES0000518)',

@@ -75,7 +75,7 @@ export default {
     'shore angling, diving, anchoring and navigation, with the reason and the regulation ' +
     'behind it.',
   'acerca.p2Html':
-    'It covers the <strong>102 areas</strong> loaded so far across the four islands and ' +
+    'It covers the <strong>121 areas</strong> loaded so far across the four islands and ' +
     'Cabrera, every one of them with a written record cited against the BOIB or the BOE: ' +
     'the twelve marine reserves of the Balearics, the marine Natura 2000 sites, the seven ' +
     'protected natural areas with a marine scope, and the internal zoning of s’Albufera ' +

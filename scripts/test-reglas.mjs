@@ -566,3 +566,92 @@ test('Cabrera: donde se puede fondear, el permiso sigue apareciendo', () => {
   assert.equal(reserva.permit, null, 'bajo una prohibición no se ofrece ningún permiso');
   assert.deepEqual(reserva.otrosPermisos, [], 'ni propio ni de otra figura');
 });
+
+// ---------------------------------------------------------------------------
+// Red Natura 2000 de Eivissa y Formentera
+//
+// La regla de toda la capa es que Natura 2000 no añade nada a la pesca. Aquí
+// deja de valer en dos planes de gestión, que usan la puerta del art. 5 del
+// Decret 91/2023: el de los illots del llevant prohíbe la pesca submarina y el
+// de la Costa Oest la somete a autorización en la ZEC Illots de Ponent. Estas
+// pruebas fijan las dos excepciones y que no se cuelan donde no tocan.
+// ---------------------------------------------------------------------------
+
+const ZEC_TAGOMAGO = 'n2k-es5310107-area-marina-de-tagomago--zec--autonomica';
+const ZEC_PONENT = 'n2k-es5310023-illots-de-ponent-d-eivissa--zec-i-zepa--autonomica';
+const ZEC_MIGJORN = 'n2k-es5310111-area-marina-de-platja-de-migjorn--zec--autonomica';
+const ZEC_MARTINET = 'n2k-es5310108-area-marina-del-cap-martinet--zec--estatal';
+const enReservaMarina = (p) => dentroDeAlguna(p, (pr) => pr.fuente === 'reservas-marinas');
+
+test('llevant d’Eivissa: pesca submarina prohibida por el plan fuera de la reserva de Tagomago', () => {
+  const p = punto(1.651110, 39.027066);
+  assert.ok(dentroDe(p, ZEC_TAGOMAGO), 'el punto debe caer en la ZEC del área marina de Tagomago');
+  assert.ok(!enReservaMarina(p), 'y fuera de cualquier reserva marina');
+
+  const r = resolver(p, FEATURES, FICHAS);
+  const a = r.actividades.pescaSubmarina;
+  assert.equal(a.status, 'prohibited');
+  assert.equal(a.determinadaPor.zoneId, ZEC_TAGOMAGO);
+  assert.ok(a.sources.includes('boib-decret-29-2022-llevant-eivissa'));
+  // La pesca de superficie no se prohíbe: solo el cebo vivo y los concursos.
+  assert.equal(r.actividades.pescaRecreativaEmbarcacion.status, 'allowed');
+});
+
+test('llevant d’Eivissa: dentro de la reserva de Tagomago mandan los aparejos de la reserva', () => {
+  // Regresión. Con la pesca de superficie del plan en `restricted`, la ficha
+  // Natura 2000 ganaba por rango a la reserva también dentro de ella, y el
+  // panel perdía sus aparejos y su permiso.
+  const p = punto(1.618703, 39.022978);
+  assert.ok(dentroDe(p, ZEC_TAGOMAGO));
+  assert.ok(enReservaMarina(p), 'el punto debe caer dentro de la reserva marina');
+
+  const a = resolver(p, FEATURES, FICHAS).actividades.pescaRecreativaEmbarcacion;
+  assert.equal(a.status, 'allowed_with_authorization');
+  assert.ok(a.determinadaPor.zoneId.startsWith('rm-'), 'la determina la reserva, no la ZEC');
+  assert.ok(a.permit, 'y publica el permiso de la reserva');
+});
+
+test('Illots de Ponent: pesca submarina con autorización fuera de la reserva de ses Bledes', () => {
+  const p = punto(1.198138, 38.978296);
+  assert.ok(dentroDe(p, ZEC_PONENT), 'el punto debe caer en la ZEC Illots de Ponent');
+  assert.ok(!enReservaMarina(p), 'y fuera de la reserva de ses Bledes');
+
+  const a = resolver(p, FEATURES, FICHAS).actividades.pescaSubmarina;
+  assert.equal(a.status, 'allowed_with_authorization');
+  assert.equal(a.determinadaPor.zoneId, ZEC_PONENT);
+  assert.ok(a.permit, 'debe describir la autorización');
+  assert.ok(a.conditions.some((c) => /martes, jueves/.test(c)), 'y decir qué días');
+});
+
+test('Illots de Ponent: dentro de la reserva de ses Bledes la submarina sigue prohibida', () => {
+  const p = punto(1.169957, 38.970464);
+  assert.ok(dentroDe(p, ZEC_PONENT));
+  assert.ok(enReservaMarina(p), 'el punto debe caer dentro de la reserva de ses Bledes');
+
+  const a = resolver(p, FEATURES, FICHAS).actividades.pescaSubmarina;
+  assert.equal(a.status, 'prohibited');
+  assert.ok(a.determinadaPor.zoneId.startsWith('rm-'));
+  assert.equal(a.permit, null, 'bajo una prohibición no se ofrece la autorización del plan');
+});
+
+test('Formentera: el fondeo lleva el límite de 16 m de eslora, y la pesca no se toca', () => {
+  const p = punto(1.487855, 38.666939);
+  assert.ok(dentroDe(p, ZEC_MIGJORN), 'el punto debe caer en la ZEC de la playa de Migjorn');
+
+  const r = resolver(p, FEATURES, FICHAS);
+  const a = r.actividades.fondeo;
+  assert.equal(a.status, 'restricted');
+  assert.equal(a.determinadaPor.zoneId, ZEC_MIGJORN, 'manda el plan, no la regla general');
+  assert.ok(a.conditions.some((c) => /16 m de eslora/.test(c)), 'debe citar el límite de eslora');
+  assert.equal(r.actividades.pescaSubmarina.status, 'not_regulated');
+});
+
+test('cap Martinet: el fondeo lo regula la orden estatal de la ZEC', () => {
+  const p = punto(1.500221, 38.925569);
+  assert.ok(dentroDe(p, ZEC_MARTINET), 'el punto debe caer en la ZEC del cap Martinet');
+
+  const a = resolver(p, FEATURES, FICHAS).actividades.fondeo;
+  assert.equal(a.status, 'restricted');
+  assert.equal(a.determinadaPor.zoneId, ZEC_MARTINET);
+  assert.ok(a.sources.includes('boe-orden-aaa-1366-2016'));
+});

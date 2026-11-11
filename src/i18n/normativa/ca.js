@@ -733,8 +733,6 @@ export default {
   // la versió catalana.
   'DEROGAT en tot el seu articulat: la disposició derogatòria única del Decret 26/2025 deroga els articles 1 a 10 i els annexos. Es manté citat només com a antecedent de les figures que l’IDEIB continua publicant sota aquesta norma; el règim vigent és el del Decret 26/2025':
     'DEROGAT en tot el seu articulat: la disposició derogatòria única del Decret 26/2025 deroga els articles 1 a 10 i els annexos. Es manté citat només com a antecedent de les figures que l’IDEIB continua publicant sota aquesta norma; el règim vigent és el del Decret 26/2025',
-  'Declara ES0000518, ES0000519 y ES0000520. Art. 4 (planes de gestión), art. 5 (gestión estatal) y art. 6 (régimen de protección)':
-    'Declara ES0000518, ES0000519 i ES0000520. Art. 4 (plans de gestió), art. 5 (gestió estatal) i art. 6 (règim de protecció)',
   'Campo Layer: «Fondeig prohibit» 451,2 ha en 6 polígonos, «Fondeig regulat» 69,3 ha en 3 y «Fondeig lliure condicionat» 13.531 ha en 2':
     'Camp Layer: «Fondeig prohibit» 451,2 ha en 6 polígons, «Fondeig regulat» 69,3 ha en 3 i «Fondeig lliure condicionat» 13.531 ha en 2',
   'Campo ZONIFICACI sobre el ámbito marino (AMBIT=«Marí»): àrea de protecció estricta 427,4 ha, àrea de conservació predominant 154,1 ha, àrea de conservació 13.164,9 ha, àrea d’aprofitament condicionat 344,6 ha y ús portuari 39,3 ha':
@@ -1916,4 +1914,188 @@ export default {
     'Zona dels fons de maërl, el rectangle del sud-oest: s’hi pot navegar amb l’autorització del parc, a deu nusos com a màxim. El que no es pot fer és ancorar-hi.',
   'Zona de l’illa de ses Rates: prohibida la navegación deportiva, también con la autorización anual del parque.':
     'Zona de l’illa de ses Rates: prohibida la navegació esportiva, també amb l’autorització anual del parc.',
+
+  // -- Xarxa Natura 2000 d'Eivissa i Formentera ------------------------------
+  'Los buceadores no pueden llevar, ni en la mano ni en la embarcación, instrumentos que sirvan para pescar o extraer especies marinas.':
+    'Els bussejadors no poden dur, ni a la mà ni a l’embarcació, instruments que serveixin per pescar o extreure espècies marines.',
+  'Prohibidas las fiestas y acontecimientos multitudinarios en embarcaciones (party boats).':
+    'Prohibides les festes i els esdeveniments multitudinaris en embarcacions (party boats).',
+  'Prohibido alimentar a las especies marinas (feeding).':
+    'Prohibit alimentar les espècies marines (feeding).',
+  'Prohibido cualquier vertido al mar desde las embarcaciones, de aguas residuales o de sentinas.':
+    'Prohibit qualsevol abocament a la mar des de les embarcacions, d’aigües residuals o de sentines.',
+  'Dentro de la reserva marina de la costa nordeste de Eivissa - Tagomago manda el régimen de la reserva, que este mapa resuelve por separado.':
+    'Dins la reserva marina de la costa nord-est d’Eivissa - Tagomago mana el règim de la reserva, que aquest mapa resol per separat.',
+  'El apartado 5.5.4 del plan de gestión deja la pesca recreativa de superficie en la normativa general, con dos límites fuera de la reserva marina de Tagomago: ni cebo vivo ni competiciones de pesca. Dentro de la reserva rige el Decret 45/2018.':
+    'L’apartat 5.5.4 del pla de gestió deixa la pesca recreativa de superfície en la normativa general, amb dos límits fora de la reserva marina de Tagomago: ni esquer viu ni competicions de pesca. Dins la reserva regeix el Decret 45/2018.',
+  'En las aguas interiores del ámbito del plan está prohibida la pesca con palangre de fondo y de superficie (ap. 5.9.2.4).':
+    'A les aigües interiors de l’àmbit del pla és prohibida la pesca amb palangre de fons i de superfície (ap. 5.9.2.4).',
+  'En lo demás rige la normativa general de pesca recreativa de las Illes Balears (ap. 5.5.4.3).':
+    'En la resta regeix la normativa general de pesca recreativa de les Illes Balears (ap. 5.5.4.3).',
+  'Fuera de la reserva marina: prohibida la pesca recreativa con cebo vivo, sean peces o cefalópodos (ap. 5.5.4.2.i).':
+    'Fora de la reserva marina: prohibida la pesca recreativa amb esquer viu, siguin peixos o cefalòpodes (ap. 5.5.4.2.i).',
+  'Prohibidas las competiciones de pesca. No lo es la «captura y suelta» con protocolo supervisado y sin trofeo (ap. 5.5.4.2.ii).':
+    'Prohibides les competicions de pesca. No ho és la «captura i solta» amb protocol supervisat i sense trofeu (ap. 5.5.4.2.ii).',
+  'El apartado 9.7.4 del plan de gestión prohíbe fondear sobre Posidonia oceanica, Cymodocea nodosa y fondos de maërl o coralígeno, y reserva los arenales de menos de 15 m de fondo a las embarcaciones de menos de 16 m de eslora.':
+    'L’apartat 9.7.4 del pla de gestió prohibeix fondejar sobre Posidonia oceanica, Cymodocea nodosa i fons de maërl o coral·ligen, i reserva els arenals de menys de 15 m de fons a les embarcacions de menys de 16 m d’eslora.',
+  'El apartado 9.7.7 del plan de gestión considera el buceo con escafandra autónoma una actividad permitida, salvo en las zonas que una resolución restrinja por motivos de conservación.':
+    'L’apartat 9.7.7 del pla de gestió considera el busseig amb escafandre autònom una activitat permesa, excepte a les zones que una resolució restringeixi per motius de conservació.',
+  'El plan de gestión no limita la navegación de paso, pero prohíbe en todo su ámbito marino las fiestas en embarcaciones (ap. 9.7.8) y cualquier vertido desde ellas (ap. 9.7.11).':
+    'El pla de gestió no limita la navegació de pas, però prohibeix a tot el seu àmbit marí les festes en embarcacions (ap. 9.7.8) i qualsevol abocament des d’aquestes (ap. 9.7.11).',
+  'El plan habilita a pedir al Estado limitaciones a la navegación en zonas concretas; si se aprueban, deben publicarse y balizarse (ap. 9.7.5). No consta ninguna.':
+    'El pla habilita a demanar a l’Estat limitacions a la navegació en zones concretes; si s’aproven, s’han de publicar i abalisar (ap. 9.7.5). No en consta cap.',
+  'Esa zona está dibujada en los planos 5.1 a 5.5 del anexo II del plan y no se publica como capa cartográfica: este mapa no la tiene. Con 16 m o más de eslora conviene consultar el plano antes de fondear en arena somera.':
+    'Aquesta zona està dibuixada als plànols 5.1 a 5.5 de l’annex II del pla i no es publica com a capa cartogràfica: aquest mapa no la té. Amb 16 m o més d’eslora convé consultar el plànol abans de fondejar en arena soma.',
+  'Prohibidas las instalaciones de temporada que produzcan contaminación acústica, como los circuitos de embarcaciones de motor o los fly boards (ap. 9.7.10).':
+    'Prohibides les instal·lacions de temporada que produeixin contaminació acústica, com ara els circuits d’embarcacions de motor o els fly boards (ap. 9.7.10).',
+  'Prohibido fondear en las zonas de baño debidamente balizadas (ap. 9.7.4.3 y art. 73.1 del Reglamento General de Costas).':
+    'Prohibit fondejar a les zones de bany degudament abalisades (ap. 9.7.4.3 i art. 73.1 del Reglament general de costes).',
+  'Prohibido fondear sobre Posidonia oceanica; si hay praderas próximas, tampoco la cadena ni los demás elementos del fondeo pueden afectarlas (ap. 9.7.4.1).':
+    'Prohibit fondejar sobre Posidonia oceanica; si hi ha prades properes, tampoc la cadena ni els altres elements del fondeig no les poden afectar (ap. 9.7.4.1).',
+  'Prohibido igualmente sobre praderas de Cymodocea nodosa y sobre fondos de maërl o coralígeno (ap. 9.7.4.4).':
+    'Prohibit igualment sobre prades de Cymodocea nodosa i sobre fons de maërl o coral·ligen (ap. 9.7.4.4).',
+  'Zona de fondeo condicionado: en los fondos arenosos de menos de 15 m de profundidad delimitados por el plan solo pueden fondear las embarcaciones de menos de 16 m de eslora (ap. 9.7.4.2).':
+    'Zona de fondeig condicionat: als fons arenosos de menys de 15 m de profunditat delimitats pel pla només hi poden fondejar les embarcacions de menys de 16 m d’eslora (ap. 9.7.4.2).',
+  'Aquí no vale la regla general de la Red Natura 2000: este plan es de los pocos que prohíbe la pesca submarina por sí mismo.':
+    'Aquí no val la regla general de la Xarxa Natura 2000: aquest pla és dels pocs que prohibeix la pesca submarina per si mateix.',
+  'Cala d’Hort y Cala Vedella son praderas «a regular» del Decret 25/2018: el plan prevé campos de boyas de bajo impacto, con un máximo de 25 y 36 puntos de fondeo. Mientras no estén instalados, allí solo se puede fondear en las zonas de arena.':
+    'Cala d’Hort i Cala Vedella són prades «a regular» del Decret 25/2018: el pla preveu camps de boies de baix impacte, amb un màxim de 25 i 36 punts de fondeig. Mentre no estiguin instal·lats, allà només es pot fondejar a les zones d’arena.',
+  'Dentro de las reservas marinas de ses Bledes y de es Vedrà - es Vedranell el buceo no es libre sino autorizable: manda el régimen de la reserva, que este mapa resuelve por separado.':
+    'Dins les reserves marines de ses Bledes i d’es Vedrà - es Vedranell el busseig no és lliure sinó autoritzable: mana el règim de la reserva, que aquest mapa resol per separat.',
+  'Distancia mínima de 60 m a cetáceos, tortugas y aves marinas, en silencio y sin acelerar bruscamente (ap. 5.9.7.2).':
+    'Distància mínima de 60 m a cetacis, tortugues i aus marines, en silenci i sense accelerar bruscament (ap. 5.9.7.2).',
+  'El apartado 5.5.1 del plan de gestión prohíbe fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa, sobre fondos de maërl o coralígeno y en las zonas de baño balizadas.':
+    'L’apartat 5.5.1 del pla de gestió prohibeix fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa, sobre fons de maërl o coral·ligen i a les zones de bany abalisades.',
+  'El apartado 5.5.4.2 del plan de gestión prohíbe la pesca recreativa con fusil en todo su ámbito fuera de la reserva marina de Tagomago, y dentro de la reserva la prohíbe el Decret 45/2018. Es la regulación adicional que el art. 5 del Decret 91/2023 permite al plan.':
+    'L’apartat 5.5.4.2 del pla de gestió prohibeix la pesca recreativa amb fusell a tot el seu àmbit fora de la reserva marina de Tagomago, i dins la reserva la prohibeix el Decret 45/2018. És la regulació addicional que l’art. 5 del Decret 91/2023 permet al pla.',
+  'El apartado 5.5.4.2.iii del plan de gestión considera el buceo con escafandra autónoma una actividad permitida, salvo en las zonas que una resolución restrinja por motivos de conservación.':
+    'L’apartat 5.5.4.2.iii del pla de gestió considera el busseig amb escafandre autònom una activitat permesa, excepte a les zones que una resolució restringeixi per motius de conservació.',
+  'El apartado 5.9.5 del plan de gestión considera el buceo con escafandra autónoma una actividad permitida, salvo en las zonas que una resolución restrinja por motivos de conservación.':
+    'L’apartat 5.9.5 del pla de gestió considera el busseig amb escafandre autònom una activitat permesa, excepte a les zones que una resolució restringeixi per motius de conservació.',
+  'El apartado 5.9.6 del plan de gestión prohíbe fondear sobre Posidonia oceanica, Cymodocea nodosa, fondos de maërl o coralígeno y comunidades de gorgonias.':
+    'L’apartat 5.9.6 del pla de gestió prohibeix fondejar sobre Posidonia oceanica, Cymodocea nodosa, fons de maërl o coral·ligen i comunitats de gorgònies.',
+  'El apartado 5.9.7 del plan de gestión permite la navegación en todo su ámbito marino, con límites: tres nudos en la franja de baño, 60 m de distancia a cetáceos, tortugas y aves marinas, y ni fiestas a bordo ni vertidos.':
+    'L’apartat 5.9.7 del pla de gestió permet la navegació a tot el seu àmbit marí, amb límits: tres nusos a la franja de bany, 60 m de distància a cetacis, tortugues i aus marines, i ni festes a bord ni abocaments.',
+  'El plan de gestión no limita la navegación de paso, pero prohíbe en todo su ámbito marino las fiestas en embarcaciones (ap. 5.5.3), los vertidos desde ellas (ap. 5.5.2) y las instalaciones de temporada de embarcaciones a motor (ap. 5.5.9).':
+    'El pla de gestió no limita la navegació de pas, però prohibeix a tot el seu àmbit marí les festes en embarcacions (ap. 5.5.3), els abocaments des d’aquestes (ap. 5.5.2) i les instal·lacions de temporada d’embarcacions de motor (ap. 5.5.9).',
+  'El plan delimita esas praderas y fondos en su plano 5.2 y prevé que puedan señalarse con boyas. Este mapa no los dibuja.':
+    'El pla delimita aquestes prades i fons al plànol 5.2 i preveu que es puguin senyalitzar amb boies. Aquest mapa no els dibuixa.',
+  'En las zonas de baño balizadas está prohibida la navegación de recreo y el uso de cualquier embarcación a vela o motor (ap. 5.9.7.4).':
+    'A les zones de bany abalisades és prohibida la navegació d’esbarjo i l’ús de qualsevol embarcació de vela o motor (ap. 5.9.7.4).',
+  'En los tramos de costa sin balizar, la zona de baño es una franja de 200 m en las playas y 50 m en el resto de la costa: dentro no se puede navegar a más de tres nudos (ap. 5.9.7.3).':
+    'Als trams de costa sense abalisar, la zona de bany és una franja de 200 m a les platges i 50 m a la resta de la costa: a dins no es pot navegar a més de tres nusos (ap. 5.9.7.3).',
+  'Prohibidas las competiciones de embarcaciones a motor en todo el ámbito marino del plan (ap. 5.9.3.1).':
+    'Prohibides les competicions d’embarcacions de motor a tot l’àmbit marí del pla (ap. 5.9.3.1).',
+  'Prohibidas las competiciones de pesca en esta ZEC y en las reservas marinas de ses Bledes y de es Vedrà - es Vedranell (ap. 5.9.3.2).':
+    'Prohibides les competicions de pesca en aquesta ZEC i a les reserves marines de ses Bledes i d’es Vedrà - es Vedranell (ap. 5.9.3.2).',
+  'Prohibido fondear en las zonas de baño debidamente balizadas (ap. 5.5.1.1 y art. 73.1 del Reglamento General de Costas).':
+    'Prohibit fondejar a les zones de bany degudament abalisades (ap. 5.5.1.1 i art. 73.1 del Reglament general de costes).',
+  'Prohibido fondear en las zonas de baño debidamente balizadas (ap. 5.9.6.4 y art. 73.1 del Reglamento General de Costas).':
+    'Prohibit fondejar a les zones de bany degudament abalisades (ap. 5.9.6.4 i art. 73.1 del Reglament general de costes).',
+  'Prohibido fondear sobre Posidonia oceanica; si hay praderas próximas, tampoco la cadena ni los demás elementos del fondeo pueden afectarlas (ap. 5.9.6.1).':
+    'Prohibit fondejar sobre Posidonia oceanica; si hi ha prades properes, tampoc la cadena ni els altres elements del fondeig no les poden afectar (ap. 5.9.6.1).',
+  'Prohibido fondear sobre praderas de Posidonia oceanica y de Cymodocea nodosa y sobre fondos de maërl o coralígeno (ap. 5.5.1.1).':
+    'Prohibit fondejar sobre prades de Posidonia oceanica i de Cymodocea nodosa i sobre fons de maërl o coral·ligen (ap. 5.5.1.1).',
+  'Prohibido igualmente sobre praderas de Cymodocea nodosa, sobre fondos de maërl o coralígeno y sobre las comunidades de gorgonias, en especial en torno a ses Bledes y es Vedrà (ap. 5.9.6.5).':
+    'Prohibit igualment sobre prades de Cymodocea nodosa, sobre fons de maërl o coral·ligen i sobre les comunitats de gorgònies, en especial al voltant de ses Bledes i es Vedrà (ap. 5.9.6.5).',
+  'El anexo I de la Orden AAA/1366/2016 no regula la pesca recreativa en esta ZEC: su apartado 1 se ocupa de la pesca profesional y de las capturas accidentales.':
+    'L’annex I de l’Ordre AAA/1366/2016 no regula la pesca recreativa en aquesta ZEC: l’apartat 1 s’ocupa de la pesca professional i de les captures accidentals.',
+  'El plan de gestión de la Costa Oest solo añade regulación de la pesca submarina en la ZEC Illots de Ponent d’Eivissa, donde la somete a autorización. En este espacio no añade ninguna.':
+    'El pla de gestió de la Costa Oest només afegeix regulació de la pesca submarina a la ZEC Illots de Ponent d’Eivissa, on la sotmet a autorització. En aquest espai no n’afegeix cap.',
+  'En esta ZEC está prohibida además la circulación de los elementos náuticos a motor de las instalaciones de temporada situadas fuera del ámbito del plan, como las de alquiler de embarcaciones a motor (ap. 5.9.8.3).':
+    'En aquesta ZEC és prohibida a més la circulació dels elements nàutics de motor de les instal·lacions de temporada situades fora de l’àmbit del pla, com les de lloguer d’embarcacions de motor (ap. 5.9.8.3).',
+  'La norma reguladora 1.6 del plan de gestión prohíbe los concursos de pesca en todo su ámbito marino. En lo demás declara aplicable el PRUG del parque natural (NR 1.2).':
+    'La norma reguladora 1.6 del pla de gestió prohibeix els concursos de pesca a tot el seu àmbit marí. En la resta declara aplicable el PRUG del parc natural (NR 1.2).',
+  'LIC de la costa norte de Eivissa, con el plan de gestión en tramitación. Por ahora no añade ninguna restricción propia a la pesca recreativa.':
+    'LIC de la costa nord d’Eivissa, amb el pla de gestió en tramitació. De moment no afegeix cap restricció pròpia a la pesca recreativa.',
+  'Para el resto rige el régimen del parque natural y de la reserva marina dels Freus, que este mapa resuelve por separado.':
+    'Per a la resta regeix el règim del parc natural i de la reserva marina dels Freus, que aquest mapa resol per separat.',
+  'Prohibidos los concursos de pesca (NR 1.6).':
+    'Prohibits els concursos de pesca (NR 1.6).',
+  'Autorización del órgano competente en materia de pesca para la pesca submarina en la ZEC Illots de Ponent d’Eivissa. El plan de gestión no dice cómo se tramita ni publica su importe: hay que preguntarlo al servicio de pesca antes de salir.':
+    'Autorització de l’òrgan competent en matèria de pesca per a la pesca submarina a la ZEC Illots de Ponent d’Eivissa. El pla de gestió no diu com es tramita ni en publica l’import: s’ha de demanar al servei de pesca abans de sortir.',
+  'BOE núm. 193, de 11 de agosto de 2016. Art. 1 (declara ZEC el Área marina del cap Martinet, ES5310108) y anexo I, regulación de usos y actividades común a las siete ZEC: apartado 1 (actividad pesquera, sin reglas para la recreativa en esta ZEC), apartado 5 (navegación; prohíbe el fondeo sobre fanerógamas, coralígeno y maërl salvo en puntos habilitados) y apartado 9 (actividades recreativas; se podrá limitar el número de inmersiones)':
+    'BOE núm. 193, d’11 d’agost de 2016. Art. 1 (declara ZEC l’Àrea marina del cap Martinet, ES5310108) i annex I, regulació d’usos i activitats comuna a les set ZEC: apartat 1 (activitat pesquera, sense regles per a la recreativa en aquesta ZEC), apartat 5 (navegació; prohibeix el fondeig sobre fanerògames, coral·ligen i maërl excepte en punts habilitats) i apartat 9 (activitats recreatives; es podrà limitar el nombre d’immersions)',
+  'BOIB núm. 100, de 2 de agosto de 2022. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 213655 en castellano, 213656 en catalán). Apartado 5.5: 5.5.1 fondeo, 5.5.2 vertidos, 5.5.3 fiestas en embarcaciones, 5.5.4 pesca y buceo (5.5.4.2.i prohíbe fuera de la reserva las pescas recreativas con cebo vivo o fusil), 5.5.9 instalaciones de temporada y 5.5.10 navegación (motos acuáticas en ES0000242)':
+    'BOIB núm. 100, de 2 d’agost de 2022. L’articulat marí és al pla, publicat com a annex del decret (ConsultaAnnexe 213655 en castellà, 213656 en català). Apartat 5.5: 5.5.1 fondeig, 5.5.2 abocaments, 5.5.3 festes en embarcacions, 5.5.4 pesca i busseig (5.5.4.2.i prohibeix fora de la reserva les pesques recreatives amb esquer viu o fusell), 5.5.9 instal·lacions de temporada i 5.5.10 navegació (motos aquàtiques a ES0000242)',
+  'BOIB núm. 161, de 12 de diciembre de 2022. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 221929 en castellano, 221930 en catalán). Apartado 5.9: 5.9.2 pesca (5.9.2.2 pesca submarina autorizable en la ZEC Illots de Ponent, 5.9.2.4 palangre), 5.9.3 competiciones, 5.9.5 buceo, 5.9.6 fondeo, 5.9.7 navegación, 5.9.8 instalaciones de temporada, 5.9.9 party boats y 5.9.11 vertidos':
+    'BOIB núm. 161, de 12 de desembre de 2022. L’articulat marí és al pla, publicat com a annex del decret (ConsultaAnnexe 221929 en castellà, 221930 en català). Apartat 5.9: 5.9.2 pesca (5.9.2.2 pesca submarina autoritzable a la ZEC Illots de Ponent, 5.9.2.4 palangre), 5.9.3 competicions, 5.9.5 busseig, 5.9.6 fondeig, 5.9.7 navegació, 5.9.8 instal·lacions de temporada, 5.9.9 party boats i 5.9.11 abocaments',
+  'BOIB núm. 77, de 23 de mayo de 2015. El articulado está en el plan, publicado como anexo del decreto (ConsultaAnnexe 65713). Normas reguladoras del ámbito marino: 1.2 (declara aplicable el PRUG del parque), 1.6 (prohíbe la pesca submarina y los concursos de pesca), 1.11 (zonificación del fondeo), 1.12 a 1.14 (buceo) y 1.16 (party boats)':
+    'BOIB núm. 77, de 23 de maig de 2015. L’articulat és al pla, publicat com a annex del decret (ConsultaAnnexe 65713). Normes reguladores de l’àmbit marí: 1.2 (declara aplicable el PRUG del parc), 1.6 (prohibeix la pesca submarina i els concursos de pesca), 1.11 (zonificació del fondeig), 1.12 a 1.14 (busseig) i 1.16 (party boats)',
+  'BOIB núm. 92, de 25 de mayo de 2020. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 162890 en catalán, 162886 en castellano). Apartado 9.7: 9.7.1 pesca (remite a la regulación general), 9.7.4 fondeo (posidonia, zona de fondeo condicionado para esloras de menos de 16 m, zonas de baño, Cymodocea, maërl y coralígeno), 9.7.5 navegación, 9.7.7 buceo, 9.7.8 party boats, 9.7.10 instalaciones de temporada y 9.7.11 vertidos':
+    'BOIB núm. 92, de 25 de maig de 2020. L’articulat marí és al pla, publicat com a annex del decret (ConsultaAnnexe 162890 en català, 162886 en castellà). Apartat 9.7: 9.7.1 pesca (remet a la regulació general), 9.7.4 fondeig (posidònia, zona de fondeig condicionat per a eslores de menys de 16 m, zones de bany, Cymodocea, maërl i coral·ligen), 9.7.5 navegació, 9.7.7 busseig, 9.7.8 party boats, 9.7.10 instal·lacions de temporada i 9.7.11 abocaments',
+  'Declara, entre otras, las ZEPA marinas de Baleares: ES0000515, ES0000516 y ES0000517 en Eivissa y Formentera, ES0000518, ES0000519 y ES0000520 en Mallorca y Cabrera, y ES0000521 y ES0000522 en Menorca. Art. 4 (planes de gestión), art. 5 (gestión estatal) y art. 6 (régimen de protección)':
+    'Declara, entre d’altres, les ZEPA marines de les Balears: ES0000515, ES0000516 i ES0000517 a Eivissa i Formentera, ES0000518, ES0000519 i ES0000520 a Mallorca i Cabrera, i ES0000521 i ES0000522 a Menorca. Art. 4 (plans de gestió), art. 5 (gestió estatal) i art. 6 (règim de protecció)',
+  'Dentro de la reserva marina de ses Bledes manda el régimen de la reserva, que este mapa resuelve por separado.':
+    'Dins la reserva marina de ses Bledes mana el règim de la reserva, que aquest mapa resol per separat.',
+  'Dentro del parque natural el buceo exige además autorización del órgano gestor: manda el PRUG, que este mapa resuelve por separado.':
+    'Dins el parc natural el busseig exigeix a més autorització de l’òrgan gestor: mana el PRUG, que aquest mapa resol per separat.',
+  'Días autorizables: martes, jueves, fines de semana y festivos.':
+    'Dies autoritzables: dimarts, dijous, caps de setmana i festius.',
+  'El anexo I de la Orden AAA/1366/2016 no regula la pesca recreativa en esta ZEC, tampoco la submarina: no existe ninguna prohibición derivada de esta figura.':
+    'L’annex I de l’Ordre AAA/1366/2016 no regula la pesca recreativa en aquesta ZEC, tampoc la submarina: no hi ha cap prohibició derivada d’aquesta figura.',
+  'El apartado 5 del anexo I de la Orden AAA/1366/2016 no limita la navegación de recreo en esta ZEC: se compromete a estudiar posibles límites de velocidad, sin fijar ninguno.':
+    'L’apartat 5 de l’annex I de l’Ordre AAA/1366/2016 no limita la navegació d’esbarjo en aquesta ZEC: es compromet a estudiar possibles límits de velocitat, sense fixar-ne cap.',
+  'El apartado 5 del anexo I de la Orden AAA/1366/2016 prohíbe fondear sobre praderas de fanerógamas marinas, fondos coralígenos y fondos de maërl, salvo en los puntos habilitados con las tecnologías menos lesivas.':
+    'L’apartat 5 de l’annex I de l’Ordre AAA/1366/2016 prohibeix fondejar sobre prades de fanerògames marines, fons coral·lígens i fons de maërl, excepte als punts habilitats amb les tecnologies menys lesives.',
+  'El apartado 5.9.2.2 del plan de gestión hace autorizable la pesca recreativa submarina en esta ZEC, fuera de la reserva marina de ses Bledes, y solo los martes, jueves, fines de semana y festivos. Es la regulación adicional que el art. 5 del Decret 91/2023 permite al plan.':
+    'L’apartat 5.9.2.2 del pla de gestió fa autoritzable la pesca recreativa submarina en aquesta ZEC, fora de la reserva marina de ses Bledes, i només els dimarts, dijous, caps de setmana i festius. És la regulació addicional que l’art. 5 del Decret 91/2023 permet al pla.',
+  'El apartado 9 del anexo I de la Orden AAA/1366/2016 solo prevé que se pueda limitar el número de inmersiones para preservar los hábitats sensibles. No consta que se haya limitado en esta ZEC, y el buceo no exige aquí autorización previa.':
+    'L’apartat 9 de l’annex I de l’Ordre AAA/1366/2016 només preveu que es pugui limitar el nombre d’immersions per preservar els hàbitats sensibles. No consta que s’hagi limitat en aquesta ZEC, i el busseig no hi exigeix autorització prèvia.',
+  'Espacio con doble designación en el extremo este de Formentera. Su plan de gestión regula el fondeo —con un límite de eslora en los arenales someros— y remite la pesca a la normativa general.':
+    'Espai amb doble designació a l’extrem est de Formentera. El seu pla de gestió regula el fondeig —amb un límit d’eslora als arenals soms— i remet la pesca a la normativa general.',
+  'Espacio con doble designación en el extremo sur de Formentera. Su plan de gestión regula el fondeo —con un límite de eslora en los arenales someros— y remite la pesca a la normativa general.':
+    'Espai amb doble designació a l’extrem sud de Formentera. El seu pla de gestió regula el fondeig —amb un límit d’eslora als arenals soms— i remet la pesca a la normativa general.',
+  'Espacio con doble designación en torno a es Vedrà y es Vedranell. Se solapa con la reserva marina del mismo nombre, y es el régimen de la reserva el que restringe allí la pesca.':
+    'Espai amb doble designació al voltant d’es Vedrà i es Vedranell. Se superposa amb la reserva marina del mateix nom, i és el règim de la reserva el que hi restringeix la pesca.',
+  'Espacio con doble designación en torno a ses Bledes y los demás islotes de poniente de Eivissa. Fuera de la reserva marina de ses Bledes, su plan de gestión somete la pesca submarina a autorización y la limita a ciertos días.':
+    'Espai amb doble designació al voltant de ses Bledes i els altres illots de ponent d’Eivissa. Fora de la reserva marina de ses Bledes, el seu pla de gestió sotmet la pesca submarina a autorització i la limita a certs dies.',
+  'Espacio con doble designación sobre el islote de Tagomago y su entorno. Mismo régimen que el área marina: pesca submarina prohibida.':
+    'Espai amb doble designació sobre l’illot de Tagomago i el seu entorn. Mateix règim que l’àrea marina: pesca submarina prohibida.',
+  'Espacio con doble designación sobre los islotes de levante de Eivissa. Pesca submarina prohibida por el plan de gestión, y además motos acuáticas prohibidas.':
+    'Espai amb doble designació sobre els illots de llevant d’Eivissa. Pesca submarina prohibida pel pla de gestió, i a més motos aquàtiques prohibides.',
+  'Espacio Natura 2000 que coincide en su mayor parte con el parque natural de ses Salines. Su plan de gestión declara aplicable el PRUG del parque y prohíbe por sí mismo la pesca submarina y los concursos de pesca en todo su ámbito marino.':
+    'Espai Natura 2000 que coincideix en la major part amb el parc natural de ses Salines. El seu pla de gestió declara aplicable el PRUG del parc i prohibeix per si mateix la pesca submarina i els concursos de pesca a tot el seu àmbit marí.',
+  'Fondeo prohibido: ningún tipo de fondeo salvo fuerza mayor. Amarre regulado: solo a las boyas instaladas. Fondeo condicionado: siempre sobre arena y nunca sobre praderas de Posidonia oceanica.':
+    'Fondeig prohibit: cap tipus de fondeig excepte força major. Amarratge regulat: només a les boies instal·lades. Fondeig condicionat: sempre sobre arena i mai sobre prades de Posidonia oceanica.',
+  'Hay que llevar un registro de la actividad y comunicar periódicamente al órgano de pesca el número de capturas y las zonas. No presentarlo puede acarrear la pérdida de la licencia.':
+    'S’ha de dur un registre de l’activitat i comunicar periòdicament a l’òrgan de pesca el nombre de captures i les zones. No presentar-lo pot comportar la pèrdua de la llicència.',
+  'La norma reguladora 1.11 del plan de gestión zonifica su ámbito marino en zonas de fondeo prohibido, de amarre regulado, de fondeo condicionado y de fondeo libre, para proteger la pradera de posidonia. Es el mismo esquema del art. 117 del PRUG del parque.':
+    'La norma reguladora 1.11 del pla de gestió zonifica el seu àmbit marí en zones de fondeig prohibit, d’amarratge regulat, de fondeig condicionat i de fondeig lliure, per protegir la prada de posidònia. És el mateix esquema de l’art. 117 del PRUG del parc.',
+  'La norma reguladora 1.12 del plan de gestión considera permitido el buceo con escafandra autónoma en todo su ámbito marino, salvo donde se restrinja por motivos de conservación.':
+    'La norma reguladora 1.12 del pla de gestió considera permès el busseig amb escafandre autònom a tot el seu àmbit marí, excepte on es restringeixi per motius de conservació.',
+  'La norma reguladora 1.16 del plan de gestión prohíbe las fiestas multitudinarias en embarcaciones turísticas en todo su ámbito marino. Los límites de navegación del parque están en su PRUG.':
+    'La norma reguladora 1.16 del pla de gestió prohibeix les festes multitudinàries en embarcacions turístiques a tot el seu àmbit marí. Els límits de navegació del parc són al seu PRUG.',
+  'La norma reguladora 1.6 del plan de gestión prohíbe la pesca submarina en todo el ámbito marino del plan, junto al arrastre, el cerco, el palangre de superficie y los concursos de pesca. Coincide con la prohibición del PRUG del parque natural.':
+    'La norma reguladora 1.6 del pla de gestió prohibeix la pesca submarina a tot l’àmbit marí del pla, juntament amb l’arrossegament, l’encerclament, el palangre de superfície i els concursos de pesca. Coincideix amb la prohibició del PRUG del parc natural.',
+  'Las zonas de fondeo prohibido y de fondeo regulado del parque están dibujadas en este mapa como figura aparte: conviene comprobar en cuál cae el punto.':
+    'Les zones de fondeig prohibit i de fondeig regulat del parc estan dibuixades en aquest mapa com a figura a part: convé comprovar en quina cau el punt.',
+  'LIC marino frente a la costa noroeste de Eivissa, con el plan de gestión en tramitación. Por ahora no añade ninguna restricción propia a la pesca recreativa.':
+    'LIC marí davant la costa nord-oest d’Eivissa, amb el pla de gestió en tramitació. De moment no afegeix cap restricció pròpia a la pesca recreativa.',
+  'Los buceadores no pueden llevar instrumentos que sirvan para pescar o extraer especies marinas, salvo el cuchillo de buceo (NR 1.13).':
+    'Els bussejadors no poden dur instruments que serveixin per pescar o extreure espècies marines, excepte el ganivet de busseig (NR 1.13).',
+  'Prohibido el uso de motos acuáticas en esta ZEC (ap. 5.5.10).':
+    'Prohibit l’ús de motos aquàtiques en aquesta ZEC (ap. 5.5.10).',
+  'Prohibido fondear sobre praderas de cualquier fanerógama marina —no solo posidonia y Cymodocea— y sobre fondos coralígenos y de maërl.':
+    'Prohibit fondejar sobre prades de qualsevol fanerògama marina —no només posidònia i Cymodocea— i sobre fons coral·lígens i de maërl.',
+  'Se exceptúan los puntos habilitados a tal efecto con las tecnologías menos lesivas para esos hábitats. No consta ninguno en esta ZEC.':
+    'Se n’exceptuen els punts habilitats a aquest efecte amb les tecnologies menys lesives per a aquests hàbitats. No en consta cap en aquesta ZEC.',
+  'ZEC marina de gestión estatal de 553 ha al este de Eivissa, frente al cap Martinet. Sus medidas de conservación prohíben fondear sobre fanerógamas, coralígeno y maërl; no regulan la pesca recreativa.':
+    'ZEC marina de gestió estatal de 553 ha a l’est d’Eivissa, davant el cap Martinet. Les seves mesures de conservació prohibeixen fondejar sobre fanerògames, coral·ligen i maërl; no regulen la pesca recreativa.',
+  'ZEC marina de la costa oeste de Eivissa, con Cala d’Hort y Cala Vedella. Su plan de gestión regula el fondeo y la navegación; la pesca se rige por la normativa general.':
+    'ZEC marina de la costa oest d’Eivissa, amb Cala d’Hort i Cala Vedella. El seu pla de gestió regula el fondeig i la navegació; la pesca es regeix per la normativa general.',
+  'ZEC marina en la costa norte de Formentera. Su plan de gestión regula el fondeo —con un límite de eslora en los arenales someros— y remite la pesca a la normativa general.':
+    'ZEC marina a la costa nord de Formentera. El seu pla de gestió regula el fondeig —amb un límit d’eslora als arenals soms— i remet la pesca a la normativa general.',
+  'ZEC marina en la costa oeste de Formentera. Su plan de gestión regula el fondeo —con un límite de eslora en los arenales someros— y remite la pesca a la normativa general.':
+    'ZEC marina a la costa oest de Formentera. El seu pla de gestió regula el fondeig —amb un límit d’eslora als arenals soms— i remet la pesca a la normativa general.',
+  'ZEC marina en torno a Tagomago. Su plan de gestión prohíbe la pesca submarina y la pesca con cebo vivo fuera de la reserva marina; dentro manda el régimen de la reserva.':
+    'ZEC marina al voltant de Tagomago. El seu pla de gestió prohibeix la pesca submarina i la pesca amb esquer viu fora de la reserva marina; a dins mana el règim de la reserva.',
+  'ZEC marina frente a la playa de Migjorn, al sur de Formentera. Su plan de gestión regula el fondeo —con un límite de eslora en los arenales someros— y remite la pesca a la normativa general.':
+    'ZEC marina davant la platja de Migjorn, al sud de Formentera. El seu pla de gestió regula el fondeig —amb un límit d’eslora als arenals soms— i remet la pesca a la normativa general.',
+  'ZEPA marina estatal de 19.161 ha frente a la costa este de Eivissa, en el entorno de Tagomago. No impone por sí sola ninguna restricción a la pesca recreativa.':
+    'ZEPA marina estatal de 19.161 ha davant la costa est d’Eivissa, a l’entorn de Tagomago. No imposa per si sola cap restricció a la pesca recreativa.',
+  'ZEPA marina estatal de 46.420 ha en torno a Formentera y al sur de Eivissa, declarada por las colonias de aves marinas. Se solapa con el parque de ses Salines y la reserva dels Freus, y es el régimen de esas figuras —no esta ZEPA— el que restringe allí la pesca.':
+    'ZEPA marina estatal de 46.420 ha al voltant de Formentera i al sud d’Eivissa, declarada per les colònies d’aus marines. Se superposa amb el parc de ses Salines i la reserva dels Freus, i és el règim d’aquestes figures —no aquesta ZEPA— el que hi restringeix la pesca.',
+  'ZEPA marina estatal de 47.069 ha frente a las costas oeste y norte de Eivissa. No impone por sí sola ninguna restricción a la pesca recreativa.':
+    'ZEPA marina estatal de 47.069 ha davant les costes oest i nord d’Eivissa. No imposa per si sola cap restricció a la pesca recreativa.',
 };

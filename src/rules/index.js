@@ -28,6 +28,7 @@ import illaDeLAire from './reservas-marinas/illa-de-l-aire.js';
 import natura2000Autonomics from './natura2000/autonomics.js';
 import natura2000Estatals from './natura2000/estatals.js';
 import natura2000Menorca from './natura2000/menorca.js';
+import natura2000Pitiuses from './natura2000/pitiuses.js';
 
 import enpSerraDeTramuntana from './espacios-naturales/serra-de-tramuntana.js';
 import enpEsTrenc from './espacios-naturales/es-trenc-salobrar.js';
@@ -62,6 +63,7 @@ export const FICHAS_DECLARADAS = [
   ...natura2000Autonomics,
   ...natura2000Estatals,
   ...natura2000Menorca,
+  ...natura2000Pitiuses,
   ...enpSerraDeTramuntana,
   ...enpEsTrenc,
   ...enpPeninsulaDeLlevant,

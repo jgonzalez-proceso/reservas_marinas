@@ -378,6 +378,9 @@ async function main() {
   const areas = creaCapaAreas(features, {
     mapa,
     onSeleccion: (punto) => registraConsulta(consulta(punto), { tipo: 'mapa', isla: ISLA }),
+    // O vedan el paso: una zona donde no se puede ni navegar se dibuja aunque
+    // su fuente no toque la pesca. Es el caso de la zonificación de Cabrera.
+    pesa: (f) => afectaALaPesca(f.properties.zoneId) || vedaElPaso(f.properties.zoneId),
   });
   areas.conectaMapa();
 
@@ -390,13 +393,17 @@ async function main() {
   // Apagar una capa NO la saca del cálculo: `consulta` resuelve siempre contra
   // `features` al completo, y una figura oculta sigue apareciendo en el panel
   // al pulsar un punto suyo. La leyenda lo advierte.
-  for (const [id, entrada] of areas.porFuente.entries()) {
-    // O vedan el paso: una zona donde no se puede ni navegar se dibuja aunque
-    // su fuente no toque la pesca. Es el caso de la zonificación de Cabrera.
-    const pesa = entrada.features.some(
+  //
+  // La decisión es por figura, no por fuente: `creaCapaAreas` parte en dos la
+  // fuente en la que solo algunas pesan. Con la decisión por fuente, los tres
+  // espacios Natura 2000 de Eivissa cuyo plan sí restringe la pesca submarina
+  // encendían la capa entera y volvían a teñir Mallorca.
+  for (const entrada of areas.porFuente.values()) {
+    // Una fuente que no está partida se enciende si alguna de sus figuras pesa.
+    const pesa = entrada.resto ? false : entrada.features.some(
       (f) => afectaALaPesca(f.properties.zoneId) || vedaElPaso(f.properties.zoneId),
     );
-    const titulo = tituloFuente(id, entrada.titulo);
+    const titulo = tituloFuente(entrada.fuente, entrada.titulo);
     control.addOverlay(entrada.capa, pesa ? titulo : t('capa.sinEfectoPesca', { titulo }));
     if (pesa) entrada.capa.addTo(mapa);
   }

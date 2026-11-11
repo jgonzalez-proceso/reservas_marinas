@@ -242,8 +242,44 @@ export const FUENTES = {
       'Orden AAA/1260/2014, de 9 de julio, por la que se declaran Zonas de Especial Protección para las Aves en aguas marinas españolas',
     url: 'https://www.boe.es/buscar/act.php?id=BOE-A-2014-7576',
     referencia:
-      'Declara ES0000518, ES0000519 y ES0000520. Art. 4 (planes de gestión), art. 5 (gestión estatal) y art. 6 (régimen de protección)',
-    consultada: '2026-08-15',
+      'Declara, entre otras, las ZEPA marinas de Baleares: ES0000515, ES0000516 y ES0000517 en Eivissa y Formentera, ES0000518, ES0000519 y ES0000520 en Mallorca y Cabrera, y ES0000521 y ES0000522 en Menorca. Art. 4 (planes de gestión), art. 5 (gestión estatal) y art. 6 (régimen de protección)',
+    consultada: '2026-11-11',
+  },
+  'boe-orden-aaa-1366-2016': {
+    titulo:
+      'Orden AAA/1366/2016, de 4 de agosto, por la que se declaran zonas especiales de conservación de lugares de importancia comunitaria de la Región Marina Mediterránea de la Red Natura 2000 y se aprueban sus correspondientes medidas de conservación',
+    url: 'https://www.boe.es/buscar/doc.php?id=BOE-A-2016-7738',
+    referencia:
+      'BOE núm. 193, de 11 de agosto de 2016. Art. 1 (declara ZEC el Área marina del cap Martinet, ES5310108) y anexo I, regulación de usos y actividades común a las siete ZEC: apartado 1 (actividad pesquera, sin reglas para la recreativa en esta ZEC), apartado 5 (navegación; prohíbe el fondeo sobre fanerógamas, coralígeno y maërl salvo en puntos habilitados) y apartado 9 (actividades recreativas; se podrá limitar el número de inmersiones)',
+    consultada: '2026-11-11',
+  },
+  'boib-decret-17-2020-formentera': {
+    titulo: 'Decreto 17/2020, de 22 de mayo, por el cual se aprueba el Plan de Gestión Natura 2000 de Formentera',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2020/05/22/17/dof/spa/pdf',
+    referencia:
+      'BOIB núm. 92, de 25 de mayo de 2020. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 162890 en catalán, 162886 en castellano). Apartado 9.7: 9.7.1 pesca (remite a la regulación general), 9.7.4 fondeo (posidonia, zona de fondeo condicionado para esloras de menos de 16 m, zonas de baño, Cymodocea, maërl y coralígeno), 9.7.5 navegación, 9.7.7 buceo, 9.7.8 party boats, 9.7.10 instalaciones de temporada y 9.7.11 vertidos',
+    consultada: '2026-11-11',
+  },
+  'boib-decret-49-2022-costa-oest-eivissa': {
+    titulo: 'Decret 49/2022, de 5 de desembre, pel qual s’aprova el Pla de Gestió Natura 2000 Costa Oest d’Eivissa',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2022/12/05/49/dof/cat/pdf',
+    referencia:
+      'BOIB núm. 161, de 12 de diciembre de 2022. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 221929 en castellano, 221930 en catalán). Apartado 5.9: 5.9.2 pesca (5.9.2.2 pesca submarina autorizable en la ZEC Illots de Ponent, 5.9.2.4 palangre), 5.9.3 competiciones, 5.9.5 buceo, 5.9.6 fondeo, 5.9.7 navegación, 5.9.8 instalaciones de temporada, 5.9.9 party boats y 5.9.11 vertidos',
+    consultada: '2026-11-11',
+  },
+  'boib-decret-29-2022-llevant-eivissa': {
+    titulo: 'Decret 29/2022, d’1 d’agost, pel qual s’aprova el Pla de Gestió Natura 2000 Illots del llevant d’Eivissa',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2022/08/01/29/dof/cat/html',
+    referencia:
+      'BOIB núm. 100, de 2 de agosto de 2022. El articulado marino está en el plan, publicado como anexo del decreto (ConsultaAnnexe 213655 en castellano, 213656 en catalán). Apartado 5.5: 5.5.1 fondeo, 5.5.2 vertidos, 5.5.3 fiestas en embarcaciones, 5.5.4 pesca y buceo (5.5.4.2.i prohíbe fuera de la reserva las pescas recreativas con cebo vivo o fusil), 5.5.9 instalaciones de temporada y 5.5.10 navegación (motos acuáticas en ES0000242)',
+    consultada: '2026-11-11',
+  },
+  'boib-decret-48-2015-salines-n2000': {
+    titulo: 'Decret 48/2015, de 22 de maig, pel qual s’aprova el Pla de Gestió Natura 2000 de ses Salines d’Eivissa i Formentera',
+    url: 'https://www.caib.es/eboibfront/eli/es-ib/d/2015/05/22/48/dof/spa/html',
+    referencia:
+      'BOIB núm. 77, de 23 de mayo de 2015. El articulado está en el plan, publicado como anexo del decreto (ConsultaAnnexe 65713). Normas reguladoras del ámbito marino: 1.2 (declara aplicable el PRUG del parque), 1.6 (prohíbe la pesca submarina y los concursos de pesca), 1.11 (zonificación del fondeo), 1.12 a 1.14 (buceo) y 1.16 (party boats)',
+    consultada: '2026-11-11',
   },
   'boe-orden-aaa-1299-2014': {
     titulo:
