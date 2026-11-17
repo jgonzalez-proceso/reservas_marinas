@@ -16,6 +16,7 @@ import { colorDe, nivelDe } from '../map/estilos-proteccion.js';
 import { FUENTES } from '../rules/fuentes.js';
 import { urlOficial } from '../sources/normalize.js';
 import { leeOrdenActividades, guardaOrdenActividades } from './orden-actividades.js';
+import { enlaceZona } from '../paginas/reservas.js';
 import { t, tp } from '../i18n/index.js';
 import { tn, tnLista, NORMATIVA_EN_OTRO_IDIOMA } from '../i18n/normativa.js';
 import { moneda, distancia, superficie, gradosLegibles } from '../i18n/formato.js';
@@ -529,6 +530,16 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
 
     const normasFigura = fig.normas?.length ? listaNormas(fig.normas) : null;
     if (normasFigura) card.append(normasFigura);
+
+    // El panel contesta qué rige en este punto; la página de la isla pone esa
+    // zona en el contexto de su reserva, con todas sus zonas vecinas. Solo las
+    // reservas marinas tienen página: el resto de figuras no lleva enlace.
+    const href = enlaceZona(fig.zoneId);
+    if (href) {
+      const a = el('a', 'figura__pagina', t('panel.verReserva'));
+      a.href = href;
+      card.append(a);
+    }
     return card;
   }
 

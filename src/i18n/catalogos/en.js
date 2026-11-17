@@ -110,6 +110,7 @@ export default {
     'accurate enough to say so.',
   'panel.sinFiguras': 'No protected area at this point',
   'panel.queSePuedeHacer': 'What you may do here',
+  'panel.verReserva': 'See every zone of this reserve (in Spanish)',
   'panel.figuraUna': 'One protected area affects this point',
   'panel.figurasVarias': '{n} protected areas affect this point',
   'panel.notaOrden':

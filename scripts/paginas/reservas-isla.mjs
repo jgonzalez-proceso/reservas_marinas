@@ -22,33 +22,11 @@ import { FICHAS } from '../../src/rules/index.js';
 import { ACTIVIDADES, ESTADOS } from '../../src/engine/resolve.js';
 import { ISLAS, ISLAS_POR_ZONA, zonaEnIsla } from '../../src/data/islas.js';
 
-import badiaDePalma from '../../src/rules/reservas-marinas/badia-de-palma.js';
-import ponentDeMallorca from '../../src/rules/reservas-marinas/ponent-de-mallorca.js';
-import saDragonera from '../../src/rules/reservas-marinas/sa-dragonera.js';
-import llevantDeMallorca from '../../src/rules/reservas-marinas/llevant-de-mallorca.js';
-import migjornDeMallorca from '../../src/rules/reservas-marinas/migjorn-de-mallorca.js';
+import { RESERVAS_POR_ISLA, anclaZona, rutaIsla } from '../../src/paginas/reservas.js';
+
+export { RESERVAS_POR_ISLA, rutaIsla };
 
 export const SITIO = 'https://reservas.pecesmediterraneo.com/';
-
-/**
- * Las reservas de cada isla, en el orden en que se leen: de la bahía de Palma
- * hacia poniente y luego la costa de levante y el sur. Cada una agrupa las
- * fichas de su fichero, que es como están organizadas jurídicamente (una
- * reserva con sus zonas interiores y, donde lo hay, su ámbito estatal).
- */
-export const RESERVAS_POR_ISLA = {
-  mallorca: [
-    { id: 'badia-de-palma', nombre: 'Reserva marina de la bahía de Palma', fichas: badiaDePalma },
-    {
-      id: 'ponent-de-mallorca',
-      nombre: 'Reserva marina de las islas del Ponent de Mallorca (el Toro, les Malgrats y el Sec)',
-      fichas: ponentDeMallorca,
-    },
-    { id: 'sa-dragonera', nombre: 'Reserva marina de sa Dragonera', fichas: saDragonera },
-    { id: 'llevant-de-mallorca', nombre: 'Reserva marina del Llevant de Mallorca', fichas: llevantDeMallorca },
-    { id: 'migjorn-de-mallorca', nombre: 'Reserva marina del Migjorn de Mallorca', fichas: migjornDeMallorca },
-  ],
-};
 
 /**
  * Fecha en que cambió por última vez lo que dice la página: la más reciente
@@ -60,9 +38,6 @@ export function fechaPagina(isla) {
   const revisiones = RESERVAS_POR_ISLA[isla].flatMap((r) => r.fichas.map((f) => FICHAS[f.zoneId].ultimaRevision));
   return [...revisiones, manifiesto.generado.slice(0, 10)].filter(Boolean).sort().at(-1);
 }
-
-/** Ruta pública de la página de una isla, con barra final: es un directorio. */
-export const rutaIsla = (isla) => `reservas-marinas-${isla}/`;
 
 const esc = (s) =>
   String(s ?? '')
@@ -81,7 +56,7 @@ const euros = (n) => new Intl.NumberFormat('es-ES', { style: 'currency', currenc
 const enlace = (url, texto) =>
   url ? `<a href="${esc(url)}" rel="noopener noreferrer">${esc(texto)}</a>` : esc(texto);
 
-const ancla = (zoneId) => zoneId.replace(/^rm-/, '').replace(/--.*$/, '') + '-' + zoneId.split('--').slice(1).join('-');
+const ancla = anclaZona;
 
 // En la matriz del resumen caben seis columnas solo con etiquetas cortas; la
 // etiqueta completa va en el `title` y en el detalle de cada zona.

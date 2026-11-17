@@ -101,6 +101,7 @@ export default {
     'dirà a quina distància del límit ets i si el teu GPS dona per afirmar-ho.',
   'panel.sinFiguras': 'Cap figura en aquest punt',
   'panel.queSePuedeHacer': 'Què s’hi pot fer',
+  'panel.verReserva': 'Veure totes les zones d’aquesta reserva (en castellà)',
   'panel.figuraUna': 'Figura que afecta aquest punt',
   'panel.figurasVarias': '{n} figures afecten aquest punt',
   'panel.notaOrden':

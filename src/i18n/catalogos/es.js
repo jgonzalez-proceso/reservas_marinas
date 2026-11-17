@@ -111,6 +111,7 @@ export default {
     'dirá a qué distancia del límite estás y si tu GPS da para afirmarlo.',
   'panel.sinFiguras': 'Sin figuras en este punto',
   'panel.queSePuedeHacer': 'Qué se puede hacer aquí',
+  'panel.verReserva': 'Ver todas las zonas de esta reserva',
   'panel.figuraUna': 'Figura que afecta a este punto',
   'panel.figurasVarias': '{n} figuras afectan a este punto',
   'panel.notaOrden':

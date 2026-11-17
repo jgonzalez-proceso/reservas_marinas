@@ -190,6 +190,7 @@ scripts/
   test-evento.mjs        el contador anónimo no guarda lo que no debe
   test-paginas.mjs       las páginas de reservas por isla no pierden zonas
   paginas/reservas-isla.mjs  genera /reservas-marinas-<isla>/ desde las fichas
+  (src/paginas/reservas.js: reservas por isla y anclas, compartido con el panel)
   eventos-datos.mjs      consultas SQL del contador, comunes a informe y panel
   informe-eventos.mjs    informe del contador en consola (npm run eventos)
   panel-eventos.mjs      panel HTML del contador; lo abre en Chrome (npm run panel)
@@ -539,7 +540,8 @@ Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo 
 
 **No tiene ni una frase de contenido escrita a mano.** La genera `scripts/paginas/reservas-isla.mjs` en el build a partir de las fichas ya resueltas con su herencia: resumen por zona, motivo de cada actividad, condiciones, permisos y normas. Corregir una ficha corrige su página, y los gates del build la protegen igual que al mapa. Escribirla a mano habría sido abrir un segundo sitio donde caduca la normativa, que es justo el riesgo que el catálogo de traducciones evita indexando por la cadena origen.
 
-- **La lista de reservas por isla (`RESERVAS_POR_ISLA`) sí es manual**, y por eso `scripts/test-paginas.mjs` comprueba que toda zona `rm-` asignada a la isla en `islas.js` está en su página y ninguna de otra isla. Añadir Menorca, Eivissa o Formentera es añadir su entrada: el plugin de `vite.config.js` y el sitemap la recogen solos.
+- **La lista de reservas por isla (`RESERVAS_POR_ISLA`) sí es manual** y vive en `src/paginas/reservas.js`, y por eso `scripts/test-paginas.mjs` comprueba que toda zona `rm-` asignada a la isla en `islas.js` está en su página y ninguna de otra isla. Añadir Menorca, Eivissa o Formentera es añadir su entrada: el plugin de `vite.config.js` y el sitemap la recogen solos.
+- **El panel enlaza a la página desde cada figura que tiene sitio en ella** («Ver todas las zonas de esta reserva», al bloque de esa zona). El ancla la calcula `enlaceZona()` en el mismo módulo que usa el generador, que no importa nada de Node para poder ir en el bundle; si cada lado calculara la suya, el día que divergieran el panel mandaría a un `#` inexistente sin que fallara nada. `test-paginas.mjs` comprueba además que cada enlace del panel cae en un ancla de la página.
 - **Va suelta, sin el bundle**, como `404.html`: estilos dentro y ningún asset con hash.
 - **Solo existe en el build** (`apply: 'build'`): con `npm run dev` el enlace desde la portada da 404. Para verla, `npm run build` y `npm run preview`.
 - **Solo en castellano.** Las fichas están en castellano y la página no ejecuta `t()`; los catálogos enlazan a ella desde los cuatro idiomas.

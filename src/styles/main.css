@@ -1188,6 +1188,16 @@ body.reordenando .panel__cuerpo {
   margin-left: 18px;
 }
 
+.figura__pagina {
+  display: inline-block;
+  margin: 6px 0 0 18px;
+  font-size: 0.78rem;
+  color: var(--acento);
+}
+.figura__pagina::after {
+  content: ' →';
+}
+
 .aviso {
   border-radius: 8px;
   padding: 12px 14px;

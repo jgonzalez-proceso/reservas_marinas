@@ -14,7 +14,8 @@ import assert from 'node:assert/strict';
 
 import { ISLAS_POR_ZONA, zonaEnIsla } from '../src/data/islas.js';
 import { FICHAS } from '../src/rules/index.js';
-import { RESERVAS_POR_ISLA, paginaReservasIsla } from './paginas/reservas-isla.mjs';
+import { RESERVAS_POR_ISLA, paginaReservasIsla, rutaIsla } from './paginas/reservas-isla.mjs';
+import { enlaceZona } from '../src/paginas/reservas.js';
 
 for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
   const html = paginaReservasIsla(isla);
@@ -51,5 +52,14 @@ for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
     const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, 1);
     assert.doesNotThrow(() => JSON.parse(scripts[0][1]));
+  });
+
+  test(`${isla}: el enlace del panel a cada zona cae en un ancla de la página`, () => {
+    const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+    for (const id of enPagina) {
+      const href = enlaceZona(id);
+      assert.ok(href?.startsWith(rutaIsla(isla) + '#'), `${id}: enlace ${href}`);
+      assert.ok(ids.has(href.split('#')[1]), `${id}: el panel enlaza a #${href.split('#')[1]}, que la página no tiene`);
+    }
   });
 }

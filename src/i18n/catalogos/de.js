@@ -109,6 +109,7 @@ export default {
     'genau genug ist, um das zu behaupten.',
   'panel.sinFiguras': 'Kein Schutzgebiet an diesem Punkt',
   'panel.queSePuedeHacer': 'Was hier erlaubt ist',
+  'panel.verReserva': 'Alle Zonen dieses Schutzgebiets ansehen (auf Spanisch)',
   'panel.figuraUna': 'Ein Schutzgebiet betrifft diesen Punkt',
   'panel.figurasVarias': '{n} Schutzgebiete betreffen diesen Punkt',
   'panel.notaOrden':
