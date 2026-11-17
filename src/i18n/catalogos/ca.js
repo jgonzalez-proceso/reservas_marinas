@@ -9,7 +9,7 @@
 
 export default {
   // -- Capçalera i estructura ------------------------------------------------
-  'app.titulo': 'Restriccions marítimes',
+  'app.titulo': 'Reserves marines',
   'app.subtitulo': 'Illes Balears',
   'app.subtituloIsla': 'Illes Balears · {isla}',
   'app.tituloDocumento': 'Reserves marines de les Balears: mapa d\'on pescar i fondejar',
@@ -59,26 +59,34 @@ export default {
   // -- Bloc «Què és aquest mapa» --------------------------------------------
   'acerca.resumen': 'Què és aquest mapa',
   'acerca.p1Html':
-    'Això no és un mapa de reserves marines: és un motor de consulta de restriccions ' +
-    'marítimes, on la reserva marina és una de les <strong>sis capes reguladores</strong> ' +
-    'que es creuen sobre cada punt de la mar. Prem qualsevol punt i el motor reuneix totes ' +
-    'les figures de protecció que el contenen —reserves marines, Xarxa Natura 2000, ' +
-    'espais naturals protegits, la seva zonificació interna, la regulació específica de ' +
-    'pesca submarina i la del fondeig— i retorna una conclusió per activitat: pesca des ' +
+    'Mapa de les <strong>reserves marines de les Balears</strong> que no s’atura a la ' +
+    'reserva: sobre cada punt de la mar creua <strong>sis capes reguladores</strong>, i ' +
+    'la reserva marina només n’és una. Prem qualsevol punt i el motor reuneix totes les ' +
+    'figures de protecció que el contenen —reserves marines, Xarxa Natura 2000, espais ' +
+    'naturals protegits, la seva zonificació interna, la regulació específica de pesca ' +
+    'submarina i la del fondeig— i retorna una conclusió per activitat: pesca des ' +
     'd’embarcació, pesca submarina, pesca des de costa, busseig, fondeig i navegació, amb ' +
     'el motiu i la norma que la justifica.',
+  'acerca.reservasTitulo': 'Les dotze reserves marines de Mallorca, Menorca, Eivissa i Formentera',
+  'acerca.reservasHtml':
+    '<li><strong>Mallorca</strong>: badia de Palma, Migjorn de Mallorca, illes del Ponent ' +
+    'de Mallorca (el Toro, les Malgrats i el Sec), Llevant de Mallorca i sa ' +
+    'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca i illa de ' +
+    'l’Aire.</li><li><strong>Eivissa</strong>: costa nord-est d’Eivissa-Tagomago, es ' +
+    'Vedrà-es Vedranell i ses Bledes.</li><li><strong>Formentera</strong>: punta de sa ' +
+    'Creu, i els Freus d’Eivissa i Formentera, compartida entre les dues illes.</li>',
   'acerca.p2Html':
     'Cobreix les <strong>121 zones</strong> carregades fins ara a les quatre illes i ' +
-    'Cabrera, totes amb fitxa redactada i citada contra el BOIB o el BOE: les dotze reserves ' +
-    'marines de Balears, els espais marins de la Xarxa Natura 2000, els set espais ' +
-    'naturals protegits amb àmbit marí i la zonificació interna de s’Albufera des ' +
-    'Grau i ses Salines.',
+    'Cabrera, totes amb fitxa redactada i citada contra el BOIB o el BOE: les dotze ' +
+    'reserves marines, els espais marins de la Xarxa Natura 2000, els set espais naturals ' +
+    'protegits amb àmbit marí —entre ells el Parc Nacional de Cabrera— i la zonificació ' +
+    'interna de s’Albufera des Grau, ses Salines i Cabrera.',
   'acerca.p3Html':
-    'Encara hi falta feina: capes senceres com la posidònia o la zonificació de Cabrera i ' +
-    'sa Dragonera encara no estan carregades, i dins les fitxes hi ha condicions que ' +
-    'remeten a normes que aquest mapa encara no dibuixa. És una web informativa no oficial ' +
-    '—la font vinculant sempre és la norma publicada i la cartografia de l’IDEIB—, no un ' +
-    'substitut de consultar-la abans de sortir a pescar.',
+    'Encara hi falta feina: capes com les praderes de posidònia, els camps de boies o les ' +
+    'zones de fondeig de la costa est de Menorca encara no estan carregades, i dins les ' +
+    'fitxes hi ha condicions que remeten a normes que aquest mapa encara no dibuixa. És ' +
+    'una web informativa no oficial —la font vinculant sempre és la norma publicada i la ' +
+    'cartografia de l’IDEIB—, no un substitut de consultar-la abans de sortir a pescar.',
 
   // -- Panell ----------------------------------------------------------------
   'panel.titulo': 'Toca el mapa',

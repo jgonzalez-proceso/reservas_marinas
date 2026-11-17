@@ -19,7 +19,7 @@
 
 export default {
   // -- Cabecera y estructura -------------------------------------------------
-  'app.titulo': 'Restricciones marítimas',
+  'app.titulo': 'Reservas marinas',
   'app.subtitulo': 'Illes Balears',
   'app.subtituloIsla': 'Illes Balears · {isla}',
   'app.tituloDocumento': 'Reservas marinas de Baleares: mapa de dónde pescar y fondear',
@@ -69,26 +69,34 @@ export default {
   // -- Bloque «Que es este mapa» --------------------------------------------
   'acerca.resumen': 'Qué es este mapa',
   'acerca.p1Html':
-    'Esto no es un mapa de reservas marinas: es un motor de consulta de restricciones ' +
-    'marítimas, donde la reserva marina es una de <strong>seis capas regulatorias</strong> ' +
-    'que se cruzan sobre cada punto del mar. Pulsa cualquier punto y el motor reúne todas ' +
+    'Mapa de las <strong>reservas marinas de Baleares</strong> que no se queda en la ' +
+    'reserva: sobre cada punto del mar cruza <strong>seis capas regulatorias</strong>, y ' +
+    'la reserva marina es solo una de ellas. Pulsa cualquier punto y el motor reúne todas ' +
     'las figuras de protección que lo contienen —reservas marinas, Red Natura 2000, ' +
     'espacios naturales protegidos, su zonificación interna, la regulación específica de ' +
-    'pesca submarina y la del fondeo— y devuelve una conclusión por actividad: pesca desde ' +
-    'embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, con el ' +
-    'motivo y la norma que la justifica.',
+    'pesca submarina y la del fondeo— y devuelve una conclusión por actividad: pesca ' +
+    'desde embarcación, pesca submarina, pesca desde costa, buceo, fondeo y navegación, ' +
+    'con el motivo y la norma que la justifica.',
+  'acerca.reservasTitulo': 'Las doce reservas marinas de Mallorca, Menorca, Eivissa y Formentera',
+  'acerca.reservasHtml':
+    '<li><strong>Mallorca</strong>: bahía de Palma, Migjorn de Mallorca, islas del Ponent ' +
+    'de Mallorca (el Toro, les Malgrats y el Sec), Llevant de Mallorca y sa ' +
+    'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca e isla del ' +
+    'Aire.</li><li><strong>Eivissa (Ibiza)</strong>: costa noreste de Eivissa-Tagomago, ' +
+    'es Vedrà-es Vedranell y ses Bledes.</li><li><strong>Formentera</strong>: punta de sa ' +
+    'Creu, y els Freus de Eivissa y Formentera, compartida entre las dos islas.</li>',
   'acerca.p2Html':
     'Cubre las <strong>121 zonas</strong> cargadas hasta ahora en las cuatro islas y ' +
-    'Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce reservas ' +
-    'marinas de Baleares, los espacios marinos de la Red Natura 2000, los siete espacios ' +
-    'naturales protegidos con ámbito marino y la zonificación interna de s’Albufera des ' +
-    'Grau y ses Salines.',
+    'Cabrera, todas con ficha redactada y citada contra el BOIB o el BOE: las doce ' +
+    'reservas marinas, los espacios marinos de la Red Natura 2000, los siete espacios ' +
+    'naturales protegidos con ámbito marino —entre ellos el Parque Nacional de Cabrera— y ' +
+    'la zonificación interna de s’Albufera des Grau, ses Salines y Cabrera.',
   'acerca.p3Html':
-    'Sigue faltando trabajo: capas enteras como la posidonia o la zonificación de Cabrera y ' +
-    'sa Dragonera todavía no están cargadas, y dentro de las fichas hay condiciones que ' +
-    'remiten a normas que este mapa aún no dibuja. Es una web informativa no oficial —la ' +
-    'fuente vinculante es siempre la norma publicada y la cartografía de IDEIB—, no un ' +
-    'sustituto de consultarla antes de faenar.',
+    'Sigue faltando trabajo: capas como las praderas de posidonia, los campos de boyas o ' +
+    'las zonas de fondeo de la costa este de Menorca todavía no están cargadas, y dentro ' +
+    'de las fichas hay condiciones que remiten a normas que este mapa aún no dibuja. Es ' +
+    'una web informativa no oficial —la fuente vinculante es siempre la norma publicada y ' +
+    'la cartografía de IDEIB—, no un sustituto de consultarla antes de faenar.',
 
   // -- Panel -----------------------------------------------------------------
   'panel.titulo': 'Toca el mapa',

@@ -15,7 +15,7 @@
 
 export default {
   // -- Kopfzeile und Aufbau --------------------------------------------------
-  'app.titulo': 'Meeresbeschränkungen',
+  'app.titulo': 'Meeresschutzgebiete',
   'app.subtitulo': 'Balearen',
   'app.subtituloIsla': 'Balearen · {isla}',
   'app.tituloDocumento': 'Meeresschutzgebiete der Balearen: Karte zum Angeln und Ankern',
@@ -65,26 +65,35 @@ export default {
   // -- «Was diese Karte ist» -------------------------------------------------
   'acerca.resumen': 'Was diese Karte ist',
   'acerca.p1Html':
-    'Dies ist keine Karte der Meeresschutzgebiete, sondern eine Abfragemaschine für ' +
-    'Meeresbeschränkungen, in der das Meeresschutzgebiet eine von <strong>sechs ' +
-    'Regelungsebenen</strong> ist, die sich über jedem Punkt des Meeres überlagern. Tippe ' +
-    'einen beliebigen Punkt an, und die Maschine sammelt alle Schutzgebiete, die ihn ' +
-    'enthalten —Meeresschutzgebiete, Natura-2000-Netz, Naturschutzgebiete, deren interne ' +
-    'Zonierung, die besondere Regelung der Unterwasserjagd und die des Ankerns— und liefert ' +
-    'ein Ergebnis je Tätigkeit: Angeln vom Boot, Unterwasserjagd, Angeln von der Küste, ' +
+    'Eine Karte der <strong>Meeresschutzgebiete der Balearen</strong>, die nicht beim ' +
+    'Schutzgebiet aufhört: Über jedem Punkt des Meeres überlagert sie <strong>sechs ' +
+    'Regelungsebenen</strong>, und das Meeresschutzgebiet ist nur eine davon. Tippe einen ' +
+    'beliebigen Punkt an, und die Maschine sammelt alle Schutzgebiete, die ihn enthalten ' +
+    '—Meeresschutzgebiete, Natura-2000-Netz, Naturschutzgebiete, deren interne Zonierung, ' +
+    'die besondere Regelung der Unterwasserjagd und die des Ankerns— und liefert ein ' +
+    'Ergebnis je Tätigkeit: Angeln vom Boot, Unterwasserjagd, Angeln von der Küste, ' +
     'Tauchen, Ankern und Navigation, mit der Begründung und der Vorschrift dahinter.',
+  'acerca.reservasTitulo': 'Die zwölf Meeresschutzgebiete von Mallorca, Menorca, Eivissa und Formentera',
+  'acerca.reservasHtml':
+    '<li><strong>Mallorca</strong>: Bucht von Palma, Migjorn de Mallorca, die Inseln des ' +
+    'Ponent de Mallorca (el Toro, les Malgrats und el Sec), Llevant de Mallorca und sa ' +
+    'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca und Illa de ' +
+    'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: Nordostküste von Eivissa-Tagomago, ' +
+    'es Vedrà-es Vedranell und ses Bledes.</li><li><strong>Formentera</strong>: Punta de ' +
+    'sa Creu sowie els Freus d’Eivissa i Formentera, das sich beide Inseln teilen.</li>',
   'acerca.p2Html':
     'Sie deckt die bislang geladenen <strong>121 Gebiete</strong> auf den vier Inseln und ' +
     'Cabrera ab, jedes davon mit einem Datenblatt, das gegen das BOIB oder das BOE belegt ' +
-    'ist: die zwölf Meeresschutzgebiete der Balearen, die marinen Natura-2000-Gebiete, die ' +
-    'sieben Naturschutzgebiete mit Meeresanteil und die interne Zonierung von s’Albufera ' +
-    'des Grau und ses Salines.',
+    'ist: die zwölf Meeresschutzgebiete, die marinen Natura-2000-Gebiete, die sieben ' +
+    'Naturschutzgebiete mit Meeresanteil —darunter der Nationalpark Cabrera— und die ' +
+    'interne Zonierung von s’Albufera des Grau, ses Salines und Cabrera.',
   'acerca.p3Html':
-    'Es bleibt Arbeit: ganze Ebenen wie die Seegraswiesen oder die Zonierung von Cabrera ' +
-    'und sa Dragonera sind noch nicht geladen, und in den Datenblättern gibt es Auflagen, ' +
-    'die auf Vorschriften verweisen, die diese Karte noch nicht zeichnet. Es ist eine ' +
-    'inoffizielle Informationsseite —verbindlich ist stets die veröffentlichte Vorschrift ' +
-    'und die Kartografie des IDEIB— und kein Ersatz dafür, sie vor der Ausfahrt zu prüfen.',
+    'Es bleibt Arbeit: Ebenen wie die Seegraswiesen, die Bojenfelder oder die Ankerzonen ' +
+    'im Osten Menorcas sind noch nicht geladen, und in den Datenblättern gibt es ' +
+    'Auflagen, die auf Vorschriften verweisen, die diese Karte noch nicht zeichnet. Es ' +
+    'ist eine inoffizielle Informationsseite —verbindlich ist stets die veröffentlichte ' +
+    'Vorschrift und die Kartografie des IDEIB— und kein Ersatz dafür, sie vor der ' +
+    'Ausfahrt zu prüfen.',
 
   // -- Panel -----------------------------------------------------------------
   'panel.titulo': 'Tippe auf die Karte',

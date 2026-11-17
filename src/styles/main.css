@@ -1280,6 +1280,18 @@ body.reordenando .panel__cuerpo {
 .acerca__contenido p:last-child {
   margin-bottom: 0;
 }
+.acerca__contenido h3 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  color: var(--texto);
+}
+.acerca__contenido ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+.acerca__contenido li {
+  margin-bottom: 4px;
+}
 
 /* -- Móvil: el panel pasa a hoja inferior ----------------------------------- */
 

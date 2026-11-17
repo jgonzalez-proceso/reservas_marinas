@@ -16,7 +16,7 @@
 
 export default {
   // -- Header and structure --------------------------------------------------
-  'app.titulo': 'Maritime restrictions',
+  'app.titulo': 'Marine reserves',
   'app.subtitulo': 'Balearic Islands',
   'app.subtituloIsla': 'Balearic Islands · {isla}',
   'app.tituloDocumento': 'Balearic marine reserves: map of where to fish and anchor',
@@ -66,26 +66,36 @@ export default {
   // -- «What this map is» ----------------------------------------------------
   'acerca.resumen': 'What this map is',
   'acerca.p1Html':
-    'This is not a map of marine reserves: it is a query engine for maritime restrictions, ' +
-    'in which the marine reserve is one of <strong>six regulatory layers</strong> that ' +
-    'overlap on every point of the sea. Tap any point and the engine gathers every ' +
-    'protected area that contains it —marine reserves, the Natura 2000 network, protected ' +
-    'natural areas, their internal zoning, the specific spearfishing regulation and the ' +
-    'anchoring one— and returns a conclusion per activity: boat angling, spearfishing, ' +
-    'shore angling, diving, anchoring and navigation, with the reason and the regulation ' +
-    'behind it.',
+    'A map of the <strong>marine reserves of the Balearic Islands</strong> that does not ' +
+    'stop at the reserve: it overlays <strong>six regulatory layers</strong> on every ' +
+    'point of the sea, and the marine reserve is only one of them. Tap any point and the ' +
+    'engine gathers every protected area that contains it —marine reserves, the Natura ' +
+    '2000 network, protected natural areas, their internal zoning, the specific ' +
+    'spearfishing regulation and the anchoring one— and returns a conclusion per ' +
+    'activity: boat angling, spearfishing, shore angling, diving, anchoring and ' +
+    'navigation, with the reason and the regulation behind it.',
+  'acerca.reservasTitulo': 'The twelve marine reserves of Mallorca, Menorca, Eivissa and Formentera',
+  'acerca.reservasHtml':
+    '<li><strong>Mallorca</strong>: Bay of Palma, Migjorn de Mallorca, the Ponent de ' +
+    'Mallorca islands (el Toro, les Malgrats and el Sec), Llevant de Mallorca and sa ' +
+    'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca and Illa de ' +
+    'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: north-east coast of ' +
+    'Eivissa-Tagomago, es Vedrà-es Vedranell and ses ' +
+    'Bledes.</li><li><strong>Formentera</strong>: Punta de sa Creu, and els Freus ' +
+    'd’Eivissa i Formentera, shared between the two islands.</li>',
   'acerca.p2Html':
     'It covers the <strong>121 areas</strong> loaded so far across the four islands and ' +
     'Cabrera, every one of them with a written record cited against the BOIB or the BOE: ' +
-    'the twelve marine reserves of the Balearics, the marine Natura 2000 sites, the seven ' +
-    'protected natural areas with a marine scope, and the internal zoning of s’Albufera ' +
-    'des Grau and ses Salines.',
+    'the twelve marine reserves, the marine Natura 2000 sites, the seven protected ' +
+    'natural areas with a marine scope —Cabrera National Park among them— and the ' +
+    'internal zoning of s’Albufera des Grau, ses Salines and Cabrera.',
   'acerca.p3Html':
-    'Work remains: whole layers such as the seagrass meadows or the zoning of Cabrera and ' +
-    'sa Dragonera are not loaded yet, and within the records there are conditions that ' +
-    'refer to regulations this map does not draw. This is an unofficial information site ' +
-    '—the binding source is always the published regulation and the IDEIB cartography—, ' +
-    'not a substitute for consulting it before going out to fish.',
+    'Work remains: layers such as the seagrass meadows, mooring buoy fields or the ' +
+    'anchoring zones of eastern Menorca are not loaded yet, and within the records there ' +
+    'are conditions that refer to regulations this map does not draw. This is an ' +
+    'unofficial information site —the binding source is always the published regulation ' +
+    'and the IDEIB cartography—, not a substitute for consulting it before going out to ' +
+    'fish.',
 
   // -- Panel -----------------------------------------------------------------
   'panel.titulo': 'Tap the map',
