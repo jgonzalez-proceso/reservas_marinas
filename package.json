@@ -13,7 +13,7 @@
     "rules:check": "node scripts/check-rules.mjs",
     "i18n:check": "node scripts/check-i18n.mjs",
     "links:check": "node scripts/check-links.mjs",
-    "test": "node --test scripts/test-reglas.mjs scripts/test-evento.mjs",
+    "test": "node --test scripts/test-reglas.mjs scripts/test-evento.mjs scripts/test-paginas.mjs",
     "deploy": "npm run build && wrangler deploy",
     "eventos": "node --use-system-ca --env-file-if-exists=.env scripts/informe-eventos.mjs",
     "panel": "node --use-system-ca --env-file-if-exists=.env scripts/panel-eventos.mjs"

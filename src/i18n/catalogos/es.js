@@ -79,7 +79,7 @@ export default {
     'con el motivo y la norma que la justifica.',
   'acerca.reservasTitulo': 'Las doce reservas marinas de Mallorca, Menorca, Eivissa y Formentera',
   'acerca.reservasHtml':
-    '<li><strong>Mallorca</strong>: bahía de Palma, Migjorn de Mallorca, islas del Ponent ' +
+    '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: bahía de Palma, Migjorn de Mallorca, islas del Ponent ' +
     'de Mallorca (el Toro, les Malgrats y el Sec), Llevant de Mallorca y sa ' +
     'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca e isla del ' +
     'Aire.</li><li><strong>Eivissa (Ibiza)</strong>: costa noreste de Eivissa-Tagomago, ' +

@@ -75,7 +75,7 @@ export default {
     'Tauchen, Ankern und Navigation, mit der Begründung und der Vorschrift dahinter.',
   'acerca.reservasTitulo': 'Die zwölf Meeresschutzgebiete von Mallorca, Menorca, Eivissa und Formentera',
   'acerca.reservasHtml':
-    '<li><strong>Mallorca</strong>: Bucht von Palma, Migjorn de Mallorca, die Inseln des ' +
+    '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: Bucht von Palma, Migjorn de Mallorca, die Inseln des ' +
     'Ponent de Mallorca (el Toro, les Malgrats und el Sec), Llevant de Mallorca und sa ' +
     'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca und Illa de ' +
     'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: Nordostküste von Eivissa-Tagomago, ' +

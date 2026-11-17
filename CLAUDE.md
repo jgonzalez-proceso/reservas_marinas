@@ -188,6 +188,8 @@ scripts/
   check-links.mjs        los enlaces publicados siguen vivos (fuera del build)
   test-reglas.mjs        resuelve puntos reales y comprueba la conclusión
   test-evento.mjs        el contador anónimo no guarda lo que no debe
+  test-paginas.mjs       las páginas de reservas por isla no pierden zonas
+  paginas/reservas-isla.mjs  genera /reservas-marinas-<isla>/ desde las fichas
   eventos-datos.mjs      consultas SQL del contador, comunes a informe y panel
   informe-eventos.mjs    informe del contador en consola (npm run eventos)
   panel-eventos.mjs      panel HTML del contador; lo abre en Chrome (npm run panel)
@@ -528,6 +530,18 @@ Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo 
 **El bloque «Qué es este mapa» existe para que haya algo que indexar.** Sin él, un rastreador que no ejecute JavaScript veía **11 palabras**: el título, los botones y el aviso legal. Todo el trabajo del proyecto —las seis capas, las 121 zonas, la cita normativa por ficha— vivía en el bundle y en los GeoJSON, donde ningún buscador lo lee. Con él son unas 370. Va en el HTML estático y plegado por defecto, como la leyenda: el contenido es el mismo lo vea quien lo vea.
 
 **Ese texto se escribe para la búsqueda que lo tiene que encontrar, no para defender el diseño.** Empezaba con «Esto no es un mapa de reservas marinas», que es el encuadre interno de este fichero y la frase exacta que contradice lo que la gente teclea: el 2026-11-17 la web no salía entre los 50 primeros de «reservas marinas de mallorca» ni de «reservas marinas de baleares». Ahora abre con «Mapa de las reservas marinas de Baleares que no se queda en la reserva» —el matiz de las seis capas sigue ahí, en positivo— y nombra las doce reservas isla por isla, que son las palabras de las búsquedas relacionadas. Por lo mismo el `h1` pasó de «Restricciones marítimas» a «Reservas marinas»: es la señal más fuerte de la página después del `<title>` y no contenía ninguna de las dos palabras. Cuando cambie lo cargado, este bloque también hay que tocarlo: decía que la zonificación de Cabrera faltaba meses después de cargarla.
+
+### Páginas de reservas por isla: texto generado de las fichas
+
+`/reservas-marinas-mallorca/` es una página estática de texto, no una vista del mapa. Existe porque la búsqueda «reservas marinas de mallorca» es informativa —quien la hace quiere leer cuáles hay y qué se puede hacer en cada una— y Google la contesta con páginas de texto; una sola URL con un mapa no compite ahí por mucho que se afine su `<title>`.
+
+**No tiene ni una frase de contenido escrita a mano.** La genera `scripts/paginas/reservas-isla.mjs` en el build a partir de las fichas ya resueltas con su herencia: resumen por zona, motivo de cada actividad, condiciones, permisos y normas. Corregir una ficha corrige su página, y los gates del build la protegen igual que al mapa. Escribirla a mano habría sido abrir un segundo sitio donde caduca la normativa, que es justo el riesgo que el catálogo de traducciones evita indexando por la cadena origen.
+
+- **La lista de reservas por isla (`RESERVAS_POR_ISLA`) sí es manual**, y por eso `scripts/test-paginas.mjs` comprueba que toda zona `rm-` asignada a la isla en `islas.js` está en su página y ninguna de otra isla. Añadir Menorca, Eivissa o Formentera es añadir su entrada: el plugin de `vite.config.js` y el sitemap la recogen solos.
+- **Va suelta, sin el bundle**, como `404.html`: estilos dentro y ningún asset con hash.
+- **Solo existe en el build** (`apply: 'build'`): con `npm run dev` el enlace desde la portada da 404. Para verla, `npm run build` y `npm run preview`.
+- **Solo en castellano.** Las fichas están en castellano y la página no ejecuta `t()`; los catálogos enlazan a ella desde los cuatro idiomas.
+- **El `lastmod` del sitemap** es la fecha más reciente entre la revisión de sus fichas y la descarga de la cartografía.
 
 Va **en `.zona-pie`, hermano de `<footer>` y no hijo suyo**. Hermano porque el footer es información de cierre y esto es contenido principal —además, los extractores de contenido descartan `<footer>` entero por heurística, y ahí el recuento vuelve a 11—. En el mismo envoltorio porque es donde tiene que verse: abajo a la derecha, discreto, sin disputarle sitio al mapa.
 

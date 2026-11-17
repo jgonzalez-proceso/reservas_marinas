@@ -76,7 +76,7 @@ export default {
     'navigation, with the reason and the regulation behind it.',
   'acerca.reservasTitulo': 'The twelve marine reserves of Mallorca, Menorca, Eivissa and Formentera',
   'acerca.reservasHtml':
-    '<li><strong>Mallorca</strong>: Bay of Palma, Migjorn de Mallorca, the Ponent de ' +
+    '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: Bay of Palma, Migjorn de Mallorca, the Ponent de ' +
     'Mallorca islands (el Toro, les Malgrats and el Sec), Llevant de Mallorca and sa ' +
     'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca and Illa de ' +
     'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: north-east coast of ' +

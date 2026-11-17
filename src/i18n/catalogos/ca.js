@@ -69,7 +69,7 @@ export default {
     'el motiu i la norma que la justifica.',
   'acerca.reservasTitulo': 'Les dotze reserves marines de Mallorca, Menorca, Eivissa i Formentera',
   'acerca.reservasHtml':
-    '<li><strong>Mallorca</strong>: badia de Palma, Migjorn de Mallorca, illes del Ponent ' +
+    '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: badia de Palma, Migjorn de Mallorca, illes del Ponent ' +
     'de Mallorca (el Toro, les Malgrats i el Sec), Llevant de Mallorca i sa ' +
     'Dragonera.</li><li><strong>Menorca</strong>: Nord de Menorca i illa de ' +
     'l’Aire.</li><li><strong>Eivissa</strong>: costa nord-est d’Eivissa-Tagomago, es ' +

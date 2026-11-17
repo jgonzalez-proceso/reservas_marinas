@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 
-const SITIO = 'https://reservas.pecesmediterraneo.com/';
+import { RESERVAS_POR_ISLA, SITIO, fechaPagina, paginaReservasIsla, rutaIsla } from './scripts/paginas/reservas-isla.mjs';
 
 /**
  * Emite el sitemap.xml en el build en vez de guardarlo en public/.
@@ -12,9 +12,9 @@ const SITIO = 'https://reservas.pecesmediterraneo.com/';
  * toma de `manifest.json`, que es la fecha en la que `npm run data` descargó
  * las capas oficiales. Si los datos son de ayer, el sitemap dice ayer.
  *
- * Hay una sola URL porque hay una sola URL: las vistas por isla van en el hash
- * y un buscador no las distingue. El día que existan rutas propias por isla,
- * este es el sitio donde se añaden.
+ * Las vistas del mapa por isla van en el hash y un buscador no las distingue,
+ * así que el mapa es una sola URL. Las que sí son URLs propias son las páginas
+ * estáticas de reservas por isla (ver `paginasReservas`), y entran aquí.
  */
 function sitemap() {
   return {
@@ -32,16 +32,42 @@ function sitemap() {
     <loc>${SITIO}</loc>
     <lastmod>${lastmod}</lastmod>
   </url>
-</urlset>
+${Object.keys(RESERVAS_POR_ISLA)
+  .map((isla) => `  <url>\n    <loc>${SITIO}${rutaIsla(isla)}</loc>\n    <lastmod>${fechaPagina(isla)}</lastmod>\n  </url>\n`)
+  .join('')}</urlset>
 `,
       });
     },
   };
 }
 
+/**
+ * Páginas estáticas «Reservas marinas de <isla>», generadas de las fichas.
+ *
+ * Son para los buscadores: el mapa contesta a «¿qué rige en este punto?», pero
+ * quien busca «reservas marinas de mallorca» quiere leer cuáles hay y qué se
+ * puede hacer en cada una. Salen de `src/rules/`, así que no hay texto que
+ * mantener a mano. Ver `scripts/paginas/reservas-isla.mjs`.
+ */
+function paginasReservas() {
+  return {
+    name: 'paginas-reservas',
+    apply: 'build',
+    generateBundle() {
+      for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
+        this.emitFile({
+          type: 'asset',
+          fileName: `${rutaIsla(isla)}index.html`,
+          source: paginaReservasIsla(isla),
+        });
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: './',
-  plugins: [sitemap()],
+  plugins: [sitemap(), paginasReservas()],
   // Los GeoJSON se sirven como recurso aparte, no empaquetados en el bundle:
   // pesan megabytes y conviene que el navegador los cachee por separado.
   assetsInclude: ['**/*.geojson'],
