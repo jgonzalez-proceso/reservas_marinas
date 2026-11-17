@@ -20,6 +20,14 @@ import llevantDeMallorca from '../rules/reservas-marinas/llevant-de-mallorca.js'
 import migjornDeMallorca from '../rules/reservas-marinas/migjorn-de-mallorca.js';
 import nordDeMenorca from '../rules/reservas-marinas/nord-de-menorca.js';
 import illaDeLAire from '../rules/reservas-marinas/illa-de-l-aire.js';
+import freusEivissaFormentera from '../rules/reservas-marinas/freus-eivissa-formentera.js';
+import vedraIBledes from '../rules/reservas-marinas/vedra-i-bledes.js';
+import tagomago from '../rules/reservas-marinas/tagomago.js';
+
+// es Vedrà y ses Bledes son dos reservas distintas que comparten fichero de
+// fichas; aquí se separan por su zoneId.
+const esVedra = vedraIBledes.filter((f) => f.zoneId.startsWith('rm-reserva-marina-es-vedra-'));
+const sesBledes = vedraIBledes.filter((f) => f.zoneId.startsWith('rm-reserva-marina-de-ses-bledes'));
 
 /**
  * Las reservas de cada isla, en el orden en que se leen: de la bahía de Palma
@@ -67,6 +75,27 @@ export const RESERVAS_POR_ISLA = {
       nombre: 'Reserva marina de la isla del Aire',
       corto: 'isla del Aire',
       fichas: illaDeLAire,
+    },
+  ],
+  eivissa: [
+    {
+      id: 'freus-d-eivissa-i-formentera',
+      nombre: 'Reserva marina dels Freus de Eivissa y Formentera',
+      corto: 'els Freus (compartida con Formentera)',
+      fichas: freusEivissaFormentera,
+    },
+    {
+      id: 'es-vedra-vedranell',
+      nombre: 'Reserva marina des Vedrà y es Vedranell',
+      corto: 'es Vedrà y es Vedranell',
+      fichas: esVedra,
+    },
+    { id: 'ses-bledes', nombre: 'Reserva marina de ses Bledes', corto: 'ses Bledes', fichas: sesBledes },
+    {
+      id: 'tagomago',
+      nombre: 'Reserva marina de la costa noreste de Eivissa-Tagomago',
+      corto: 'costa noreste de Eivissa-Tagomago',
+      fichas: tagomago,
     },
   ],
 };

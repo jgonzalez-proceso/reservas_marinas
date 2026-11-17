@@ -78,7 +78,7 @@ export default {
     '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: Bucht von Palma, Migjorn de Mallorca, die Inseln des ' +
     'Ponent de Mallorca (el Toro, les Malgrats und el Sec), Llevant de Mallorca und sa ' +
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca und Illa de ' +
-    'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: Nordostküste von Eivissa-Tagomago, ' +
+    'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa (Ibiza)</a></strong>: Nordostküste von Eivissa-Tagomago, ' +
     'es Vedrà-es Vedranell und ses Bledes.</li><li><strong>Formentera</strong>: Punta de ' +
     'sa Creu sowie els Freus d’Eivissa i Formentera, das sich beide Inseln teilen.</li>',
   'acerca.p2Html':

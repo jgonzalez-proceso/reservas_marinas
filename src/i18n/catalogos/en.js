@@ -79,7 +79,7 @@ export default {
     '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: Bay of Palma, Migjorn de Mallorca, the Ponent de ' +
     'Mallorca islands (el Toro, les Malgrats and el Sec), Llevant de Mallorca and sa ' +
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca and Illa de ' +
-    'l’Aire.</li><li><strong>Eivissa (Ibiza)</strong>: north-east coast of ' +
+    'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa (Ibiza)</a></strong>: north-east coast of ' +
     'Eivissa-Tagomago, es Vedrà-es Vedranell and ses ' +
     'Bledes.</li><li><strong>Formentera</strong>: Punta de sa Creu, and els Freus ' +
     'd’Eivissa i Formentera, shared between the two islands.</li>',

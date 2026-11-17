@@ -72,7 +72,7 @@ export default {
     '<li><strong><a href="reservas-marinas-mallorca/">Mallorca</a></strong>: badia de Palma, Migjorn de Mallorca, illes del Ponent ' +
     'de Mallorca (el Toro, les Malgrats i el Sec), Llevant de Mallorca i sa ' +
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca i illa de ' +
-    'l’Aire.</li><li><strong>Eivissa</strong>: costa nord-est d’Eivissa-Tagomago, es ' +
+    'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa</a></strong>: costa nord-est d’Eivissa-Tagomago, es ' +
     'Vedrà-es Vedranell i ses Bledes.</li><li><strong>Formentera</strong>: punta de sa ' +
     'Creu, i els Freus d’Eivissa i Formentera, compartida entre les dues illes.</li>',
   'acerca.p2Html':
