@@ -94,3 +94,70 @@ for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
     }
   });
 }
+
+/**
+ * Páginas legales.
+ *
+ * Lo que se puede comprobar solo de un texto legal es poco, pero es lo que más
+ * fácil se rompe sin que nadie lo note: que una cookie nueva llegue al código
+ * y no a la política, que una ruta que se enlaza desde tres sitios deje de
+ * existir, o que la página pierda los datos del responsable.
+ */
+import { readFileSync, readdirSync } from 'node:fs';
+
+import { PAGINAS_LEGALES, RUTA_AVISO, RUTA_PRIVACIDAD, TITULAR } from './paginas/legales.mjs';
+import { ID_MEDICION } from '../src/ui/analytics.js';
+
+const leeTodo = (dir) =>
+  readdirSync(new URL(dir, import.meta.url), { withFileTypes: true, recursive: true })
+    .filter((e) => e.isFile() && e.name.endsWith('.js'))
+    .map((e) => readFileSync(`${e.parentPath ?? e.path}/${e.name}`, 'utf8'))
+    .join('\n');
+
+for (const [ruta, genera] of Object.entries(PAGINAS_LEGALES)) {
+  const html = genera();
+
+  test(`${ruta}: identifica al responsable y da un contacto`, () => {
+    assert.ok(html.includes(TITULAR.nombre), 'falta el nombre del titular');
+    assert.ok(html.includes(`mailto:${TITULAR.correo}`), 'falta el correo de contacto');
+  });
+
+  test(`${ruta}: enlaces internos con destino, externos por https, encabezados sin saltos`, () => {
+    const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      if (href.startsWith('#')) assert.ok(ids.has(href.slice(1)), `ancla rota: ${href}`);
+      else if (/^[a-z]+:/i.test(href)) assert.match(href, /^(https:\/\/|mailto:)/, `enlace no https: ${href}`);
+      else assert.match(href, /^\//, `ruta relativa ambigua: ${href}`);
+    }
+    const niveles = [...html.matchAll(/<h([1-6])[\s>]/g)].map((m) => Number(m[1]));
+    for (let i = 1; i < niveles.length; i += 1) {
+      assert.ok(niveles[i] - niveles[i - 1] <= 1, `salto de h${niveles[i - 1]} a h${niveles[i]}`);
+    }
+    const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)];
+    assert.equal(scripts.length, 1);
+    assert.doesNotThrow(() => JSON.parse(scripts[0][1]));
+  });
+}
+
+test('política de privacidad: toda cookie que escribe el código está declarada', () => {
+  const html = PAGINAS_LEGALES[RUTA_PRIVACIDAD]();
+  const declaradas = [...leeTodo('../src/').matchAll(/const COOKIE_[A-Z_]+ = '([^']+)'/g)].map((m) => m[1]);
+  assert.ok(declaradas.length >= 3, 'no se han encontrado las cookies del código: ¿ha cambiado cómo se declaran?');
+  for (const nombre of declaradas) {
+    assert.ok(html.includes(`<code>${nombre}</code>`), `la cookie «${nombre}» se escribe en el código y no está en la política`);
+  }
+  assert.ok(html.includes(`_ga_${ID_MEDICION.replace(/^G-/, '')}`), 'falta la cookie de Google Analytics');
+  assert.ok(html.includes('id="cookies"'), 'falta el ancla #cookies, adonde enlaza el aviso');
+});
+
+test('las rutas legales que enlaza el resto del sitio existen', () => {
+  const index = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const banner = readFileSync(new URL('../src/ui/consentimiento.js', import.meta.url), 'utf8');
+  assert.ok(index.includes(`href="${RUTA_AVISO}"`), 'la portada no enlaza al aviso legal');
+  assert.ok(index.includes(`href="${RUTA_PRIVACIDAD}"`), 'la portada no enlaza a la política de privacidad');
+  assert.ok(banner.includes(`'${RUTA_PRIVACIDAD}#cookies'`), 'el aviso de cookies no enlaza a la política');
+  for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
+    const html = paginaReservasIsla(isla);
+    assert.ok(html.includes(`href="/${RUTA_PRIVACIDAD}"`), `la página de ${isla} no enlaza a la política`);
+  }
+});

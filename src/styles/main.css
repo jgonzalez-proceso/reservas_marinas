@@ -1401,6 +1401,29 @@ body.reordenando .panel__cuerpo {
 .acerca__contenido li {
   margin-bottom: 4px;
 }
+/* Aviso legal, privacidad y preferencias de cookies, al pie del panel. */
+.acerca__legal {
+  padding-top: 12px;
+  border-top: 1px solid var(--borde);
+  font-size: 0.8rem;
+  line-height: 2;
+}
+/* Un botón con pinta de enlace: «Preferencias de cookies» no navega, abre el
+   aviso, así que es un <button>, pero va en una fila de enlaces. */
+.enlace {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--acento);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.enlace:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
 
 /* -- Móvil: el panel pasa a hoja inferior ----------------------------------- */
 

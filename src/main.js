@@ -21,7 +21,7 @@ import { creaPanel } from './ui/panel.js';
 import { creaLeyenda } from './ui/leyenda.js';
 import { creaBuscador } from './ui/buscador.js';
 import { creaMenu } from './ui/menu.js';
-import { creaConsentimiento } from './ui/consentimiento.js';
+import { abrePreferenciasCookies, creaConsentimiento } from './ui/consentimiento.js';
 import { registraCarga, registraConsulta } from './ui/medicion.js';
 import {
   t,
@@ -230,7 +230,28 @@ function montaMenuMovil() {
       accion: () => btnLista.click(),
       deshabilitada: () => btnLista.disabled,
     },
+    // Las páginas legales. En móvil el pie no las enseña —cada renglón suyo se
+    // le quita al mapa—, así que el menú es su acceso directo. Delegan en los
+    // enlaces de «Qué es este mapa», como «Guía peces»: la ruta está escrita
+    // en un solo sitio.
+    { etiqueta: t('legal.aviso'), accion: () => $('#enlace-aviso-legal')?.click() },
+    { etiqueta: t('legal.privacidad'), accion: () => $('#enlace-privacidad')?.click() },
   ]);
+}
+
+/**
+ * Dos maneras de volver a abrir el aviso de cookies después de haberlo
+ * contestado: el botón de «Qué es este mapa» y entrar por `/#cookies`, que
+ * es adonde enlaza la política de privacidad —esa página no ejecuta el bundle
+ * y no puede abrirlo por sí misma—. El hash se quita al atenderlo: si se
+ * quedara, cada recarga volvería a preguntar.
+ */
+function montaPreferenciasCookies() {
+  $('#btn-cookies')?.addEventListener('click', () => abrePreferenciasCookies());
+  if (/(?:^|[#&])cookies(?:$|&)/.test(window.location.hash)) {
+    abrePreferenciasCookies();
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
 }
 
 /**
@@ -271,6 +292,26 @@ async function cargaAreas() {
   return [...porFeatureId.values()];
 }
 
+/**
+ * Aviso legal y privacidad al final de la línea de datos del pie. Solo en
+ * pantallas anchas —lleva la clase que recorta el pie en móvil—, donde caben
+ * en el hueco que deja el último renglón sin hacerlo crecer. En móvil están en
+ * el menú. Las rutas se leen de los enlaces de «Qué es este mapa».
+ */
+function enlacesLegales() {
+  const s = document.createElement('span');
+  s.className = 'pie__detalle pie__legal';
+  for (const id of ['#enlace-aviso-legal', '#enlace-privacidad']) {
+    const origen = $(id);
+    if (!origen) continue;
+    const a = document.createElement('a');
+    a.href = origen.getAttribute('href');
+    a.textContent = origen.textContent;
+    s.append(document.createTextNode(' · '), a);
+  }
+  return s;
+}
+
 function pintaEstadoDatos(features) {
   const fecha = manifest.generado?.slice(0, 10) ?? t('pie.fechaDesconocida');
   const fuentes = manifest.fuentes?.map((f) => tituloFuente(f.id, f.titulo)).join(', ') ?? '';
@@ -292,6 +333,7 @@ function pintaEstadoDatos(features) {
     document.createTextNode(t('pie.datos')),
     detalle(t('pie.deFuentes', { fuentes })),
     document.createTextNode(t('pie.delDia', { fecha })),
+    enlacesLegales(),
   );
 }
 
@@ -305,6 +347,7 @@ async function main() {
   montaSelectorIsla();
   montaMenuMovil();
   creaConsentimiento();
+  montaPreferenciasCookies();
   // Al entrar, antes de descargar la cartografía: quien se va mientras carga
   // también ha visitado la web, y es justo el dato que interesa ver.
   registraCarga({ isla: ISLA });

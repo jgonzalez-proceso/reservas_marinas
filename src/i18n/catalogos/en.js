@@ -290,4 +290,8 @@ export default {
     "not required for the application to work: you can decline it without losing any feature.",
   'cookies.aceptar': 'Accept',
   'cookies.rechazar': 'Decline',
+  'cookies.masInfo': 'More information',
+  'legal.aviso': 'Legal notice',
+  'legal.privacidad': 'Privacy and cookies',
+  'legal.cookies': 'Cookie preferences',
 };

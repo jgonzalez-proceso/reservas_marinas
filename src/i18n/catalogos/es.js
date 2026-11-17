@@ -302,4 +302,11 @@ export default {
     'No hace falta para que la aplicación funcione: puedes rechazarla sin perder ninguna función.',
   'cookies.aceptar': 'Aceptar',
   'cookies.rechazar': 'Rechazar',
+  'cookies.masInfo': 'Más información',
+
+  // -- Páginas legales --------------------------------------------------------
+  // Las páginas están solo en castellano; lo que se traduce es el enlace.
+  'legal.aviso': 'Aviso legal',
+  'legal.privacidad': 'Privacidad y cookies',
+  'legal.cookies': 'Preferencias de cookies',
 };

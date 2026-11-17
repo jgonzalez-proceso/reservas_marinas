@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 
 import { RESERVAS_POR_ISLA, SITIO, fechaPagina, paginaReservasIsla, rutaIsla } from './scripts/paginas/reservas-isla.mjs';
+import { PAGINAS_LEGALES } from './scripts/paginas/legales.mjs';
 
 /**
  * Emite el sitemap.xml en el build en vez de guardarlo en public/.
@@ -65,9 +66,28 @@ function paginasReservas() {
   };
 }
 
+/**
+ * Aviso legal y política de privacidad. Mismo esquema que las páginas de
+ * reservas: se generan en el build y van sueltas, sin el bundle. No entran en
+ * el sitemap: nadie las busca, y enviarlas a Google como contenido sería
+ * restarle peso a las cinco páginas que sí lo son. Se pueden rastrear igual,
+ * porque todas las demás enlazan a ellas.
+ */
+function paginasLegales() {
+  return {
+    name: 'paginas-legales',
+    apply: 'build',
+    generateBundle() {
+      for (const [ruta, genera] of Object.entries(PAGINAS_LEGALES)) {
+        this.emitFile({ type: 'asset', fileName: `${ruta}index.html`, source: genera() });
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: './',
-  plugins: [sitemap(), paginasReservas()],
+  plugins: [sitemap(), paginasReservas(), paginasLegales()],
   // Los GeoJSON se sirven como recurso aparte, no empaquetados en el bundle:
   // pesan megabytes y conviene que el navegador los cachee por separado.
   assetsInclude: ['**/*.geojson'],

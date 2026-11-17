@@ -60,7 +60,11 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Reservas Marinas Baleares",
-        "url": "https://reservas.pecesmediterraneo.com/"
+        "url": "https://reservas.pecesmediterraneo.com/",
+        "publisher": {
+          "@type": "Person",
+          "name": "Javier González Llofriu"
+        }
       }
     </script>
 
@@ -257,6 +261,20 @@
             fichas hay condiciones que remiten a normas que este mapa aún no dibuja. Es una web
             informativa no oficial —la fuente vinculante es siempre la norma publicada y la
             cartografía de IDEIB—, no un sustituto de consultarla antes de faenar.
+          </p>
+          <!--
+            Quién publica la web y qué hace con los datos. Enlaces de verdad en
+            el HTML estático: el menú de móvil y el pie delegan en estos dos,
+            para que la ruta esté escrita una sola vez. El botón vuelve a abrir
+            el aviso de cookies: retirar el consentimiento tiene que ser tan
+            fácil como darlo.
+          -->
+          <p class="acerca__legal">
+            <a id="enlace-aviso-legal" href="aviso-legal/" data-i18n="legal.aviso">Aviso legal</a>
+            ·
+            <a id="enlace-privacidad" href="politica-de-privacidad/" data-i18n="legal.privacidad">Privacidad y cookies</a>
+            ·
+            <button id="btn-cookies" class="enlace" type="button" data-i18n="legal.cookies">Preferencias de cookies</button>
           </p>
         </div>
       </details>

@@ -296,4 +296,8 @@ export default {
     'ablehnen, ohne Funktionen zu verlieren.',
   'cookies.aceptar': 'Akzeptieren',
   'cookies.rechazar': 'Ablehnen',
+  'cookies.masInfo': 'Mehr erfahren',
+  'legal.aviso': 'Rechtlicher Hinweis',
+  'legal.privacidad': 'Datenschutz und Cookies',
+  'legal.cookies': 'Cookie-Einstellungen',
 };

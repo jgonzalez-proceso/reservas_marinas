@@ -280,4 +280,8 @@ export default {
     "mapa. No cal perquè l'aplicació funcioni: la pots rebutjar sense perdre cap funció.",
   'cookies.aceptar': 'Acceptar',
   'cookies.rechazar': 'Rebutjar',
+  'cookies.masInfo': 'Més informació',
+  'legal.aviso': 'Avís legal',
+  'legal.privacidad': 'Privadesa i cookies',
+  'legal.cookies': 'Preferències de cookies',
 };

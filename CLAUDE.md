@@ -104,7 +104,7 @@ La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una 
 
 El texto son dos cuerpos que no se tratan igual:
 
-- **La interfaz** (169 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
+- **La interfaz** (173 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
 - **El texto normativo de las fichas** solo está en catalán, que es la lengua en que el BOIB publica la mayoría de estas normas: traducir es a menudo volver al original. Va aparte del bundle y solo se descarga en catalán. En inglés y alemán se muestra en castellano y **el panel lo dice una vez, arriba**, en vez de marcar cada frase con un asterisco.
 
 ### Cita y prosa no son lo mismo
@@ -190,6 +190,8 @@ scripts/
   test-evento.mjs        el contador anónimo no guarda lo que no debe
   test-paginas.mjs       las páginas de reservas por isla no pierden zonas
   paginas/reservas-isla.mjs  genera /reservas-marinas-<isla>/ desde las fichas
+  paginas/legales.mjs    genera /aviso-legal/ y /politica-de-privacidad/
+  paginas/estilos.mjs    estilos comunes de las páginas estáticas generadas
   (src/paginas/reservas.js: reservas por isla y anclas, compartido con el panel)
   eventos-datos.mjs      consultas SQL del contador, comunes a informe y panel
   informe-eventos.mjs    informe del contador en consola (npm run eventos)
@@ -584,7 +586,7 @@ El dibujo va sobre **canvas**, no sobre SVG. Con Natura 2000 cargado, Mallorca p
 - **La etiqueta de estado de una tarjeta puede partirse en dos renglones; un nombre corto, no.** Con `nowrap`, «Permitida con autorización» se quedaba con el ancho y dejaba «Pesca recreativa desde embarcación» en cuatro renglones de una palabra. Ahora ceden las dos mitades, y los nombres de hasta 16 caracteres (`NOMBRE_CORTO`, en `ui/panel.js`) no se parten: quien cede es la etiqueta. Comprobado a 375 y a 320 px: ninguna tarjeta pasa de dos renglones ni desborda.
 - **Sin JavaScript hay un `<noscript>`** que tapa el «Cargando…» y enlaza a las páginas de isla, que son lo que funciona sin el bundle.
 
-Lo que la auditoría dejó sin hacer, por orden de gravedad: **no hay política de privacidad, aviso legal ni contacto** (el banner de Analytics no enlaza a nada); el peso de la primera visita; solo tema oscuro; sin modo sin conexión; la CSP sigue en Report-Only y sin `report-uri`; y `npm audit` deja 4 avisos de `picomatch` vía Vite, solo de desarrollo, que exigirían bajar a Vite 6.
+Lo que la auditoría dejó sin hacer, por orden de gravedad: el peso de la primera visita; solo tema oscuro; sin modo sin conexión; la CSP sigue en Report-Only y sin `report-uri`; y `npm audit` deja 4 avisos de `picomatch` vía Vite, solo de desarrollo, que exigirían bajar a Vite 6.
 
 ### Poda de distancias: exacta, no aproximada
 
@@ -658,6 +660,18 @@ Hay **tres** mediciones, y no se sustituyen entre sí:
 Se mide en el `onSeleccion` del mapa y en el botón de GPS, **no dentro de `consulta()`**, que también se llama desde `window.__restriccions` y no es uso real. Los rastreadores (`esRastreador()`) y `import.meta.env.DEV` no cuentan.
 
 Escribe en Workers Analytics Engine (dataset `reservas_consultas`, binding `EVENTOS` en el panel de Pages: ver [docs/publicacion.md](docs/publicacion.md)). **El orden de `BLOBS` y `DOUBLES` en `functions/api/evento.js` es el esquema**: Analytics Engine no tiene nombres de columna, solo `blob1…blob20`, así que un campo nuevo va al final y nunca se reordena. `npm run eventos` (consola) y `npm run panel` (HTML en Chrome, o doble clic en `ver_consultas.bat`) leen por SQL desde `scripts/eventos-datos.mjs` usando esos mismos nombres; las credenciales van en un `.env` local, fuera de git, y node va con `--use-system-ca` porque la inspección TLS del antivirus pone su propia CA en el almacén de Windows. El panel trae además las visitas de Cloudflare Web Analytics por su API GraphQL (`leeVisitas`, mismo token), **marcadas como estimación**: con este volumen Web Analytics muestrea y cada baliza cuenta por 10–100 según el periodo pedido, así que salen bloques redondos y días con consultas y cero visitas —comprobado: el 2026-10-21, 7 consultas y 0 visitas—. Sirven para tendencias de semanas, no para días sueltos; para cifras exactas están las entradas del contador propio; Web Analytics se queda para el histórico anterior y para país, dispositivo y navegador, que el contador no guarda. Se excluye la vista `prueba`, que es la marca de los eventos mandados a mano para comprobar el contador, y la serie diaria empieza en `INICIO_CONTADOR`: los días anteriores no son días sin uso sino sin medir. Los recuentos son `SUM(_sample_interval)`, no `count()`, porque con tráfico alto Analytics Engine muestrea. Guarda tres meses: lo que haya que conservar más, se exporta antes.
+
+## Páginas legales
+
+`/aviso-legal/` y `/politica-de-privacidad/` (con su apartado `#cookies`) las genera `scripts/paginas/legales.mjs` en el build, sueltas y sin el bundle, como las de reservas por isla. Existen desde el 2026-11-17: hasta entonces la web pedía consentimiento para una cookie de Google Analytics sin decir quién la publica, qué datos trata ni cómo retirarlo.
+
+- **Lo que dice la política tiene que ser verdad en el código.** Describe lo que hacen `medicion.js`, `functions/api/evento.js`, `analytics.js` y `cookies.js`. Si cambia lo que se mide o se añade una cookie, la política se cambia en el mismo commit. `test-paginas.mjs` comprueba lo que puede comprobarse solo: toda constante `COOKIE_…` declarada en `src/` tiene que aparecer en la política, y las rutas que enlazan el aviso de cookies, la portada y las páginas de isla tienen que existir.
+- **El titular es una persona física y solo se publican nombre, localidad y correo** (`TITULAR`, en `legales.mjs`), que es lo que exige el art. 13 del RGPD. Hoy la web es personal, gratuita y sin actividad económica. **El día que se venda o se licencie —la Conselleria— el art. 10 de la LSSI exige además NIF y domicilio**: se añaden ahí, y habrá que revisar si el titular pasa a ser otro.
+- **El consentimiento se puede retirar**, que antes no se podía: contestado el aviso, no volvía nunca. `abrePreferenciasCookies()` lo reabre desde el botón de «Qué es este mapa» y entrando por `/#cookies`, que es adonde enlaza la política —esa página no ejecuta el bundle—. Al rechazar después de haber aceptado, `desactivaAnalytics()` pone `ga-disable-<ID>` y borra `_ga_<ID>`. **`_ga` no se borra**: Google la escribe en el dominio padre y la comparte con pecesmediterraneo.com, que tiene su propio aviso. La política lo dice tal cual.
+- **Dónde se enlazan.** En el HTML estático, dentro de «Qué es este mapa», que es la única copia de las rutas: el menú de móvil y el pie delegan en esos dos enlaces. En escritorio van al final de la línea de datos del pie, sin hacerlo crecer (medido a 1024, 1440 y 1920 px); en móvil no se pintan en el pie —siguen siendo 94 px— y están en el menú. El aviso de cookies enlaza a `#cookies` con «Más información».
+- **No van en el sitemap**: nadie las busca. Se rastrean igual porque todo lo demás enlaza a ellas.
+- **Solo en castellano**, como las páginas de isla. Los enlaces sí se traducen.
+- **Un carácter de control en una expresión regular no da error en ninguna parte.** Al escribir `\b` desde un script de consola se coló un retroceso literal (0x08) en `main.js`: el fichero se leía bien en pantalla, los gates pasaban y `/#cookies` no abría nada. Solo se vio probándolo en el navegador.
 
 ## Aviso legal
 
