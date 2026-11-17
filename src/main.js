@@ -401,7 +401,35 @@ async function main() {
     marcador.situa(punto, { precisionMetros });
     panel.pintaResultado(resultado, { veredicto });
     document.body.classList.add('con-panel');
+    if (!puntoALaVista(punto)) mapa.panTo(centroConPanel(punto, mapa.getZoom()));
     return resultado;
+  }
+
+  // En móvil el panel es una hoja que sube desde abajo y tapa hasta el 72 % de
+  // la pantalla: el punto que se acababa de pulsar quedaba enterrado debajo, y
+  // no se veía sobre qué se estaba leyendo. Estas tres funciones trabajan con
+  // la franja de mapa que la hoja deja libre. En escritorio el panel va al
+  // lado, no encima, y la franja es el mapa entero: no cambia nada.
+  function altoMapaVisible() {
+    const contenedor = mapa.getContainer().getBoundingClientRect();
+    if (getComputedStyle(panelEl).position !== 'fixed') return contenedor.height;
+    // offsetHeight y no el rectángulo: la hoja entra con una transición de
+    // transform, y el rectángulo daría su posición a medio camino.
+    return Math.max(0, Math.min(contenedor.height, window.innerHeight - panelEl.offsetHeight - contenedor.top));
+  }
+
+  /** ¿Cae el punto dentro de la franja libre, con algo de margen? */
+  function puntoALaVista(punto) {
+    const MARGEN = 24;
+    const p = mapa.latLngToContainerPoint([punto.lat, punto.lon]);
+    const { x: ancho } = mapa.getSize();
+    return p.x >= MARGEN && p.x <= ancho - MARGEN && p.y >= MARGEN && p.y <= altoMapaVisible() - MARGEN;
+  }
+
+  /** Centro que hay que darle al mapa para que el punto quede en mitad de la franja libre. */
+  function centroConPanel(punto, zoom) {
+    const desplazamiento = (mapa.getSize().y - altoMapaVisible()) / 2;
+    return mapa.unproject(mapa.project([punto.lat, punto.lon], zoom).add([0, desplazamiento]), zoom);
   }
 
   // Se mide aquí y no dentro de `consulta`, que también se llama desde la
@@ -486,7 +514,8 @@ async function main() {
       const veredicto = veredictoUbicacion(punto, features, precisionMetros, { obtenidaEn });
       const resultado = consulta(punto, { precisionMetros, veredicto });
       registraConsulta(resultado, { tipo: 'gps', isla: ISLA, veredicto });
-      mapa.setView([lat, lon], Math.max(mapa.getZoom(), 13));
+      const zoom = Math.max(mapa.getZoom(), 13);
+      mapa.setView(centroConPanel(punto, zoom), zoom);
     } catch (e) {
       window.alert(e.message);
     } finally {
