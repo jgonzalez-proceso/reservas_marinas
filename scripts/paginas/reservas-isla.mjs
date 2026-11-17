@@ -158,7 +158,7 @@ function seccionZona(ficha) {
 
 function filaResumen(ficha) {
   const celdas = Object.keys(ACTIVIDADES)
-    .map((clave) => `<td>${insignia(ficha.actividades[clave]?.status ?? 'unknown', { corta: true })}</td>`)
+    .map((clave) => `<td data-label="${esc(COLUMNA[clave])}">${insignia(ficha.actividades[clave]?.status ?? 'unknown', { corta: true })}</td>`)
     .join('');
   return `<tr><th scope="row"><a href="#${esc(ancla(ficha.zoneId))}">${esc(ficha.nombreCorto)}</a></th>${celdas}</tr>`;
 }

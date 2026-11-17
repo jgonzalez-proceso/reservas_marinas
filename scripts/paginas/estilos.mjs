@@ -83,6 +83,32 @@ export const ESTILOS_PAGINA = `      :root {
       .permiso { font-size: 0.92rem; }
       .normas { font-size: 0.88rem; color: var(--texto-2); }
       .indice { columns: 2 18em; padding-left: 20px; }
+      /* En móvil las tablas dejan de ser tablas. Con tres columnas, la de la
+         norma se quedaba en una palabra por renglón y la de la actividad se
+         salía por la izquierda; con las siete del resumen solo se veía una.
+         Cada fila pasa a ser un bloque: en las zonas, actividad y estado en un
+         renglón y el texto de la norma debajo a todo el ancho; en el resumen,
+         el nombre de la zona y debajo sus seis estados en dos columnas, cada
+         uno con el rótulo que en escritorio va en la cabecera (data-label). */
+      @media (max-width: 640px) {
+        .tabla { overflow-x: visible; }
+        .tabla table, .tabla tbody, .tabla tr, .tabla th, .tabla td { display: block; }
+        .tabla thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+        .tabla th, .tabla td { padding: 0; border: 0; }
+        .tabla tbody tr { padding: 10px 12px; border-bottom: 1px solid var(--borde); }
+        .tabla tbody tr:last-child { border-bottom: 0; }
+        .tabla tbody th { white-space: normal; }
+
+        .zona .tabla tbody tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+        .zona .tabla tbody th { flex: 1 1 auto; }
+        .zona .tabla tbody td:last-child { flex: 1 0 100%; }
+
+        .resumen tbody tr { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+        .resumen tbody th { grid-column: 1 / -1; min-width: 0; }
+        .resumen tbody td { text-align: left; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+        .resumen tbody td::before { content: attr(data-label); font-size: 0.78rem; color: var(--texto-2); }
+        .resumen tr.grupo { padding: 8px 12px; background: var(--fondo-3); }
+      }
       @media (max-width: 560px) {
         h1 { font-size: 1.45rem; }
         .barra a.marca span { display: none; }
