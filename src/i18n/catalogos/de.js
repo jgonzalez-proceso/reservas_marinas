@@ -79,7 +79,7 @@ export default {
     'Ponent de Mallorca (el Toro, les Malgrats und el Sec), Llevant de Mallorca und sa ' +
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca und Illa de ' +
     'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa (Ibiza)</a></strong>: Nordostküste von Eivissa-Tagomago, ' +
-    'es Vedrà-es Vedranell und ses Bledes.</li><li><strong>Formentera</strong>: Punta de ' +
+    'es Vedrà-es Vedranell und ses Bledes.</li><li><strong><a href="reservas-marinas-formentera/">Formentera</a></strong>: Punta de ' +
     'sa Creu sowie els Freus d’Eivissa i Formentera, das sich beide Inseln teilen.</li>',
   'acerca.p2Html':
     'Sie deckt die bislang geladenen <strong>121 Gebiete</strong> auf den vier Inseln und ' +

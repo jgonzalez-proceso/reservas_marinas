@@ -73,7 +73,7 @@ export default {
     'de Mallorca (el Toro, les Malgrats i el Sec), Llevant de Mallorca i sa ' +
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca i illa de ' +
     'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa</a></strong>: costa nord-est d’Eivissa-Tagomago, es ' +
-    'Vedrà-es Vedranell i ses Bledes.</li><li><strong>Formentera</strong>: punta de sa ' +
+    'Vedrà-es Vedranell i ses Bledes.</li><li><strong><a href="reservas-marinas-formentera/">Formentera</a></strong>: punta de sa ' +
     'Creu, i els Freus d’Eivissa i Formentera, compartida entre les dues illes.</li>',
   'acerca.p2Html':
     'Cobreix les <strong>121 zones</strong> carregades fins ara a les quatre illes i ' +

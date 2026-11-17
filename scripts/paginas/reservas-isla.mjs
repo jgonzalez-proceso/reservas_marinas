@@ -410,7 +410,7 @@ ${jsonld}
       <p class="entradilla">${esc(nombreIsla)} tiene ${reservas.length} reservas marinas: ${reservas
         .map((r) => esc(r.corto))
         .join(', ')
-        .replace(/, ([^,]*)$/, ' y $1')}. Cada una se divide en zonas con normas distintas${todas.some((f) => f.zoneId.endsWith('--estatal')) ? ', y en algunas conviven un ámbito autonómico y otro estatal con regímenes diferentes' : ''}. Aquí está, zona por zona, qué se puede hacer y qué autorización hace falta, con la norma que lo dice.</p>
+        .replace(/, ([^,]*)$/, ' y $1')}. ${((n) => (n === reservas.length ? 'Cada una se divide' : n === 1 ? 'Una de ellas se divide' : 'Varias se dividen'))(reservas.filter((r) => r.fichas.length > 1).length)} en zonas con normas distintas${todas.some((f) => f.zoneId.endsWith('--estatal')) ? ', y en algunas conviven un ámbito autonómico y otro estatal con regímenes diferentes' : ''}. Aquí está, zona por zona, qué se puede hacer y qué autorización hace falta, con la norma que lo dice.</p>
       <p class="aviso">Web informativa no oficial. La fuente vinculante es la norma publicada en el BOIB o el BOE. Para saber qué rige en un punto concreto —donde se superponen varias figuras— usa <a href="/#isla=${esc(isla)}">el mapa</a>: pulsa el punto y reúne todas las que lo contienen. Fichas revisadas hasta el ${esc(fechaLarga(revision))}; cartografía oficial del ${esc(fechaLarga(manifiesto.generado))}.</p>
 
       <h2>Resumen por zona</h2>

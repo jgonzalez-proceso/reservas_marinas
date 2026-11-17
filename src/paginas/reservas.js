@@ -23,6 +23,7 @@ import illaDeLAire from '../rules/reservas-marinas/illa-de-l-aire.js';
 import freusEivissaFormentera from '../rules/reservas-marinas/freus-eivissa-formentera.js';
 import vedraIBledes from '../rules/reservas-marinas/vedra-i-bledes.js';
 import tagomago from '../rules/reservas-marinas/tagomago.js';
+import puntaDeSaCreu from '../rules/reservas-marinas/punta-de-sa-creu.js';
 
 // es Vedrà y ses Bledes son dos reservas distintas que comparten fichero de
 // fichas; aquí se separan por su zoneId.
@@ -96,6 +97,20 @@ export const RESERVAS_POR_ISLA = {
       nombre: 'Reserva marina de la costa noreste de Eivissa-Tagomago',
       corto: 'costa noreste de Eivissa-Tagomago',
       fichas: tagomago,
+    },
+  ],
+  formentera: [
+    {
+      id: 'punta-de-sa-creu',
+      nombre: 'Reserva marina de la punta de sa Creu',
+      corto: 'punta de sa Creu',
+      fichas: puntaDeSaCreu,
+    },
+    {
+      id: 'freus-d-eivissa-i-formentera',
+      nombre: 'Reserva marina dels Freus de Eivissa y Formentera',
+      corto: 'els Freus (compartida con Eivissa)',
+      fichas: freusEivissaFormentera,
     },
   ],
 };

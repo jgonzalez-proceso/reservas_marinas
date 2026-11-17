@@ -81,7 +81,7 @@ export default {
     'Dragonera.</li><li><strong><a href="reservas-marinas-menorca/">Menorca</a></strong>: Nord de Menorca and Illa de ' +
     'l’Aire.</li><li><strong><a href="reservas-marinas-eivissa/">Eivissa (Ibiza)</a></strong>: north-east coast of ' +
     'Eivissa-Tagomago, es Vedrà-es Vedranell and ses ' +
-    'Bledes.</li><li><strong>Formentera</strong>: Punta de sa Creu, and els Freus ' +
+    'Bledes.</li><li><strong><a href="reservas-marinas-formentera/">Formentera</a></strong>: Punta de sa Creu, and els Freus ' +
     'd’Eivissa i Formentera, shared between the two islands.</li>',
   'acerca.p2Html':
     'It covers the <strong>121 areas</strong> loaded so far across the four islands and ' +
