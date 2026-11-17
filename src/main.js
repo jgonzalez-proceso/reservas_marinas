@@ -288,7 +288,7 @@ function pintaEstadoDatos(features) {
   $('#estado-datos').innerHTML = '';
   $('#estado-datos').append(
     document.createTextNode(t('pie.geometrias', { n: features.length })),
-    detalle(t('pie.deVista', { vista: NOMBRE_VISTA })),
+    detalle(TODAS ? t('pie.deTodas') : t('pie.deVista', { vista: NOMBRE_VISTA })),
     document.createTextNode(t('pie.datos')),
     detalle(t('pie.deFuentes', { fuentes })),
     document.createTextNode(t('pie.delDia', { fecha })),

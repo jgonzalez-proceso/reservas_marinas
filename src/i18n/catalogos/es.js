@@ -54,6 +54,9 @@ export default {
   // -- Pie -------------------------------------------------------------------
   'pie.geometrias': '{n} geometrías',
   'pie.deVista': ' de {vista}',
+  // La vista de todas las islas va aparte: {vista} es el rótulo del selector,
+  // con mayúscula inicial, y en mitad de la frase quedaba «de Todas las islas».
+  'pie.deTodas': ' de todas las islas',
   'pie.datos': ' · datos',
   'pie.deFuentes': ' de {fuentes}',
   'pie.delDia': ' del {fecha}',

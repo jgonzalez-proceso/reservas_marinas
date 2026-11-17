@@ -104,7 +104,7 @@ La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una 
 
 El texto son dos cuerpos que no se tratan igual:
 
-- **La interfaz** (150 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
+- **La interfaz** (169 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
 - **El texto normativo de las fichas** solo está en catalán, que es la lengua en que el BOIB publica la mayoría de estas normas: traducir es a menudo volver al original. Va aparte del bundle y solo se descarga en catalán. En inglés y alemán se muestra en castellano y **el panel lo dice una vez, arriba**, en vez de marcar cada frase con un asterisco.
 
 ### Cita y prosa no son lo mismo
@@ -545,6 +545,8 @@ Cada fuente se dibuja en su propio **plano de Leaflet** con un z fijo, de abajo 
 - **els Freus está en las páginas de Eivissa y de Formentera**, a propósito: quien busca las de Formentera tiene que encontrarla. El panel enlaza siempre a la primera isla que la declara.
 - **Eivissa se titula «Eivissa (Ibiza)»**: es el topónimo oficial, pero se busca «Ibiza».
 - **El panel enlaza a la página desde cada figura que tiene sitio en ella** («Ver todas las zonas de esta reserva», al bloque de esa zona). El ancla la calcula `enlaceZona()` en el mismo módulo que usa el generador, que no importa nada de Node para poder ir en el bundle; si cada lado calculara la suya, el día que divergieran el panel mandaría a un `#` inexistente sin que fallara nada. `test-paginas.mjs` comprueba además que cada enlace del panel cae en un ancla de la página.
+- **Cada página enlaza a las de las otras islas**, en un bloque al final. Sin eso solo enlazaban a la portada: ni un buscador ni un lector llegaban de una isla a otra. `test-paginas.mjs` lo exige, junto con dos cosas más que salieron en la auditoría del 2026-11-17 y que ningún control veía: que la descripción no pase de 160 caracteres —medía 184–192 y Google cortaba el final— y que los encabezados no salten de nivel —iban de h3 a h5—.
+- **`dateModified` es la misma fecha que el `lastmod` del sitemap** (`fechaPagina`), no la de la última revisión de las fichas: la página decía agosto a los buscadores y el sitemap noviembre. El texto visible sigue dando las dos fechas por separado, que es lo honesto.
 - **Va suelta, sin el bundle**, como `404.html`: estilos dentro y ningún asset con hash.
 - **Solo existe en el build** (`apply: 'build'`): con `npm run dev` el enlace desde la portada da 404. Para verla, `npm run build` y `npm run preview`.
 - **Solo en castellano.** Las fichas están en castellano y la página no ejecuta `t()`; los catálogos enlazan a ella desde los cuatro idiomas.
@@ -571,6 +573,18 @@ Dos detalles del CSS que costaron un rato. **Los `display` que encienden el men�
 **«Lo determina» muestra el nombre y el tipo de protección, nunca solo el nombre.** Sobre un mismo punto del Llevant conviven la reserva marina y la reserva integral con idéntica denominación, y sobre s'Albufera des Grau el parque, su zonificación y la capa de pesca submarina llevan los tres el nombre del parque. Sin el tipo, la frase no identifica ninguna figura.
 
 El dibujo va sobre **canvas**, no sobre SVG. Con Natura 2000 cargado, Mallorca pasa de unos miles de vértices a más de cuatrocientos mil: la ZEPA del norte tiene 171.000 ella sola, porque su límite de tierra recorre toda la costa. Un elemento SVG por polígono con esa densidad bloquea el navegador en un móvil.
+
+### Legibilidad y dianas: lo que dejó la auditoría del 2026-11-17
+
+- **El suelo de la letra es 0,74rem (11,1 px), menos en el pie de móvil.** Había 18 reglas por debajo, hasta 0,62rem. El pie por debajo de 900 px se queda en 0,64rem a propósito: subirlo lo hace crecer de 94 a 104 px y esos 10 px salen del mapa. Se probó y se deshizo.
+- **«¿Estoy dentro?» lleva letra blanca sobre un azul propio (`#2279bd`), no sobre `--acento`.** El blanco sobre `--acento` da 3,52:1 y el mínimo AA es 4,5:1; sobre este da 4,63:1. La letra oscura sobre `--acento` —el par de las páginas de isla— se probó y no gustó. `--acento` no se oscurece porque es también el color de los enlaces sobre fondo oscuro.
+- **El área de pulsación de «Qué es este mapa» es un pseudo-elemento, no relleno.** El texto medía 92×15 px; darle 44 px de verdad los pagaría el mapa. Por abajo sobresale exactamente los 6 px de relleno de `.acerca`: con 8 asomaba 2 px fuera de la página y la volvía desplazable.
+- **El zoom de Leaflet mide 44 px en táctil** (`pointer: coarse`); Leaflet lo deja en 30.
+- **El punto de la consulta encoge al alejar el mapa.** Medía 14,5 px a cualquier zoom, que en la vista de una isla son casi 2 km: más que muchas zonas, y no se veía sobre qué figura caía. Ahora va de 9,7 px (zoom ≤ 10) a los 14,5 de siempre (zoom ≥ 13), con el aro adelgazando en proporción. Ver `creaMarcadorConsulta`.
+- **La etiqueta de estado de una tarjeta puede partirse en dos renglones; un nombre corto, no.** Con `nowrap`, «Permitida con autorización» se quedaba con el ancho y dejaba «Pesca recreativa desde embarcación» en cuatro renglones de una palabra. Ahora ceden las dos mitades, y los nombres de hasta 16 caracteres (`NOMBRE_CORTO`, en `ui/panel.js`) no se parten: quien cede es la etiqueta. Comprobado a 375 y a 320 px: ninguna tarjeta pasa de dos renglones ni desborda.
+- **Sin JavaScript hay un `<noscript>`** que tapa el «Cargando…» y enlaza a las páginas de isla, que son lo que funciona sin el bundle.
+
+Lo que la auditoría dejó sin hacer, por orden de gravedad: **no hay política de privacidad, aviso legal ni contacto** (el banner de Analytics no enlaza a nada); el peso de la primera visita; solo tema oscuro; sin modo sin conexión; la CSP sigue en Report-Only y sin `report-uri`; y `npm audit` deja 4 avisos de `picomatch` vía Vite, solo de desarrollo, que exigirían bajar a Vite 6.
 
 ### Poda de distancias: exacta, no aproximada
 

@@ -60,6 +60,30 @@ for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
     assert.doesNotThrow(() => JSON.parse(scripts[0][1]));
   });
 
+  // Tres defectos que salieron en la auditoría del 2026-11-17 y que ningún
+  // control veía: la descripción pasaba de 180 caracteres y Google la cortaba,
+  // las páginas no se enlazaban entre sí y los encabezados saltaban de h3 a h5.
+  test(`${isla}: la descripción cabe en el resultado de búsqueda`, () => {
+    const [, descripcion] = html.match(/<meta name="description" content="([^"]*)"/);
+    assert.ok(descripcion.length <= 160, `${descripcion.length} caracteres: ${descripcion}`);
+  });
+
+  test(`${isla}: enlaza a las páginas de las demás islas`, () => {
+    for (const otra of Object.keys(RESERVAS_POR_ISLA)) {
+      if (otra === isla) continue;
+      assert.ok(html.includes(`href="/${rutaIsla(otra)}"`), `falta el enlace a la página de ${otra}`);
+    }
+    assert.ok(!html.includes(`href="/${rutaIsla(isla)}"`), 'la página se enlaza a sí misma');
+  });
+
+  test(`${isla}: los encabezados no saltan de nivel`, () => {
+    const niveles = [...html.matchAll(/<h([1-6])[\s>]/g)].map((m) => Number(m[1]));
+    assert.equal(niveles[0], 1);
+    for (let i = 1; i < niveles.length; i += 1) {
+      assert.ok(niveles[i] - niveles[i - 1] <= 1, `salto de h${niveles[i - 1]} a h${niveles[i]}`);
+    }
+  });
+
   test(`${isla}: el enlace del panel a cada zona cae en un ancla de una página`, () => {
     for (const id of enPagina) {
       const href = enlaceZona(id);

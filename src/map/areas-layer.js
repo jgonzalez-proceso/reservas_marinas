@@ -228,9 +228,36 @@ export function creaMarcadorConsulta(mapa) {
 
   const grupo = L.layerGroup();
 
+  // El punto mide lo mismo en píxeles a cualquier zoom, así que al alejar el
+  // mapa tapa cada vez más mar: 14,5 px de diámetro son casi 2 km en la vista
+  // de una isla, bastante más que muchas de las zonas que se consultan, y deja
+  // de verse sobre qué figura cae. Encoge con el zoom entre dos topes: el de
+  // arriba es el tamaño de siempre, que de cerca es cómodo; el de abajo lo
+  // mantiene visible con el archipiélago entero en pantalla.
+  const RADIO_MAX = 6;
+  const RADIO_MIN = 4;
+  const ZOOM_RADIO_MAX = 13;
+  const ZOOM_RADIO_MIN = 10;
+  const radioPara = (zoom) => {
+    const t = (zoom - ZOOM_RADIO_MIN) / (ZOOM_RADIO_MAX - ZOOM_RADIO_MIN);
+    return RADIO_MIN + (RADIO_MAX - RADIO_MIN) * Math.min(1, Math.max(0, t));
+  };
+  // El aro adelgaza con el radio: con el grosor de siempre, a 4 px el punto
+  // sería casi todo aro y se perdería el centro oscuro que lo distingue.
+  const trazoPara = (radio) => radio * 0.42;
+
+  let puntoConsulta = null;
+  mapa.on('zoomend', () => {
+    if (!puntoConsulta) return;
+    const radio = radioPara(mapa.getZoom());
+    puntoConsulta.setRadius(radio);
+    puntoConsulta.setStyle({ weight: trazoPara(radio) });
+  });
+
   function situa(punto, { precisionMetros = null } = {}) {
     grupo.clearLayers();
     const latlng = [punto.lat, punto.lon];
+    const radio = radioPara(mapa.getZoom());
 
     if (precisionMetros) {
       L.circle(latlng, {
@@ -244,11 +271,11 @@ export function creaMarcadorConsulta(mapa) {
       }).addTo(grupo);
     }
 
-    L.circleMarker(latlng, {
+    puntoConsulta = L.circleMarker(latlng, {
       pane: PLANO_CONSULTA,
-      radius: 6,
+      radius: radio,
       color: '#ffffff',
-      weight: 2.5,
+      weight: trazoPara(radio),
       fillColor: '#111820',
       fillOpacity: 1,
     }).addTo(grupo);
@@ -256,6 +283,7 @@ export function creaMarcadorConsulta(mapa) {
 
   function limpia() {
     grupo.clearLayers();
+    puntoConsulta = null;
   }
 
   return { grupo, situa, limpia };

@@ -28,6 +28,13 @@ const el = (tag, clase, texto) => {
   return n;
 };
 
+/**
+ * Hasta cuántos caracteres un nombre de actividad se considera corto y no se
+ * parte en la cabecera de su tarjeta. Deja dentro «Pesca submarina» y
+ * «Unterwasserjagd» y fuera los de pesca desde embarcación y desde costa.
+ */
+const NOMBRE_CORTO = 16;
+
 /** Cuánto encoge la tarjeta mientras se arrastra. */
 const ESCALA_ARRASTRE = 0.94;
 
@@ -154,7 +161,13 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     const lado = el('span', 'actividad__lado');
     lado.append(el('span', 'actividad__estado', t(`estado.${a.status}`)));
     lado.append(el('span', 'actividad__chevron', '▾'));
-    conmutador.append(el('span', 'actividad__nombre', nombre), lado);
+    // Un nombre corto no se parte: si cabe en un renglón, quien cede sitio es
+    // la etiqueta de estado, que se va a dos. Sin esto las dos mitades
+    // encogían a la vez y «Pesca submarina» salía en dos renglones al lado de
+    // una etiqueta también partida. Los nombres largos sí se parten.
+    const claseNombre =
+      nombre.length <= NOMBRE_CORTO ? 'actividad__nombre actividad__nombre--corto' : 'actividad__nombre';
+    conmutador.append(el('span', claseNombre, nombre), lado);
     fila.append(conmutador);
     card.append(fila, detalle);
 

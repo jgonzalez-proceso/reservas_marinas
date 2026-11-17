@@ -136,13 +136,20 @@ a {
   text-decoration: none;
 }
 
+/* Letra blanca sobre un azul propio, algo más oscuro que --acento: el blanco
+   sobre --acento da 3,52:1 y el mínimo AA para este tamaño es 4,5:1; sobre
+   este da 4,6:1. Se probó la letra oscura sobre --acento -el par del botón de
+   las páginas de isla- y aquí no gustó. --acento no se toca: es también el
+   color de los enlaces sobre fondo oscuro, donde oscurecerlo resta contraste.
+   Al pasar por encima oscurece, no aclara: aclarando volvía a suspender. */
 .boton--principal {
-  background: var(--acento);
-  border-color: var(--acento);
+  background: #2279bd;
+  border-color: #2279bd;
   color: #fff;
 }
 .boton--principal:hover:not(:disabled) {
-  background: #3a9fe0;
+  background: #1b6aa8;
+  border-color: #1b6aa8;
 }
 
 /* -- Disposición ------------------------------------------------------------ */
@@ -178,6 +185,15 @@ a {
 .leaflet-control-attribution a {
   color: var(--acento) !important;
 }
+/* Leaflet deja el zoom en 30 px también en táctil. Con el dedo, y a bordo, son
+   44: es el control que más se pulsa después del propio mapa. */
+@media (pointer: coarse) {
+  .leaflet-touch .leaflet-bar a {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+  }
+}
 
 .carga {
   position: absolute;
@@ -193,6 +209,12 @@ a {
 }
 .carga--error {
   color: var(--stop);
+}
+/* El aviso de <noscript>: un párrafo con enlaces dentro de la rejilla, no
+   texto suelto, para que los enlaces no se partan en una fila cada uno. */
+.carga--sin-js p {
+  max-width: 44ch;
+  margin: 0;
 }
 
 /* -- Leyenda ---------------------------------------------------------------- */
@@ -286,7 +308,7 @@ a {
 }
 
 .selector-isla__etiqueta {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--texto-2);
@@ -452,7 +474,7 @@ body.con-menu .menu {
 }
 .menu__titulo {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 650;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -617,7 +639,7 @@ body.con-menu .menu {
   display: none;
   margin: 0;
   padding: 0 12px 12px;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   line-height: 1.4;
   color: var(--texto-2);
   border-top: 1px solid var(--borde);
@@ -704,13 +726,13 @@ body.con-lista .lista {
   font-weight: 600;
 }
 .buscador__texto span {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 
 .buscador__pendiente {
   flex: 0 0 auto;
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--desconocido);
@@ -802,7 +824,7 @@ body.con-lista .lista {
 }
 .seccion__titulo {
   margin: 0 0 4px;
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--texto-2);
@@ -958,13 +980,26 @@ body.reordenando .panel__cuerpo {
   font-size: 0.85rem;
   font-weight: 620;
 }
+/* Ver NOMBRE_CORTO en ui/panel.js: el nombre que cabe en un renglón no cede
+   ancho, y la que se parte es la etiqueta de estado. */
+.actividad__nombre--corto {
+  white-space: nowrap;
+}
 
 .actividad__estado {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  white-space: nowrap;
+  /* Puede partirse en dos renglones, alineada a la derecha. Con `nowrap`,
+     una etiqueta larga -«Permitida con autorización», «Sin restricción
+     específica»- se quedaba con todo el ancho y aplastaba el nombre de la
+     actividad contra el asa: «Pesca recreativa desde embarcación» salía en
+     cuatro renglones de una palabra. Ahora las dos mitades ceden a la vez y
+     la tarjeta queda en dos. Las etiquetas cortas no cambian: solo se parte
+     lo que no cabe. */
+  text-align: right;
+  text-wrap: balance;
 }
 .actividad--ok .actividad__estado {
   color: var(--ok);
@@ -992,7 +1027,7 @@ body.reordenando .panel__cuerpo {
 .actividad__incompleto,
 .actividad__heredada {
   margin: 7px 0 0;
-  font-size: 0.73rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 .actividad__heredada {
@@ -1023,7 +1058,7 @@ body.reordenando .panel__cuerpo {
 }
 .condiciones-otra__titulo {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
   font-style: italic;
 }
@@ -1044,7 +1079,7 @@ body.reordenando .panel__cuerpo {
 .permiso__figura {
   display: block;
   margin-bottom: 4px;
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
   font-style: italic;
 }
@@ -1061,14 +1096,14 @@ body.reordenando .panel__cuerpo {
 }
 .permiso__fecha {
   margin: 5px 0 0;
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 
 .normas,
 .fuentes {
   margin-top: 8px;
-  font-size: 0.73rem;
+  font-size: 0.74rem;
 }
 /* El resumen es el mando del desplegable: se pulsa, así que necesita área
    suficiente para el dedo y un cursor que lo anuncie. El triángulo por defecto
@@ -1081,7 +1116,7 @@ body.reordenando .panel__cuerpo {
   gap: 5px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.63rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
   cursor: pointer;
   padding: 5px 0;
@@ -1111,7 +1146,7 @@ body.reordenando .panel__cuerpo {
   color: var(--texto);
 }
 /* Con el dedo hace falta más blanco que con el ratón: el texto del resumen es
-   de 0,63rem y dejaba un objetivo de 24 px de alto, por debajo de los 44 px
+   pequeño y dejaba un objetivo de 24 px de alto, por debajo de los 44 px
    recomendados. Se amplía solo donde se toca, para no inflar el panel en
    escritorio. */
 @media (pointer: coarse) {
@@ -1173,7 +1208,7 @@ body.reordenando .panel__cuerpo {
 
 .figura__meta {
   margin: 3px 0 0 18px;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 
@@ -1215,7 +1250,7 @@ body.reordenando .panel__cuerpo {
   margin-top: 18px;
   padding-top: 12px;
   border-top: 1px solid var(--borde);
-  font-size: 0.71rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 .descargo p {
@@ -1233,7 +1268,7 @@ body.reordenando .panel__cuerpo {
   padding: 6px 14px;
   background: var(--fondo-2);
   border-top: 1px solid var(--borde);
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   color: var(--texto-2);
 }
 .pie p {
@@ -1277,11 +1312,29 @@ body.reordenando .panel__cuerpo {
 /* Discreto por defecto: el peso visual es del mapa y de las fichas, no de
    esto. Se distingue al pasar por encima y al tener el foco. */
 .acerca__resumen {
+  position: relative;
   cursor: pointer;
   list-style: none;
-  font-size: 0.68rem;
+  padding: 6px 0;
+  font-size: 0.74rem;
   color: var(--texto-2);
   white-space: nowrap;
+}
+/* Área de pulsación ampliada sin tocar la caja: el texto medía 92x15 px, y
+   darle los 44 px con relleno de verdad los pagaría el mapa -cada píxel del
+   pie se le quita a él-. El pseudo-elemento cuenta como parte del <summary>,
+   así que pulsarlo despliega igual. Crece sobre todo hacia arriba, donde está
+   el final del aviso legal, que no lleva enlaces: los tres del aviso van en
+   su primera frase. */
+@media (pointer: coarse) {
+  .acerca__resumen::before {
+    content: '';
+    position: absolute;
+    /* Abajo, 6 px y ni uno más: es el relleno que deja .acerca en móvil. Con
+       8 px el pseudo-elemento asomaba 2 px por debajo de la página y la
+       volvía desplazable, que es justo lo que la columna flexible evita. */
+    inset: -23px -14px -6px;
+  }
 }
 .acerca__resumen::-webkit-details-marker {
   display: none;
@@ -1370,6 +1423,12 @@ body.reordenando .panel__cuerpo {
     align-self: flex-end;
     padding: 0 14px 6px;
   }
+  /* Aquí el relleno y el cuerpo mayor del resumen los pagaría el mapa; el
+     área de pulsación la pone el pseudo-elemento de arriba. */
+  .acerca__resumen {
+    padding: 0;
+    font-size: 0.68rem;
+  }
 
   .panel {
     position: fixed;
@@ -1426,6 +1485,10 @@ body.reordenando .panel__cuerpo {
     display: none;
   }
 
+  /* Aquí el pie se queda en 0,64rem, por debajo del suelo de 0,74rem del
+     resto de la interfaz, y es deliberado: subirlo lo hace envolver más y
+     crecer de 94 a 104 px, y esos 10 px salen del mapa. Se probó y se
+     deshizo. */
   .pie {
     height: auto;
     font-size: 0.64rem;

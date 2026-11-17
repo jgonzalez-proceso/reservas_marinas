@@ -51,6 +51,7 @@ export default {
   // -- Footer ----------------------------------------------------------------
   'pie.geometrias': '{n} geometries',
   'pie.deVista': ' of {vista}',
+  'pie.deTodas': ' across all islands',
   'pie.datos': ' · data',
   'pie.deFuentes': ' from {fuentes}',
   'pie.delDia': ' of {fecha}',

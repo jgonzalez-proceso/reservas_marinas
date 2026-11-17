@@ -167,6 +167,25 @@
           data-i18n-aria-label="app.mapaAria"
         ></div>
         <p id="carga" class="carga" data-i18n="app.cargando">Cargando la cartografía oficial…</p>
+        <!--
+          Sin JavaScript el mapa no llega a montarse y lo de arriba se quedaba
+          en «Cargando…» para siempre. Va después de #carga y con su misma
+          clase para taparlo, y ofrece lo que sí funciona sin el bundle: las
+          páginas de texto por isla. Solo en castellano: quien traduce es el
+          bundle, que aquí no se ejecuta.
+        -->
+        <noscript>
+          <div class="carga carga--sin-js">
+            <p>
+              Este mapa necesita JavaScript para funcionar. Sin él puedes leer las reservas marinas
+              isla por isla:
+              <a href="reservas-marinas-mallorca/">Mallorca</a>,
+              <a href="reservas-marinas-menorca/">Menorca</a>,
+              <a href="reservas-marinas-eivissa/">Eivissa (Ibiza)</a> y
+              <a href="reservas-marinas-formentera/">Formentera</a>.
+            </p>
+          </div>
+        </noscript>
         <div id="leyenda" class="leyenda"></div>
       </div>
 

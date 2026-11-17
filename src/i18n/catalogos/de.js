@@ -50,6 +50,7 @@ export default {
   // -- Fusszeile -------------------------------------------------------------
   'pie.geometrias': '{n} Geometrien',
   'pie.deVista': ' von {vista}',
+  'pie.deTodas': ' auf allen Inseln',
   'pie.datos': ' · Daten',
   'pie.deFuentes': ' von {fuentes}',
   'pie.delDia': ' vom {fecha}',

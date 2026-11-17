@@ -95,7 +95,7 @@ function bloqueActividad(clave, regla) {
   const p = regla.permit;
   if (!condiciones.length && !p) return '';
   return `
-          <h5>${esc(ACTIVIDADES[clave])}</h5>
+          <h4>${esc(ACTIVIDADES[clave])}</h4>
           ${condiciones.length ? `<ul>${condiciones.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
           ${
             p
@@ -218,9 +218,19 @@ export function paginaReservasIsla(isla) {
   const otras = otrasFiguras(isla);
 
   const titulo = `Reservas marinas de ${nombreIsla}: qué se puede hacer en cada una`;
+  // Por debajo de 160 caracteres: Google corta lo que pasa de ahí, y lo que se
+  // perdía era justo el final, «con las autorizaciones y la norma que lo dice».
+  // `test-paginas.mjs` lo comprueba en las cuatro islas.
   const descripcion =
-    `${reservas.length === 1 ? 'La reserva marina' : `Las ${reservas.length} reservas marinas`} de ${nombreIsla} zona por zona: pesca desde embarcación, ` +
-    'pesca submarina, pesca desde costa, buceo, fondeo y navegación, con las autorizaciones y la norma que lo dice.';
+    `${reservas.length === 1 ? 'La reserva marina' : `Las ${reservas.length} reservas marinas`} de ${nombreIsla}, zona por zona: pesca, ` +
+    'pesca submarina, buceo y fondeo, con las autorizaciones y la norma que lo dice.';
+
+  // Las páginas de las demás islas. Sin esto cada página solo enlazaba a la
+  // portada: un buscador no llegaba de una isla a otra, ni un lector tampoco.
+  const otrasIslas = Object.keys(RESERVAS_POR_ISLA)
+    .filter((otra) => otra !== isla)
+    .map((otra) => `<li><a href="/${esc(rutaIsla(otra))}">Reservas marinas de ${esc(NOMBRE_PAGINA[otra] ?? ISLAS[otra])}</a></li>`)
+    .join('');
 
   const indice = reservas
     .map((r) => `<li><a href="#${esc(r.id)}">${esc(r.nombre)}</a></li>`)
@@ -272,7 +282,7 @@ export function paginaReservasIsla(isla) {
           url,
           description: descripcion,
           inLanguage: 'es',
-          dateModified: revision,
+          dateModified: fechaPagina(isla),
           isPartOf: { '@type': 'WebSite', name: 'Reservas Marinas Baleares', url: SITIO },
         },
         {
@@ -308,6 +318,7 @@ export function paginaReservasIsla(isla) {
     <meta property="og:site_name" content="Reservas Marinas Baleares" />
     <meta property="og:image" content="${SITIO}favicon-512.png" />
     <meta property="og:locale" content="es_ES" />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -359,7 +370,7 @@ ${jsonld}
       h1 { font-size: 1.8rem; line-height: 1.2; margin: 8px 0 12px; }
       h2 { font-size: 1.35rem; margin: 40px 0 8px; padding-top: 8px; border-top: 1px solid var(--borde); }
       h3 { font-size: 1.08rem; margin: 28px 0 6px; }
-      h5 { font-size: 0.95rem; margin: 14px 0 4px; }
+      h4 { font-size: 0.95rem; margin: 14px 0 4px; }
       p, li { color: var(--texto); }
       .nota, .pie { color: var(--texto-2); font-size: 0.9rem; }
       .entradilla { font-size: 1.05rem; }
@@ -430,6 +441,10 @@ ${jsonld}
       </nav>
 ${cuerpoReservas}
 ${otrasHtml}
+      <nav aria-label="Reservas marinas de las otras islas">
+        <h2>Reservas marinas de las otras islas</h2>
+        <ul class="indice">${otrasIslas}</ul>
+      </nav>
       <p class="pie">Generado a partir de las mismas fichas que usa <a href="/">el mapa</a>. Si ves algo que no cuadra con la norma, la norma manda.</p>
     </main>
   </body>

@@ -44,6 +44,7 @@ export default {
   // -- Peu -------------------------------------------------------------------
   'pie.geometrias': '{n} geometries',
   'pie.deVista': ' de {vista}',
+  'pie.deTodas': ' de totes les illes',
   'pie.datos': ' · dades',
   'pie.deFuentes': ' de {fuentes}',
   'pie.delDia': ' del {fecha}',
