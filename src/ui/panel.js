@@ -38,6 +38,13 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
   // que sobrevive a cerrar la pestaña o la app.
   let ordenActividades = leeOrdenActividades();
 
+  // Las tarjetas arrancan plegadas: nombre y estado, que es la respuesta. Las
+  // que el usuario despliega se recuerdan mientras dura la página, así que al
+  // pulsar otro punto sigue viendo el detalle de lo que le interesa sin tener
+  // que abrirlo otra vez. No va a cookie: es comodidad de lectura de una
+  // consulta, no una preferencia como el orden.
+  const desplegadas = new Set();
+
   const cabecera = el('header', 'panel__cabecera');
   const titulo = el('h2', 'panel__titulo', t('panel.titulo'));
   const subtitulo = el('p', 'panel__subtitulo', t('panel.subtitulo'));
@@ -135,30 +142,54 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     asa.setAttribute('aria-label', t('panel.arrastrar', { nombre }));
     asa.setAttribute('tabindex', '0');
     fila.append(asa);
-    fila.append(el('span', 'actividad__nombre', nombre));
-    fila.append(el('span', 'actividad__estado', t(`estado.${a.status}`)));
-    card.append(fila);
+
+    // Todo lo que no es nombre y estado va en `detalle`, que se pliega desde
+    // la cabecera. El asa queda fuera del botón: arrastrar no debe desplegar.
+    const detalle = el('div', 'actividad__detalle');
+    detalle.id = `actividad-detalle-${clave}`;
+    const conmutador = el('button', 'actividad__conmutador');
+    conmutador.type = 'button';
+    conmutador.setAttribute('aria-controls', detalle.id);
+    const lado = el('span', 'actividad__lado');
+    lado.append(el('span', 'actividad__estado', t(`estado.${a.status}`)));
+    lado.append(el('span', 'actividad__chevron', '▾'));
+    conmutador.append(el('span', 'actividad__nombre', nombre), lado);
+    fila.append(conmutador);
+    card.append(fila, detalle);
+
+    const pinta = (abierta) => {
+      detalle.hidden = !abierta;
+      conmutador.setAttribute('aria-expanded', String(abierta));
+      card.classList.toggle('actividad--abierta', abierta);
+    };
+    pinta(desplegadas.has(clave));
+    conmutador.addEventListener('click', () => {
+      const abierta = detalle.hidden;
+      if (abierta) desplegadas.add(clave);
+      else desplegadas.delete(clave);
+      pinta(abierta);
+    });
 
     // Dos motivos distintos con la misma pinta: los de `motivoClave` los
     // escribe el motor y son interfaz; el resto salen de la ficha y son texto
     // normativo, que solo esta traducido donde consta traducido.
     const motivo = a.motivoClave ? t(a.motivoClave) : tn(a.motivo);
-    if (motivo) card.append(el('p', 'actividad__motivo', motivo));
+    if (motivo) detalle.append(el('p', 'actividad__motivo', motivo));
 
-    if (a.permit) card.append(bloquePermiso(a.permit));
+    if (a.permit) detalle.append(bloquePermiso(a.permit));
 
     // Las autorizaciones que exigen otras figuras del punto. Van cada una con el
     // nombre de la suya delante, como las condiciones, y por el mismo motivo:
     // son trámites ante organismos distintos y quien los lee necesita saber ante
     // cuál. No se fusionan con la de arriba ni se resumen en una sola.
     for (const otro of a.otrosPermisos ?? []) {
-      card.append(bloquePermiso(otro.permit, otro.nombre));
+      detalle.append(bloquePermiso(otro.permit, otro.nombre));
     }
 
     if (a.conditions?.length) {
       const ul = el('ul', 'condiciones');
       for (const c of tnLista(a.conditions)) ul.append(el('li', null, c));
-      card.append(ul);
+      detalle.append(ul);
     }
 
     // Las condiciones de las demás figuras van atribuidas a la suya, nunca
@@ -172,7 +203,7 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
       const ul = el('ul', 'condiciones');
       for (const c of tnLista(otra.conditions)) ul.append(el('li', null, c));
       bloque.append(ul);
-      card.append(bloque);
+      detalle.append(bloque);
     }
 
     if (a.determinadaPor) {
@@ -194,11 +225,11 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
           ),
         );
       }
-      card.append(det);
+      detalle.append(det);
     }
 
     if (a.heredadaDe) {
-      card.append(
+      detalle.append(
         el(
           'p',
           'actividad__heredada',
@@ -208,7 +239,8 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     }
 
     // La marca de incompleto es la pieza que impide leer una conclusión parcial
-    // como si fuera completa.
+    // como si fuera completa. Por eso va fuera de `detalle`: con la tarjeta
+    // plegada se vería «Permitida» sin el aviso de que falta información.
     if (a.incompleto) {
       const inc = el('p', 'actividad__incompleto');
       inc.textContent =
@@ -221,10 +253,10 @@ export function creaPanel(contenedor, { onCerrar } = {}) {
     // `listaNormas` devuelve null cuando ninguna entrada tiene título legible
     // ni destino publicable. `append(null)` pintaría la cadena «null».
     const normas = a.normas?.length ? listaNormas(a.normas) : null;
-    if (normas) card.append(normas);
+    if (normas) detalle.append(normas);
     if (a.sources?.length) {
       const fuentes = listaFuentes(a.sources);
-      if (fuentes) card.append(fuentes);
+      if (fuentes) detalle.append(fuentes);
     }
 
     return card;

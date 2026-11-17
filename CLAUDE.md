@@ -505,6 +505,8 @@ Los polígonos se dibujan con `interactive: false`. El clic lo escucha el mapa y
 
 El dibujo se ordena por área descendente para que las zonas interiores pequeñas queden visibles y alcanzables con el dedo.
 
+**Las tarjetas de actividad arrancan plegadas**: nombre y estado, que es la respuesta, y toda la cabecera —menos el asa de arrastre— despliega el motivo, las condiciones, los permisos y las normas. Las que el usuario despliega se recuerdan mientras dura la página, no en cookie: al pulsar otro punto sigue viendo el detalle de lo que le interesa. **La marca de incompleto va fuera del bloque plegable**: con la tarjeta cerrada se leería «Permitida» sin el aviso de que falta información.
+
 ### Ningún mensaje puede afirmar ausencia de restricciones
 
 Fuera de toda figura, el mensaje es el de `SIN_FIGURAS` en `engine/resolve.js`:
