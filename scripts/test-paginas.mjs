@@ -17,6 +17,12 @@ import { FICHAS } from '../src/rules/index.js';
 import { RESERVAS_POR_ISLA, paginaReservasIsla, rutaIsla } from './paginas/reservas-isla.mjs';
 import { enlaceZona } from '../src/paginas/reservas.js';
 
+const ids = new Map();
+const idsDe = (isla) => {
+  if (!ids.has(isla)) ids.set(isla, new Set([...paginaReservasIsla(isla).matchAll(/\sid="([^"]+)"/g)].map((m) => m[1])));
+  return ids.get(isla);
+};
+
 for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
   const html = paginaReservasIsla(isla);
   const enPagina = new Set(RESERVAS_POR_ISLA[isla].flatMap((r) => r.fichas.map((f) => f.zoneId)));
@@ -54,12 +60,13 @@ for (const isla of Object.keys(RESERVAS_POR_ISLA)) {
     assert.doesNotThrow(() => JSON.parse(scripts[0][1]));
   });
 
-  test(`${isla}: el enlace del panel a cada zona cae en un ancla de la página`, () => {
-    const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  test(`${isla}: el enlace del panel a cada zona cae en un ancla de una página`, () => {
     for (const id of enPagina) {
       const href = enlaceZona(id);
-      assert.ok(href?.startsWith(rutaIsla(isla) + '#'), `${id}: enlace ${href}`);
-      assert.ok(ids.has(href.split('#')[1]), `${id}: el panel enlaza a #${href.split('#')[1]}, que la página no tiene`);
+      const destino = Object.keys(RESERVAS_POR_ISLA).find((i) => href?.startsWith(rutaIsla(i) + '#'));
+      assert.ok(destino, `${id}: el panel enlaza a «${href}», que no es ninguna página de isla`);
+      const ancla = href.split('#')[1];
+      assert.ok(idsDe(destino).has(ancla), `${id}: el panel enlaza a #${ancla}, que la página de ${destino} no tiene`);
     }
   });
 }

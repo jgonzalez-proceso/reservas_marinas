@@ -20,7 +20,7 @@ import { readFileSync } from 'node:fs';
 
 import { FICHAS } from '../../src/rules/index.js';
 import { ACTIVIDADES, ESTADOS } from '../../src/engine/resolve.js';
-import { ISLAS, ISLAS_POR_ZONA, zonaEnIsla } from '../../src/data/islas.js';
+import { ISLAS } from '../../src/data/islas.js';
 
 import { RESERVAS_POR_ISLA, anclaZona, rutaIsla } from '../../src/paginas/reservas.js';
 
@@ -166,17 +166,50 @@ function fichasDe(reserva) {
 }
 
 /** Las demás figuras con ficha sobre el mar de la isla que restringen algo. */
+const RESTRINGEN = new Set(['allowed_with_authorization', 'restricted', 'prohibited']);
+
+/**
+ * Las figuras que no son reservas y que imponen algo propio a la pesca
+ * submarina en el mar de la isla: espacios naturales protegidos y los espacios
+ * Natura 2000 cuyo plan de gestión añade una regulación (los dos de Eivissa).
+ *
+ * La isla de cada figura se lee de la cartografía publicada por isla y no de
+ * `islas.js`: la de los espacios Natura 2000 vive en `natura2000-marino.js`, y
+ * el fichero de capas ya es la unión de las dos, que es lo que ve el mapa.
+ */
 function otrasFiguras(isla) {
-  return Object.entries(ISLAS_POR_ZONA)
-    .filter(([zoneId, v]) => zoneId.startsWith('enp-') && zonaEnIsla(isla, v) && FICHAS[zoneId])
-    .map(([zoneId]) => FICHAS[zoneId])
-    .filter((f) => f.zoneId.endsWith('--mari'));
+  const ids = new Set();
+  for (const fuente of ['espacios-naturales', 'natura2000']) {
+    const url = new URL(`../../src/data/capas/${fuente}.${isla}.geojson`, import.meta.url);
+    let datos;
+    try {
+      datos = JSON.parse(readFileSync(url, 'utf8'));
+    } catch {
+      continue;
+    }
+    for (const f of datos.features) ids.add(f.properties.zoneId);
+  }
+  return [...ids]
+    .map((id) => FICHAS[id])
+    .filter((f) => f && RESTRINGEN.has(f.actividades.pescaSubmarina?.status))
+    .sort(
+      (a, b) =>
+        Number(b.zoneId.startsWith('enp-')) - Number(a.zoneId.startsWith('enp-')) ||
+        a.nombreCorto.localeCompare(b.nombreCorto, 'es'),
+    );
 }
+
+/**
+ * Nombre de la isla en la página. Eivissa es el topónimo oficial y el de la
+ * cartografía, pero casi todo el mundo busca «Ibiza»: va entre paréntesis en el
+ * título y en el h1, que es donde un buscador lo tiene que encontrar.
+ */
+const NOMBRE_PAGINA = { eivissa: 'Eivissa (Ibiza)' };
 
 export function paginaReservasIsla(isla) {
   const reservas = RESERVAS_POR_ISLA[isla];
   if (!reservas) throw new Error(`No hay página de reservas declarada para «${isla}»`);
-  const nombreIsla = ISLAS[isla];
+  const nombreIsla = NOMBRE_PAGINA[isla] ?? ISLAS[isla];
   const url = `${SITIO}${rutaIsla(isla)}`;
   const manifiesto = JSON.parse(readFileSync(new URL('../../src/data/manifest.json', import.meta.url), 'utf8'));
 
@@ -186,7 +219,7 @@ export function paginaReservasIsla(isla) {
 
   const titulo = `Reservas marinas de ${nombreIsla}: qué se puede hacer en cada una`;
   const descripcion =
-    `Las ${reservas.length} reservas marinas de ${nombreIsla} zona por zona: pesca desde embarcación, ` +
+    `${reservas.length === 1 ? 'La reserva marina' : `Las ${reservas.length} reservas marinas`} de ${nombreIsla} zona por zona: pesca desde embarcación, ` +
     'pesca submarina, pesca desde costa, buceo, fondeo y navegación, con las autorizaciones y la norma que lo dice.';
 
   const indice = reservas
@@ -216,7 +249,7 @@ export function paginaReservasIsla(isla) {
     ? `
       <section id="otras-figuras">
         <h2>No solo las reservas: lo que también manda en el mar de ${esc(nombreIsla)}</h2>
-        <p>Sobre el mismo trozo de mar pueden recaer varias figuras a la vez, y aplican todas. Estos espacios naturales protegidos tienen ámbito marino en ${esc(nombreIsla)} y regulan la pesca submarina por su cuenta, dentro o fuera de una reserva:</p>
+        <p>Sobre el mismo trozo de mar pueden recaer varias figuras a la vez, y aplican todas. Estos espacios protegidos tienen ámbito marino en ${esc(nombreIsla)} y su propia regulación de la pesca submarina, dentro o fuera de una reserva:</p>
         <ul>
           ${otras
             .map((f) => {
@@ -225,7 +258,7 @@ export function paginaReservasIsla(isla) {
             })
             .join('\n          ')}
         </ul>
-        <p>Los espacios de la Red Natura 2000 marina, en cambio, no prohíben por sí mismos la pesca recreativa: el Decret 91/2023 la remite a la normativa general, salvo donde coinciden con una reserva marina o con un espacio natural protegido. Y en todo el Mediterráneo está prohibido fondear sobre praderas de posidonia y de Cymodocea (Real Decreto 191/2026).</p>
+        <p>El resto de espacios de la Red Natura 2000 marina no restringen por sí mismos la pesca recreativa: el Decret 91/2023 la remite a la normativa general, salvo donde su plan de gestión añade una regulación o coinciden con una reserva marina o con un espacio natural protegido. Y en todo el Mediterráneo está prohibido fondear sobre praderas de posidonia y de Cymodocea (Real Decreto 191/2026).</p>
       </section>`
     : '';
 
@@ -375,9 +408,9 @@ ${jsonld}
       <nav class="nota" aria-label="Ruta"><a href="/">Mapa de reservas marinas de Baleares</a> › Reservas marinas de ${esc(nombreIsla)}</nav>
       <h1>Reservas marinas de ${esc(nombreIsla)}</h1>
       <p class="entradilla">${esc(nombreIsla)} tiene ${reservas.length} reservas marinas: ${reservas
-        .map((r) => esc(r.nombre.replace(/^Reserva marina (de la |del |de las |de )/, '')))
+        .map((r) => esc(r.corto))
         .join(', ')
-        .replace(/, ([^,]*)$/, ' y $1')}. Cada una se divide en zonas con normas distintas, y en algunas conviven un ámbito autonómico y otro estatal con regímenes diferentes. Aquí está, zona por zona, qué se puede hacer y qué autorización hace falta, con la norma que lo dice.</p>
+        .replace(/, ([^,]*)$/, ' y $1')}. Cada una se divide en zonas con normas distintas${todas.some((f) => f.zoneId.endsWith('--estatal')) ? ', y en algunas conviven un ámbito autonómico y otro estatal con regímenes diferentes' : ''}. Aquí está, zona por zona, qué se puede hacer y qué autorización hace falta, con la norma que lo dice.</p>
       <p class="aviso">Web informativa no oficial. La fuente vinculante es la norma publicada en el BOIB o el BOE. Para saber qué rige en un punto concreto —donde se superponen varias figuras— usa <a href="/#isla=${esc(isla)}">el mapa</a>: pulsa el punto y reúne todas las que lo contienen. Fichas revisadas hasta el ${esc(fechaLarga(revision))}; cartografía oficial del ${esc(fechaLarga(manifiesto.generado))}.</p>
 
       <h2>Resumen por zona</h2>
