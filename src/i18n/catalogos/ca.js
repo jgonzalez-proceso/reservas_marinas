@@ -42,20 +42,10 @@ export default {
   'islas.todas': 'Totes les illes',
 
   // -- Peu -------------------------------------------------------------------
-  'pie.geometrias': '{n} geometries',
-  'pie.deVista': ' de {vista}',
-  'pie.deTodas': ' de totes les illes',
-  'pie.datos': ' · dades',
-  'pie.deFuentes': ' de {fuentes}',
-  'pie.delDia': ' del {fecha}',
+  'pie.datosDel': 'Dades del {fecha}',
   'pie.fechaDesconocida': 'desconeguda',
   'pie.avisoHtml':
-    'Web informativa no oficial. La font vinculant és la norma publicada al ' +
-    '<a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> ' +
-    'o al <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> i la ' +
-    'cartografia oficial de l’' +
-    '<a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer">IDEIB</a>. ' +
-    'Comprova sempre la normativa vigent abans de sortir a pescar.',
+    'Web informativa no oficial: mana la norma publicada al <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> o al <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a>.',
 
   // -- Bloc «Què és aquest mapa» --------------------------------------------
   'acerca.resumen': 'Què és aquest mapa',
@@ -281,6 +271,8 @@ export default {
   'cookies.aceptar': 'Acceptar',
   'cookies.rechazar': 'Rebutjar',
   'cookies.masInfo': 'Més informació',
+  'acerca.creditosHtml':
+    'Mapes de fons: © Esri, Maxar, Earthstar Geographics i la comunitat d’usuaris SIG; ortofoto de l’IDEIB; © col·laboradors d’<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>; OpenSeaMap. Mapa fet amb <a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>.',
   'legal.aviso': 'Avís legal',
   'legal.privacidad': 'Privadesa i cookies',
   'legal.cookies': 'Preferències de cookies',

@@ -312,29 +312,13 @@ function enlacesLegales() {
   return s;
 }
 
-function pintaEstadoDatos(features) {
+function pintaEstadoDatos() {
+  // Solo la fecha de descarga, que no se recorta nunca: es lo que permite
+  // saber si lo que se está leyendo está al día. El recuento de geometrías, la
+  // vista y la enumeración de fuentes se quitaron: ya están en la leyenda.
   const fecha = manifest.generado?.slice(0, 10) ?? t('pie.fechaDesconocida');
-  const fuentes = manifest.fuentes?.map((f) => tituloFuente(f.id, f.titulo)).join(', ') ?? '';
-  // Se parte en trozos para poder recortarlo en móvil sin perder lo que
-  // importa. La enumeración de fuentes ocupaba seis renglones en una pantalla
-  // estrecha, tapando mapa a cambio de una lista que ya está en la leyenda.
-  // La fecha de descarga no se recorta nunca: es la regla del proyecto, y es
-  // lo que permite saber si lo que se está leyendo está al día.
-  const detalle = (texto) => {
-    const s = document.createElement('span');
-    s.className = 'pie__detalle';
-    s.textContent = texto;
-    return s;
-  };
   $('#estado-datos').innerHTML = '';
-  $('#estado-datos').append(
-    document.createTextNode(t('pie.geometrias', { n: features.length })),
-    detalle(TODAS ? t('pie.deTodas') : t('pie.deVista', { vista: NOMBRE_VISTA })),
-    document.createTextNode(t('pie.datos')),
-    detalle(t('pie.deFuentes', { fuentes })),
-    document.createTextNode(t('pie.delDia', { fecha })),
-    enlacesLegales(),
-  );
+  $('#estado-datos').append(document.createTextNode(t('pie.datosDel', { fecha })), enlacesLegales());
 }
 
 async function main() {
@@ -362,7 +346,11 @@ async function main() {
     center: VISTA_INICIAL.centro,
     zoom: VISTA_INICIAL.zoom,
     zoomControl: false,
-    attributionControl: true,
+    // Sin la franja de atribución sobre el mapa: ocupaba un renglón entero
+    // del borde inferior. Los créditos de las teselas y de Leaflet no
+    // desaparecen: están en «Qué es este mapa» (index.html) y en el aviso
+    // legal. Si se añade una capa base, su crédito se añade allí.
+    attributionControl: false,
   });
   L.control.zoom({ position: 'bottomright' }).addTo(mapa);
 
@@ -392,7 +380,7 @@ async function main() {
   $('#carga').remove();
   $('#btn-ubicacion').disabled = false;
   $('#btn-lista').disabled = false;
-  pintaEstadoDatos(features);
+  pintaEstadoDatos();
 
   const marcador = creaMarcadorConsulta(mapa);
   marcador.grupo.addTo(mapa);

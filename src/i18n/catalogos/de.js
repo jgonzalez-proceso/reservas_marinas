@@ -48,20 +48,10 @@ export default {
   'islas.todas': 'Alle Inseln',
 
   // -- Fusszeile -------------------------------------------------------------
-  'pie.geometrias': '{n} Geometrien',
-  'pie.deVista': ' von {vista}',
-  'pie.deTodas': ' auf allen Inseln',
-  'pie.datos': ' · Daten',
-  'pie.deFuentes': ' von {fuentes}',
-  'pie.delDia': ' vom {fecha}',
+  'pie.datosDel': 'Daten vom {fecha}',
   'pie.fechaDesconocida': 'unbekannt',
   'pie.avisoHtml':
-    'Inoffizielle Informationsseite. Verbindlich ist die im ' +
-    '<a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> ' +
-    'oder im <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> ' +
-    'veröffentlichte Vorschrift sowie die amtliche Kartografie des ' +
-    '<a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer">IDEIB</a>. ' +
-    'Prüfe immer die geltenden Vorschriften, bevor du zum Fischen hinausfährst.',
+    'Inoffizielle Informationsseite: Maßgeblich ist die im <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> oder im <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> veröffentlichte Vorschrift.',
 
   // -- «Was diese Karte ist» -------------------------------------------------
   'acerca.resumen': 'Was diese Karte ist',
@@ -297,6 +287,8 @@ export default {
   'cookies.aceptar': 'Akzeptieren',
   'cookies.rechazar': 'Ablehnen',
   'cookies.masInfo': 'Mehr erfahren',
+  'acerca.creditosHtml':
+    'Hintergrundkarten: © Esri, Maxar, Earthstar Geographics und die GIS User Community; Orthofoto des IDEIB; © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>-Mitwirkende; OpenSeaMap. Karte erstellt mit <a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>.',
   'legal.aviso': 'Rechtlicher Hinweis',
   'legal.privacidad': 'Datenschutz und Cookies',
   'legal.cookies': 'Cookie-Einstellungen',

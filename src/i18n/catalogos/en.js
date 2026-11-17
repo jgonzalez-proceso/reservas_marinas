@@ -49,20 +49,10 @@ export default {
   'islas.todas': 'All islands',
 
   // -- Footer ----------------------------------------------------------------
-  'pie.geometrias': '{n} geometries',
-  'pie.deVista': ' of {vista}',
-  'pie.deTodas': ' across all islands',
-  'pie.datos': ' · data',
-  'pie.deFuentes': ' from {fuentes}',
-  'pie.delDia': ' of {fecha}',
+  'pie.datosDel': 'Data from {fecha}',
   'pie.fechaDesconocida': 'unknown',
   'pie.avisoHtml':
-    'Unofficial information site. The binding source is the regulation as published in the ' +
-    '<a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> ' +
-    'or the <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> and ' +
-    'the official cartography from ' +
-    '<a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer">IDEIB</a>. ' +
-    'Always check the regulation in force before going out to fish.',
+    'Unofficial information site: the regulation published in the <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> or the <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> prevails.',
 
   // -- «What this map is» ----------------------------------------------------
   'acerca.resumen': 'What this map is',
@@ -291,6 +281,8 @@ export default {
   'cookies.aceptar': 'Accept',
   'cookies.rechazar': 'Decline',
   'cookies.masInfo': 'More information',
+  'acerca.creditosHtml':
+    'Base maps: © Esri, Maxar, Earthstar Geographics and the GIS User Community; IDEIB orthophoto; © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors; OpenSeaMap. Map built with <a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>.',
   'legal.aviso': 'Legal notice',
   'legal.privacidad': 'Privacy and cookies',
   'legal.cookies': 'Cookie preferences',

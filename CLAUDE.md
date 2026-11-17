@@ -104,7 +104,7 @@ La web habla **castellano, catalán, inglés y alemán**. El idioma vive en una 
 
 El texto son dos cuerpos que no se tratan igual:
 
-- **La interfaz** (173 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
+- **La interfaz** (169 claves) va traducida entera a los cuatro idiomas. Los cuatro catálogos se importan siempre: son unos 40 kB frente a los 6,6 MB de cartografía, y partirlos obligaría a que `t()` fuera asíncrona, que se llama desde dentro del pintado del panel.
 - **El texto normativo de las fichas** solo está en catalán, que es la lengua en que el BOIB publica la mayoría de estas normas: traducir es a menudo volver al original. Va aparte del bundle y solo se descarga en catalán. En inglés y alemán se muestra en castellano y **el panel lo dice una vez, arriba**, en vez de marcar cada frase con un asterisco.
 
 ### Cita y prosa no son lo mismo
@@ -677,4 +677,6 @@ Escribe en Workers Analytics Engine (dataset `reservas_consultas`, binding `EVEN
 
 Web informativa **no oficial**. La fuente vinculante es la norma publicada en el BOIB o el BOE y la cartografía oficial de IDEIB. El pie muestra siempre la fecha de descarga de los datos, tomada de `manifest.json`.
 
-**En móvil el pie se recorta, pero la fecha no.** La enumeración de fuentes ocupaba seis renglones en una pantalla estrecha —tapando mapa a cambio de una lista que ya está en la leyenda—, así que el nombre de la vista y las fuentes van en `span.pie__detalle` y se ocultan por debajo de 900 px. Queda «306 geometrías · datos del 2026-08-17». Lo que no se recorta nunca es la fecha: es lo que permite saber si lo que se está leyendo está al día, y en esta web eso no es un adorno.
+**El pie dice tres cosas y solo tres: de cuándo son los datos, que la web no es oficial y qué manda.** «Datos del 2026-11-11» y «Web informativa no oficial: manda la norma publicada en el BOIB o el BOE». Hasta el 2026-11-17 enumeraba además el número de geometrías, la vista y las seis fuentes —que ya están en la leyenda— y una segunda frase de advertencia; en móvil eran 94 px y ahora son 78. En escritorio lleva detrás los enlaces a las páginas legales. Lo que no se quita nunca es la fecha: es lo que permite saber si lo que se está leyendo está al día, y en esta web eso no es un adorno. Los párrafos de este fichero que hablan del pie de 94 px describen el anterior.
+
+**El mapa no lleva la franja de atribución de Leaflet** (`attributionControl: false`): ocupaba un renglón del borde inferior, con la bandera que Leaflet antepone a su nombre desde la 1.9. **Los créditos no desaparecen, se mudan**: están en «Qué es este mapa» (`acerca.creditosHtml`) y en el aviso legal. Ojo con esto: las condiciones de uso de Esri y de OpenStreetMap piden la atribución visible junto al mapa, y dejarla a un clic es una lectura generosa de esas condiciones, decidida por el titular. Si algún proveedor se queja, se vuelve a `true`. Si se añade una capa base, su crédito se añade en esos dos sitios.

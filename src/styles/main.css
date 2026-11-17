@@ -1598,3 +1598,9 @@ body.reordenando .panel__cuerpo {
   flex: 0 0 auto;
   margin-left: auto;
 }
+
+/* Créditos de las teselas, dentro de «Qué es este mapa». */
+.acerca__creditos {
+  font-size: 0.76rem;
+  color: var(--texto-2);
+}

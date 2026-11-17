@@ -52,22 +52,13 @@ export default {
   'islas.todas': 'Todas las islas',
 
   // -- Pie -------------------------------------------------------------------
-  'pie.geometrias': '{n} geometrías',
-  'pie.deVista': ' de {vista}',
-  // La vista de todas las islas va aparte: {vista} es el rótulo del selector,
-  // con mayúscula inicial, y en mitad de la frase quedaba «de Todas las islas».
-  'pie.deTodas': ' de todas las islas',
-  'pie.datos': ' · datos',
-  'pie.deFuentes': ' de {fuentes}',
-  'pie.delDia': ' del {fecha}',
+  // El pie dice tres cosas y solo tres: de cuándo son los datos, que la web
+  // no es oficial y qué manda. Enumeraba además el número de geometrías, la
+  // vista y las seis fuentes, que ya están en la leyenda.
+  'pie.datosDel': 'Datos del {fecha}',
   'pie.fechaDesconocida': 'desconocida',
   'pie.avisoHtml':
-    'Web informativa no oficial. La fuente vinculante es la norma publicada en el ' +
-    '<a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> ' +
-    'o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a> y la ' +
-    'cartografía oficial de ' +
-    '<a href="https://ideib.caib.es/reservesmarines/" target="_blank" rel="noopener noreferrer">IDEIB</a>. ' +
-    'Comprueba siempre la normativa vigente antes de faenar.',
+    'Web informativa no oficial: manda la norma publicada en el <a href="https://www.caib.es/eboibfront/" target="_blank" rel="noopener noreferrer">BOIB</a> o el <a href="https://www.boe.es/" target="_blank" rel="noopener noreferrer">BOE</a>.',
 
   // -- Bloque «Que es este mapa» --------------------------------------------
   'acerca.resumen': 'Qué es este mapa',
@@ -306,6 +297,8 @@ export default {
 
   // -- Páginas legales --------------------------------------------------------
   // Las páginas están solo en castellano; lo que se traduce es el enlace.
+  'acerca.creditosHtml':
+    'Mapas de fondo: © Esri, Maxar, Earthstar Geographics y la comunidad de usuarios SIG; ortofoto de IDEIB; © colaboradores de <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>; OpenSeaMap. Mapa hecho con <a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>.',
   'legal.aviso': 'Aviso legal',
   'legal.privacidad': 'Privacidad y cookies',
   'legal.cookies': 'Preferencias de cookies',
